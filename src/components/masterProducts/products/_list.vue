@@ -80,8 +80,6 @@
             <td>{{ data.margin }}</td>
             <td>{{ data.schemes }}</td>
             <td>{{ data.remarks }}</td>
-
-
           </tr>
 
         </template>
