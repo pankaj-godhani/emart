@@ -81,26 +81,7 @@
             <td>{{ data.schemes }}</td>
             <td>{{ data.remarks }}</td>
 
-            <td>
-              <router-link :to="{name:'SchemesEdit',params: { id: data._id}}">
-                <button type="button"
-                        class="btn base-button btn-icon btn-fab btn base-button btn-default btn-sm edit">
-                  <i class="text-white ni ni-ruler-pencil"></i>
 
-                </button>
-              </router-link>
-
-              <button type="button"
-                      class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                      @click.prevent="destroy(data._id)"
-              >
-                <i class="text-white ni ni-fat-remove"></i>
-
-              </button>
-
-
-
-            </td>
           </tr>
 
         </template>
