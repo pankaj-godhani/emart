@@ -1,0 +1,31 @@
+<template>
+
+  <div class="flex flex-col">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="d-inline-block w-100 shadow overflow-auto rounded-lg border-bottom  bg-white">
+        <div class="table-responsive-lg">
+          <table class="table table-striped overflow-auto">
+            <thead v-if="$slots.thead" class="border h-100 bg-">
+            <slot name="thead"></slot>
+
+            </thead>
+            <tbody v-if="$slots.tbody">
+            <slot name="tbody"></slot>
+            </tbody>
+            <tfoot v-if="$slots.tfoot">
+            <slot name="tfoot"></slot>
+            </tfoot>
+          </table>
+        </div>
+
+
+      <slot></slot>
+    </div>
+    </div>
+    </div>
+
+
+
+</template>
+
+
