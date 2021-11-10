@@ -56,10 +56,11 @@
             <th>Mftr Article No/SKU Code</th>
             <th>Product Category</th>
             <th>Product Name</th>
-            <th>Product Image</th>
-            <th>UOM</th>
-            <th>UOM Conversion</th>
-            <th>Shelf Life In Days</th>
+            <th>MRP</th>
+            <th>Selling Price</th>
+            <th>Margin</th>
+            <th>Product Scheme</th>
+            <th>Remarks</th>
 
           </tr>
 
@@ -74,10 +75,11 @@
             <td>{{ data.SKUCode }}</td>
             <td>{{ data.productCategory }}</td>
             <td>{{ data.productName }}</td>
-            <td>{{ data.productImage }}</td>
-            <td>{{ data.UOM }}</td>
-            <td>{{ data.UOMConversation }}</td>
-            <td>{{ data.shelfLifeDays }}</td>
+            <td>{{ data.MRP }}</td>
+            <td>{{ data.sellingPrice }}</td>
+            <td>{{ data.margin }}</td>
+            <td>{{ data.schemes }}</td>
+            <td>{{ data.remarks }}</td>
 
             <td>
               <router-link :to="{name:'SchemesEdit',params: { id: data._id}}">
