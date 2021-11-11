@@ -195,7 +195,7 @@ export default {
         dateOfAvailability : '',
         nararation : '',
         active : true,
-        schemaNumber : Math.floor(Math.random()*100),
+        schemaNumber : Math.floor(Math.random()*100000),
       }
 
     }
