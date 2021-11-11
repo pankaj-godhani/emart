@@ -163,7 +163,7 @@
             </div>
 
           </div>
-          <div v-else-if="status===201" class="text-center mt-4 text-dark">
+          <div v-else-if="status===201 ||error" class="text-center mt-4 text-dark">
             Data not found
           </div>
         </div>
@@ -186,11 +186,13 @@ export default {
       imageURL:null,
       EANCode:'',
       productDetails:{
+        schemaList:{},
         margin:'',
         MRP:'',
       },
       status:'',
       visibleProductDetails:false,
+      error:'',
       loading:false,
       schemeData:[],
       percentage:'',
@@ -223,7 +225,7 @@ export default {
       .then(response=>{
         this.productDetails=response.data[0];
         this.status=response.status
-        console.log(response.data[0]);
+        console.log(this.status);
         if(this.status==200){
           this.visibleProductDetails=true;
         }
@@ -231,6 +233,12 @@ export default {
           this.visibleProductDetails=false;
         }
       })
+        .catch((error)=>{
+          this.error=error;
+          console.log(error,'hear');
+          this.visibleProductDetails=false;
+        })
+
       .finally(() => (this.loading = false));
 
     },
