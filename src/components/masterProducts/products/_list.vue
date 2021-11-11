@@ -14,6 +14,7 @@
             placeholder="Product Name"
             aria-controls="datatables"
             v-model="form.productName"
+            @keyup="fetch"
           />
         </div>
         <div class="col-2 pr-0">

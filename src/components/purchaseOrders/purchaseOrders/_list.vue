@@ -8,12 +8,13 @@
           <div class="row px-4">
             <label class="mt-2">Filter:</label>
             <div class="col-2 pr-0">
-              <base-input
-                name="date"
-                type="date"
-                value="2018-11-23"
-                id="example-date-input"
-              />
+              <flat-picker
+                @on-open="focus"
+                @on-close="blur"
+                :config="{ allowInput: true, mode: 'range' }"
+                class="form-control datepicker"
+              >
+              </flat-picker>
 
             </div>
             <div class="col-2 pr-0">
@@ -122,6 +123,7 @@ import {
   ElOption,
   ElInput,
 } from "element-plus";
+import flatPicker from "vue-flatpickr-component";
 
 import BasePagination from "@/components/BasePagination";
 import swal from "sweetalert2";
@@ -130,7 +132,7 @@ import users from "../../../views/Tables/users2";
 export default {
   components: {
     BasePagination,
-
+    flatPicker,
     [ElSelect.name]: ElSelect,
     [ElOption.name]: ElOption,
     [ElTable.name]: ElTable,

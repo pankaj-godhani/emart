@@ -1,7 +1,7 @@
 <template>
   <card>
     <div class="container ct-example-row">
-      <form @submit.prevent="submit">
+      <form @submit="submit" ref='textareaform'>
         <div>
           <h3><b>Group Heading 1</b></h3>
           <div class="row mt-3">
@@ -20,17 +20,17 @@
               <input
                 class="form-control"
                 type="date"
-                id="example-date-input"
                 v-model="model.date"
               />
 
             </div>
             <div class="col-sm">
-              <label class=" form-control-label">Product Name</label>
+              <label class=" form-control-label">EAN Code</label>
               <input
                 class="form-control"
-                placeholder="Enter Product Name"
-                v-model="model.productName"
+                placeholder="Enter EAN Code"
+                v-model="model.EANCode"
+                @keyup="fetchEANCode"
               />
             </div>
 
@@ -38,11 +38,11 @@
           <div class="row ">
 
             <div class="col-sm">
-              <label class=" form-control-label">EAN Code</label>
+              <label class=" form-control-label">Product Name</label>
               <input
                 class="form-control"
-                placeholder="Enter EAN Code"
-                v-model="model.EANCode"
+                placeholder="Enter Product Name"
+                v-model="model.productName"
               />
             </div>
             <div class="col-sm">
@@ -103,8 +103,8 @@
               <label class=" form-control-label">Validity</label>
               <input
                 class="form-control"
-                placeholder="Enter Validity of Product"
-                v-model="model.validity"
+                type="date"
+                v-model="model.dateOfAvailability"
               />
             </div>
             <div class="col-sm">
@@ -143,7 +143,8 @@
         </div>
 
         <div class="text-right">
-          <base-button outline type="default">Cancel</base-button>
+          <router-link :to="{name:'Schemes'}"><base-button outline type="default">Cancel</base-button></router-link>
+<!--          <base-button outline type="default">Cancel</base-button>-->
           <button
             type="button"
             class="btn btn-secondary bg-dark text-white"
@@ -174,10 +175,10 @@
 
 import axios from 'axios';
 
-import BaseButton from "../../BaseButton";
+//import BaseButton from "../../BaseButton";
 import _ from 'lodash';
 export default {
-  components: { BaseButton, },
+  components: {  },
   props: ['id'],
   data(){
     return{
@@ -191,10 +192,10 @@ export default {
         netPTR : '',
         UOM : '',
         discount : '',
-        validity : '',
+        dateOfAvailability : '',
         nararation : '',
         active : true,
-        schemaNumber : ''
+        schemaNumber : Math.floor(Math.random()*100),
       }
 
     }
@@ -203,10 +204,11 @@ export default {
     if (this.editing) {
       this.fetch();
     }
+
   },
   methods:{
     fetch() {
-      axios.get(`http://localhost:9999/api/schema/get/${this.id}`)
+      axios.get(`https://vuecrud78.herokuapp.com/api/schema/get/${this.id}`)
         .then(response => {
           // eslint-disable-next-line no-undef
           console.log(response.data[0]);
@@ -217,8 +219,19 @@ export default {
       this.editing ? this.update() : this.store();
     },
 
-    store(){
+    fetchEANCode(){
+      axios.get(`https://vuecrud78.herokuapp.com/api/product/getProductDetails?`,{
+        params: {
+          EANCode: this.model.EANCode
+        }
+      }).then(response=>{
+        console.log(response.data[0])
+        this.model = _.merge(this.model,response.data[0]);
+      });
+    },
 
+    store(){
+        Math.random()*100
       axios.post(`https://vuecrud78.herokuapp.com/api/schema/create`,{
         'schemaName':this.model.schemaName,
         'date':this.model.date,
@@ -229,25 +242,27 @@ export default {
         'netPTR':this.model.netPTR,
         'UOM':this.model.UOM,
         'discount':this.model.discount,
-        'validity':this.model.validity,
+        'validity':this.model.dateOfAvailability,
         'nararation':this.model.nararation,
         'active':this.model.active,
-        'schemaNumber':this.model.schemaNumber
+        'schemaNumber':this.model.schemaNumber,
       })
         .then(response => {
           console.log(response);
+          this.$router.go(-1);
         })
         .catch(error =>{
           console.log( error);
         });
-      this.model={};
+      //this.model={};
+
 
     },
     update() {
-      axios.put(`http://localhost:9999/api/schema/edit/${this.id}`, this.model)
+      axios.put(`https://vuecrud78.herokuapp.com/api/schema/edit/${this.id}`, this.model)
         .then(response => {
           console.log(response);
-          this.back();
+          this.$router.go(-1);
         });
     },
 
