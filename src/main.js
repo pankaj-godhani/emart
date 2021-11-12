@@ -20,8 +20,6 @@ import App from "./App.vue";
 import router from "./router";
 import ArgonDashboard from "./plugins/argon-dashboard";
 import "element-plus/lib/theme-chalk/index.css";
-
-
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 window.axios = require('axios');

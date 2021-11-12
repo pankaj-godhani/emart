@@ -8,7 +8,7 @@
               <h3 class="mb-0">Products</h3>
             </div>
             <div class="col-lg-6 col-5 text-right">
-              <base-button outline type="default">Down load Format</base-button>
+              <base-button outline type="default">Download Format</base-button>
               <base-button outline type="default">Excel Upload</base-button>
               <router-link :to="{name:'ProductCreate'}">
                 <base-button type="default">Product Details</base-button>

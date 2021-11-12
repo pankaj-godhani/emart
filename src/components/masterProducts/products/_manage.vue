@@ -194,30 +194,30 @@ export default {
       visibleProductDetails:false,
       error:'',
       loading:false,
-      schemeData:[],
+      //schemeData:[],
       percentage:'',
     }
   },
 
   mounted(){
-    this.fetchSchemes();
+    //this.fetchSchemes();
   },
 
   methods:{
     calPercentage(){
       this.productDetails.margin=(this.productDetails.MRP*this.percentage)/100;
     },
-    fetchSchemes(){
+   /* fetchSchemes(){
       axios.get("https://vuecrud78.herokuapp.com/api/schema/get")
         .then(response=>{
           this.schemeData=response.data;
           console.log(this.schemeData);
         });
-    },
+    },*/
 
     fetch(){
       this.loading = true;
-      axios.get(`https://vuecrud78.herokuapp.com/api/product/getProductDetails?`,{
+      axios.get(`http://localhost:9999/api/product/getProductDetails?`,{
         params: {
           EANCode: this.EANCode
         }
@@ -245,7 +245,7 @@ export default {
 
     update(){
 
-      axios.put(`https://vuecrud78.herokuapp.com/api/product/edit/${this.productDetails._id}`,this.productDetails)
+      axios.put(`http://localhost:9999/api/product/edit/${this.productDetails._id}`,this.productDetails)
       .then(()=>{
         const toast = useToast();
         toast('Product updated Successfully', {

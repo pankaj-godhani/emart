@@ -145,11 +145,12 @@ export default {
   },
   mounted() {
     this.fetchProduct();
+    //console.log(process.env.NODE_ENV );
   },
   methods: {
 
     fetchProduct(){
-      axios.get(`https://vuecrud78.herokuapp.com/api/product/get`)
+      axios.get(`http://localhost:9999/api/product/get`)
         .then(response=>{
           this.productData=response.data;
           console.log(this.productData);
@@ -166,7 +167,7 @@ export default {
     },
 
     fetch(){
-      axios.get(`https://vuecrud78.herokuapp.com/api/product/get?`,{
+      axios.get(`http://localhost:9999/api/product/get?`,{
         params: {
           productName: this.form.productName,
           EANCode: this.form.EANCode,

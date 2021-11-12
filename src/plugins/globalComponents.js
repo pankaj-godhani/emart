@@ -16,9 +16,12 @@ import Toggle from "../components/Toggle";
 import Table from "../components/Table";
 import ConfirmModal from "../components/ConfirmModal";
 import { ElTooltip, ElPopover, ElLoading } from "element-plus";
+import JsonExcel from "vue-json-excel";
+
 
 const GlobalComponents = {
   install(app) {
+    app.component("downloadExcel", JsonExcel);
     app.component("badge", Badge);
     app.component("base-button", BaseButton);
     app.component("base-checkbox", BaseCheckbox);

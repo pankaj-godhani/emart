@@ -8,15 +8,19 @@
 
             <div class="row px-4">
               <label class="mt-2">Filter:</label>
-              <div class="col-2 pr-0 form-group">
+              <div class="col-4 pr-0 form-group">
 
                 <flat-picker
-
-                  :config="{ allowInput: true, mode: 'range' }"
+                  :config="{ allowInput: true, mode: 'range',minDate:params.startDate,maxDate:params.endDate}"
                   class="form-control datepicker"
-                  v-model="date"
+                  v-model="params"
+                  @on-change="fetchSchemes"
                 >
                 </flat-picker>
+
+<!--                <input type="text" data-input="true" class="form-control datepicker flatpickr-input active">-->
+
+
 
               </div>
               <div class="col-2 pr-0">
@@ -28,6 +32,16 @@
                   aria-controls="datatables"
                 >
                 </base-input>
+              </div>
+              <div class="col-2 pr-0">
+                <button
+                  class="btn base-button btn-default"
+                  type="button"
+                  @click="fetchSchemes"
+                >
+                  search
+                </button>
+
               </div>
             </div>
 
@@ -194,6 +208,7 @@
 
 </template>
 <script>
+
 import {
   ElTable,
   ElTableColumn,
@@ -248,7 +263,10 @@ export default {
   },
   data() {
     return {
-      date:null,
+      params:{
+        startDate:'',
+        endDate:''
+      },
       pagination: {
         perPage: 10,
         currentPage: 1,
@@ -269,69 +287,27 @@ export default {
   },
   methods: {
     fetchSchemes(){
-      axios.get("https://vuecrud78.herokuapp.com/api/schema/get")
+
+      axios.get(`http://localhost:9999/api/schema/get`, this.params, true)
       .then(response=>{
         this.schemeData=response.data;
         console.log(this.schemeData);
       });
     },
+
     confirmDelete(type) {
       this.confirmModal = true;
       this.deleting = type;
     },
     destroy(id) {
-      axios.delete(`https://vuecrud78.herokuapp.com/api/schema/delete/`+id)
+      axios.delete(`http://localhost:9999/api/schema/delete/`+id)
         .then(response => {
           console.log(response);
           this.fetchSchemes();
           this.deleting = null;
         });
     },
-   /* handleEdit(index, row) {
-      const swalWithBootstrapButtons2 = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-info btn-fill",
-        },
-        buttonsStyling: false,
-      });
 
-      swalWithBootstrapButtons2.fire({
-        title: `You want to edit ${row.name}`,
-      });
-    },*/
-    /*handleDelete(index, row) {
-      const swalWithBootstrapButtons3 = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success btn-fill",
-          cancelButton: "btn btn-danger btn-fill",
-        },
-        buttonsStyling: false,
-      });
-      swalWithBootstrapButtons3
-        .fire({
-          title: "Are you sure?",
-          text: `You won't be able to revert this!`,
-          showCancelButton: true,
-          confirmButtonText: "Yes, delete it!",
-        })
-        .then((result) => {
-          if (result.value) {
-            this.deleteRow(row);
-            swalWithBootstrapButtons3.fire({
-              title: "Deleted!",
-              text: `You deleted ${row.name}`,
-            });
-          }
-        });
-    },
-    deleteRow(row) {
-      let indexToDelete = this.tableData.findIndex(
-        (tableRow) => tableRow.id === row.id
-      );
-      if (indexToDelete >= 0) {
-        this.tableData.splice(indexToDelete, 1);
-      }
-    },*/
     selectionChange(selectedRows) {
       this.selectedRows = selectedRows;
     },

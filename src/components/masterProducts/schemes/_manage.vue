@@ -208,7 +208,7 @@ export default {
   },
   methods:{
     fetch() {
-      axios.get(`https://vuecrud78.herokuapp.com/api/schema/get/${this.id}`)
+      axios.get(`http://localhost:9999/api/schema/get/${this.id}`)
         .then(response => {
           // eslint-disable-next-line no-undef
           console.log(response.data[0]);
@@ -220,18 +220,23 @@ export default {
     },
 
     fetchEANCode(){
-      axios.get(`https://vuecrud78.herokuapp.com/api/product/getProductDetails?`,{
+      axios.get(`http://localhost:9999/api/product/getProductDetails?`,{
         params: {
           EANCode: this.model.EANCode
         }
       }).then(response=>{
         console.log(response.data[0])
         this.model = _.merge(this.model,response.data[0]);
+      })
+      .catch(error=>{
+        console.log(error,'scheme');
+        if(error){
+          //this.model={};
+        }
       });
     },
 
     store(){
-        Math.random()*100
       axios.post(`https://vuecrud78.herokuapp.com/api/schema/create`,{
         'schemaName':this.model.schemaName,
         'date':this.model.date,
@@ -254,7 +259,7 @@ export default {
         .catch(error =>{
           console.log( error);
         });
-      //this.model={};
+      this.model={};
 
 
     },
