@@ -217,7 +217,7 @@ export default {
 
     fetch(){
       this.loading = true;
-      axios.get(`http://localhost:9999/api/product/getProductDetails?`,{
+      axios.get(`api/product/getProductDetails?`,{
         params: {
           EANCode: this.EANCode
         }
@@ -245,7 +245,7 @@ export default {
 
     update(){
 
-      axios.put(`http://localhost:9999/api/product/edit/${this.productDetails._id}`,this.productDetails)
+      axios.put(`api/product/edit/${this.productDetails._id}`,this.productDetails)
       .then(()=>{
         const toast = useToast();
         toast('Product updated Successfully', {

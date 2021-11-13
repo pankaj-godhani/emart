@@ -150,7 +150,7 @@ export default {
   methods: {
 
     fetchProduct(){
-      axios.get(`http://localhost:9999/api/product/get`)
+      axios.get(`/api/product/get`)
         .then(response=>{
           this.productData=response.data;
           console.log(this.productData);
@@ -167,7 +167,7 @@ export default {
     },
 
     fetch(){
-      axios.get(`http://localhost:9999/api/product/get?`,{
+      axios.get(`api/product/get?`,{
         params: {
           productName: this.form.productName,
           EANCode: this.form.EANCode,

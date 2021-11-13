@@ -9,7 +9,17 @@
             </div>
             <div class="col-lg-6 col-5 text-right">
               <base-button outline type="default">Download Format</base-button>
-              <base-button outline type="default">Excel Upload</base-button>
+              <button class="btn base-button btn-default"
+                      type="button"
+                      @click="visibleUpload==true"
+              >
+                Excel Upload
+              </button>
+
+              <div v-if="visibleUpload==true">
+                dfhdfh
+              </div>
+<!--              <base-button outline type="default">Excel Upload</base-button>-->
               <router-link :to="{name:'ProductCreate'}">
                 <base-button type="default">Product Details</base-button>
               </router-link>
@@ -31,6 +41,11 @@ import ProductList from "../../../components/masterProducts/products/_list";
 export default {
   components: {
     ProductList,
+  },
+  data(){
+    return{
+      visibleUpload:false,
+    }
   },
 
   methods:{

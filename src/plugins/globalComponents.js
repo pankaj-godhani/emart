@@ -15,6 +15,9 @@ import Input from "../components/Input";
 import Toggle from "../components/Toggle";
 import Table from "../components/Table";
 import ConfirmModal from "../components/ConfirmModal";
+import DashboardDateRangePicker from "../components/DashboardDateRangePicker"
+import DataModal from "../components/dataModal"
+import DateInput from "../components/Date"
 import { ElTooltip, ElPopover, ElLoading } from "element-plus";
 import JsonExcel from "vue-json-excel";
 
@@ -39,6 +42,9 @@ const GlobalComponents = {
     app.component("Toggle",Toggle);
     app.component("Table",Table);
     app.component("ConfirmModal",ConfirmModal);
+    app.component("DashboardDateRangePicker",DashboardDateRangePicker);
+    app.component("DateInput",DateInput);
+    app.component("DataModal",DataModal);
     app.use(ElTooltip);
     app.use(ElPopover);
     app.use(ElLoading);

@@ -7,31 +7,36 @@
         >
 
             <div class="row px-4">
-              <label class="mt-2">Filter:</label>
-              <div class="col-4 pr-0 form-group">
+              <label class="mt-2 text-dark">Filter:</label>
+              <div class="col-3 pr-0 form-group">
 
-                <flat-picker
-                  :config="{ allowInput: true, mode: 'range',minDate:params.startDate,maxDate:params.endDate}"
+<!--                <flat-picker
+                  :config="{ allowInput:true,mode:'range', onClose:fetchDate}"
                   class="form-control datepicker"
                   v-model="params"
-                  @on-change="fetchSchemes"
                 >
-                </flat-picker>
+                </flat-picker>-->
+                <div class="d-flex">
+                  <label class="mt-2 px-1">From:</label>
+                  <input type="date" class="form-control" placeholder="from" v-model="dates.startDate">
+                </div>
 
-<!--                <input type="text" data-input="true" class="form-control datepicker flatpickr-input active">-->
-
-
+              </div>
+              <div class="col-3 pr-0 form-group">
+                <div class="d-flex">
+                  <label class="mt-2 px-1">To:</label>
+                  <input type="date" class="form-control" placeholder="to" v-model="dates.endDate" @mouseout="fetchSchemes">
+                </div>
 
               </div>
               <div class="col-2 pr-0">
-                <base-input
-                  type="search"
-                  clearable
+                <input
+                  type="text"
                   placeholder="Scheme Id"
-                  v-model="searchQuery"
-                  aria-controls="datatables"
-                >
-                </base-input>
+                  class="form-control"
+                  v-model="schemaNumber"
+                />
+
               </div>
               <div class="col-2 pr-0">
                 <button
@@ -45,7 +50,7 @@
               </div>
             </div>
 
-            <div class="pl-0">
+            <div class="pl-0" v-if="visibleScheme">
 <!--              <el-table
                 :data="schemeData"
                 row-key="id"
@@ -117,6 +122,7 @@
                   </template>
                 </el-table-column>
               </el-table>-->
+
               <Table>
                 <template #thead>
                   <tr>
@@ -179,13 +185,9 @@
                 </template>
               </Table>
             </div>
-<!--          <ConfirmModal v-model="confirmModal"
-                        :title="('Delete Category',
-                        { model_name: 'Category',model:('Category')})"
-                        :description="('Are you sure you want to delete this record?')"
-                        :confirm-text="('Delete It!')"
-                        @confirmed="destroy"
-          ></ConfirmModal>-->
+          <div v-if="visibleScheme==false" class="text-center mt-4">
+                Data not found
+          </div>
           <template v-slot:footer>
             <div
               class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
@@ -263,10 +265,12 @@ export default {
   },
   data() {
     return {
-      params:{
+      visibleScheme:false,
+      dates:{
         startDate:'',
         endDate:''
       },
+      schemaNumber:'',
       pagination: {
         perPage: 10,
         currentPage: 1,
@@ -288,19 +292,41 @@ export default {
   methods: {
     fetchSchemes(){
 
-      axios.get(`http://localhost:9999/api/schema/get`, this.params, true)
+      axios.get(`api/schema/get`,{
+        params:{
+          startDate: this.dates.startDate,
+          endDate: this.dates.endDate,
+          schemaNumber:this.schemaNumber
+        }
+      })
       .then(response=>{
         this.schemeData=response.data;
-        console.log(this.schemeData);
+        this.visibleScheme=true;
+      })
+      .catch(error=>{
+        console.log(error);
+        this.visibleScheme=false
       });
     },
+
+   /* fetchDate(){
+       {
+        // const range=this.params.startDate+"to"+this.params.endDate;
+        axios.get(`api/schema/get`,this.params,true)
+          .then(response=>{
+            this.schemeData=response.data;
+          //  console.log(this.schemeData);
+          });
+      }
+    },*/
+
 
     confirmDelete(type) {
       this.confirmModal = true;
       this.deleting = type;
     },
     destroy(id) {
-      axios.delete(`http://localhost:9999/api/schema/delete/`+id)
+      axios.delete(`api/schema/delete/`+id)
         .then(response => {
           console.log(response);
           this.fetchSchemes();

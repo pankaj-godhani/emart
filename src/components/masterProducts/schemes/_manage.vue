@@ -208,7 +208,7 @@ export default {
   },
   methods:{
     fetch() {
-      axios.get(`http://localhost:9999/api/schema/get/${this.id}`)
+      axios.get(`api/schema/get/${this.id}`)
         .then(response => {
           // eslint-disable-next-line no-undef
           console.log(response.data[0]);
@@ -220,7 +220,7 @@ export default {
     },
 
     fetchEANCode(){
-      axios.get(`http://localhost:9999/api/product/getProductDetails?`,{
+      axios.get(`api/product/getProductDetails?`,{
         params: {
           EANCode: this.model.EANCode
         }
@@ -237,7 +237,7 @@ export default {
     },
 
     store(){
-      axios.post(`https://vuecrud78.herokuapp.com/api/schema/create`,{
+      axios.post(`api/schema/create`,{
         'schemaName':this.model.schemaName,
         'date':this.model.date,
         'productName':this.model.productName,
@@ -264,7 +264,7 @@ export default {
 
     },
     update() {
-      axios.put(`https://vuecrud78.herokuapp.com/api/schema/edit/${this.id}`, this.model)
+      axios.put(`api/schema/edit/${this.id}`, this.model)
         .then(response => {
           console.log(response);
           this.$router.go(-1);
