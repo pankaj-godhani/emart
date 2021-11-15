@@ -7,24 +7,42 @@
             <div class="col-lg-6 col-7">
               <h3 class="mb-0">Products</h3>
             </div>
-            <div class="col-lg-6 col-5 text-right">
-              <base-button outline type="default">Download Format</base-button>
-              <button class="btn base-button btn-default"
-                      type="button"
-                      @click="visibleUpload==true"
-              >
-                Excel Upload
-              </button>
-
-              <div v-if="visibleUpload==true">
-                dfhdfh
-              </div>
-<!--              <base-button outline type="default">Excel Upload</base-button>-->
+            <div class="col-lg-6 text-right">
+              <button type="button" class="btn base-button btn-default">
+                  <export-excel
+                    :data="productData">
+                    Download Excel
+                  </export-excel>
+                </button>
+              <button type="button" class="btn base-button btn-default" @click="visibleCard=true" data-toggle="modal" data-target="#add">
+                  Excel Upload
+                </button>
               <router-link :to="{name:'ProductCreate'}">
-                <base-button type="default">Product Details</base-button>
-              </router-link>
-
+                  <base-button type="default">Product Details</base-button>
+                </router-link>
             </div>
+            <div v-if="visibleCard">
+              <DataModal :title="('Upload Excel')" >
+                <template v-slot:body>
+                  <div>
+                    <form>
+                      <input class="form-control"
+                             type="file"
+                             ref="file"
+                             @change="handleFileUpload"
+                             name="file">
+                    </form>
+                  </div>
+                </template>
+                <template v-slot:footer>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn base-button btn-default" data-dismiss="modal" @click="uploadExcel">
+                    upload
+                  </button>
+                </template>
+              </DataModal>
+            </div>
+
 
           </div>
          <ProductList></ProductList>
@@ -36,19 +54,63 @@
 <script>
 
 import ProductList from "../../../components/masterProducts/products/_list";
-
-
+import {useToast} from 'vue-toastification';
+import axios from 'axios';
 export default {
   components: {
     ProductList,
   },
   data(){
     return{
-      visibleUpload:false,
+      visibleCard:false,
+      productData:[],
     }
   },
-
+  mounted(){
+    this.fetchProduct();
+  },
   methods:{
+    handleFileUpload() {
+      this.excel = this.$refs.file.files[0];
+    },
+    fetchProduct(){
+      axios.get(`/api/product/get`)
+        .then(response=>{
+          this.productData=response.data;
+          console.log(this.productData);
+        });
+    },
+    notification(content,type){
+      const toast = useToast();
+      toast(content, {
+        hideProgressBar: true,
+        icon: false,
+        type:type,
+        closeButton: false,
+        position: 'top-right',
+        timeout:1500
+      });
+    },
+    uploadExcel(){
+      const formData = new FormData();
+      formData.append("file", this.excel);
+      axios.post("api/product/excelUpload",formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(response=>{
+          this.status=response.status
+          console.log(response.status);
+          this.notification('Uploaded Successfully','success');
+        })
+        .catch(()=>{
+          this.notification('EANCode already exist','error');
+        });
+      this.$refs.file.value = null;
+
+    },
     downloadExport() {
       this.axios.get('/v1/some-endpoint', {
         // If you forget this, your download will be corrupt.

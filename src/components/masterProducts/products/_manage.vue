@@ -207,14 +207,6 @@ export default {
     calPercentage(){
       this.productDetails.margin=(this.productDetails.MRP*this.percentage)/100;
     },
-   /* fetchSchemes(){
-      axios.get("https://vuecrud78.herokuapp.com/api/schema/get")
-        .then(response=>{
-          this.schemeData=response.data;
-          console.log(this.schemeData);
-        });
-    },*/
-
     fetch(){
       this.loading = true;
       axios.get(`api/product/getProductDetails?`,{
@@ -235,7 +227,7 @@ export default {
       })
         .catch((error)=>{
           this.error=error;
-          console.log(error,'hear');
+          console.log(this.error,'hear');
           this.visibleProductDetails=false;
         })
 

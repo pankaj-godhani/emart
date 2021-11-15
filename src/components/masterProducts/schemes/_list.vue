@@ -5,40 +5,29 @@
           body-classes="px-0 pb-1 py-3"
           footer-classes="pb-2"
         >
-
-            <div class="row px-4">
-              <label class="mt-2 text-dark">Filter:</label>
+            <form>
+            <div class="row px-2">
               <div class="col-3 pr-0 form-group">
-
-<!--                <flat-picker
-                  :config="{ allowInput:true,mode:'range', onClose:fetchDate}"
-                  class="form-control datepicker"
-                  v-model="params"
-                >
-                </flat-picker>-->
                 <div class="d-flex">
                   <label class="mt-2 px-1">From:</label>
-                  <input type="date" class="form-control" placeholder="from" v-model="dates.startDate">
+                  <input type="date" class="form-control" placeholder="from" v-model="form.startDate">
                 </div>
-
               </div>
               <div class="col-3 pr-0 form-group">
                 <div class="d-flex">
                   <label class="mt-2 px-1">To:</label>
-                  <input type="date" class="form-control" placeholder="to" v-model="dates.endDate" @mouseout="fetchSchemes">
+                  <input type="date" class="form-control" placeholder="to" v-model="form.endDate" @mouseout="fetchSchemes">
                 </div>
-
               </div>
               <div class="col-2 pr-0">
                 <input
                   type="text"
                   placeholder="Scheme Id"
                   class="form-control"
-                  v-model="schemaNumber"
+                  v-model="form.schemaNumber"
                 />
-
               </div>
-              <div class="col-2 pr-0">
+              <div class="col-1 pr-0">
                 <button
                   class="btn base-button btn-default"
                   type="button"
@@ -46,83 +35,20 @@
                 >
                   search
                 </button>
-
+              </div>
+              <div class="col-1 pl-4">
+                <button
+                  class="btn base-button btn-default"
+                  type="button"
+                  @click="resetForm"
+                >
+                  reset
+                </button>
               </div>
             </div>
+          </form>
 
             <div class="pl-0" v-if="visibleScheme">
-<!--              <el-table
-                :data="schemeData"
-                row-key="id"
-                header-row-class-name="thead-light"
-                @selection-change="selectionChange"
-              >
-                <el-table-column  min-width="100" prop="index" label="Sr No"></el-table-column>
-                <el-table-column min-width="150" prop="schemaNumber"
-                                 label="Scheme No">
-                </el-table-column>
-                <el-table-column min-width="150" prop="schemaName"
-                                 label="Scheme Name">
-                </el-table-column>
-                <el-table-column min-width="120" prop="date"
-                                 label="Date">
-                </el-table-column>
-                <el-table-column min-width="150" prop="EANCode"
-                                 label="EAN Code">
-                </el-table-column>
-                <el-table-column min-width="150" prop="productName"
-                                 label="Product Name">
-                </el-table-column>
-                <el-table-column min-width="150" prop="quantity"
-                                 label="Quantity">
-                </el-table-column>
-                <el-table-column min-width="150" prop="UOM"
-                                 label="UOM">
-                </el-table-column>
-                <el-table-column min-width="150" prop="freeQuantity"
-                                 label="Free Quantity">
-                </el-table-column>
-                <el-table-column min-width="150" prop="discount"
-                                 label="Discount">
-                </el-table-column>
-                <el-table-column min-width="150" prop="netPTR"
-                                 label="Net PTR">
-                </el-table-column>
-                <el-table-column min-width="150" prop="nararation"
-                                                    label="Narration">
-                </el-table-column>
-                <el-table-column min-width="150" prop="validity"
-                                 label="Validity">
-                </el-table-column>
-                <el-table-column min-width="150" prop="active"
-                                 label="Active">
-                </el-table-column>
-                <el-table-column min-width="180px" align="right" label="Actions">
-                  <template v-slot:default="props">
-                    <div class="d-flex">
-                      <base-button
-                        @click="handleEdit(props.$index, props.row)"
-                        class="edit"
-                        type="warning"
-                        size="sm"
-                        icon
-                      >
-                        <i class="text-white ni ni-ruler-pencil"></i>
-                      </base-button>
-                      <base-button
-                        @click="handleDelete(props.$index, props.row)"
-                        class="remove btn-link"
-                        type="danger"
-                        size="sm"
-                        icon
-                      >
-                        <i class="text-white ni ni-fat-remove"></i>
-                      </base-button>
-                    </div>
-                  </template>
-                </el-table-column>
-              </el-table>-->
-
               <Table>
                 <template #thead>
                   <tr>
@@ -185,9 +111,9 @@
                 </template>
               </Table>
             </div>
-          <div v-if="visibleScheme==false" class="text-center mt-4">
+            <div v-if="visibleScheme==false" class="text-center mt-4">
                 Data not found
-          </div>
+            </div>
           <template v-slot:footer>
             <div
               class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
@@ -211,76 +137,32 @@
 </template>
 <script>
 
-import {
-  ElTable,
-  ElTableColumn,
-  ElSelect,
-  ElOption,
-  ElInput,
-} from "element-plus";
-import flatPicker from "vue-flatpickr-component";
-import 'flatpickr/dist/flatpickr.css';
 
 import BasePagination from "@/components/BasePagination";
-//import swal from "sweetalert2";
-import users from "../../../views/Tables/users2";
 import axios from 'axios';
 
 export default {
   components: {
     BasePagination,
-    flatPicker,
-    [ElSelect.name]: ElSelect,
-    [ElOption.name]: ElOption,
-    [ElTable.name]: ElTable,
-    [ElInput.name]: ElInput,
-    [ElTableColumn.name]: ElTableColumn,
   },
   computed: {
-    pagedData() {
-      return this.tableData.slice(this.from, this.to);
-    },
-    /***
-     * Searches through table data and returns a paginated array.
-     * Note that this should not be used for table with a lot of data as it might be slow!
-     * Do the search and the pagination on the server and display the data retrieved from server instead.
-     * @returns {computed.pagedData}
-     */
 
-    to() {
-      let highBound = this.from + this.pagination.perPage;
-      if (this.total < highBound) {
-        highBound = this.total;
-      }
-      return highBound;
-    },
-    from() {
-      return this.pagination.perPage * (this.pagination.currentPage - 1);
-    },
-    total() {
-      return this.searchedData.length > 0
-        ? this.searchedData.length
-        : this.tableData.length;
-    },
   },
   data() {
     return {
       visibleScheme:false,
-      dates:{
+      form:{
         startDate:'',
-        endDate:''
+        endDate:'',
+        schemaNumber:'',
       },
-      schemaNumber:'',
+
       pagination: {
         perPage: 10,
         currentPage: 1,
         perPageOptions: [5, 10, 25, 50],
         total: 0,
       },
-      propsToSearch: ["name", "email"],
-      tableData: users,
-      fuseSearch: null,
-      searchedData: [],
       schemeData:[],
       confirmModal: false,
       deleting: null,
@@ -294,9 +176,9 @@ export default {
 
       axios.get(`api/schema/get`,{
         params:{
-          startDate: this.dates.startDate,
-          endDate: this.dates.endDate,
-          schemaNumber:this.schemaNumber
+          startDate: this.form.startDate,
+          endDate: this.form.endDate,
+          schemaNumber:this.form.schemaNumber
         }
       })
       .then(response=>{
@@ -307,19 +189,14 @@ export default {
         console.log(error);
         this.visibleScheme=false
       });
+
     },
 
-   /* fetchDate(){
-       {
-        // const range=this.params.startDate+"to"+this.params.endDate;
-        axios.get(`api/schema/get`,this.params,true)
-          .then(response=>{
-            this.schemeData=response.data;
-          //  console.log(this.schemeData);
-          });
-      }
-    },*/
+    resetForm(){
+      this.form={}
+      this.fetchSchemes();
 
+    },
 
     confirmDelete(type) {
       this.confirmModal = true;

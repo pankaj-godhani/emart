@@ -4,10 +4,23 @@
     body-classes="px-0 pb-1 py-3"
     footer-classes="pb-2"
   >
-    <form @submit.prevent="fetch">
-      <div class="row px-4 pb-3">
-        <label class="mt-2 text-dark">Filter:</label>
-        <div class="col-2 pr-0">
+    <form @submit.prevent="fetchProduct">
+      <div class="row px-4">
+        <div class="col-3 px-0 form-group">
+          <div class="d-flex">
+            <label class="mt-2 pr-1">From:</label>
+            <input type="date" class="form-control" placeholder="from" v-model="form.startDate">
+          </div>
+        </div>
+        <div class="col-3 pr-0 form-group">
+          <div class="d-flex">
+            <label class="mt-2 px-1">To:</label>
+            <input type="date" class="form-control" placeholder="to" v-model="form.endDate" @mouseout="fetchProduct">
+          </div>
+        </div>
+      </div>
+      <div class="row px-4 pb-2">
+        <div class="col-3 pl-5">
           <input
             type="text"
             class="form-control"
@@ -17,35 +30,32 @@
             @keyup="fetch"
           />
         </div>
-        <div class="col-2 pr-0">
+        <div class="col-2 pl-0">
           <input
-            type="search"
             class="form-control"
             placeholder="EAN Code"
-            aria-controls="datatables"
             v-model="form.EANCode"
           />
         </div>
-        <div class="col-2 pr-0">
+        <div class="col-2 pl-0">
           <input
-            type="search"
             class="form-control"
             placeholder="SKU Code"
-            aria-controls="datatables"
             v-model="form.SKUCode"
           />
         </div>
-        <div class="col-1">
+        <div class="col-1 pl-0">
           <base-button type="default" native-type="submit">Search</base-button>
         </div>
-        <div class="col-1">
-          <button type="button" class="btn base-button btn-default" @click.prevent="fetchProduct">Reset</button>
+        <div class="col-1 pl-3">
+          <button type="button" class="btn base-button btn-default" @click="resetForm">Reset</button>
         </div>
 
       </div>
+
     </form>
 
-    <div v-if="visibleProductDetails">
+    <div v-if="visible">
       <Table>
         <template #thead>
           <tr>
@@ -53,6 +63,7 @@
             <th>ID</th>
             <th>EAN Code</th>
             <th>HSN Code</th>
+            <th>Date of Availability</th>
             <th>Brand Name</th>
             <th>Mftr Article No/SKU Code</th>
             <th>Product Category</th>
@@ -72,6 +83,7 @@
             <td>{{data._id}}</td>
             <td>{{ data.EANCode }}</td>
             <td>{{ data.HSNCode }}</td>
+            <td>{{ data.dateOfAvailability }}</td>
             <td>{{ data.brandName }}</td>
             <td>{{ data.SKUCode }}</td>
             <td>{{ data.productCategory }}</td>
@@ -85,11 +97,11 @@
 
         </template>
       </Table>
-
     </div>
     <div v-else-if="status===201" class="text-center mt-4 text-dark">
       Data not found
     </div>
+
     <template v-slot:footer>
       <div
         class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
@@ -129,49 +141,37 @@ export default {
         productName:'',
         EANCode:'',
         SKUCode:'',
+        startDate:'',
+        endDate:'',
       },
-
       pagination: {
         perPage: 10,
         currentPage: 1,
         perPageOptions: [5, 10, 25, 50],
         total: 0,
       },
-
       productData:[],
-      visibleProductDetails:false,
+      visible:false,
       status:'',
     };
   },
   mounted() {
     this.fetchProduct();
-    //console.log(process.env.NODE_ENV );
   },
   methods: {
-
-    fetchProduct(){
-      axios.get(`/api/product/get`)
-        .then(response=>{
-          this.productData=response.data;
-          console.log(this.productData);
-          this.status=response.status;
-          console.log(this.productData);
-          if(this.status==200){
-            this.visibleProductDetails=true;
-          }
-          else if(this.status==201){
-            this.visibleProductDetails=false;
-          }
-        });
-      this.form={};
+    resetForm(){
+      this.form={}
+      this.fetchProduct();
     },
 
-    fetch(){
-      axios.get(`api/product/get?`,{
+    fetchProduct(){
+      axios.get(`api/product/get`,{
         params: {
           productName: this.form.productName,
           EANCode: this.form.EANCode,
-          SKUCode: this.form.SKUCode
+          SKUCode: this.form.SKUCode,
+          startDate: this.form.startDate,
+          endDate: this.form.endDate,
         }
       })
       .then(response=>{
@@ -179,10 +179,10 @@ export default {
         this.status=response.status;
         console.log(this.productData);
         if(this.status==200){
-          this.visibleProductDetails=true;
+          this.visible=true;
         }
         else if(this.status==201){
-          this.visibleProductDetails=false;
+          this.visible=false;
         }
       });
     }

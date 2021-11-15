@@ -19,12 +19,10 @@ import DashboardDateRangePicker from "../components/DashboardDateRangePicker"
 import DataModal from "../components/dataModal"
 import DateInput from "../components/Date"
 import { ElTooltip, ElPopover, ElLoading } from "element-plus";
-import JsonExcel from "vue-json-excel";
 
 
 const GlobalComponents = {
   install(app) {
-    app.component("downloadExcel", JsonExcel);
     app.component("badge", Badge);
     app.component("base-button", BaseButton);
     app.component("base-checkbox", BaseCheckbox);

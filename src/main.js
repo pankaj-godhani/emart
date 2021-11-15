@@ -23,7 +23,8 @@ import "element-plus/lib/theme-chalk/index.css";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 window.axios = require("axios");
-import Axios from "axios";
+import Axios from "axios"
+import excel from 'vue-excel-export'
 
 Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 
@@ -32,6 +33,7 @@ const options = { containerClassName: "ct-notification" };
 const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(moment);
+appInstance.use(excel);
 //appInstance.use(axios);
 appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);

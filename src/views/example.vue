@@ -103,51 +103,36 @@
 
       </template>
     </Table>
-    <button type="button" class="btn base-button btn-default" @click="openCard" data-toggle="modal" data-target="#add">
+    <button type="button" class="btn base-button btn-default">
+      <export-excel
+        :data   = "schemeData">
+        Download Data
+      </export-excel>
+    </button>
+    <button type="button" class="btn base-button btn-default" @click="visibleCard=true" data-toggle="modal" data-target="#add">
       upload excel
     </button>
-    <div >
-      <DataModal :title="('Upload Excel')" v-if="visibleCard">
+    <div v-if="visibleCard">
+      <DataModal :title="('Upload Excel')" >
           <template v-slot:body>
             <div>
               <form>
-                <input class="form-control" type="file" ref="file" name="file">
+                <input class="form-control"
+                       type="file"
+                       ref="file"
+                       @change="handleFileUpload"
+                       name="file">
               </form>
             </div>
           </template>
         <template v-slot:footer>
-          <div>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn base-button btn-default" data-dismiss="modal" @click="uploadExcel">
               upload
             </button>
-          </div>
         </template>
       </DataModal>
     </div>
-
-
-
-    <!-- Modal -->
-<!--    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>-->
 
   </div>
 </template>
@@ -156,6 +141,7 @@ import axios from "axios";
 import flatPicker from "vue-flatpickr-component";
 import 'flatpickr/dist/flatpickr.css';
 import DateRangePicker from 'vue2-daterange-picker'
+import {useToast} from 'vue-toastification';
 //you need to import the CSS manually
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
 
@@ -164,6 +150,8 @@ export default {
   data(){
     return{
       visibleCard:false,
+      excel:'',
+      status:'',
       schemaName:'',
       schemeData:[],
       dates: {
@@ -176,11 +164,39 @@ export default {
     this.fetchSchemes();
   },
   methods:{
-    openCard(){
-      this.visibleCard=true;
+    handleFileUpload() {
+      this.excel = this.$refs.file.files[0];
+    },
+    notification(content,type){
+      const toast = useToast();
+      toast(content, {
+        hideProgressBar: true,
+        icon: false,
+        type:type,
+        closeButton: false,
+        position: 'top-right',
+        timeout:1500
+      });
     },
     uploadExcel(){
-      this.visibleCard=false;
+        const formData = new FormData();
+        formData.append("file", this.excel);
+        axios.post("api/product/excelUpload",formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then(response=>{
+            this.status=response.status
+            console.log(response.status);
+            this.notification('Uploaded Successfully','success');
+          })
+        .catch(()=>{
+          this.notification('EANCode already exist','error');
+        });
+      this.$refs.file.value = null;
+
     },
     fetchSchemes(){
       axios.get("/api/schema/get",{
@@ -191,7 +207,6 @@ export default {
       })
         .then(response=>{
           this.schemeData=response.data;
-          console.log(this.schemeData);
         });
     },
     submit(){
@@ -204,10 +219,12 @@ export default {
           console.log(response);
         })
         .catch(error =>{
-          console.log( error);
+          this.error=error;
+          console.log(this.error);
         });
 
-    }
+    },
+
   }
 }
 </script>
