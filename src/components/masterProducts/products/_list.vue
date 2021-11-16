@@ -65,11 +65,6 @@
         </div>
       </div>
     </form>
-    <div class="text-center mt-4" v-if="loading">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
     <div v-if="visible">
       <Table>
         <template #thead>
@@ -163,7 +158,6 @@ export default {
       visible: false,
       status: "",
       error: "",
-      loading: false,
     };
   },
   mounted() {
@@ -176,7 +170,6 @@ export default {
     },
 
     fetchProduct() {
-      this.loading=true;
       axios
         .get(`api/product/get`, {
           params: {
@@ -199,8 +192,7 @@ export default {
         .catch((error)=>{
           this.error=error;
           this.visible=false;
-        })
-      .finally(() => (this.loading = false));
+        });
     },
   },
 };
