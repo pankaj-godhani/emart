@@ -53,7 +53,7 @@
                 <template #thead>
                   <tr>
                     <th>Sr No</th>
-                    <th>ID</th>
+<!--                    <th>ID</th>-->
                     <th>Scheme No</th>
                     <th>Scheme Name</th>
                     <th>Date</th>
@@ -75,7 +75,7 @@
                 <template #tbody>
                   <tr v-for="(data,index) in schemeData" :key="data._id">
                     <td>{{index+1}}</td>
-                    <td>{{data._id}}</td>
+<!--                    <td>{{data._id}}</td>-->
                     <td>{{ data.schemaNumber }}</td>
                     <td>{{ data.schemaName }}</td>
                     <td>{{ data.date }}</td>

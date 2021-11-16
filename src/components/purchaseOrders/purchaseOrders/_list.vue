@@ -52,7 +52,7 @@
               <template #thead>
                 <tr>
                   <th>Sr No</th>
-                  <th>ID</th>
+<!--                  <th>ID</th>-->
                   <th>PO Number</th>
                   <th>Date</th>
                   <th>No. of Items</th>
@@ -66,7 +66,7 @@
               <template #tbody>
                 <tr v-for="(data,index) in purchaseOrdersData" :key="data._id">
                   <td>{{index+1}}</td>
-                  <td>{{data._id}}</td>
+<!--                  <td>{{data._id}}</td>-->
                   <td>{{ data.PONumber }}</td>
                   <td>{{ data.Date }}</td>
                   <td>{{ data.NoOfItems }}</td>

@@ -27,7 +27,7 @@
             placeholder="Product Name"
             aria-controls="datatables"
             v-model="form.productName"
-            @keyup="fetch"
+            @keyup="fetchProduct"
           />
         </div>
         <div class="col-2 pl-0">
@@ -60,7 +60,7 @@
         <template #thead>
           <tr>
             <th>Sr No</th>
-            <th>ID</th>
+<!--            <th>ID</th>-->
             <th>EAN Code</th>
             <th>HSN Code</th>
             <th>Date of Availability</th>
@@ -80,7 +80,7 @@
         <template #tbody>
           <tr v-for="(data,index) in productData" :key="data._id">
             <td>{{index+1}}</td>
-            <td>{{data._id}}</td>
+<!--            <td>{{data._id}}</td>-->
             <td>{{ data.EANCode }}</td>
             <td>{{ data.HSNCode }}</td>
             <td>{{ data.dateOfAvailability }}</td>

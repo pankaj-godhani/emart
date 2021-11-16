@@ -8,10 +8,12 @@
 
             <div class="col-sm">
               <label class=" form-control-label">Deliver Challan / Invoice No</label>
-              <base-input
-                name="text"
-                placeholder="Enter Scheme Name"
-              ></base-input>
+              <input
+                v-model="form.schemaName"
+                class="form-control"
+                type="text"
+                placeholder="Scheme Name"
+              />
             </div>
             <div class="col-sm">
               <label class=" form-control-label">Date of Deliver Challan/Invoice No</label>
@@ -112,8 +114,6 @@
             </div>
           </div>
 
-
-
         <div class="text-right">
           <base-button outline type="default">Cancel</base-button>
           <base-button type="default">Submit</base-button>
@@ -134,9 +134,17 @@ export default {
   components: {BaseSwitch, FileInput, DropzoneFileUpload},
   data(){
     return{
-      inputs: {
-        file: [],
-      },
+     form:{
+       DCNumber: '',
+       DateOfDeliverChallan: '',
+       PONumber: '',
+       PODate: '',
+       NumberOfCarton: '',
+       TransporterDetails: '',
+       DriverName: '',
+       DriverContact: '',
+       VehicleNumber: ','
+     }
     }
   },
   methods:{

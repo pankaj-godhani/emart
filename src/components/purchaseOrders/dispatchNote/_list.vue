@@ -66,7 +66,7 @@
 
                 </template>
                 <template #tbody>
-                  <tr v-for="(data,index) in productData" :key="data._id">
+                  <tr v-for="(data,index) in dispatchNoteData" :key="data._id">
                     <td>{{index+1}}</td>
                     <td>{{data._id}}</td>
                     <td>{{ data.EANCode }}</td>
@@ -109,27 +109,13 @@
 
 </template>
 <script>
-import {
-  ElTable,
-  ElTableColumn,
-  ElSelect,
-  ElOption,
-  ElInput,
-} from "element-plus";
 
 import BasePagination from "@/components/BasePagination";
-import swal from "sweetalert2";
-import users from "../../../views/Tables/users2";
+import axios from "axios";
 
 export default {
   components: {
     BasePagination,
-
-    [ElSelect.name]: ElSelect,
-    [ElOption.name]: ElOption,
-    [ElTable.name]: ElTable,
-    [ElInput.name]: ElInput,
-    [ElTableColumn.name]: ElTableColumn,
   },
   data() {
     return {
@@ -139,15 +125,21 @@ export default {
         perPageOptions: [5, 10, 25, 50],
         total: 0,
       },
-      searchQuery: "",
-      propsToSearch: ["name", "email"],
-      tableData: users,
-      fuseSearch: null,
-      searchedData: [],
+      dispatchNoteData: [],
     };
   },
-  methods: {
+  mounted(){
+    this.fetchDispatchNote();
+  },
 
+  methods: {
+    fetchDispatchNote(){
+      axios.get(`api/desPatchNote/get`)
+      .then(response=>{
+        this.dispatchNoteData=response.data;
+        console.log(this.dispatchNoteData);
+      })
+    }
   },
 };
 </script>

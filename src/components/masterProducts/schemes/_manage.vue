@@ -9,7 +9,7 @@
             <div class="col-sm form-group">
               <label class=" form-control-label">Scheme Name</label>
               <input
-                v-model="model.schemaName"
+                v-model="form.schemaName"
                 class="form-control"
                 type="text"
                 placeholder="Scheme Name"
@@ -20,7 +20,7 @@
               <input
                 class="form-control"
                 type="date"
-                v-model="model.date"
+                v-model="form.date"
               />
 
             </div>
@@ -29,7 +29,7 @@
               <input
                 class="form-control"
                 placeholder="Enter EAN Code"
-                v-model="model.EANCode"
+                v-model="form.EANCode"
                 @keyup="fetchEANCode"
               />
             </div>
@@ -42,7 +42,7 @@
               <input
                 class="form-control"
                 placeholder="Enter Product Name"
-                v-model="model.productName"
+                v-model="form.productName"
               />
             </div>
             <div class="col-sm">
@@ -50,7 +50,7 @@
               <input
                 class="form-control"
                 placeholder="Enter Quantity"
-                v-model="model.quantity"
+                v-model="form.quantity"
               />
 
             </div>
@@ -59,7 +59,7 @@
               <input
                 class="form-control"
                 placeholder="Enter Free Quantity"
-                v-model="model.freeQuantity"
+                v-model="form.freeQuantity"
               />
 
             </div>
@@ -75,7 +75,7 @@
               <input
                 class="form-control"
                 placeholder="Enter Net PTR"
-                v-model="model.netPTR"
+                v-model="form.netPTR"
               />
             </div>
             <div class="col-sm">
@@ -83,7 +83,7 @@
               <input
                 class="form-control"
                 placeholder="Enter UOM"
-                v-model="model.UOM"
+                v-model="form.UOM"
               />
 
             </div>
@@ -92,7 +92,7 @@
               <input
                 class="form-control"
                 placeholder="Enter Discount"
-                v-model="model.discount"
+                v-model="form.discount"
               />
             </div>
 
@@ -104,7 +104,7 @@
               <input
                 class="form-control"
                 type="date"
-                v-model="model.dateOfAvailability"
+                v-model="form.dateOfAvailability"
               />
             </div>
             <div class="col-sm">
@@ -112,7 +112,7 @@
               <input
                 class="form-control"
                 placeholder="Enter Narration"
-                v-model="model.nararation"
+                v-model="form.nararation"
               />
 
             </div>
@@ -120,7 +120,7 @@
               <!--              <label class=" form-control-label">Active</label>-->
               <div class="mt-5 pl-5">
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input pr-0" id="customSwitch1" v-model="model.active">
+                  <input type="checkbox" class="custom-control-input pr-0" id="customSwitch1" v-model="form.active">
                   <label class="custom-control-label" for="customSwitch1">Active</label>
                 </div>
 
@@ -136,7 +136,7 @@
               <input
                 class="form-control"
                 placeholder="Scheme Number-Auto Generated"
-                v-model="model.schemaNumber"
+                v-model="form.schemaNumber"
               />
             </div>
           </div>
@@ -182,7 +182,7 @@ export default {
   props: ['id'],
   data(){
     return{
-      model:{
+      form:{
         schemaName : '',
         date : '',
         productName : '',
@@ -204,7 +204,11 @@ export default {
     if (this.editing) {
       this.fetch();
     }
-
+  },
+  computed: {
+    editing() {
+      return !!this.id;
+    }
   },
   methods:{
     fetch() {
@@ -212,7 +216,7 @@ export default {
         .then(response => {
           // eslint-disable-next-line no-undef
           console.log(response.data[0]);
-          this.model = _.merge(this.model,response.data[0]);
+          this.form = _.merge(this.form,response.data[0]);
         });
     },
     submit() {
@@ -222,11 +226,11 @@ export default {
     fetchEANCode(){
       axios.get(`api/product/getProductDetails?`,{
         params: {
-          EANCode: this.model.EANCode
+          EANCode: this.form.EANCode
         }
       }).then(response=>{
         console.log(response.data[0])
-        this.model = _.merge(this.model,response.data[0]);
+        this.form = _.merge(this.form,response.data[0]);
       })
       .catch(error=>{
         console.log(error,'scheme');
@@ -238,19 +242,19 @@ export default {
 
     store(){
       axios.post(`api/schema/create`,{
-        'schemaName':this.model.schemaName,
-        'date':this.model.date,
-        'productName':this.model.productName,
-        'EANCode':this.model.EANCode,
-        'quantity':this.model.quantity,
-        'freeQuantity':this.model.freeQuantity,
-        'netPTR':this.model.netPTR,
-        'UOM':this.model.UOM,
-        'discount':this.model.discount,
-        'validity':this.model.dateOfAvailability,
-        'nararation':this.model.nararation,
-        'active':this.model.active,
-        'schemaNumber':this.model.schemaNumber,
+        'schemaName':this.form.schemaName,
+        'date':this.form.date,
+        'productName':this.form.productName,
+        'EANCode':this.form.EANCode,
+        'quantity':this.form.quantity,
+        'freeQuantity':this.form.freeQuantity,
+        'netPTR':this.form.netPTR,
+        'UOM':this.form.UOM,
+        'discount':this.form.discount,
+        'validity':this.form.dateOfAvailability,
+        'nararation':this.form.nararation,
+        'active':this.form.active,
+        'schemaNumber':this.form.schemaNumber,
       })
         .then(response => {
           console.log(response);
@@ -259,12 +263,11 @@ export default {
         .catch(error =>{
           console.log( error);
         });
-      this.model={};
-
-
+      this.form={};
     },
+
     update() {
-      axios.put(`api/schema/edit/${this.id}`, this.model)
+      axios.put(`api/schema/edit/${this.id}`, this.form)
         .then(response => {
           console.log(response);
           this.$router.go(-1);
@@ -272,10 +275,5 @@ export default {
     },
 
   },
-  computed: {
-    editing() {
-      return !!this.id;
-    }
-  }
 };
 </script>
