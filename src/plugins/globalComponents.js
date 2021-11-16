@@ -11,10 +11,7 @@ import BaseRadio from "../components/Inputs/BaseRadio";
 import BaseSwitch from "../components/BaseSwitch";
 import Card from "../components/Cards/Card";
 import StatsCard from "../components/Cards/StatsCard";
-import Input from "../components/Input";
-import Toggle from "../components/Toggle";
 import Table from "../components/Table";
-import ConfirmModal from "../components/ConfirmModal";
 import DataModal from "../components/dataModal";
 import { ElTooltip, ElPopover, ElLoading } from "element-plus";
 
@@ -33,10 +30,7 @@ const GlobalComponents = {
     app.component("base-switch", BaseSwitch);
     app.component("card", Card);
     app.component("stats-card", StatsCard);
-    app.component("Input", Input);
-    app.component("Toggle", Toggle);
     app.component("Table", Table);
-    app.component("ConfirmModal", ConfirmModal);
     app.component("DataModal", DataModal);
     app.use(ElTooltip);
     app.use(ElPopover);

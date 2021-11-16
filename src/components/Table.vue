@@ -1,9 +1,8 @@
 <template>
+
   <div class="flex flex-col">
     <div class="">
-      <div
-        class="d-inline-block w-100 shadow overflow-auto rounded-lg border-bottom bg-white"
-      >
+      <div class="d-inline-block w-100 shadow overflow-auto rounded-lg border-bottom bg-white">
         <div class="table-responsive-lg">
           <table class="table table-striped overflow-auto">
             <thead v-if="$slots.thead" class="border h-100">
