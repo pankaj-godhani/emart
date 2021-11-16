@@ -8,7 +8,7 @@
     <form
       class="navbar-search form-inline mr-sm-3"
       :class="{
-      'navbar-search-light': type === 'light',
+        'navbar-search-light': type === 'light',
       }"
       id="navbar-search-main"
     >

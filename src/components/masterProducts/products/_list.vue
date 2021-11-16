@@ -9,13 +9,24 @@
         <div class="col-3 px-0 form-group">
           <div class="d-flex">
             <label class="mt-2 pr-1">From:</label>
-            <input type="date" class="form-control" placeholder="from" v-model="form.startDate">
+            <input
+              type="date"
+              class="form-control"
+              placeholder="from"
+              v-model="form.startDate"
+            />
           </div>
         </div>
         <div class="col-3 pr-0 form-group">
           <div class="d-flex">
             <label class="mt-2 px-1">To:</label>
-            <input type="date" class="form-control" placeholder="to" v-model="form.endDate" @mouseout="fetchProduct">
+            <input
+              type="date"
+              class="form-control"
+              placeholder="to"
+              v-model="form.endDate"
+              @mouseout="fetchProduct"
+            />
           </div>
         </div>
       </div>
@@ -48,11 +59,15 @@
           <base-button type="default" native-type="submit">Search</base-button>
         </div>
         <div class="col-1 pl-3">
-          <button type="button" class="btn base-button btn-default" @click="resetForm">Reset</button>
+          <button
+            type="button"
+            class="btn base-button btn-default"
+            @click="resetForm"
+          >
+            Reset
+          </button>
         </div>
-
       </div>
-
     </form>
 
     <div v-if="visible">
@@ -60,7 +75,7 @@
         <template #thead>
           <tr>
             <th>Sr No</th>
-<!--            <th>ID</th>-->
+            <!--            <th>ID</th>-->
             <th>EAN Code</th>
             <th>HSN Code</th>
             <th>Date of Availability</th>
@@ -73,14 +88,12 @@
             <th>Margin</th>
             <th>Product Scheme</th>
             <th>Remarks</th>
-
           </tr>
-
         </template>
         <template #tbody>
-          <tr v-for="(data,index) in productData" :key="data._id">
-            <td>{{index+1}}</td>
-<!--            <td>{{data._id}}</td>-->
+          <tr v-for="(data, index) in productData" :key="data._id">
+            <td>{{ index + 1 }}</td>
+            <!--            <td>{{data._id}}</td>-->
             <td>{{ data.EANCode }}</td>
             <td>{{ data.HSNCode }}</td>
             <td>{{ data.dateOfAvailability }}</td>
@@ -94,11 +107,10 @@
             <td>{{ data.schemes }}</td>
             <td>{{ data.remarks }}</td>
           </tr>
-
         </template>
       </Table>
     </div>
-    <div v-else-if="status===201" class="text-center mt-4 text-dark">
+    <div v-else-if="status === 201" class="text-center mt-4 text-dark">
       Data not found
     </div>
 
@@ -115,16 +127,13 @@
           class="pagination-no-border"
           v-model="pagination.currentPage"
           :per-page="pagination.perPage"
-          :total="total"
         >
         </base-pagination>
       </div>
     </template>
   </card>
-
 </template>
 <script>
-
 import BasePagination from "@/components/BasePagination";
 import Card from "../../Cards/Card";
 import axios from "axios";
@@ -137,12 +146,12 @@ export default {
 
   data() {
     return {
-      form:{
-        productName:'',
-        EANCode:'',
-        SKUCode:'',
-        startDate:'',
-        endDate:'',
+      form: {
+        productName: "",
+        EANCode: "",
+        SKUCode: "",
+        startDate: "",
+        endDate: "",
       },
       pagination: {
         perPage: 10,
@@ -150,43 +159,41 @@ export default {
         perPageOptions: [5, 10, 25, 50],
         total: 0,
       },
-      productData:[],
-      visible:false,
-      status:'',
+      productData: [],
+      visible: false,
+      status: "",
     };
   },
   mounted() {
     this.fetchProduct();
   },
   methods: {
-    resetForm(){
-      this.form={}
+    resetForm() {
+      this.form = {};
       this.fetchProduct();
     },
 
-    fetchProduct(){
-      axios.get(`api/product/get`,{
-        params: {
-          productName: this.form.productName,
-          EANCode: this.form.EANCode,
-          SKUCode: this.form.SKUCode,
-          startDate: this.form.startDate,
-          endDate: this.form.endDate,
-        }
-      })
-      .then(response=>{
-        this.productData=response.data;
-        this.status=response.status;
-        console.log(this.productData);
-        if(this.status==200){
-          this.visible=true;
-        }
-        else if(this.status==201){
-          this.visible=false;
-        }
-      });
-    }
-
+    fetchProduct() {
+      axios
+        .get(`api/product/get`, {
+          params: {
+            productName: this.form.productName,
+            EANCode: this.form.EANCode,
+            SKUCode: this.form.SKUCode,
+            startDate: this.form.startDate,
+            endDate: this.form.endDate,
+          },
+        })
+        .then((response) => {
+          this.productData = response.data;
+          this.status = response.status;
+          if (this.status == 200) {
+            this.visible = true;
+          } else if (this.status == 201) {
+            this.visible = false;
+          }
+        });
+    },
   },
 };
 </script>

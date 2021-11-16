@@ -283,18 +283,13 @@
 </template>
 
 <script>
-
-
-
 // Charts
 import { ordersChart } from "@/components/Charts/Chart";
 import Chart from "chart.js";
 let chart;
 
 export default {
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       salesChartID: "salesChart",

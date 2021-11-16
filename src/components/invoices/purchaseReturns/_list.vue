@@ -1,144 +1,138 @@
 <template>
-        <card
-          class="no-border-card"
-          body-classes="px-0 pb-1"
-          footer-classes="pb-2"
+  <card class="no-border-card" body-classes="px-0 pb-1" footer-classes="pb-2">
+    <div>
+      <div
+        class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+      >
+        <el-select
+          class="select-primary pagination-select"
+          v-model="pagination.perPage"
+          placeholder="Per page"
         >
+          <el-option
+            class="select-primary"
+            v-for="item in pagination.perPageOptions"
+            :key="item"
+            :label="item"
+            :value="item"
+          >
+          </el-option>
+        </el-select>
 
-          <div>
-            <div
-              class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
-            >
-              <el-select
-                class="select-primary pagination-select"
-                v-model="pagination.perPage"
-                placeholder="Per page"
+        <div>
+          <el-input
+            type="search"
+            class="mb-3"
+            clearable
+            prefix-icon="el-icon-search"
+            style="width: 200px"
+            placeholder="Search records"
+            v-model="searchQuery"
+            aria-controls="datatables"
+          >
+          </el-input>
+        </div>
+      </div>
+      <el-table
+        :data="queriedData"
+        row-key="id"
+        header-row-class-name="thead-light"
+        @selection-change="selectionChange"
+      >
+        <el-table-column
+          min-width="100"
+          prop="index"
+          label="Sr No"
+        ></el-table-column>
+        <el-table-column min-width="150" prop="name" label="PO Number">
+        </el-table-column>
+        <el-table-column min-width="150" prop="job" label="PO Date">
+        </el-table-column>
+        <el-table-column min-width="160" prop="salary" label="Invoice Number">
+        </el-table-column>
+        <el-table-column min-width="140" prop="salary" label="Invoice Date">
+        </el-table-column>
+        <el-table-column min-width="100" prop="salary" label="EAN">
+        </el-table-column>
+        <el-table-column min-width="150" prop="salary" label="Product Name">
+        </el-table-column>
+        <el-table-column min-width="150" prop="salary" label="Invoice Value">
+        </el-table-column>
+        <el-table-column
+          min-width="200"
+          prop="salary"
+          label="Quantity Purchased"
+        >
+        </el-table-column>
+        <el-table-column
+          min-width="200"
+          prop="salary"
+          label="Quantity Returned"
+        >
+        </el-table-column>
+        <el-table-column min-width="120" prop="salary" label="Reason of Return">
+        </el-table-column>
+        <el-table-column min-width="120" prop="salary" label="Debit Note ID">
+        </el-table-column>
+        <el-table-column min-width="130" prop="salary" label="Credit Note ID">
+        </el-table-column>
+        <el-table-column min-width="110" prop="salary" label="Remarks">
+        </el-table-column>
+
+        <el-table-column min-width="180px" align="right" label="Actions">
+          <template v-slot:default="props">
+            <div class="d-flex">
+              <base-button
+                @click="handleLike(props.$index, props.row)"
+                class="like btn-link"
+                type="info"
+                size="sm"
+                icon
               >
-                <el-option
-                  class="select-primary"
-                  v-for="item in pagination.perPageOptions"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                >
-                </el-option>
-              </el-select>
-
-              <div>
-                <el-input
-                  type="search"
-                  class="mb-3"
-                  clearable
-                  prefix-icon="el-icon-search"
-                  style="width: 200px"
-                  placeholder="Search records"
-                  v-model="searchQuery"
-                  aria-controls="datatables"
-                >
-                </el-input>
-              </div>
-            </div>
-            <el-table
-              :data="queriedData"
-              row-key="id"
-              header-row-class-name="thead-light"
-              @selection-change="selectionChange"
-            >
-              <el-table-column min-width="100" prop="index" label="Sr No"></el-table-column>
-              <el-table-column min-width="150" prop="name"
-                               label="PO Number">
-              </el-table-column>
-              <el-table-column min-width="150" prop="job"
-                               label="PO Date">
-              </el-table-column>
-              <el-table-column min-width="160" prop="salary"
-                               label="Invoice Number">
-              </el-table-column>
-              <el-table-column min-width="140" prop="salary"
-                               label="Invoice Date">
-              </el-table-column>
-              <el-table-column min-width="100" prop="salary"
-                               label="EAN">
-              </el-table-column>
-              <el-table-column min-width="150" prop="salary"
-                               label="Product Name">
-              </el-table-column>
-              <el-table-column min-width="150" prop="salary"
-                               label="Invoice Value">
-              </el-table-column>
-              <el-table-column min-width="200" prop="salary"
-                               label="Quantity Purchased">
-              </el-table-column>
-              <el-table-column min-width="200" prop="salary"
-                               label="Quantity Returned">
-              </el-table-column>
-              <el-table-column min-width="120" prop="salary"
-                               label="Reason of Return">
-              </el-table-column>
-              <el-table-column min-width="120" prop="salary"
-                               label="Debit Note ID">
-              </el-table-column>
-              <el-table-column min-width="130" prop="salary"
-                               label="Credit Note ID">
-              </el-table-column>
-              <el-table-column min-width="110" prop="salary"
-                               label="Remarks">
-              </el-table-column>
-
-              <el-table-column min-width="180px" align="right" label="Actions">
-                <template v-slot:default="props">
-                  <div class="d-flex">
-                    <base-button
-                      @click="handleLike(props.$index, props.row)"
-                      class="like btn-link"
-                      type="info"
-                      size="sm"
-                      icon
-                    >
-                      <i class="text-white ni ni-like-2"></i>
-                    </base-button>
-                    <base-button
-                      @click="handleEdit(props.$index, props.row)"
-                      class="edit"
-                      type="warning"
-                      size="sm"
-                      icon
-                    >
-                      <i class="text-white ni ni-ruler-pencil"></i>
-                    </base-button>
-                    <base-button
-                      @click="handleDelete(props.$index, props.row)"
-                      class="remove btn-link"
-                      type="danger"
-                      size="sm"
-                      icon
-                    >
-                      <i class="text-white ni ni-fat-remove"></i>
-                    </base-button>
-                  </div>
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
-          <template v-slot:footer>
-            <div
-              class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
-            >
-              <div class="">
-                <p class="card-category">
-                  Showing {{ from + 1 }} to {{ to }} of {{ total }} entries
-                </p>
-              </div>
-              <base-pagination
-                class="pagination-no-border"
-                v-model="pagination.currentPage"
-                :per-page="pagination.perPage"
-                :total="total"
+                <i class="text-white ni ni-like-2"></i>
+              </base-button>
+              <base-button
+                @click="handleEdit(props.$index, props.row)"
+                class="edit"
+                type="warning"
+                size="sm"
+                icon
               >
-              </base-pagination>
+                <i class="text-white ni ni-ruler-pencil"></i>
+              </base-button>
+              <base-button
+                @click="handleDelete(props.$index, props.row)"
+                class="remove btn-link"
+                type="danger"
+                size="sm"
+                icon
+              >
+                <i class="text-white ni ni-fat-remove"></i>
+              </base-button>
             </div>
           </template>
-        </card>
+        </el-table-column>
+      </el-table>
+    </div>
+    <template v-slot:footer>
+      <div
+        class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+      >
+        <div class="">
+          <p class="card-category">
+            Showing {{ from + 1 }} to {{ to }} of {{ total }} entries
+          </p>
+        </div>
+        <base-pagination
+          class="pagination-no-border"
+          v-model="pagination.currentPage"
+          :per-page="pagination.perPage"
+          :total="total"
+        >
+        </base-pagination>
+      </div>
+    </template>
+  </card>
 </template>
 <script>
 import {

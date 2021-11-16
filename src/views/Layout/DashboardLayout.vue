@@ -3,10 +3,13 @@
     <!-- <notifications></notifications> -->
     <side-bar>
       <template v-slot:links>
-
-              <sidebar-item
-                :link="{ name: 'Dashboard', path: '/', icon: 'ni ni-shop text-primary', }"
-              ></sidebar-item>
+        <sidebar-item
+          :link="{
+            name: 'Dashboard',
+            path: '/',
+            icon: 'ni ni-shop text-primary',
+          }"
+        ></sidebar-item>
 
         <sidebar-item
           :link="{
@@ -14,9 +17,12 @@
             icon: 'ni ni-ungroup text-orange',
           }"
         >
-              <sidebar-item :link="{ name: 'Products', path: '/master-products/products' }" />
-              <sidebar-item :link="{ name: 'Schemes', path: '/master-products/schemes' }" />
-
+          <sidebar-item
+            :link="{ name: 'Products', path: '/master-products/products' }"
+          />
+          <sidebar-item
+            :link="{ name: 'Schemes', path: '/master-products/schemes' }"
+          />
         </sidebar-item>
 
         <sidebar-item
@@ -25,10 +31,21 @@
             icon: 'ni ni-ui-04 text-info',
           }"
         >
-              <sidebar-item :link="{ name: 'Invoice', path: '/invoices/invoice' }" />
-              <sidebar-item :link="{ name: 'Purchase Returns', path: '/invoices/purchase-returns' }" />
-              <sidebar-item :link="{ name: 'Debit/Credit Note', path: '/invoices/debit-credit' }"/>
-
+          <sidebar-item
+            :link="{ name: 'Invoice', path: '/invoices/invoice' }"
+          />
+          <sidebar-item
+            :link="{
+              name: 'Purchase Returns',
+              path: '/invoices/purchase-returns',
+            }"
+          />
+          <sidebar-item
+            :link="{
+              name: 'Debit/Credit Note',
+              path: '/invoices/debit-credit',
+            }"
+          />
         </sidebar-item>
         <sidebar-item
           :link="{
@@ -36,13 +53,17 @@
             icon: 'ni ni-single-copy-04 text-pink',
           }"
         >
-              <sidebar-item :link="{ name: 'Purchase Orders', path: '/purchase-orders' }" />
-              <sidebar-item :link="{ name: 'Dispatch Note', path: '/purchase-orders/dispatch-note' }"/>
+          <sidebar-item
+            :link="{ name: 'Purchase Orders', path: '/purchase-orders' }"
+          />
+          <sidebar-item
+            :link="{
+              name: 'Dispatch Note',
+              path: '/purchase-orders/dispatch-note',
+            }"
+          />
         </sidebar-item>
-
       </template>
-
-
     </side-bar>
     <div class="main-content">
       <dashboard-navbar :type="$route.meta.navbarType"></dashboard-navbar>

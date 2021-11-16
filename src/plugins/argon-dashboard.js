@@ -1,11 +1,8 @@
 import GlobalComponents from "./globalComponents";
 import GlobalDirectives from "./globalDirectives";
-//import axios from "./axios";
-
 import "../assets/css/nucleo/css/nucleo.css";
 import "../assets/sass/argon.scss";
 import SidebarPlugin from "../components/SidebarPlugin";
-
 import "bootstrap/dist/js/bootstrap.min.js";
 
 export default {
@@ -13,6 +10,5 @@ export default {
     app.use(SidebarPlugin);
     app.use(GlobalComponents);
     app.use(GlobalDirectives);
-   // app.use(axios);
   },
 };

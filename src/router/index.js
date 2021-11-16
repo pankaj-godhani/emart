@@ -5,17 +5,17 @@ import DashboardLayout from "@/views/Layout/DashboardLayout";
 //Projects main views
 
 import Products from "../views/masterProducts/products/index";
-import ProductCreate from "../views/masterProducts/products/create"
+import ProductCreate from "../views/masterProducts/products/create";
 import Schemes from "../views/masterProducts/schemes/index";
 import SchemesCreate from "../views/masterProducts/schemes/create";
-import SchemesEdit from "../views/masterProducts/schemes/edit"
+import SchemesEdit from "../views/masterProducts/schemes/edit";
 import Invoice from "../views/invoices/invoice/index";
 import PurchaseReturns from "../views/invoices/purchaseReturns/index";
 import DebitCredit from "../views/invoices/debit-credit/index";
-import PurchaseOrders from"../views/purchaseOrders/purchaseOrders/index";
-import DispatchNote from"../views/purchaseOrders/dispatchNote/index";
-import DispatchNoteCreate from"../views/purchaseOrders/dispatchNote/create";
-import Example from"../views/example";
+import PurchaseOrders from "../views/purchaseOrders/purchaseOrders/index";
+import DispatchNote from "../views/purchaseOrders/dispatchNote/index";
+import DispatchNoteCreate from "../views/purchaseOrders/dispatchNote/create";
+import Example from "../views/example";
 
 // Dashboard pages
 
@@ -31,8 +31,6 @@ const routes = [
     name: "Dashboard",
 
     children: [
-
-
       {
         path: "/master-products/products",
         name: "Products",
@@ -131,12 +129,10 @@ const routes = [
       {
         path: "/example",
         name: "Example",
-        components: {default: Example},
-      }
+        components: { default: Example },
+      },
     ],
-
   },
-
 ];
 
 const router = createRouter({

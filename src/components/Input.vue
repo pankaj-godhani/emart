@@ -1,12 +1,13 @@
 <template>
-  <input :value="value"
-         @input="$emit('input', $event.target.value)"
-         class="form-control"
-  >
+  <input
+    :value="value"
+    @input="$emit('input', $event.target.value)"
+    class="form-control"
+  />
 </template>
 
 <script>
 export default {
-  props: ['value'],
-}
+  props: ["value"],
+};
 </script>

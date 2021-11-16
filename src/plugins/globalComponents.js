@@ -15,11 +15,8 @@ import Input from "../components/Input";
 import Toggle from "../components/Toggle";
 import Table from "../components/Table";
 import ConfirmModal from "../components/ConfirmModal";
-import DashboardDateRangePicker from "../components/DashboardDateRangePicker"
-import DataModal from "../components/dataModal"
-import DateInput from "../components/Date"
+import DataModal from "../components/dataModal";
 import { ElTooltip, ElPopover, ElLoading } from "element-plus";
-
 
 const GlobalComponents = {
   install(app) {
@@ -36,13 +33,11 @@ const GlobalComponents = {
     app.component("base-switch", BaseSwitch);
     app.component("card", Card);
     app.component("stats-card", StatsCard);
-    app.component("Input",Input);
-    app.component("Toggle",Toggle);
-    app.component("Table",Table);
-    app.component("ConfirmModal",ConfirmModal);
-    app.component("DashboardDateRangePicker",DashboardDateRangePicker);
-    app.component("DateInput",DateInput);
-    app.component("DataModal",DataModal);
+    app.component("Input", Input);
+    app.component("Toggle", Toggle);
+    app.component("Table", Table);
+    app.component("ConfirmModal", ConfirmModal);
+    app.component("DataModal", DataModal);
     app.use(ElTooltip);
     app.use(ElPopover);
     app.use(ElLoading);
