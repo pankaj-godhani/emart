@@ -6,32 +6,43 @@
   >
     <div>
       <form>
-        <div class="row px-2">
-          <div class="col-3 pr-0 form-group">
-            <div class="d-flex">
-              <label class="mt-2 px-1">From:</label>
-              <input type="date" class="form-control" placeholder="from" />
-            </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
+          <div class="px-1">
+            <input
+              type="date"
+              class="form-control"
+              placeholder="from"
+              v-model="form.startDate"
+            />
           </div>
-          <div class="col-3 pr-0 form-group">
-            <div class="d-flex">
-              <label class="mt-2 px-1">To:</label>
-              <input type="date" class="form-control" placeholder="to" />
-            </div>
+          <div><label class="mt-2 pl-2">To:</label></div>
+          <div class="px-2">
+            <input
+              type="date"
+              class="form-control"
+              placeholder="to"
+              v-model="form.endDate"
+              @mouseout="fetchDispatchNote"
+            />
           </div>
-          <div class="col-2 pr-0">
-            <input type="text" placeholder="DC Number" class="form-control" />
+          <div class="px-2">
+            <input
+              type="text"
+              placeholder="DC Number"
+              class="form-control"
+              v-model="form.DCNumber"/>
           </div>
-          <div class="col-1 pr-0">
+          <div class="px-2">
             <button
               class="btn base-button btn-default"
               type="button"
-              @click="fetchSchemes"
+              @click="fetchDispatchNote"
             >
               search
             </button>
           </div>
-          <div class="col-1 pl-4">
+          <div>
             <button
               class="btn base-button btn-default"
               type="button"
@@ -42,7 +53,7 @@
           </div>
         </div>
       </form>
-      <div>
+      <div v-if="visible">
         <Table>
           <template #thead>
             <tr>
@@ -57,26 +68,54 @@
               <th>Driver Name</th>
               <th>Driver Contact</th>
               <th>Vehicle Number</th>
+              <th>Actions</th>
             </tr>
           </template>
           <template #tbody>
             <tr v-for="(data, index) in dispatchNoteData" :key="data._id">
               <td>{{ index + 1 }}</td>
               <td>{{ data._id }}</td>
-              <td>{{ data.EANCode }}</td>
-              <td>{{ data.HSNCode }}</td>
-              <td>{{ data.dateOfAvailability }}</td>
-              <td>{{ data.brandName }}</td>
-              <td>{{ data.SKUCode }}</td>
-              <td>{{ data.productCategory }}</td>
-              <td>{{ data.productName }}</td>
-              <td>{{ data.MRP }}</td>
-              <td>{{ data.sellingPrice }}</td>
+              <td>{{ data.DCNumber }}</td>
+              <td>{{ data.DateOfDeliverChallan }}</td>
+              <td>{{ data.PONumber }}</td>
+              <td>{{ data.PODate }}</td>
+              <td>{{ data.NumberOfCarton }}</td>
+              <td>{{ data.TransporterDetails }}</td>
+              <td>{{ data.DriverName }}</td>
+              <td>{{ data.DriverContact }}</td>
+              <td>{{ data.VehicleNumber }}</td>
+              <td>
+                <div class="d-flex">
+                  <div class="pr-2">
+                    <router-link
+                      :to="{ name: 'DispatchNoteEdit', params: { id: data._id } }"
+                    >
+                      <button
+                        type="button"
+                        class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
+                      >
+                        <i class="text-white ni ni-ruler-pencil"></i>
+                      </button>
+                    </router-link>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
+                      @click.prevent="destroy(data._id)"
+                    >
+                      <i class="text-white ni ni-fat-remove"></i>
+                    </button>
+                  </div>
+                </div>
+              </td>
             </tr>
           </template>
         </Table>
       </div>
-      <div class="text-center mt-4 text-dark">Data not found</div>
+      <div v-if="visible == false||error" class="text-center mt-4 text-dark">
+        Data not found
+      </div>
     </div>
     <template v-slot:footer>
       <div
@@ -114,7 +153,16 @@ export default {
         perPageOptions: [5, 10, 25, 50],
         total: 0,
       },
+      form: {
+        startDate: "",
+        endDate: "",
+        DCNumber: "",
+      },
       dispatchNoteData: [],
+      status: "",
+      error: "",
+      deleting: null,
+      visible:false,
     };
   },
   mounted() {
@@ -123,10 +171,37 @@ export default {
 
   methods: {
     fetchDispatchNote() {
-      axios.get(`api/desPatchNote/get`).then((response) => {
+      axios.get(`api/desPatchNote/get`,{
+        params: {
+          startDate: this.form.startDate,
+          endDate: this.form.endDate,
+          DCNumber: this.form.DCNumber,
+        },
+      }).then((response) => {
         this.dispatchNoteData = response.data;
-        //console.log(this.dispatchNoteData);
+        this.status=response.status;
+        console.log(this.status);
+        if(this.status==200){
+          this.visible=true;
+        }
+        else if(this.status==201){
+          this.visible=false;
+        }
+      })
+      .catch((error)=>{
+        this.error=error;
+        this.visible=false;
       });
+    },
+    destroy(id) {
+      axios.delete(`api/desPatchNote/delete/` + id).then(() => {
+        this.fetchDispatchNote();
+        this.deleting = null;
+      });
+    },
+    resetForm() {
+      this.form = {};
+      this.fetchDispatchNote();
     },
   },
 };

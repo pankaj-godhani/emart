@@ -5,31 +5,27 @@
     footer-classes="pb-2"
   >
     <form>
-      <div class="row px-2">
-        <div class="col-3 pr-0 form-group">
-          <div class="d-flex">
-            <label class="mt-2 px-1">From:</label>
-            <input
-              type="date"
-              class="form-control"
-              placeholder="from"
-              v-model="form.startDate"
-            />
-          </div>
+      <div class="d-flex flex-row mb-3">
+        <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
+        <div class="px-1">
+          <input
+            type="date"
+            class="form-control"
+            placeholder="from"
+            v-model="form.startDate"
+          />
         </div>
-        <div class="col-3 pr-0 form-group">
-          <div class="d-flex">
-            <label class="mt-2 px-1">To:</label>
-            <input
-              type="date"
-              class="form-control"
-              placeholder="to"
-              v-model="form.endDate"
-              @mouseout="fetchPurchaseOrders"
-            />
-          </div>
+        <div><label class="mt-2 pl-2">To:</label></div>
+        <div class="px-2">
+          <input
+            type="date"
+            class="form-control"
+            placeholder="to"
+            v-model="form.endDate"
+            @mouseout="fetchPurchaseOrders"
+          />
         </div>
-        <div class="col-2 pr-0">
+        <div class="px-2">
           <input
             type="text"
             placeholder="PO Number"
@@ -37,7 +33,7 @@
             v-model="form.PONumber"
           />
         </div>
-        <div class="col-1 pr-0">
+        <div class="px-2">
           <button
             class="btn base-button btn-default"
             type="button"
@@ -46,7 +42,7 @@
             search
           </button>
         </div>
-        <div class="col-1 pl-4">
+        <div>
           <button
             class="btn base-button btn-default"
             type="button"
@@ -87,7 +83,7 @@
         </template>
       </Table>
     </div>
-    <div v-else-if="status === 201" class="text-center mt-4 text-dark">
+    <div v-else-if="status === 201 || error" class="text-center mt-4 text-dark">
       Data not found
     </div>
     <template v-slot:footer>
@@ -157,6 +153,10 @@ export default {
           } else if (this.status == 201) {
             this.visible = false;
           }
+        })
+        .catch((error)=>{
+          this.error = error;
+          this.visible=false;
         });
     },
     resetForm() {

@@ -5,33 +5,27 @@
     footer-classes="pb-2"
   >
     <form @submit.prevent="fetchProduct">
-      <div class="row px-4">
-        <div class="col-3 px-0 form-group">
-          <div class="d-flex">
-            <label class="mt-2 pr-1">From:</label>
-            <input
-              type="date"
-              class="form-control"
-              placeholder="from"
-              v-model="form.startDate"
-            />
-          </div>
+      <div class="d-flex flex-row mb-3">
+        <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
+        <div>
+          <input
+            type="date"
+            class="form-control"
+            placeholder="from"
+            v-model="form.startDate"
+          />
         </div>
-        <div class="col-3 pr-0 form-group">
-          <div class="d-flex">
-            <label class="mt-2 px-1">To:</label>
-            <input
-              type="date"
-              class="form-control"
-              placeholder="to"
-              v-model="form.endDate"
-              @mouseout="fetchProduct"
-            />
-          </div>
+        <div><label class="mt-2 pl-2">To:</label></div>
+        <div class="px-2">
+          <input
+            type="date"
+            class="form-control"
+            placeholder="to"
+            v-model="form.endDate"
+            @mouseout="fetchProduct"
+          />
         </div>
-      </div>
-      <div class="row px-4 pb-2">
-        <div class="col-3 pl-5">
+        <div class="px-2">
           <input
             type="text"
             class="form-control"
@@ -41,35 +35,41 @@
             @keyup="fetchProduct"
           />
         </div>
-        <div class="col-2 pl-0">
+        <div class="px-2">
           <input
             class="form-control"
             placeholder="EAN Code"
             v-model="form.EANCode"
           />
         </div>
-        <div class="col-2 pl-0">
+        <div class="px-2">
           <input
             class="form-control"
             placeholder="SKU Code"
             v-model="form.SKUCode"
           />
         </div>
-        <div class="col-1 pl-0">
-          <base-button type="default" native-type="submit">Search</base-button>
-        </div>
-        <div class="col-1 pl-3">
-          <button
-            type="button"
-            class="btn base-button btn-default"
-            @click="resetForm"
-          >
-            Reset
-          </button>
+        <div class="d-flex float-right">
+          <div class="pl-3">
+            <base-button type="default" native-type="submit">Search</base-button>
+          </div>
+          <div class="px-2">
+            <button
+              type="button"
+              class="btn base-button btn-default"
+              @click="resetForm"
+            >
+              Reset
+            </button>
+          </div>
         </div>
       </div>
     </form>
-
+    <div class="text-center mt-4" v-if="loading">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
     <div v-if="visible">
       <Table>
         <template #thead>
@@ -110,7 +110,7 @@
         </template>
       </Table>
     </div>
-    <div v-else-if="status === 201" class="text-center mt-4 text-dark">
+    <div v-else-if="status === 201||error" class="text-center mt-4 text-dark">
       Data not found
     </div>
 
@@ -162,6 +162,8 @@ export default {
       productData: [],
       visible: false,
       status: "",
+      error: "",
+      loading: false,
     };
   },
   mounted() {
@@ -174,6 +176,7 @@ export default {
     },
 
     fetchProduct() {
+      this.loading=true;
       axios
         .get(`api/product/get`, {
           params: {
@@ -192,7 +195,12 @@ export default {
           } else if (this.status == 201) {
             this.visible = false;
           }
-        });
+        })
+        .catch((error)=>{
+          this.error=error;
+          this.visible=false;
+        })
+      .finally(() => (this.loading = false));
     },
   },
 };

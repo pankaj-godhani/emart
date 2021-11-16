@@ -5,7 +5,54 @@
     footer-classes="pb-2"
   >
     <form>
-      <div class="row px-2">
+      <div class="d-flex flex-row mb-3">
+        <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
+        <div>
+          <input
+            type="date"
+            class="form-control"
+            placeholder="from"
+            v-model="form.startDate"
+          />
+        </div>
+        <div><label class="mt-2 pl-2">To:</label></div>
+        <div class="px-2">
+          <input
+            type="date"
+            class="form-control"
+            placeholder="to"
+            v-model="form.endDate"
+            @mouseout="fetchSchemes"
+          />
+        </div>
+        <div class="px-2">
+          <input
+            type="text"
+            placeholder="Scheme Id"
+            class="form-control"
+            v-model="form.schemaNumber"
+          />
+        </div>
+        <div class="px-2">
+          <button
+            class="btn base-button btn-default"
+            type="button"
+            @click="fetchSchemes"
+          >
+            search
+          </button>
+        </div>
+        <div>
+          <button
+            class="btn base-button btn-default"
+            type="button"
+            @click="resetForm"
+          >
+            reset
+          </button>
+        </div>
+      </div>
+<!--      <div class="row px-2">
         <div class="col-3 pr-0 form-group">
           <div class="d-flex">
             <label class="mt-2 px-1">From:</label>
@@ -55,7 +102,7 @@
             reset
           </button>
         </div>
-      </div>
+      </div>-->
     </form>
 
     <div class="pl-0" v-if="visibleScheme">
@@ -98,24 +145,28 @@
             <td>{{ data.validity }}</td>
             <td>{{ data.active }}</td>
             <td>
-              <div class="">
-                <router-link
-                  :to="{ name: 'SchemesEdit', params: { id: data._id } }"
-                >
+              <div class="d-flex">
+                <div class="pr-2">
+                  <router-link
+                    :to="{ name: 'SchemesEdit', params: { id: data._id } }"
+                  >
+                    <button
+                      type="button"
+                      class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
+                    >
+                      <i class="text-white ni ni-ruler-pencil"></i>
+                    </button>
+                  </router-link>
+                </div>
+                <div>
                   <button
                     type="button"
-                    class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
+                    class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
+                    @click.prevent="destroy(data._id)"
                   >
-                    <i class="text-white ni ni-ruler-pencil"></i>
+                    <i class="text-white ni ni-fat-remove"></i>
                   </button>
-                </router-link>
-                <button
-                  type="button"
-                  class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                  @click.prevent="destroy(data._id)"
-                >
-                  <i class="text-white ni ni-fat-remove"></i>
-                </button>
+                </div>
               </div>
             </td>
           </tr>
@@ -210,10 +261,6 @@ export default {
         this.fetchSchemes();
         this.deleting = null;
       });
-    },
-
-    selectionChange(selectedRows) {
-      this.selectedRows = selectedRows;
     },
   },
 };

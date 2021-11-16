@@ -15,6 +15,7 @@ import DebitCredit from "../views/invoices/debit-credit/index";
 import PurchaseOrders from "../views/purchaseOrders/purchaseOrders/index";
 import DispatchNote from "../views/purchaseOrders/dispatchNote/index";
 import DispatchNoteCreate from "../views/purchaseOrders/dispatchNote/create";
+import DispatchNoteEdit from "../views/purchaseOrders/dispatchNote/edit";
 import Example from "../views/example";
 
 // Dashboard pages
@@ -122,6 +123,15 @@ const routes = [
         path: "/purchase-orders/dispatch-note/create",
         name: "DispatchNoteCreate",
         components: { default: DispatchNoteCreate },
+        meta: {
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/purchase-orders/dispatch-note/edit/:id",
+        name: "DispatchNoteEdit",
+        components: { default: DispatchNoteEdit },
         meta: {
           navbarType: "light",
         },

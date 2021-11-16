@@ -128,32 +128,33 @@
             </div>
           </div>
         </div>
+        <div class="d-flex float-right">
+          <div class="pr-2">
+              <router-link :to="{ name: 'Schemes' }">
+                <base-button outline type="default">Cancel</base-button>
+              </router-link>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn base-button btn-default"
+              data-dismiss="modal"
+              @click.prevent="update"
+              v-if="editing"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn base-button btn-default"
+              data-dismiss="modal"
+              @click.prevent="submit"
+              v-else
+            >
+              Submit
+            </button>
+          </div>
 
-        <div class="text-right">
-          <router-link :to="{ name: 'Schemes' }"
-            ><base-button outline type="default"
-              >Cancel</base-button
-            ></router-link
-          >
-          <!--          <base-button outline type="default">Cancel</base-button>-->
-          <button
-            type="button"
-            class="btn btn-secondary bg-dark text-white"
-            data-dismiss="modal"
-            @click.prevent="update"
-            v-if="editing"
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary bg-dark text-white"
-            data-dismiss="modal"
-            @click.prevent="submit"
-            v-else
-          >
-            Submit
-          </button>
         </div>
       </form>
     </div>

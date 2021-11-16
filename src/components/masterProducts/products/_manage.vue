@@ -259,7 +259,6 @@ export default {
           console.log(this.error, "hear");
           this.visibleProductDetails = false;
         })
-
         .finally(() => (this.loading = false));
     },
 

@@ -1,7 +1,7 @@
 <template>
   <card>
     <div class="container ct-example-row">
-      <form action="">
+      <form @submit.prevent="submit">
         <div>
           <h3><b>Group Heading 1</b></h3>
           <div class="row mt-3">
@@ -10,39 +10,39 @@
                 >Deliver Challan / Invoice No</label
               >
               <input
-                v-model="form.schemaName"
-                class="form-control"
+                v-model="form.DCNumber"
                 type="text"
-                placeholder="Scheme Name"
+                class="form-control"
+                placeholder="Enter Deliver Challan No"
               />
             </div>
             <div class="col-sm">
               <label class="form-control-label"
                 >Date of Deliver Challan/Invoice No</label
               >
-              <base-input
-                name="date"
+              <input
+                v-model="form.DateOfDeliverChallan"
                 type="date"
-                value="2018-11-23"
-                id="example-date-input"
+                class="form-control"
               />
             </div>
             <div class="col-sm">
               <label class="form-control-label">PO Number</label>
-              <base-input
-                name="text"
-                placeholder="Enter Product Name"
-              ></base-input>
+              <input
+                v-model="form.PONumber"
+                type="text"
+                class="form-control"
+                placeholder="PO Number"
+              />
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-4">
               <label class="form-control-label">PO Date</label>
-              <base-input
-                name="date"
+              <input
+                v-model="form.PODate"
                 type="date"
-                value="2018-11-23"
-                id="example-date-input"
+                class="form-control"
               />
             </div>
           </div>
@@ -52,74 +52,117 @@
           <div class="row mt-3">
             <div class="col-sm">
               <label class="form-control-label">No of Carton Loaded</label>
-              <base-input
-                name="text"
+              <input
+                v-model="form.NumberOfCarton"
+                type="text"
+                class="form-control"
                 placeholder="Enter No of Carton Loaded"
-              ></base-input>
+              />
             </div>
             <div class="col-sm">
               <label class="form-control-label">Transporter Details</label>
-              <base-input
-                name="text"
+              <input
+                v-model="form.TransporterDetails"
+                type="text"
+                class="form-control"
                 placeholder="Enter Transporter Details"
-              ></base-input>
+              />
             </div>
             <div class="col-sm">
               <label class="form-control-label">Driver Name</label>
-              <base-input
-                name="text"
+              <input
+                v-model="form.DriverName"
+                type="text"
+                class="form-control"
                 placeholder="Enter Driver Name"
-              ></base-input>
+              />
             </div>
           </div>
-          <div class="row">
+          <div class="row mt-2">
             <div class="col-sm">
               <label class="form-control-label">Driver Contact</label>
-              <base-input
-                name="text"
+              <input
+                v-model="form.DriverContact"
+                type="text"
+                class="form-control"
                 placeholder="Enter Driver Contact"
-              ></base-input>
+              />
             </div>
             <div class="col-sm">
               <label class="form-control-label">Vehicle Number</label>
-              <base-input
-                name="text"
+              <input
+                v-model="form.VehicleNumber"
+                type="text"
+                class="form-control"
                 placeholder="Enter Vehicle Number"
-              ></base-input>
+              />
             </div>
             <div class="col-sm">
               <label class="form-control-label"> Delivery Location</label>
-              <base-input
-                name="text"
+              <input
+                type="text"
+                class="form-control"
                 placeholder="Enter Delivery Location"
-              ></base-input>
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-4">
+              <label class="form-control-label">eMetro Representative ID</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter eMetro Representative ID"
+              />
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-4">
-            <label class="form-control-label">eMetro Representative ID</label>
-            <base-input
-              name="text"
-              placeholder="Enter eMetro Representative ID"
-            ></base-input>
+
+        <div class="d-flex float-right">
+          <div class="pr-2">
+            <router-link :to="{ name: 'DispatchNote' }">
+              <base-button outline type="default">Cancel</base-button>
+            </router-link>
           </div>
+          <div>
+            <button
+              type="button"
+              class="btn base-button btn-default"
+              data-dismiss="modal"
+              @click.prevent="update"
+              v-if="editing"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn base-button btn-default"
+              data-dismiss="modal"
+              @click.prevent="submit"
+              v-else
+            >
+              Submit
+            </button>
+          </div>
+
         </div>
 
-        <div class="text-right">
-          <base-button outline type="default">Cancel</base-button>
-          <base-button type="default">Submit</base-button>
-        </div>
       </form>
     </div>
   </card>
 </template>
 
 <script>
+
+import axios from "axios";
+import _ from "lodash";
+
 export default {
   components: {},
+  props: ["id"],
   data() {
     return {
+      error: "",
       form: {
         DCNumber: "",
         DateOfDeliverChallan: "",
@@ -129,13 +172,55 @@ export default {
         TransporterDetails: "",
         DriverName: "",
         DriverContact: "",
-        VehicleNumber: ",",
+        VehicleNumber: "",
       },
     };
   },
+  mounted() {
+    if (this.editing) {
+      this.fetch();
+    }
+  },
+  computed: {
+    editing() {
+      return !!this.id;
+    },
+  },
   methods: {
-    filesChange(files) {
-      this.inputs.file = files;
+    fetch() {
+      axios.get(`api/desPatchNote/get/${this.id}`).then((response) => {
+        this.form = _.merge(this.form, response.data[0]);
+      });
+    },
+    submit() {
+      this.editing ? this.update() : this.store();
+    },
+    store() {
+      axios
+        .post(`api/desPatchNote/create`, {
+          DCNumber: this.form.DCNumber,
+          DateOfDeliverChallan: this.form.DateOfDeliverChallan,
+          PONumber: this.form.PONumber,
+          PODate: this.form.PODate,
+          NumberOfCarton: this.form.NumberOfCarton,
+          TransporterDetails: this.form.TransporterDetails,
+          DriverName: this.form.DriverName,
+          DriverContact: this.form.DriverContact,
+          VehicleNumber: this.form.VehicleNumber,
+        })
+        .then(() => {
+          this.$router.go(-1);
+        })
+        .catch((error) => {
+          this.error = error;
+        });
+      this.form = {};
+    },
+
+    update() {
+      axios.put(`api/desPatchNote/edit/${this.id}`, this.form).then(() => {
+        this.$router.go(-1);
+      });
     },
   },
 };
