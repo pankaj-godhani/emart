@@ -25,6 +25,8 @@ import "vue-toastification/dist/index.css";
 window.axios = require("axios");
 import Axios from "axios";
 import excel from "vue-excel-export";
+//import VueExcelXlsx from "vue-excel-xlsx";
+//import exportJsonExcel from "export-json-excel";
 
 Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 
@@ -34,6 +36,8 @@ const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(moment);
 appInstance.use(excel);
+//appInstance.use(exportJsonExcel);
+//appInstance.use(VueExcelXlsx);
 appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);
 appInstance.mount("#app");

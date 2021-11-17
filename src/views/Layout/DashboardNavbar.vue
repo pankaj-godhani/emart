@@ -5,22 +5,22 @@
     :class="{ 'bg-success navbar-dark': type === 'default' }"
   >
     <!-- Search form -->
-    <form
+<!--    <form
       class="navbar-search form-inline mr-sm-3"
       :class="{
         'navbar-search-light': type === 'light',
       }"
       id="navbar-search-main"
     >
-      <div class="form-group mb-0">
+&lt;!&ndash;      <div class="form-group mb-0">
         <div class="input-group input-group-alternative input-group-merge">
           <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
           <input class="form-control" placeholder="Search" type="text" />
         </div>
-      </div>
-      <button
+      </div>&ndash;&gt;
+&lt;!&ndash;      <button
         type="button"
         class="close"
         data-action="search-close"
@@ -28,185 +28,11 @@
         aria-label="Close"
       >
         <span aria-hidden="true">×</span>
-      </button>
-    </form>
+      </button>&ndash;&gt;
+    </form>-->
     <!-- Navbar links -->
     <ul class="navbar-nav align-items-center ml-md-auto">
-      <li class="nav-item d-xl-none">
-        <!-- Sidenav toggler -->
-        <div
-          class="pr-3 sidenav-toggler"
-          :class="{
-            active: $sidebar.showSidebar,
-            'sidenav-toggler-dark': type === 'default',
-            'sidenav-toggler-light': type === 'light',
-          }"
-          @click="toggleSidebar"
-        >
-          <div class="sidenav-toggler-inner">
-            <i class="sidenav-toggler-line"></i>
-            <i class="sidenav-toggler-line"></i>
-            <i class="sidenav-toggler-line"></i>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item d-sm-none">
-        <a
-          class="nav-link"
-          href="#"
-          data-action="search-show"
-          data-target="#navbar-search-main"
-        >
-          <i class="ni ni-zoom-split-in"></i>
-        </a>
-      </li>
-      <base-dropdown
-        class="nav-item"
-        tag="li"
-        title-classes="nav-link"
-        title-tag="a"
-        icon="ni ni-bell-55"
-        menu-classes="dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden"
-      >
-        <!-- Dropdown header -->
-        <div class="px-3 py-3">
-          <h6 class="text-sm text-muted m-0">
-            You have <strong class="text-primary">13</strong> notifications.
-          </h6>
-        </div>
-        <!-- List group -->
-        <div class="list-group list-group-flush">
-          <a href="#!" class="list-group-item list-group-item-action">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <!-- Avatar -->
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-1.jpg"
-                  class="avatar rounded-circle"
-                />
-              </div>
-              <div class="col ml--2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <h4 class="mb-0 text-sm">John Snow</h4>
-                  </div>
-                  <div class="text-right text-muted">
-                    <small>2 hrs ago</small>
-                  </div>
-                </div>
-                <p class="text-sm mb-0">
-                  Let's meet at Starbucks at 11:30. Wdyt?
-                </p>
-              </div>
-            </div>
-          </a>
-          <a href="#!" class="list-group-item list-group-item-action">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <!-- Avatar -->
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-2.jpg"
-                  class="avatar rounded-circle"
-                />
-              </div>
-              <div class="col ml--2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <h4 class="mb-0 text-sm">John Snow</h4>
-                  </div>
-                  <div class="text-right text-muted">
-                    <small>3 hrs ago</small>
-                  </div>
-                </div>
-                <p class="text-sm mb-0">
-                  A new issue has been reported for Argon.
-                </p>
-              </div>
-            </div>
-          </a>
-          <a href="#!" class="list-group-item list-group-item-action">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <!-- Avatar -->
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-3.jpg"
-                  class="avatar rounded-circle"
-                />
-              </div>
-              <div class="col ml--2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <h4 class="mb-0 text-sm">John Snow</h4>
-                  </div>
-                  <div class="text-right text-muted">
-                    <small>5 hrs ago</small>
-                  </div>
-                </div>
-                <p class="text-sm mb-0">Your posts have been liked a lot.</p>
-              </div>
-            </div>
-          </a>
-          <a href="#!" class="list-group-item list-group-item-action">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <!-- Avatar -->
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-4.jpg"
-                  class="avatar rounded-circle"
-                />
-              </div>
-              <div class="col ml--2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <h4 class="mb-0 text-sm">John Snow</h4>
-                  </div>
-                  <div class="text-right text-muted">
-                    <small>2 hrs ago</small>
-                  </div>
-                </div>
-                <p class="text-sm mb-0">
-                  Let's meet at Starbucks at 11:30. Wdyt?
-                </p>
-              </div>
-            </div>
-          </a>
-          <a href="#!" class="list-group-item list-group-item-action">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <!-- Avatar -->
-                <img
-                  alt="Image placeholder"
-                  src="img/theme/team-5.jpg"
-                  class="avatar rounded-circle"
-                />
-              </div>
-              <div class="col ml--2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <h4 class="mb-0 text-sm">John Snow</h4>
-                  </div>
-                  <div class="text-right text-muted">
-                    <small>3 hrs ago</small>
-                  </div>
-                </div>
-                <p class="text-sm mb-0">
-                  A new issue has been reported for Argon.
-                </p>
-              </div>
-            </div>
-          </a>
-        </div>
-        <!-- View all -->
-        <a
-          href="#!"
-          class="dropdown-item text-center text-primary font-weight-bold py-3"
-          >View all</a
-        >
-      </base-dropdown>
+
     </ul>
     <ul class="navbar-nav align-items-center ml-auto ml-md-0">
       <base-dropdown

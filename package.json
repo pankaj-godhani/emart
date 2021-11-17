@@ -22,6 +22,7 @@
     "date-fns": "^2.25.0",
     "dropzone": "5.7.6",
     "element-plus": "1.0.1-beta.24",
+    "export-json-excel": "^0.1.13",
     "fuse.js": "6.4.6",
     "jquery": "3.6.0",
     "nouislider": "14.6.3",

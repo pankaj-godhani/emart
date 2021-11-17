@@ -52,57 +52,6 @@
           </button>
         </div>
       </div>
-<!--      <div class="row px-2">
-        <div class="col-3 pr-0 form-group">
-          <div class="d-flex">
-            <label class="mt-2 px-1">From:</label>
-            <input
-              type="date"
-              class="form-control"
-              placeholder="from"
-              v-model="form.startDate"
-            />
-          </div>
-        </div>
-        <div class="col-3 pr-0 form-group">
-          <div class="d-flex">
-            <label class="mt-2 px-1">To:</label>
-            <input
-              type="date"
-              class="form-control"
-              placeholder="to"
-              v-model="form.endDate"
-              @mouseout="fetchSchemes"
-            />
-          </div>
-        </div>
-        <div class="col-2 pr-0">
-          <input
-            type="text"
-            placeholder="Scheme Id"
-            class="form-control"
-            v-model="form.schemaNumber"
-          />
-        </div>
-        <div class="col-1 pr-0">
-          <button
-            class="btn base-button btn-default"
-            type="button"
-            @click="fetchSchemes"
-          >
-            search
-          </button>
-        </div>
-        <div class="col-1 pl-4">
-          <button
-            class="btn base-button btn-default"
-            type="button"
-            @click="resetForm"
-          >
-            reset
-          </button>
-        </div>
-      </div>-->
     </form>
 
     <div class="pl-0" v-if="visibleScheme">
@@ -173,7 +122,7 @@
         </template>
       </Table>
     </div>
-    <div v-if="visibleScheme == false" class="text-center mt-4">
+    <div v-else-if="status!==200||error" class="text-center mt-4">
       Data not found
     </div>
     <template v-slot:footer>
@@ -208,6 +157,8 @@ export default {
   data() {
     return {
       visibleScheme: false,
+      error: "",
+      status: "",
       form: {
         startDate: "",
         endDate: "",
@@ -240,9 +191,17 @@ export default {
         })
         .then((response) => {
           this.schemeData = response.data;
-          this.visibleScheme = true;
+          this.status = response.status;
+          console.log(response);
+          if(this.status===200){
+            this.visibleScheme = true;
+          }
+          else{
+            this.visibleScheme = false;
+          }
         })
-        .catch(() => {
+        .catch((error) => {
+          this.error=error;
           this.visibleScheme = false;
         });
     },

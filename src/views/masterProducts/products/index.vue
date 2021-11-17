@@ -3,13 +3,21 @@
     <div class="container-fluid mt-4">
       <div>
         <div class="row align-items-center pb-4">
-          <div class="col-lg-6 col-7">
+          <div class="col-lg-4">
             <h3 class="mb-0">Products</h3>
           </div>
-          <div class="col-lg-6 text-right">
+          <div class="col-lg-8 text-right">
+
+<!--            <a href="public/sample.xlsx" class="btn base-button btn-default" target="_self" download="">
+              Sample Excel
+            </a>-->
+            <button type="button" class="btn base-button btn-default" @click="onExport">
+               Sample Excel
+            </button>
             <button type="button" class="btn base-button btn-default">
               <export-excel :data="productData"> Download Excel </export-excel>
             </button>
+
             <button
               type="button"
               class="btn base-button btn-default"
@@ -65,8 +73,10 @@
 </template>
 <script>
 import ProductList from "../../../components/masterProducts/products/_list";
+import sampleData from "./sampleExcel";
 import { useToast } from "vue-toastification";
 import axios from "axios";
+import XLSX from 'xlsx'
 export default {
   components: {
     ProductList,
@@ -75,7 +85,8 @@ export default {
     return {
       visibleCard: false,
       productData: [],
-    };
+      sampleData,
+    }
   },
   mounted() {
     this.fetchProduct();
@@ -118,7 +129,17 @@ export default {
         });
       this.$refs.file.value = null;
     },
-  },
+    onExport(){
+        var sampleWS = XLSX.utils.json_to_sheet(this.sampleData);
+        var wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, sampleWS, 'sample') // sheetAName is name of Worksheet
+
+        // export Excel file
+        XLSX.writeFile(wb, 'sample.xlsx') // name of the file is 'book.xlsx'
+      }
+    }
+
+
 };
 </script>
 

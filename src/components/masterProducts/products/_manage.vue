@@ -158,7 +158,6 @@
                   <option v-for="schemes in productDetails.schemaList" :key="schemes._id">
                     {{ schemes.schemaName }}
                   </option>
-                  <!--                  <option v-for="schemes in schemeData">{{ schemes.schemaName }}</option>-->
                 </select>
               </div>
               <div class="col-sm-4">
@@ -214,7 +213,7 @@ export default {
       imageURL: null,
       EANCode: "",
       productDetails: {
-        schemaList: {},
+        //schemaList: {},
         margin: "",
         MRP: "",
       },
