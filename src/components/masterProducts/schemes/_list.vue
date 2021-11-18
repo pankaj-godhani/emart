@@ -174,6 +174,7 @@ export default {
       schemeData: [],
       confirmModal: false,
       deleting: null,
+      loading:false,
     };
   },
   mounted() {

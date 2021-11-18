@@ -1,5 +1,5 @@
 {
-  "name": "e-metro",
+  "name": "vue-argon-dashboard-pro",
   "version": "2.0.0",
   "private": true,
   "scripts": {
@@ -36,7 +36,6 @@
     "vue-flatpickr-component": "9.0.3",
     "vue-router": "4.0.1",
     "vue-toastification": "2.0.0-beta.9",
-    "vue2-daterange-picker": "^0.6.7",
     "xlsx": "^0.17.4",
     "yup": "0.32.9"
   },
@@ -52,12 +51,11 @@
     "eslint": "7.21.0",
     "eslint-plugin-prettier": "3.3.1",
     "eslint-plugin-vue": "7.7.0",
-    "lodash": "^4.17.21",
-    "moment": "^2.24.0",
-    "node-sass": "5.0.0",
     "perfect-scrollbar": "1.5.0",
     "prettier": "2.2.1",
+    "node-sass": "5.0.0",
     "sass-loader": "10.1.1",
-    "webpack-dev-server": "^4.4.0"
+    "lodash": "^4.17.21",
+    "moment": "^2.24.0"
   }
 }

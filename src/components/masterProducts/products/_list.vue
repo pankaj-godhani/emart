@@ -78,11 +78,16 @@
             <th>Mftr Article No/SKU Code</th>
             <th>Product Category</th>
             <th>Product Name</th>
+            <th>UOM</th>
+            <th>UOM Conversion</th>
+            <th>Shelf Life in Days</th>
             <th>MRP</th>
-            <th>Selling Price</th>
             <th>Margin</th>
+            <th>Net PTR - Price to Retail</th>
             <th>Product Scheme</th>
             <th>Remarks</th>
+            <th>Price Approval</th>
+            <th>Selling Price</th>
           </tr>
         </template>
         <template #tbody>
@@ -96,11 +101,19 @@
             <td>{{ data.SKUCode }}</td>
             <td>{{ data.productCategory }}</td>
             <td>{{ data.productName }}</td>
+            <td>{{ data.UOM }}</td>
+            <td>{{ data.UOMConversation }}</td>
+            <td>{{ data.shelfLifeDays }}</td>
             <td>{{ data.MRP }}</td>
-            <td>{{ data.sellingPrice }}</td>
             <td>{{ data.margin }}</td>
+            <td>net ptr</td>
             <td>{{ data.schemes }}</td>
             <td>{{ data.remarks }}</td>
+            <td>price approval</td>
+            <td>{{ data.sellingPrice }}</td>
+
+
+
           </tr>
         </template>
       </Table>
@@ -122,6 +135,7 @@
           class="pagination-no-border"
           v-model="pagination.currentPage"
           :per-page="pagination.perPage"
+          :total="total"
         >
         </base-pagination>
       </div>
@@ -160,6 +174,7 @@ export default {
       error: "",
     };
   },
+
   mounted() {
     this.fetchProduct();
   },

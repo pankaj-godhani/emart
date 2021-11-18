@@ -4,7 +4,7 @@
       <div>
         <div class="row align-items-center pb-4">
           <div class="col-lg-6 col-7">
-            <h3 class="mb-0">Debit/Credit Note</h3>
+            <h3 class="mb-0">Debit Memo</h3>
           </div>
         </div>
         <DebitCreditList></DebitCreditList>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import DebitCreditList from "../../../components/invoices/debit-credit/_list";
+import DebitCreditList from "../../../components/invoices/debit/_list";
 
 export default {
   components: {

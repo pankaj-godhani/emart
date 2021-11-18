@@ -11,7 +11,8 @@ import SchemesCreate from "../views/masterProducts/schemes/create";
 import SchemesEdit from "../views/masterProducts/schemes/edit";
 import Invoice from "../views/invoices/invoice/index";
 import PurchaseReturns from "../views/invoices/purchaseReturns/index";
-import DebitCredit from "../views/invoices/debit-credit/index";
+import Debit from "../views/invoices/debit/index";
+import Credit from "../views/invoices/credit/index";
 import PurchaseOrders from "../views/purchaseOrders/purchaseOrders/index";
 import DispatchNote from "../views/purchaseOrders/dispatchNote/index";
 import DispatchNoteCreate from "../views/purchaseOrders/dispatchNote/create";
@@ -93,9 +94,17 @@ const routes = [
       },
 
       {
-        path: "/invoices/debit-credit",
-        name: "DebitCredit",
-        components: { default: DebitCredit },
+        path: "/invoices/debit",
+        name: "Debit",
+        components: { default: Debit },
+        meta: {
+          navbarType: "light",
+        },
+      },
+      {
+        path: "/invoices/credit",
+        name: "Credit",
+        components: { default: Credit },
         meta: {
           navbarType: "light",
         },

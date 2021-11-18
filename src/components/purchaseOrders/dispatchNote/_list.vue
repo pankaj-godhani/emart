@@ -113,7 +113,7 @@
           </template>
         </Table>
       </div>
-      <div v-if="visible == false||error" class="text-center mt-4 text-dark">
+      <div v-else-if="visible === false||error" class="text-center mt-4 text-dark">
         Data not found
       </div>
     </div>
@@ -130,7 +130,7 @@
           class="pagination-no-border"
           v-model="pagination.currentPage"
           :per-page="pagination.perPage"
-          :total="total"
+          :total="pagination.total"
         >
         </base-pagination>
       </div>

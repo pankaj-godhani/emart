@@ -42,8 +42,14 @@
           />
           <sidebar-item
             :link="{
-              name: 'Debit/Credit Note',
-              path: '/invoices/debit-credit',
+              name: 'Debit Memo',
+              path: '/invoices/debit',
+            }"
+          />
+          <sidebar-item
+            :link="{
+              name: 'Credit Memo',
+              path: '/invoices/credit',
             }"
           />
         </sidebar-item>

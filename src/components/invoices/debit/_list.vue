@@ -58,18 +58,6 @@
           label="e-Metro PO Reference & Date"
         >
         </el-table-column>
-        <el-table-column
-          min-width="140"
-          prop="salary"
-          label="e-Metro Debit Memo"
-        >
-        </el-table-column>
-        <el-table-column
-          min-width="150"
-          prop="salary"
-          label="Vendor Credit Memo"
-        >
-        </el-table-column>
         <el-table-column min-width="140" prop="salary" label="Description">
         </el-table-column>
         <el-table-column min-width="150" prop="salary" label="Item Quantity">
@@ -79,6 +67,14 @@
         <el-table-column min-width="120" prop="salary" label="Unit Price">
         </el-table-column>
         <el-table-column min-width="110" prop="salary" label="Tax Rate">
+        </el-table-column>
+        <el-table-column min-width="110" prop="salary" label="CGST">
+        </el-table-column>
+        <el-table-column min-width="110" prop="salary" label="SGST">
+        </el-table-column>
+        <el-table-column min-width="110" prop="salary" label="IGST">
+        </el-table-column>
+        <el-table-column min-width="110" prop="salary" label="Amount">
         </el-table-column>
 
         <el-table-column min-width="180px" align="right" label="Actions">

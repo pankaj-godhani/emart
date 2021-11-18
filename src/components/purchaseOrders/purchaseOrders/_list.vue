@@ -59,26 +59,66 @@
           <tr>
             <th>Sr No</th>
             <!--                  <th>ID</th>-->
-            <th>PO Number</th>
             <th>Date</th>
+            <th>PO Number</th>
             <th>No. of Items</th>
             <th>Value</th>
             <th>Status</th>
-            <th>Payment received</th>
+            <th>Payment Status</th>
             <th>Delivery Status</th>
+            <th>EAN Code</th>
+            <th>HSN Code</th>
+            <th>Item Name</th>
+            <th>Primary Barcode</th>
+            <th>Mftr Article number/SKU code</th>
+            <th>Purchase Quantity</th>
+            <th>Case Quantity</th>
+            <th>MRP</th>
+            <th>Buyer Margin Percentage</th>
+            <th>Buyer Margin Amt</th>
+            <th>Billing Price</th>
+            <th>Tax Rate</th>
+            <th>SGST Amt - 2.5%</th>
+            <th>CGST Amt - 2.5%</th>
+            <th>IGST Amt - 0% for Domestic Items</th>
+            <th>Total Price</th>
+            <th>Secondary Barcode</th>
+            <th>Packing Label</th>
+            <th>Document Upload</th>
+            <th>Delivery Location</th>
           </tr>
         </template>
         <template #tbody>
           <tr v-for="(data, index) in purchaseOrdersData" :key="data._id">
             <td>{{ index + 1 }}</td>
             <!--                  <td>{{data._id}}</td>-->
+            <td>{{ data.PODate  }}</td>
             <td>{{ data.PONumber }}</td>
-            <td>{{ data.Date }}</td>
             <td>{{ data.NoOfItems }}</td>
             <td>{{ data.value }}</td>
             <td>{{ data.status }}</td>
-            <td>{{ data.paymentReceived }}</td>
+            <td>{{ data.paymentStatus  }}</td>
             <td>{{ data.deliveryStatus }}</td>
+            <td>{{ data.EANCode }}</td>
+            <td>{{ data.HSNCode }}</td>
+            <td>{{ data.ItemName }}</td>
+            <td>{{ data.PrimaryBarCode }}</td>
+            <td>{{ data.SKUCode }}</td>
+            <td>{{ data.purchaseQty }}</td>
+            <td>{{ data.caseQuantity }}</td>
+            <td>{{ data.MRP }}</td>
+            <td>{{ data.BuyerMarginPer }}</td>
+            <td>{{ data.buyerMarginAmt }}</td>
+            <td>{{ data.billingPrice }}</td>
+            <td>{{ data.taxRate }}</td>
+            <td>{{ data.SGSTAmt }}</td>
+            <td>{{ data.CGSTAmt }}</td>
+            <td>{{ data.IGSTAmt }}</td>
+            <td>{{ data.totalPrice }}</td>
+            <td>{{ data.secondaryBarcode }}</td>
+            <td>{{ data.packingLabel }}</td>
+            <td>{{ data.documentUpload }}</td>
+            <td>{{ data.deliveryLocation }}</td>
           </tr>
         </template>
       </Table>

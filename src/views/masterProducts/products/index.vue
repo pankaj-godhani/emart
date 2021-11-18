@@ -11,7 +11,7 @@
 <!--            <a href="public/sample.xlsx" class="btn base-button btn-default" target="_self" download="">
               Sample Excel
             </a>-->
-            <button type="button" class="btn base-button btn-default" @click="onExport">
+            <button type="button" class="btn base-button btn-default" @click="onExportApi">
                Sample Excel
             </button>
             <button type="button" class="btn base-button btn-default">
@@ -76,7 +76,8 @@ import ProductList from "../../../components/masterProducts/products/_list";
 import sampleData from "./sampleExcel";
 import { useToast } from "vue-toastification";
 import axios from "axios";
-import XLSX from 'xlsx'
+import XLSX from 'xlsx';
+import FileSaver from 'file-saver';
 export default {
   components: {
     ProductList,
@@ -108,7 +109,7 @@ export default {
         type: type,
         closeButton: false,
         position: "top-right",
-        timeout: 1500,
+        timeout: 1700,
       });
     },
     uploadExcel() {
@@ -122,24 +123,40 @@ export default {
         })
         .then((response) => {
           this.status = response.status;
-          this.notification("Uploaded Successfully", "success");
+          if (this.status == 200) {
+            this.notification("Uploaded Successfully", "success");
+          } else if (this.status == 201) {
+            this.notification("" + response.data.message, "error");
+          }
         })
         .catch(() => {
-          this.notification("EANCode already exist", "error");
+          this.notification("Something went wrong", "error");
         });
       this.$refs.file.value = null;
     },
-    onExport(){
-        var sampleWS = XLSX.utils.json_to_sheet(this.sampleData);
-        var wb = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(wb, sampleWS, 'sample') // sheetAName is name of Worksheet
+    onExport() {
+      var sampleWS = XLSX.utils.json_to_sheet(this.sampleData);
+      var wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb, sampleWS, 'sample') // sheetAName is name of Worksheet
 
-        // export Excel file
-        XLSX.writeFile(wb, 'sample.xlsx') // name of the file is 'book.xlsx'
-      }
+      // export Excel file
+      XLSX.writeFile(wb, 'sample.xlsx') // name of the file is 'book.xlsx'
+    },
+    onExportApi() {
+      axios.get(`https://vuecrud-etj2v.ondigitalocean.app/api/product/download`,{
+        responseType: 'blob',
+      })
+        .then((response) => {
+          FileSaver.saveAs(response.data, 'Export2.xlsx');
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     }
 
 
+  }
 };
 </script>
 
