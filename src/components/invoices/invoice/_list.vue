@@ -64,11 +64,17 @@
           label="Net Waight in kgs"
         >
         </el-table-column>
+        <el-table-column min-width="160" prop="salary" label="Gross Weight in Kgs">
+        </el-table-column>
         <el-table-column min-width="150" prop="salary" label="Invoice Value">
         </el-table-column>
         <el-table-column min-width="150" prop="salary" label="CGST Value">
         </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="Payment Received">
+        <el-table-column min-width="150" prop="salary" label="SGST Value">
+        </el-table-column>
+        <el-table-column min-width="150" prop="salary" label="IGST Value">
+        </el-table-column>
+        <el-table-column min-width="110" prop="salary" label="Payment Status">
         </el-table-column>
 
         <el-table-column min-width="180px" align="right" label="Actions">

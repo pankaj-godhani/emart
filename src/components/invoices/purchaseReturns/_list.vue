@@ -58,21 +58,11 @@
         </el-table-column>
         <el-table-column min-width="150" prop="salary" label="Invoice Value">
         </el-table-column>
-        <el-table-column
-          min-width="200"
-          prop="salary"
-          label="Quantity Purchased"
-        >
+        <el-table-column min-width="200" prop="salary" label="Quantity Purchased">
         </el-table-column>
-        <el-table-column
-          min-width="200"
-          prop="salary"
-          label="Quantity Returned"
-        >
+        <el-table-column min-width="200" prop="salary" label="Quantity Returned">
         </el-table-column>
         <el-table-column min-width="120" prop="salary" label="Reason of Return">
-        </el-table-column>
-        <el-table-column min-width="120" prop="salary" label="Debit Note ID">
         </el-table-column>
         <el-table-column min-width="130" prop="salary" label="Credit Note ID">
         </el-table-column>
