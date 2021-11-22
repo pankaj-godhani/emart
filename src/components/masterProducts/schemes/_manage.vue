@@ -23,7 +23,7 @@
               <input
                 class="form-control"
                 placeholder="Enter EAN Code"
-                v-model="form.EANCode"
+                v-model="EANCode"
                 @keyup="fetchEANCode"
               />
             </div>
@@ -123,7 +123,7 @@
               <input
                 class="form-control"
                 placeholder="Scheme Number-Auto Generated"
-                v-model="form.schemaNumber"
+                v-model="schemaNumber"
               />
             </div>
           </div>
@@ -170,11 +170,13 @@ export default {
   data() {
     return {
       error: "",
+      EANCode: "",
+      schemaNumber: Math.floor(Math.random() * 100000),
       form: {
         schemaName: "",
         date: "",
         productName: "",
-        EANCode: "",
+
         quantity: "",
         freeQuantity: "",
         netPTR: "",
@@ -183,7 +185,6 @@ export default {
         dateOfAvailability: "",
         nararation: "",
         active: true,
-        schemaNumber: Math.floor(Math.random() * 100000),
       },
     };
   },
@@ -211,14 +212,20 @@ export default {
       axios
         .get(`api/product/getProductDetails?`, {
           params: {
-            EANCode: this.form.EANCode,
+            EANCode: this.EANCode,
           },
         })
         .then((response) => {
-          this.form = _.merge(this.form, response.data[0]);
+          console.log(response.data[0].EANCode)
+         // if(response.data[0].EANCode)
+          {
+            this.form = _.merge(this.form, response.data[0]);
+          }
+
         })
         .catch((error) => {
           this.error = error;
+          this.form={}
         });
     },
 
@@ -228,7 +235,7 @@ export default {
           schemaName: this.form.schemaName,
           date: this.form.date,
           productName: this.form.productName,
-          EANCode: this.form.EANCode,
+          EANCode: this.EANCode,
           quantity: this.form.quantity,
           freeQuantity: this.form.freeQuantity,
           netPTR: this.form.netPTR,
@@ -237,7 +244,7 @@ export default {
           validity: this.form.dateOfAvailability,
           nararation: this.form.nararation,
           active: this.form.active,
-          schemaNumber: this.form.schemaNumber,
+          schemaNumber: this.schemaNumber,
         })
         .then(() => {
           this.$router.go(-1);
