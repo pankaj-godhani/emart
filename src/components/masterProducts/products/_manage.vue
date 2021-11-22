@@ -483,7 +483,7 @@ export default {
       axios
         .put(`api/product/edit/${this.productDetails._id}`, this.productDetails)
         .then(() => {
-          this.notification("Uploaded Successfully", "success");
+          this.notification("Product Updated Successfully", "success");
           this.$router.go(-1);
         });
     },
