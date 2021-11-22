@@ -124,7 +124,7 @@ export default {
         .then((response) => {
           this.status = response.status;
           if (this.status == 200) {
-            this.notification("Uploaded Successfully", "success");
+            this.notification("File Uploaded Successfully", "success");
           } else if (this.status == 201) {
             this.notification("" + response.data.message, "error");
           }
