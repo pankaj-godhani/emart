@@ -169,6 +169,7 @@ export default {
   props: ["id"],
   data() {
     return {
+      status:"",
       error: "",
       EANCode: "",
       schemaNumber: Math.floor(Math.random() * 100000),
@@ -176,7 +177,6 @@ export default {
         schemaName: "",
         date: "",
         productName: "",
-
         quantity: "",
         freeQuantity: "",
         netPTR: "",
@@ -216,12 +216,7 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response.data[0].EANCode)
-         // if(response.data[0].EANCode)
-          {
             this.form = _.merge(this.form, response.data[0]);
-          }
-
         })
         .catch((error) => {
           this.error = error;
@@ -246,18 +241,28 @@ export default {
           active: this.form.active,
           schemaNumber: this.schemaNumber,
         })
-        .then(() => {
-          this.$router.go(-1);
+        .then((response) => {
+          console.log(response);
+          this.status=response.status;
+          if(this.status==200){
+            this.notification("Scheme Uploaded Successfully", "success");
+            this.goBack();
+          }
+          else if(this.status==201){
+            this.notification(""+response.data.message, "error");
+          }
         })
         .catch((error) => {
           this.error = error;
+          //this.goBack();
+          this.notification("Something went wrong", "error");
         });
       this.form = {};
     },
 
     update() {
       axios.put(`api/schema/edit/${this.id}`, this.form).then(() => {
-        this.$router.go(-1);
+        this.goBack();
       });
     },
   },

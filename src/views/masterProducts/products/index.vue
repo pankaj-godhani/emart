@@ -74,7 +74,7 @@
 <script>
 import ProductList from "../../../components/masterProducts/products/_list";
 import sampleData from "./sampleExcel";
-import { useToast } from "vue-toastification";
+//import { useToast } from "vue-toastification";
 import axios from "axios";
 import XLSX from 'xlsx';
 import FileSaver from 'file-saver';
@@ -101,17 +101,6 @@ export default {
         this.productData = response.data;
       });
     },
-    notification(content, type) {
-      const toast = useToast();
-      toast(content, {
-        hideProgressBar: true,
-        icon: false,
-        type: type,
-        closeButton: false,
-        position: "top-right",
-        timeout: 1700,
-      });
-    },
     uploadExcel() {
       const formData = new FormData();
       formData.append("file", this.excel);
@@ -133,14 +122,6 @@ export default {
           this.notification("Something went wrong", "error");
         });
       this.$refs.file.value = null;
-    },
-    onExport() {
-      var sampleWS = XLSX.utils.json_to_sheet(this.sampleData);
-      var wb = XLSX.utils.book_new()
-      XLSX.utils.book_append_sheet(wb, sampleWS, 'sample') // sheetAName is name of Worksheet
-
-      // export Excel file
-      XLSX.writeFile(wb, 'sample.xlsx') // name of the file is 'book.xlsx'
     },
     onExportApi() {
       axios.get(`https://vuecrud-etj2v.ondigitalocean.app/api/product/download`,{

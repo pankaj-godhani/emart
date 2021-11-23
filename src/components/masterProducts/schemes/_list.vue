@@ -77,7 +77,7 @@
           </tr>
         </template>
         <template #tbody>
-          <tr v-for="(data, index) in schemeData" :key="data._id">
+          <tr v-for="(data, index) in pagedData" :key="data._id">
             <td>{{ index + 1 }}</td>
             <!--                    <td>{{data._id}}</td>-->
             <td>{{ data.schemaNumber }}</td>
@@ -153,9 +153,31 @@ export default {
   components: {
     BasePagination,
   },
-  computed: {},
+  computed: {
+    pagedData() {
+      return this.schemeData.slice(this.from, this.to);
+    },
+
+    to() {
+      let highBound = this.from + this.pagination.perPage;
+      if (this.total < highBound) {
+        highBound = this.total;
+      }
+      return highBound;
+    },
+    from() {
+      return this.pagination.perPage * (this.pagination.currentPage - 1);
+    },
+    total() {
+      if(this.schemeData.length > 0)
+      {
+        return this.schemeData.length
+      }
+    },
+  },
   data() {
     return {
+      currentPage:1,
       visibleScheme: false,
       error: "",
       status: "",
@@ -166,9 +188,8 @@ export default {
       },
 
       pagination: {
-        perPage: 10,
+        perPage: 8,
         currentPage: 1,
-        perPageOptions: [5, 10, 25, 50],
         total: 0,
       },
       schemeData: [],
@@ -193,7 +214,6 @@ export default {
         .then((response) => {
           this.schemeData = response.data;
           this.status = response.status;
-          console.log(response);
           if(this.status===200){
             this.visibleScheme = true;
           }

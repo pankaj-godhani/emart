@@ -209,7 +209,8 @@ export default {
           VehicleNumber: this.form.VehicleNumber,
         })
         .then(() => {
-          this.$router.go(-1);
+          //this.$router.go(-1);
+          this.goBack();
         })
         .catch((error) => {
           this.error = error;
@@ -219,7 +220,8 @@ export default {
 
     update() {
       axios.put(`api/desPatchNote/edit/${this.id}`, this.form).then(() => {
-        this.$router.go(-1);
+       // this.$router.go(-1);
+        this.goBack();
       });
     },
   },

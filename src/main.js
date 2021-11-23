@@ -25,6 +25,7 @@ import "vue-toastification/dist/index.css";
 window.axios = require("axios");
 import Axios from "axios";
 import excel from "vue-excel-export";
+import GlobalMixin from "./globalMixin";
 
 Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 
@@ -36,4 +37,5 @@ appInstance.use(moment);
 appInstance.use(excel);
 appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);
+appInstance.mixin(GlobalMixin);
 appInstance.mount("#app");
