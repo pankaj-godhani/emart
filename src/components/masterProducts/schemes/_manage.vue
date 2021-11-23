@@ -6,19 +6,6 @@
           <h3><b>Group Heading 1</b></h3>
           <div class="row mt-3">
             <div class="col-sm form-group">
-              <label class="form-control-label">Scheme Name</label>
-              <input
-                v-model="form.schemaName"
-                class="form-control"
-                type="text"
-                placeholder="Scheme Name"
-              />
-            </div>
-            <div class="col-sm">
-              <label class="form-control-label">Date</label>
-              <input class="form-control" type="date" v-model="form.date" />
-            </div>
-            <div class="col-sm">
               <label class="form-control-label">EAN Code</label>
               <input
                 class="form-control"
@@ -26,6 +13,20 @@
                 v-model="EANCode"
                 @keyup="fetchEANCode"
               />
+            </div>
+            <div class="col-sm">
+              <label class="form-control-label">Date</label>
+              <input class="form-control" type="date" v-model="form.date" />
+            </div>
+            <div class="col-sm">
+              <label class="form-control-label">Scheme Name</label>
+              <input
+                v-model="form.schemaName"
+                class="form-control"
+                type="text"
+                placeholder="Scheme Name"
+              />
+
             </div>
           </div>
           <div class="row">
