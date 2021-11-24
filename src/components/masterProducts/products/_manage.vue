@@ -126,7 +126,7 @@
                   <a href="#" class=""
                         @click="visibleCard=true"
                         data-toggle="modal"
-                        data-target="#add"
+                        data-target="#myModal"
                   >
                     <h6 class="text-primary mt-1">Create Scheme</h6>
                   </a>
@@ -197,9 +197,10 @@ export default {
     return {
       imageURL: null,
       EANCode: "",
+      //optionValue: "createScheme",
       visibleCard:false,
       productDetails: {
-        schemes:"",
+        schemes: "",
         margin: "",
         MRP: "",
       },
@@ -210,8 +211,25 @@ export default {
       percentage: "",
     };
   },
+/*  watch: {
+    'productDetails.schemes'(val) {
+      if (val === "Create Scheme") {
+        //this.$refs.modalName.openModal();
+
+        this.visibleCard=true;
+
+        //alert('Modal opened');
+      }
+    }
+  },*/
 
   methods: {
+    OnDropdownSelectChanged(e) {
+      // This code is used to show the modal
+      if(e.target.value==='Create Scheme')
+      $("#myModal").show();
+    },
+
     calPercentage() {
       this.productDetails.margin = (this.productDetails.MRP * this.percentage) / 100;
     },

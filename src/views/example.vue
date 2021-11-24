@@ -148,7 +148,29 @@
           </button>
         </template>
       </DataModal>
+
     </div>
+    <button
+      type="button"
+      class="btn base-button btn-default"
+      @click="visible=true"
+    >
+      Open Modal!
+    </button>
+
+    <div>
+      <button id="show-modal" @click="visible = true">Show Modal</button>
+    </div>
+    <div v-if="visible">
+      <NewModal >
+        <div class="modal-content">
+          <h1>This is a Modal Header</h1>
+          <p>This is a modal message</p>
+        </div>
+      </NewModal>
+    </div>
+
+
   </div>
 </template>
 <script>
@@ -156,11 +178,17 @@ import axios from "axios";
 
 import "flatpickr/dist/flatpickr.css";
 import { useToast } from "vue-toastification";
+import 'ant-design-vue/dist/antd.css';
 export default {
   components: {},
   data() {
     return {
+      index:0,
+      showModal: false,
+     items: ['jack', 'lucy'] ,
+      visible:false,
       visibleCard: false,
+      isModalVisible: false,
       excel: "",
       status: "",
       schemaName: "",
@@ -175,6 +203,20 @@ export default {
     this.fetchSchemes();
   },
   methods: {
+    selectChange(e){
+      if(e.target.value=='Create Scheme'){
+        this.visible=true;
+      }
+    },
+    create(){
+      this.$emit('model.create');
+    },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
     handleFileUpload() {
       this.excel = this.$refs.file.files[0];
     },
@@ -221,8 +263,7 @@ export default {
         });
     },
     submit() {
-      // const formData = new FormData();
-      //formData.append('schemaName',this.schemaName);
+
       console.log(this.schemaName);
       axios
         .post(`/api/schema/create`, { schemaName: this.schemaName })
