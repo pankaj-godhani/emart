@@ -28,6 +28,11 @@ import excel from "vue-excel-export";
 import GlobalMixin from "./globalMixin";
 import { Select,Divider, } from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
+import lodash from 'lodash';
+import _ from "lodash";
+import 'jquery/src/jquery.js'
+import 'bootstrap/dist/js/bootstrap.min.js'
+
 
 Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 
@@ -43,3 +48,6 @@ appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);
 appInstance.mixin(GlobalMixin);
 appInstance.mount("#app");
+window._ = lodash;
+appInstance.use(_);
+

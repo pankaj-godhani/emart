@@ -134,6 +134,8 @@
                 <select
                   class="form-control"
                   v-model="productDetails.schemes"
+                  data-toggle="modal"
+                  data-target="#myModal"
                 >
                   <option  value="" selected disabled >select scheme</option>
                   <option v-for="schemes in productDetails.schemaList" :key="schemes._id">
@@ -146,7 +148,7 @@
                 <input
                   class="form-control"
                   name="text"
-                  placeholder="Enter Margin of Product"
+                  placeholder="Enter Percentage for margin"
                   v-model="percentage"
                   @keyup="calPercentage"
                 />
@@ -197,7 +199,6 @@ export default {
     return {
       imageURL: null,
       EANCode: "",
-      //optionValue: "createScheme",
       visibleCard:false,
       productDetails: {
         schemes: "",
@@ -211,25 +212,13 @@ export default {
       percentage: "",
     };
   },
-/*  watch: {
-    'productDetails.schemes'(val) {
-      if (val === "Create Scheme") {
-        //this.$refs.modalName.openModal();
-
-        this.visibleCard=true;
-
-        //alert('Modal opened');
-      }
-    }
-  },*/
 
   methods: {
-    OnDropdownSelectChanged(e) {
-      // This code is used to show the modal
-      if(e.target.value==='Create Scheme')
-      $("#myModal").show();
+    selectedOption(e){
+      if(e.target.value=='Create Scheme'){
+       this.visibleCard=true;
+      }
     },
-
     calPercentage() {
       this.productDetails.margin = (this.productDetails.MRP * this.percentage) / 100;
     },
@@ -243,6 +232,7 @@ export default {
         })
         .then((response) => {
           this.productDetails = response.data[0];
+          this.percentage=(this.productDetails.margin*100)/this.productDetails.MRP;
           this.status = response.status;
           if (this.status == 200) {
             this.visibleProductDetails = true;

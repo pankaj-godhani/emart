@@ -164,7 +164,7 @@
 
 <script>
 import axios from "axios";
-import _ from "lodash";
+//import _ from "lodash";
 export default {
   components: {},
   props: ["id"],
@@ -202,7 +202,11 @@ export default {
   methods: {
     fetch() {
       axios.get(`api/schema/get/${this.id}`).then((response) => {
+        console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
+        this.EANCode= response.data[0].EANCode;
+        this.form.dateOfAvailability=response.data[0].validity;
+        this.schemaNumber=response.data[0].schemaNumber;
       });
     },
     submit() {

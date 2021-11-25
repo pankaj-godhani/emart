@@ -23,7 +23,7 @@
               class="btn base-button btn-default"
               @click="visibleCard = true"
               data-toggle="modal"
-              data-target="#add"
+              data-target="#myModal"
             >
               Excel Upload
             </button>
@@ -74,9 +74,7 @@
 <script>
 import ProductList from "../../../components/masterProducts/products/_list";
 import sampleData from "./sampleExcel";
-//import { useToast } from "vue-toastification";
 import axios from "axios";
-import XLSX from 'xlsx';
 import FileSaver from 'file-saver';
 export default {
   components: {

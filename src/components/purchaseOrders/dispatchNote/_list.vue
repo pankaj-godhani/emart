@@ -180,7 +180,6 @@ export default {
       }).then((response) => {
         this.dispatchNoteData = response.data;
         this.status=response.status;
-        console.log(this.status);
         if(this.status==200){
           this.visible=true;
         }

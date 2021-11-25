@@ -155,8 +155,6 @@
 <script>
 
 import axios from "axios";
-import _ from "lodash";
-
 export default {
   components: {},
   props: ["id"],
@@ -209,19 +207,21 @@ export default {
           VehicleNumber: this.form.VehicleNumber,
         })
         .then(() => {
-          //this.$router.go(-1);
           this.goBack();
+          this.notification("Dispatch Note added Successfully","success");
         })
         .catch((error) => {
           this.error = error;
+          this.notification("Something went Wrong","error");
         });
       this.form = {};
     },
 
     update() {
-      axios.put(`api/desPatchNote/edit/${this.id}`, this.form).then(() => {
-       // this.$router.go(-1);
+      axios.put(`api/desPatchNote/edit/${this.id}`, this.form)
+        .then(() => {
         this.goBack();
+        this.notification("Dispatch Note updated Successfully","success");
       });
     },
   },
