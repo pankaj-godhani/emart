@@ -26,10 +26,7 @@ window.axios = require("axios");
 import Axios from "axios";
 import excel from "vue-excel-export";
 import GlobalMixin from "./globalMixin";
-import { Select,Divider, } from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.css';
-import 'jquery/src/jquery.js'
-import 'bootstrap/dist/js/bootstrap.min.js'
+
 
 
 Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
@@ -37,7 +34,6 @@ Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 const options = { containerClassName: "ct-notification" };
 
 const appInstance = createApp(App);
-appInstance.use(Select);
 appInstance.use(Divider);
 appInstance.use(router);
 appInstance.use(moment);
