@@ -34,7 +34,6 @@ Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 const options = { containerClassName: "ct-notification" };
 
 const appInstance = createApp(App);
-appInstance.use(Divider);
 appInstance.use(router);
 appInstance.use(moment);
 appInstance.use(excel);
