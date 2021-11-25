@@ -48,6 +48,6 @@ appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);
 appInstance.mixin(GlobalMixin);
 appInstance.mount("#app");
-window._ = lodash;
+
 appInstance.use(_);
 
