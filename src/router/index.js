@@ -18,6 +18,7 @@ import DispatchNote from "../views/purchaseOrders/dispatchNote/index";
 import DispatchNoteCreate from "../views/purchaseOrders/dispatchNote/create";
 import DispatchNoteEdit from "../views/purchaseOrders/dispatchNote/edit";
 import Example from "../views/example";
+import Login from "../views/auth/Login";
 
 // Dashboard pages
 
@@ -152,6 +153,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/login",
+    name: "Login",
+    components: { default: Login },
+  }
 ];
 
 const router = createRouter({
