@@ -27,10 +27,7 @@ import Axios from "axios";
 import excel from "vue-excel-export";
 import GlobalMixin from "./globalMixin";
 
-
-
 Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
-
 const options = { containerClassName: "ct-notification" };
 
 const appInstance = createApp(App);

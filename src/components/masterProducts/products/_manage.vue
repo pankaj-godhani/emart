@@ -134,8 +134,6 @@
                 <select
                   class="form-control"
                   v-model="productDetails.schemes"
-                  data-toggle="modal"
-                  data-target="#myModal"
                 >
                   <option  value="" selected disabled >select scheme</option>
                   <option v-for="schemes in productDetails.schemaList" :key="schemes._id">
