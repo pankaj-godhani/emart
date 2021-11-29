@@ -82,7 +82,7 @@
             <!--                    <td>{{data._id}}</td>-->
             <td>{{ data.schemaNumber }}</td>
             <td>{{ data.schemaName }}</td>
-            <td>{{ data.date }}</td>
+            <td>{{ changeDateFormat(data.date) }}</td>
             <td>{{ data.EANCode }}</td>
             <td>{{ data.productName }}</td>
             <td>{{ data.quantity }}</td>
@@ -91,7 +91,7 @@
             <td>{{ data.discount }}</td>
             <td>{{ data.netPTR }}</td>
             <td>{{ data.nararation }}</td>
-            <td>{{ data.validity }}</td>
+            <td>{{ changeDateFormat(data.validity) }}</td>
             <td>{{ data.active }}</td>
             <td>
               <div class="d-flex">

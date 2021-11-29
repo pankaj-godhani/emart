@@ -96,7 +96,7 @@
             <!--            <td>{{data._id}}</td>-->
             <td>{{ data.EANCode }}</td>
             <td>{{ data.HSNCode }}</td>
-            <td>{{ data.dateOfAvailability }}</td>
+            <td>{{ changeDateFormat(data.dateOfAvailability)}}</td>
             <td>{{ data.brandName }}</td>
             <td>{{ data.SKUCode }}</td>
             <td>{{ data.productCategory }}</td>
@@ -203,7 +203,6 @@ export default {
       this.form = {};
       this.fetchProduct();
     },
-
     fetchProduct() {
       axios
         .get(`api/product/get`, {

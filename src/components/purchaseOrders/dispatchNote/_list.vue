@@ -76,9 +76,9 @@
               <td>{{ index + 1 }}</td>
               <td>{{ data._id }}</td>
               <td>{{ data.DCNumber }}</td>
-              <td>{{ data.DateOfDeliverChallan }}</td>
+              <td>{{ changeDateFormat(data.DateOfDeliverChallan) }}</td>
               <td>{{ data.PONumber }}</td>
-              <td>{{ data.PODate }}</td>
+              <td>{{ changeDateFormat(data.PODate) }}</td>
               <td>{{ data.NumberOfCarton }}</td>
               <td>{{ data.TransporterDetails }}</td>
               <td>{{ data.DriverName }}</td>

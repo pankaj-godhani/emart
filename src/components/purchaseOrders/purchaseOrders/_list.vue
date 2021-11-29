@@ -92,7 +92,7 @@
           <tr v-for="(data, index) in purchaseOrdersData" :key="data._id">
             <td>{{ index + 1 }}</td>
             <!--                  <td>{{data._id}}</td>-->
-            <td>{{ data.PODate  }}</td>
+            <td>{{ changeDateFormat(data.PODate)  }}</td>
             <td>{{ data.PONumber }}</td>
             <td>{{ data.NoOfItems }}</td>
             <td>{{ data.value }}</td>

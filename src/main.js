@@ -14,7 +14,6 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import moment from "moment";
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -32,10 +31,8 @@ const options = { containerClassName: "ct-notification" };
 
 const appInstance = createApp(App);
 appInstance.use(router);
-appInstance.use(moment);
 appInstance.use(excel);
 appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);
 appInstance.mixin(GlobalMixin);
 appInstance.mount("#app");
-

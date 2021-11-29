@@ -28,7 +28,7 @@
               Excel Upload
             </button>
             <router-link :to="{ name: 'ProductCreate' }">
-              <base-button type="default">Product Details</base-button>
+              <base-button type="default">Add Product</base-button>
             </router-link>
           </div>
           <div v-if="visibleCard">
@@ -112,6 +112,7 @@ export default {
           this.status = response.status;
           if (this.status == 200) {
             this.notification("File Uploaded Successfully", "success");
+            this.$router.go();
           } else if (this.status == 201) {
             this.notification("" + response.data.message, "error");
           }

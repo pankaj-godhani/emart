@@ -1,4 +1,5 @@
 import { useToast } from "vue-toastification";
+import moment from "moment";
 
 export default {
   data(){
@@ -19,6 +20,10 @@ export default {
 
     goBack() {
       this.$router.go(-1);
+    },
+
+    changeDateFormat(date){
+      return moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
     },
   }
 }
