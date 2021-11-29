@@ -96,7 +96,7 @@
                   name="text"
                   placeholder="Enter MRP of Product"
                   v-model="productDetails.MRP"
-                  @keyup="calPercentage"
+                  @keyup="calMargin"
                 />
               </div>
               <div class="col-sm">
@@ -142,13 +142,13 @@
                 </select>
               </div>
               <div class="col-sm-4">
-                <h4 class="text-dark">Percentage</h4>
+                <h4 class="text-dark">Percentage(%)</h4>
                 <input
                   class="form-control"
                   name="text"
                   placeholder="Enter Percentage for margin"
                   v-model="percentage"
-                  @keyup="calPercentage"
+                  @keyup="calMargin"
                 />
               </div>
               <div class="col-sm-4">
@@ -158,6 +158,7 @@
                   name="text"
                   placeholder="Enter Margin of Product"
                   v-model="productDetails.margin"
+                  @keyup="calPercentage"
                 />
               </div>
             </div>
@@ -217,8 +218,11 @@ export default {
        this.visibleCard=true;
       }
     },
-    calPercentage() {
+    calMargin(){
       this.productDetails.margin = (this.productDetails.MRP * this.percentage) / 100;
+    },
+    calPercentage() {
+      this.percentage=(this.productDetails.margin*100)/this.productDetails.MRP;
     },
     fetch() {
       this.loading = true;
