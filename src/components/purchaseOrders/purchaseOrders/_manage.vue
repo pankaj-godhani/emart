@@ -4,6 +4,22 @@
       <form>
         <div>
           <div>
+            <div class="text-right">
+              <button
+                type="button"
+                class="btn base-button btn-default"
+                @click="update"
+              >
+                Packing Label
+              </button>
+              <button
+                type="button"
+                class="btn base-button btn-default"
+                @click="update"
+              >
+                Generate Package
+              </button>
+            </div>
             <div class="row mt-4">
               <div class="col-md-4">
                 <h4 class="text-dark">PO Number</h4>
@@ -107,22 +123,7 @@
               <div class="w-100"></div>
             </div>
 
-            <div class=" mt-4">
-              <button
-                type="button"
-                class="btn base-button btn-default"
-                @click="update"
-              >
-                Packing Label
-              </button>
-              <button
-                type="button"
-                class="btn base-button btn-default"
-                @click="update"
-              >
-                Generate Package
-              </button>
-            </div>
+
           </div>
         </div>
       </form>

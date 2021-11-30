@@ -7,10 +7,6 @@
             <h3 class="mb-0">Products</h3>
           </div>
           <div class="col-lg-8 text-right">
-
-<!--            <a href="public/sample.xlsx" class="btn base-button btn-default" target="_self" download="">
-              Sample Excel
-            </a>-->
             <button type="button" class="btn base-button btn-default" @click="onExportApi">
                Sample Excel
             </button>
@@ -43,6 +39,9 @@
                       @change="handleFileUpload"
                       name="file"
                     />
+                    <label class=" "
+                           style="font-size: 13px;position: absolute;top: 0px;
+                     font-family: 'Roboto', sans-serif;font-weight: 300;">Upload only .xlsx file</label>
                   </form>
                 </div>
               </template>
