@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataModal :title="'Add Scheme'">
+    <DataModal :title="'Add Scheme'" @close="$emit('close')">
       <template v-slot:body>
         <div class="container ct-example-row">
           <form>
@@ -141,6 +141,7 @@
           type="button"
           class="btn btn-secondary"
           data-dismiss="modal"
+          @click="$emit('close')"
         >
           Close
         </button>
@@ -162,11 +163,11 @@
 import axios from "axios";
 export default {
   name: "_manageScheme",
-  props:['EANCode'],
+  props:['EANCode','form'],
   data(){
     return{
       status:"",
-      form:{
+      /*form:{
         schemaName: "",
         date: "",
         productName: "",
@@ -179,12 +180,21 @@ export default {
         nararation: "",
         active: true,
         schemaNumber: Math.floor(Math.random() * 100000),
-      },
+      },*/
     }
   },
   emits:['refresh'],
+ /* watch:{
+    productDetails(){
+      this.form=this.productDetails;
+    },
+  },*/
+  mounted(){
+    this.form.schemaNumber=Math.floor(Math.random() * 100000);
+  },
   methods:{
     storeScheme() {
+
       axios
         .post(`api/schema/create`, {
           schemaName: this.form.schemaName,
@@ -212,11 +222,13 @@ export default {
           }
 
           this.$emit('refresh');
+          this.$emit('close');
         })
         .catch((error) => {
           this.error = error;
           this.notification("Something went wrong", "error");
           this.$emit('refresh');
+          this.$emit('close');
         });
       //  this.form = {};
     },

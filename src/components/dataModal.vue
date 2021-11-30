@@ -1,12 +1,12 @@
 <template>
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <span>
             <h5 class="modal-title">{{ title }}</h5>
           </span>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="$emit('close')">
             <span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">

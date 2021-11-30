@@ -79,7 +79,7 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Date of Availability</h4>
-                <label class="form-control-label">{{ productDetails.dateOfAvailability }}</label>
+                <label class="form-control-label">{{ changeDateFormat(productDetails.dateOfAvailability) }}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Active</h4>
@@ -163,7 +163,7 @@
               </div>
             </div>
             <div v-if="visibleCard">
-              <ManageScheme :EANCode="EANCode" @refresh="fetch"></ManageScheme>
+              <ManageScheme :EANCode="EANCode" :form="productDetails" @refresh="fetch" @close="visibleCard=false"></ManageScheme>
             </div>
 
             <div class="text-center mt-4">
@@ -191,6 +191,7 @@
 <script>
 
 import axios from "axios";
+import _ from "lodash";
 import ManageScheme from "./_manageScheme"
 export default {
   components: {ManageScheme},
@@ -233,7 +234,7 @@ export default {
           },
         })
         .then((response) => {
-          this.productDetails = response.data[0];
+          this.productDetails = _.merge(this.productDetails, response.data[0]);
           this.percentage=(this.productDetails.margin*100)/this.productDetails.MRP;
           this.status = response.status;
           if (this.status == 200) {

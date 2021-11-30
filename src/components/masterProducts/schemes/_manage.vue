@@ -173,6 +173,7 @@ export default {
       status:"",
       error: "",
       EANCode: "",
+      productData:[],
       schemaNumber: Math.floor(Math.random() * 100000),
       form: {
         schemaName: "",
@@ -214,24 +215,26 @@ export default {
     },
 
     fetchEANCode() {
-      axios
-        .get(`api/product/getProductDetails?`, {
+      axios.get(`api/product/getProductDetails`, {
           params: {
             EANCode: this.EANCode,
           },
         })
         .then((response) => {
+          this.productData=response.data[0];
+          console.log(this.productData,'here-success');
             this.form = _.merge(this.form, response.data[0]);
+            this.form.schemaName=response.data[0].schemes;
         })
         .catch((error) => {
+          console.log(error,'here-error');
           this.error = error;
           this.form={}
         });
     },
 
     store() {
-      axios
-        .post(`api/schema/create`, {
+      axios.post(`api/schema/create`, {
           schemaName: this.form.schemaName,
           date: this.form.date,
           productName: this.form.productName,

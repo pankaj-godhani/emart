@@ -14,6 +14,7 @@ import PurchaseReturns from "../views/invoices/purchaseReturns/index";
 import Debit from "../views/invoices/debit/index";
 import Credit from "../views/invoices/credit/index";
 import PurchaseOrders from "../views/purchaseOrders/purchaseOrders/index";
+import PurchaseOrdersCreate from "../views/purchaseOrders/purchaseOrders/create";
 import DispatchNote from "../views/purchaseOrders/dispatchNote/index";
 import DispatchNoteCreate from "../views/purchaseOrders/dispatchNote/create";
 import DispatchNoteEdit from "../views/purchaseOrders/dispatchNote/edit";
@@ -115,6 +116,15 @@ const routes = [
         path: "/purchase-orders",
         name: "PurchaseOrders",
         components: { default: PurchaseOrders },
+        meta: {
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/purchase-orders/details/:id",
+        name: "PurchaseOrdersCreate",
+        components: { default: PurchaseOrdersCreate },
         meta: {
           navbarType: "light",
         },

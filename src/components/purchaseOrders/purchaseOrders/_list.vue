@@ -89,9 +89,8 @@
           </tr>
         </template>
         <template #tbody>
-          <tr v-for="(data, index) in purchaseOrdersData" :key="data._id">
+          <tr  v-for="(data, index) in purchaseOrdersData" @click="goToData(data._id)">
             <td>{{ index + 1 }}</td>
-            <!--                  <td>{{data._id}}</td>-->
             <td>{{ changeDateFormat(data.PODate)  }}</td>
             <td>{{ data.PONumber }}</td>
             <td>{{ data.NoOfItems }}</td>
@@ -120,6 +119,7 @@
             <td>{{ data.documentUpload }}</td>
             <td>{{ data.deliveryLocation }}</td>
           </tr>
+
         </template>
       </Table>
     </div>
@@ -176,6 +176,9 @@ export default {
     this.fetchPurchaseOrders();
   },
   methods: {
+    goToData(id) {
+      this.$router.push({ name: 'PurchaseOrdersCreate', params: { id: id } });
+    },
     fetchPurchaseOrders() {
       axios
         .get(`api/purChaseOrder/get`, {
@@ -209,5 +212,8 @@ export default {
 <style>
 .no-border-card .card-footer {
   border-top: 0;
+}
+.btn-full {
+  display: block; width: 100%; height: 100%;
 }
 </style>
