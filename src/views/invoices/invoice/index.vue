@@ -7,7 +7,10 @@
             <h3 class="mb-0">Invoices</h3>
           </div>
           <div class="col-lg-6 col-5 text-right">
-            <base-button type="default">Add Invoice</base-button>
+            <router-link :to="{name:'InvoiceCreate'}">
+              <base-button type="default">Add Invoice</base-button>
+            </router-link>
+
           </div>
         </div>
         <InvoiceList></InvoiceList>

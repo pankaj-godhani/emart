@@ -10,6 +10,8 @@ import Schemes from "../views/masterProducts/schemes/index";
 import SchemesCreate from "../views/masterProducts/schemes/create";
 import SchemesEdit from "../views/masterProducts/schemes/edit";
 import Invoice from "../views/invoices/invoice/index";
+import InvoiceCreate from "../views/invoices/invoice/create";
+import InvoiceEdit from "../views/invoices/invoice/edit";
 import PurchaseReturns from "../views/invoices/purchaseReturns/index";
 import Debit from "../views/invoices/debit/index";
 import Credit from "../views/invoices/credit/index";
@@ -81,6 +83,24 @@ const routes = [
         path: "/invoices/invoice",
         name: "Invoice",
         components: { default: Invoice },
+        meta: {
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/invoices/invoice/create",
+        name: "InvoiceCreate",
+        components: { default: InvoiceCreate },
+        meta: {
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/invoices/invoice/edit/:id",
+        name: "InvoiceEdit",
+        components: { default: InvoiceEdit },
         meta: {
           navbarType: "light",
         },

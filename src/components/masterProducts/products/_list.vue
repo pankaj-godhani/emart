@@ -67,9 +67,9 @@
     </form>
     <div v-if="visible">
       <Table>
-        <template #thead>
-          <tr>
-            <th>Sr No</th>
+        <template v-slot:thead>
+          <tr class="thead">
+            <th >Sr No</th>
             <!--            <th>ID</th>-->
             <th>EAN Code</th>
             <th>HSN Code</th>
@@ -90,7 +90,7 @@
             <th>Selling Price</th>
           </tr>
         </template>
-        <template #tbody>
+        <template v-slot:tbody>
           <tr v-for="(data, index) in pagedData" :key="data._id">
             <td>{{ index + 1 }}</td>
             <!--            <td>{{data._id}}</td>-->
@@ -231,8 +231,12 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .no-border-card .card-footer {
   border-top: 0;
+}
+tr th{
+  font-size: 80%;
+  font-weight: bold;
 }
 </style>

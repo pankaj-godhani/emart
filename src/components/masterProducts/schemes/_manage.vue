@@ -1,7 +1,7 @@
 <template>
   <card>
     <div class="container ct-example-row">
-      <form @submit="submit" ref="textareaform">
+      <form @submit="submit" >
         <div>
           <h3><b>Group Heading 1</b></h3>
           <div class="row mt-3">
@@ -139,7 +139,6 @@
             <button
               type="button"
               class="btn base-button btn-default"
-              data-dismiss="modal"
               @click.prevent="update"
               v-if="editing"
             >
@@ -148,7 +147,6 @@
             <button
               type="button"
               class="btn base-button btn-default"
-              data-dismiss="modal"
               @click.prevent="submit"
               v-else
             >
@@ -271,6 +269,9 @@ export default {
     update() {
       axios.put(`api/schema/edit/${this.id}`, this.form).then(() => {
         this.goBack();
+      })
+      .catch(()=>{
+        this.notification("Something went wrong", "error");
       });
     },
   },
