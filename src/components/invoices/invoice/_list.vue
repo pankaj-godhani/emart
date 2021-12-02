@@ -84,7 +84,7 @@
             <td>{{data.CGSTValue}}</td>
             <td>{{data.SGSTValue}}</td>
             <td>{{data.IGSTValue}}</td>
-            <td>{{data.paymentReceived}}</td>
+            <td>2546</td>
             <td>
               <div class="d-flex">
                 <div class="pr-2">
