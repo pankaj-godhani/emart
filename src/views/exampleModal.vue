@@ -1,5 +1,5 @@
 <template>
-  <div class="fade-enter fade-enter-active rounded mx-auto modal-container" v-show="show">
+  <div class=" rounded mx-auto modal-container" style="z-index: 2147483647" v-show="show">
       <div class="modal-header border-bottom">
        <span>
             <h5 class="modal-title">
@@ -44,18 +44,19 @@ export default {
 .fade-enter {
   opacity: 0;
 }
-
-
 .modal-container{
-  top: 100px;
-  left: 200px;
-  width: 500px;
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  box-shadow: 0 0 10px black;
+  transform: translate(-60%, -15%);
   background-color: white;
   position: absolute;
   z-index: 9999;
+
 }
 .modal-body {
-  width: 500px;
+  width: 800px;
   height: 400px;
   overflow: auto;
 }

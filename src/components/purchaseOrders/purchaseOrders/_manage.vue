@@ -8,7 +8,7 @@
               <button
                 type="button"
                 class="btn base-button btn-default"
-                @click="downloadLabel"
+                @click="downloadLabel "
               >
                 Packing Label
               </button>
@@ -33,17 +33,9 @@
                 <h4 class="text-dark">Manufacturing SKU Number </h4>
                 <label class="form-control-label">{{purchaseOrdersData.SKUCode }}</label>
               </div>
-<!--              <div class="col-md-4">
-                <h4 class="text-dark">HSN Code</h4>
-                <label class="form-control-label">{{purchaseOrdersData.HSNCode }}</label>
-              </div>-->
 
               <div class="w-100 mt-4"></div>
 
-<!--              <div class="col-md-4">
-                <h4 class="text-dark">Item Name</h4>
-                <label class="form-control-label">{{purchaseOrdersData.ItemName }}</label>
-              </div>-->
               <div class="col-md-4">
                 <h4 class="text-dark">Number of pieces in one Carton</h4>
                 <label class="form-control-label">sdasd</label>
@@ -148,8 +140,18 @@
         </template>
       </Table>
     </div>
-    <div v-show="invisibleTable">
-      <table id="myTable">
+    <div v-show="invisibleTable" ref="testHtml">
+
+      <h1>e-metro</h1>
+      <div>
+        <h4 style="display: inline-block; margin-right:10px; width: 100px ">PO Number : </h4>
+        <span style="display: inline-block; width: 200px ">{{purchaseOrdersData.PONumber}}</span>
+      </div>
+      <div>
+        <h4 style="display: inline-block; margin-right:10px; width: 100px ">PO Date : </h4>
+        <span style="display: inline-block; width: 200px ">{{changeDateFormat(purchaseOrdersData.PODate) }}</span>
+      </div>
+<!--      <table>
         <thead>
         <tr>
           <th>PO Number</th>
@@ -180,7 +182,7 @@
             <td>{{purchaseOrdersData.ItemName }}</td>
           </tr>
         </tbody>
-      </table>
+      </table>-->
     </div>
   </card>
 </template>
@@ -190,10 +192,13 @@
 import axios from "axios";
 import _ from "lodash";
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import examplePDF from "./examplePDF";
+//import VueHtml2pdf from 'vue-html2pdf'
+//import html from './example.html'
+//import 'jspdf-autotable';
 
 export default {
-  components: {},
+  components: {examplePDF},
   props: ["id"],
   data() {
     return {
@@ -202,6 +207,7 @@ export default {
       purchaseOrdersData:[],
       itemList:[],
       status: "",
+
     };
   },
   mounted(){
@@ -227,7 +233,16 @@ export default {
 
     downloadLabel(){
       const doc = new jsPDF();
-      doc.autoTable({ html: '#myTable' });
+       var margins = {
+        top: 15,
+        bottom: 60,
+        left: 15,
+        width: 522
+      };
+      doc.fromHTML(this.$refs.testHtml, margins.left, margins.top,{
+        'width' : margins.width
+      });
+      //doc.autoTable({ html: '#myTable' });
       doc.save('document.pdf');
     },
     update() {
