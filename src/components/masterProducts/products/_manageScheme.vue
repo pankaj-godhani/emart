@@ -161,6 +161,8 @@
 
 <script>
 import axios from "axios";
+import {mapGetters} from "vuex";
+
 export default {
   name: "_manageScheme",
   props:['EANCode','form'],
@@ -189,6 +191,11 @@ export default {
       this.form=this.productDetails;
     },
   },*/
+  computed:{
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
+  },
   mounted(){
     this.form.schemaNumber=Math.floor(Math.random() * 100000);
   },
@@ -210,6 +217,11 @@ export default {
           nararation: this.form.nararation,
           active: this.form.active,
           schemaNumber: this.form.schemaNumber,
+        },
+        {
+            headers: {
+              'Authorization': this.token
+            },
         })
         .then((response) => {
           this.status=response.status;
@@ -220,7 +232,6 @@ export default {
           else if(this.status==201){
             this.notification(""+response.data.message, "error");
           }
-
           this.$emit('refresh');
           this.$emit('close');
         })

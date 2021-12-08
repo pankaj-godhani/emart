@@ -149,6 +149,8 @@
 <script>
 import axios from "axios";
 import _ from "lodash";
+import {mapGetters} from "vuex";
+
 export default {
   components: {},
   props: ["id"],
@@ -179,13 +181,21 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('auth',{
+      token:'getToken',
+      userID:'getUserID',
+    }),
     editing() {
       return !!this.id;
     },
   },
   methods: {
     fetch() {
-      axios.get(`api/invoice/get/${this.id}`).then((response) => {
+      axios.get(`api/invoice/get/${this.id}`,{
+        headers: {
+          'Authorization': this.token
+        },
+      }).then((response) => {
         console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
       });
@@ -196,6 +206,7 @@ export default {
 
     store() {
       axios.post(`api/invoice/create`, {
+        userID:this.userID,
         PONumber: this.form.PONumber,
         PODate: this.form.PODate,
         invoiceNumber: this.form.invoiceNumber,
@@ -208,6 +219,10 @@ export default {
         SGSTValue: this.form.SGSTValue,
         IGSTValue: this.form.IGSTValue,
         paymentReceived: this.form.paymentReceived,
+      },{
+        headers: {
+          'Authorization': this.token
+        },
       })
         .then((response) => {
           console.log(response);
@@ -230,7 +245,11 @@ export default {
     },
 
     update() {
-      axios.put(`api/invoice/edit/${this.id}`, this.form).then(() => {
+      axios.put(`api/invoice/edit/${this.id}`, this.form,{
+        headers: {
+          'Authorization': this.token
+        },
+      }).then(() => {
         this.notification("Invoice updated successfully", "success");
         this.goBack();
       });

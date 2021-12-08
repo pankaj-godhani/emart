@@ -156,6 +156,8 @@
 
 import axios from "axios";
 import _ from 'lodash';
+import {mapGetters} from "vuex";
+
 export default {
   components: {},
   props: ["id"],
@@ -181,13 +183,21 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('auth',{
+      token:'getToken',
+      userID:'getUserID',
+    }),
     editing() {
       return !!this.id;
     },
   },
   methods: {
     fetch() {
-      axios.get(`api/desPatchNote/get/${this.id}`).then((response) => {
+      axios.get(`api/desPatchNote/get/${this.id}`,{
+        headers: {
+          'Authorization': this.token
+        },
+      }).then((response) => {
         this.form = _.merge(this.form, response.data[0]);
       });
     },
@@ -197,6 +207,7 @@ export default {
     store() {
       axios
         .post(`api/desPatchNote/create`, {
+          userID:this.userID,
           DCNumber: this.form.DCNumber,
           DateOfDeliverChallan: this.form.DateOfDeliverChallan,
           PONumber: this.form.PONumber,
@@ -206,6 +217,10 @@ export default {
           DriverName: this.form.DriverName,
           DriverContact: this.form.DriverContact,
           VehicleNumber: this.form.VehicleNumber,
+        },{
+          headers: {
+            'Authorization': this.token
+          },
         })
         .then(() => {
           this.goBack();
@@ -219,7 +234,11 @@ export default {
     },
 
     update() {
-      axios.put(`api/desPatchNote/edit/${this.id}`, this.form)
+      axios.put(`api/desPatchNote/edit/${this.id}`, this.form,{
+        headers: {
+          'Authorization': this.token
+        },
+      })
         .then(() => {
         this.goBack();
         this.notification("Dispatch Note updated Successfully","success");

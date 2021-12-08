@@ -163,6 +163,7 @@
 <script>
 import axios from "axios";
 import _ from "lodash";
+import {mapGetters} from "vuex";
 export default {
   components: {},
   props: ["id"],
@@ -194,13 +195,21 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('auth',{
+      token:'getToken',
+      userID:'getUserID',
+    }),
     editing() {
       return !!this.id;
     },
   },
   methods: {
     fetch() {
-      axios.get(`api/schema/get/${this.id}`).then((response) => {
+      axios.get(`api/schema/get/${this.id}`,{
+        headers: {
+          'Authorization': this.token
+        },
+      }).then((response) => {
         console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
         this.EANCode= response.data[0].EANCode;
@@ -217,6 +226,9 @@ export default {
           params: {
             EANCode: this.EANCode,
           },
+        headers: {
+          'Authorization': this.token
+        },
         })
         .then((response) => {
           this.productData=response.data[0];
@@ -233,6 +245,7 @@ export default {
 
     store() {
       axios.post(`api/schema/create`, {
+          userID :this.userID,
           schemaName: this.form.schemaName,
           date: this.form.date,
           productName: this.form.productName,
@@ -246,7 +259,11 @@ export default {
           nararation: this.form.nararation,
           active: this.form.active,
           schemaNumber: this.schemaNumber,
-        })
+        },{
+        headers: {
+          'Authorization': this.token
+        },
+      })
         .then((response) => {
           console.log(response);
           this.status=response.status;
@@ -267,7 +284,12 @@ export default {
     },
 
     update() {
-      axios.put(`api/schema/edit/${this.id}`, this.form).then(() => {
+      axios.put(`api/schema/edit/${this.id}`, this.form,{
+        headers: {
+          'Authorization': this.token
+        },
+      }).then(() => {
+        this.notification("Scheme updated successfully", "success");
         this.goBack();
       })
       .catch(()=>{

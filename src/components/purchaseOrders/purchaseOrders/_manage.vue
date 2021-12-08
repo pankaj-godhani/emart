@@ -47,6 +47,7 @@
               <div class="col-md-4">
                 <h4 class="text-dark">Secondary Barcode </h4>
                 <label class="form-control-label">{{purchaseOrdersData.secondaryBarcode }}</label>
+
               </div>
 
               <div class="w-100 mt-4"></div>
@@ -140,50 +141,18 @@
         </template>
       </Table>
     </div>
-    <div v-show="invisibleTable" ref="testHtml">
-
-      <h1>e-metro</h1>
-      <div>
-        <h4 style="display: inline-block; margin-right:10px; width: 100px ">PO Number : </h4>
-        <span style="display: inline-block; width: 200px ">{{purchaseOrdersData.PONumber}}</span>
+    <div  id="myPDF">
+      <h1 class="px-4 mt-4 text-dark">e-metro</h1>
+      <div class="d-flex">
+        <h4 class="px-4 text-dark">PO Number :</h4>
+        <span class="text-dark">{{purchaseOrdersData.PONumber}}</span>
       </div>
-      <div>
-        <h4 style="display: inline-block; margin-right:10px; width: 100px ">PO Date : </h4>
-        <span style="display: inline-block; width: 200px ">{{changeDateFormat(purchaseOrdersData.PODate) }}</span>
+      <div class="d-flex">
+        <h4 class="px-4 text-dark">PO Date : </h4>
+        <span class="text-dark">{{changeDateFormat(purchaseOrdersData.PODate) }}</span>
       </div>
-<!--      <table>
-        <thead>
-        <tr>
-          <th>PO Number</th>
-          <th>PO Date</th>
-          <th>HSN Code</th>
-          <th>Item Name</th>
-          <th>Primary Barcode</th>
-        </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{purchaseOrdersData.PONumber}}</td>
-            <td>{{changeDateFormat(purchaseOrdersData.PODate) }}</td>
-            <td>{{purchaseOrdersData.HSNCode }}</td>
-            <td>{{purchaseOrdersData.ItemName }}</td>
-            <td>{{purchaseOrdersData.PrimaryBarCode }}</td>
-          </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>{{purchaseOrdersData.ItemName }}</td>
-        </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>{{purchaseOrdersData.ItemName }}</td>
-          </tr>
-        </tbody>
-      </table>-->
     </div>
+
   </card>
 </template>
 
@@ -193,32 +162,56 @@ import axios from "axios";
 import _ from "lodash";
 import jsPDF from 'jspdf';
 import examplePDF from "./examplePDF";
-//import VueHtml2pdf from 'vue-html2pdf'
-//import html from './example.html'
-//import 'jspdf-autotable';
+import html2pdf from 'html2pdf.js';
+import {mapGetters} from "vuex";
+
+/*import {
+  BarcodeGeneratorComponent,
+} from "@syncfusion/ej2-vue-barcode-generator";*/
+//import VueBarcode from 'vue-barcode';
+
 
 export default {
-  components: {examplePDF},
+  components: {examplePDF, },
   props: ["id"],
   data() {
     return {
+      options: {},
+      barcodeValue: 'test',
       invisibleTable:false,
       imageURL: null,
       purchaseOrdersData:[],
       itemList:[],
       status: "",
-
+      width: "200px",
+      height: "150px",
+      type: "Codabar",
+      value: "123456789",
+      mode: "SVG",
+      displaytext: { text: 'BarcodeGenerator'},
     };
   },
   mounted(){
     this.fetch();
   },
-
+  computed:{
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
+  },
   methods: {
+    downloadLabel(){
+      var element = document.getElementById('myPDF');
+      html2pdf(element);
+    },
 
     fetch() {
       axios
-        .get(`api/purChaseOrder/get/${this.id}`)
+        .get(`api/purChaseOrder/get/${this.id}`,{
+          headers: {
+            'Authorization': this.token
+          },
+        })
         .then((response) => {
           this.purchaseOrdersData = _.merge(this.purchaseOrdersData, response.data[0]);
           this.itemList=this.purchaseOrdersData.itemList;
@@ -231,23 +224,13 @@ export default {
         });
     },
 
-    downloadLabel(){
-      const doc = new jsPDF();
-       var margins = {
-        top: 15,
-        bottom: 60,
-        left: 15,
-        width: 522
-      };
-      doc.fromHTML(this.$refs.testHtml, margins.left, margins.top,{
-        'width' : margins.width
-      });
-      //doc.autoTable({ html: '#myTable' });
-      doc.save('document.pdf');
-    },
     update() {
       axios
-        .put(`api/product/edit/${this.productDetails._id}`, this.productDetails)
+        .put(`api/product/edit/${this.productDetails._id}`, this.productDetails,{
+          headers: {
+            'Authorization': this.token
+          },
+        })
         .then(() => {
           this.notification("Product Updated Successfully", "success");
           this.goBack();

@@ -42,45 +42,46 @@
               </div>
               <div class="card-body px-lg-5 py-lg-5">
 
-                <Form @submit="onSubmit" :validation-schema="schema">
-                  <base-input
-                    alternative
-                    name="email"
-                    addon-left-icon="ni ni-email-83"
-                    placeholder="Email"
-                  >
-                  </base-input>
-
-                  <base-input
-                    alternative
-                    name="password"
-                    addon-left-icon="ni ni-lock-circle-open"
-                    type="password"
-                    placeholder="Password"
-                  >
-                  </base-input>
-
-                  <base-checkbox
-                  >Remember me</base-checkbox
-                  >
-                  <div class="text-center">
-                    <base-button type="primary" native-type="submit" class="my-4"
-                    >Sign in</base-button
-                    >
+                <form @submit.prevent="submit" >
+                  <div class="pb-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Email"
+                      v-model="form.email"
+                    />
                   </div>
-                </Form>
+
+                  <div>
+                    <input
+
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      v-model="form.passWord"
+                    />
+                  </div>
+
+<!--                  <base-checkbox
+                  >Remember me</base-checkbox
+                  >-->
+                  <div class="text-center mt-4">
+                    <button class="btn btn-default"
+                    >Sign in</button>
+                  </div>
+                </form>
               </div>
             </div>
             <div class="row mt-3">
               <div class="col-6">
-                <router-link to="/dashboard" class="text-light"
-                ><small>Forgot password?</small></router-link
-                >
+                <router-link to="/dashboard" class="text-light">
+                  <small>Forgot password?</small>
+                </router-link>
               </div>
-              <div class="col-6 text-right">
-                <router-link to="/register" class="text-light"
-                ><small>Create new account</small></router-link
-                >
+              <div class="col-6 text-right ">
+                <router-link :to="{name:'Register'}" class="text-light">
+                  <small>Create new account</small>
+                </router-link>
               </div>
             </div>
           </div>
@@ -93,5 +94,34 @@
 </template>
 
 <script>
+import {authMethods} from "../../state/helpers";
+
+export default {
+  data() {
+    return {
+      form: {
+        email: '',
+        passWord: '',
+      }
+    }
+  },
+
+  methods:{
+    ...authMethods,
+
+    submit(){
+      console.log(this.form);
+      this.logIn(this.form)
+      .then(()=>{
+        //this.$router.push( '/' );
+        this.$router.go({
+          path: "/",
+          force: true
+        });
+      });
+    }
+  }
+
+}
 
 </script>

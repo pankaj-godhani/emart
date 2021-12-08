@@ -10,6 +10,16 @@
             icon: 'ni ni-shop text-primary',
           }"
         ></sidebar-item>
+<!--        <div v-show="isAdmin">
+          <sidebar-item
+            :link="{
+            name: 'Users',
+            path: '/',
+            icon: 'ni ni-shop text-info',
+          }"
+          ></sidebar-item>
+        </div>-->
+
 
         <sidebar-item
           :link="{
@@ -103,11 +113,16 @@ function initScrollbar(className) {
 
 import DashboardNavbar from "./DashboardNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
-
+//import {mapGetters} from "vuex";
 export default {
   components: {
     DashboardNavbar,
     ContentFooter,
+  },
+  computed:{
+    isAdmin(){
+      return this.$store.getters['auth/getIsAdmin'];
+    }
   },
   methods: {
     initScrollbar() {
@@ -115,10 +130,13 @@ export default {
       if (isWindows) {
         initScrollbar("sidenav");
       }
+
     },
   },
   mounted() {
+
     this.initScrollbar();
+    //this.forUser();
   },
 };
 </script>

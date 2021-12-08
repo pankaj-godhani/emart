@@ -146,13 +146,17 @@
 import BasePagination from "@/components/BasePagination";
 import Card from "../../Cards/Card";
 import axios from "axios";
-
+import {authMethods} from "../../../state/helpers";
+import {mapGetters} from "vuex";
 export default {
   components: {
     Card,
     BasePagination,
   },
   computed: {
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
     pagedData() {
       return this.productData.slice(this.from, this.to);
     },
@@ -199,11 +203,13 @@ export default {
     this.fetchProduct();
   },
   methods: {
+    ...authMethods,
     resetForm() {
       this.form = {};
       this.fetchProduct();
     },
     fetchProduct() {
+      console.log('products')
       axios
         .get(`api/product/get`, {
           params: {
@@ -212,6 +218,9 @@ export default {
             SKUCode: this.form.SKUCode,
             startDate: this.form.startDate,
             endDate: this.form.endDate,
+          },
+          headers: {
+            'Authorization': this.token
           },
         })
         .then((response) => {

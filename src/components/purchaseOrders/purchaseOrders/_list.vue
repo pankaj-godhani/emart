@@ -149,6 +149,8 @@
 <script>
 import BasePagination from "@/components/BasePagination";
 import axios from "axios";
+import {mapGetters} from "vuex";
+
 export default {
   components: {
     BasePagination,
@@ -175,6 +177,11 @@ export default {
   mounted() {
     this.fetchPurchaseOrders();
   },
+  computed:{
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
+  },
   methods: {
     goToData(id) {
       this.$router.push({ name: 'PurchaseOrdersCreate', params: { id: id } });
@@ -186,6 +193,9 @@ export default {
             startDate: this.form.startDate,
             endDate: this.form.endDate,
             PONumber: this.form.PONumber,
+          },
+          headers: {
+            'Authorization': this.token
           },
         })
         .then((response) => {

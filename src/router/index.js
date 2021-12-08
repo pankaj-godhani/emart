@@ -1,199 +1,93 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import DashboardLayout from "@/views/Layout/DashboardLayout";
+import MiddlewarePipeline from './middlewarePipeline';
+import NProgress from 'nprogress/nprogress';
+import routes from './routes';
 
-//Projects main views
 
-import Products from "../views/masterProducts/products/index";
-import ProductCreate from "../views/masterProducts/products/create";
-import Schemes from "../views/masterProducts/schemes/index";
-import SchemesCreate from "../views/masterProducts/schemes/create";
-import SchemesEdit from "../views/masterProducts/schemes/edit";
-import Invoice from "../views/invoices/invoice/index";
-import InvoiceCreate from "../views/invoices/invoice/create";
-import InvoiceEdit from "../views/invoices/invoice/edit";
-import PurchaseReturns from "../views/invoices/purchaseReturns/index";
-import Debit from "../views/invoices/debit/index";
-import Credit from "../views/invoices/credit/index";
-import PurchaseOrders from "../views/purchaseOrders/purchaseOrders/index";
-import PurchaseOrdersCreate from "../views/purchaseOrders/purchaseOrders/create";
-import DispatchNote from "../views/purchaseOrders/dispatchNote/index";
-import DispatchNoteCreate from "../views/purchaseOrders/dispatchNote/create";
-import DispatchNoteEdit from "../views/purchaseOrders/dispatchNote/edit";
-import Example from "../views/example";
-import Login from "../views/auth/Login";
 
 // Dashboard pages
 
 //import Dashboard from "../views/Dashboard/AlternativeDashboard.vue";
 
-const routes = [
-  {
-    path: "/",
-    component: DashboardLayout,
-    meta: {
-      navbarType: "light",
-    },
-    name: "Dashboard",
-
-    children: [
-      {
-        path: "/master-products/products",
-        name: "Products",
-        components: { default: Products },
-        meta: {
-          navbarType: "light",
-        },
-      },
-      {
-        path: "/master-products/products/product-details",
-        name: "ProductCreate",
-        components: { default: ProductCreate },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/master-products/schemes",
-        name: "Schemes",
-        components: { default: Schemes },
-        meta: {
-          navbarType: "light",
-        },
-      },
-      {
-        path: "/master-products/schemes/create",
-        name: "SchemesCreate",
-        components: { default: SchemesCreate },
-        meta: {
-          navbarType: "light",
-        },
-      },
-      {
-        path: "/master-products/schemes/edit/:id",
-        name: "SchemesEdit",
-        components: { default: SchemesEdit },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/invoices/invoice",
-        name: "Invoice",
-        components: { default: Invoice },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/invoices/invoice/create",
-        name: "InvoiceCreate",
-        components: { default: InvoiceCreate },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/invoices/invoice/edit/:id",
-        name: "InvoiceEdit",
-        components: { default: InvoiceEdit },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/invoices/purchase-returns",
-        name: "PurchaseReturns",
-        components: { default: PurchaseReturns },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/invoices/debit",
-        name: "Debit",
-        components: { default: Debit },
-        meta: {
-          navbarType: "light",
-        },
-      },
-      {
-        path: "/invoices/credit",
-        name: "Credit",
-        components: { default: Credit },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/purchase-orders",
-        name: "PurchaseOrders",
-        components: { default: PurchaseOrders },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/purchase-orders/details/:id",
-        name: "PurchaseOrdersCreate",
-        components: { default: PurchaseOrdersCreate },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/purchase-orders/dispatch-note",
-        name: "DispatchNote",
-        components: { default: DispatchNote },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/purchase-orders/dispatch-note/create",
-        name: "DispatchNoteCreate",
-        components: { default: DispatchNoteCreate },
-        meta: {
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/purchase-orders/dispatch-note/edit/:id",
-        name: "DispatchNoteEdit",
-        components: { default: DispatchNoteEdit },
-        meta: {
-          navbarType: "light",
-        },
-      },
-      {
-        path: "/example",
-        name: "Example",
-        components: { default: Example },
-      },
-    ],
-  },
-  {
-    path: "/login",
-    name: "Login",
-    components: { default: Login },
-  }
-];
-
 const router = createRouter({
   history: createWebHistory(),
   linkActiveClass: "active",
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition || {x: 0, y: 0};
+  },
 });
 
+router.beforeEach((to, from, next) => {
+
+
+  // If this isn't an initial page load...
+  if (from.name !== null) {
+    // Start the route progress bar.
+    NProgress.start();
+  }
+
+  const middleware = _.get(to.meta, 'middleware');
+
+  if (!middleware) return next();
+
+  const context = {to, from, next};
+
+  return middleware[0]({
+    ...context,
+    next: MiddlewarePipeline(context, middleware, 1)
+  });
+});
+
+router.beforeResolve(async (to, from, next) => {
+  // Create a `beforeResolve` hook, which fires whenever
+  // `beforeRouteEnter` and `beforeRouteUpdate` would. This
+  // allows us to ensure data is fetched even when params change,
+  // but the resolved route does not. We put it in `meta` to
+  // indicate that it's a hook we created, rather than part of
+  // Vue Router (yet?).
+ // console.log('here');
+  try {
+    // For each matched route...
+    for (const route of to.matched) {
+      await new Promise((resolve, reject) => {
+        // If a `beforeResolve` hook is defined, call it with
+        // the same arguments as the `beforeEnter` hook.
+        if (route.meta && route.meta.beforeResolve) {
+          route.meta.beforeResolve(to, from, (...args) => {
+            // If the user chose to redirect...
+            if (args.length) {
+              // If redirecting to the same route we're coming from...
+              if (from.name === args[0].name) {
+                // Complete the animation of the route progress bar.
+                NProgress.done();
+              }
+              // Complete the redirect.
+              next(...args);
+              reject(new Error('Redirected'));
+            } else {
+              resolve();
+            }
+          })
+        } else {
+          // Otherwise, continue resolving the route.
+          resolve();
+        }
+      })
+    }
+    // If a `beforeResolve` hook chose to redirect, just return.
+  } catch (error) {
+    return;
+  }
+
+  // If we reach this point, continue resolving the route.
+  next();
+});
+
+// When each route is finished evaluating...
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  NProgress.done();
+});
 export default router;

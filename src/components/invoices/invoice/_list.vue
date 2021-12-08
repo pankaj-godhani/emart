@@ -143,6 +143,8 @@
 
 import BasePagination from "@/components/BasePagination";
 import  axios from "axios";
+import {mapGetters} from "vuex";
+
 
 export default {
   components: {
@@ -169,6 +171,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
     pagedData() {
       return this.invoiceData.slice(this.from, this.to);
     },
@@ -204,7 +209,10 @@ export default {
           startDate:this.form.startDate,
           endDate:this.form.endDate,
           invoiceNumber:this.form.invoiceNumber,
-        }
+        },
+        headers: {
+          'Authorization': this.token
+        },
       })
       .then((response)=>{
         this.invoiceData=response.data;
@@ -222,7 +230,11 @@ export default {
       });
     },
     destroy(id){
-      axios.delete(`api/invoice/delete/`+id)
+      axios.delete(`api/invoice/delete/`+id,{
+        headers: {
+          'Authorization': this.token
+        },
+      })
       .then(()=>{
         this.fetch();
       })

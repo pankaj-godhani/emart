@@ -49,7 +49,7 @@
                 <img alt="Image placeholder" src="img/theme/team-4.jpg" />
               </span>
               <div class="media-body ml-2 d-none d-lg-block">
-                <span class="mb-0 text-sm font-weight-bold">John Snow</span>
+                <span class="mb-0 text-sm font-weight-bold">{{user.firstName}} {{user.lastName}}</span>
               </div>
             </div>
           </a>
@@ -75,7 +75,7 @@
           <span>Support</span>
         </a>
         <div class="dropdown-divider"></div>
-        <a href="#!" class="dropdown-item">
+        <a  class="dropdown-item" @click="doLogOut">
           <i class="ni ni-user-run"></i>
           <span>Logout</span>
         </a>
@@ -85,6 +85,8 @@
 </template>
 <script>
 import BaseNav from "@/components/Navbar/BaseNav";
+import { authMethods} from '../../state/helpers';
+import {mapGetters} from "vuex";
 
 export default {
   components: {
@@ -99,6 +101,10 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('auth',{
+      user:'getUser',
+
+    }),
     routeName() {
       const { name } = this.$route;
       return this.capitalizeFirstLetter(name);
@@ -113,6 +119,13 @@ export default {
     };
   },
   methods: {
+    ...authMethods,
+    doLogOut(){
+      this.logOut()
+        .then(response => {
+          this.$router.push('/login');
+        });
+    },
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },

@@ -193,6 +193,7 @@
 import axios from "axios";
 import _ from "lodash";
 import ManageScheme from "./_manageScheme"
+import {mapGetters} from "vuex";
 export default {
   components: {ManageScheme},
   data() {
@@ -211,6 +212,11 @@ export default {
       loading: false,
       percentage: "",
     };
+  },
+  computed:{
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
   },
 
   methods: {
@@ -231,6 +237,9 @@ export default {
         .get(`api/product/getProductDetails?`, {
           params: {
             EANCode: this.EANCode,
+          },
+          headers: {
+            'Authorization': this.token
           },
         })
         .then((response) => {
@@ -253,7 +262,11 @@ export default {
 
     update() {
       axios
-        .put(`api/product/edit/${this.productDetails._id}`, this.productDetails)
+        .put(`api/product/edit/${this.productDetails._id}`, this.productDetails,{
+          headers: {
+            'Authorization': this.token
+          }
+        })
         .then(() => {
           this.notification("Product Updated Successfully", "success");
           this.goBack();

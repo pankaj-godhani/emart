@@ -312,6 +312,7 @@ export default {
     },
   },
   mounted() {
+    console.log('inside dashboard');
     chart = new Chart(
       document.getElementById(this.salesChartID).getContext("2d"),
       {

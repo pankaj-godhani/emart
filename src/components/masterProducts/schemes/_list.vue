@@ -149,12 +149,16 @@
 <script>
 import BasePagination from "@/components/BasePagination";
 import axios from "axios";
+import {mapGetters} from "vuex";
 
 export default {
   components: {
     BasePagination,
   },
   computed: {
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
     pagedData() {
       return this.schemeData.slice(this.from, this.to);
     },
@@ -211,6 +215,9 @@ export default {
             endDate: this.form.endDate,
             schemaNumber: this.form.schemaNumber,
           },
+          headers: {
+            'Authorization': this.token
+          },
         })
         .then((response) => {
           this.schemeData = response.data;
@@ -238,7 +245,11 @@ export default {
       this.deleting = type;
     },
     destroy(id) {
-      axios.delete(`api/schema/delete/` + id).then(() => {
+      axios.delete(`api/schema/delete/` + id,{
+        headers: {
+          'Authorization': this.token
+        },
+      }).then(() => {
         this.fetchSchemes();
         this.deleting = null;
       });

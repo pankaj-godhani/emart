@@ -140,6 +140,7 @@
 <script>
 import BasePagination from "@/components/BasePagination";
 import axios from "axios";
+import {mapGetters} from "vuex";
 
 export default {
   components: {
@@ -168,6 +169,11 @@ export default {
   mounted() {
     this.fetchDispatchNote();
   },
+  computed:{
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
+  },
 
   methods: {
     fetchDispatchNote() {
@@ -176,6 +182,9 @@ export default {
           startDate: this.form.startDate,
           endDate: this.form.endDate,
           DCNumber: this.form.DCNumber,
+        },
+        headers: {
+          'Authorization': this.token
         },
       }).then((response) => {
         this.dispatchNoteData = response.data;
@@ -193,7 +202,11 @@ export default {
       });
     },
     destroy(id) {
-      axios.delete(`api/desPatchNote/delete/` + id).then(() => {
+      axios.delete(`api/desPatchNote/delete/` + id,{
+        headers: {
+          'Authorization': this.token
+        },
+      }).then(() => {
         this.fetchDispatchNote();
         this.deleting = null;
       });

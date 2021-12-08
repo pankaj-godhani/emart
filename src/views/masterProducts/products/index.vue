@@ -121,6 +121,8 @@ import ProductList from "../../../components/masterProducts/products/_list";
 import sampleData from "./sampleExcel";
 import axios from "axios";
 import FileSaver from 'file-saver';
+import {mapGetters} from "vuex";
+
 export default {
   components: {
     ProductList,
@@ -135,12 +137,21 @@ export default {
   mounted() {
     this.fetchProduct();
   },
+  computed:{
+    ...mapGetters('auth',{
+      token:'getToken',
+    }),
+  },
   methods: {
     handleFileUpload() {
       this.excel = this.$refs.file.files[0];
     },
     fetchProduct() {
-      axios.get(`/api/product/get`).then((response) => {
+      axios.get(`/api/product/get`,{
+        headers: {
+          'Authorization': this.token
+        },
+      }).then((response) => {
         this.productData = response.data;
         console.log(response.data[0]);
         this.response= _.map(response.data[0], function square(n) {return n;});
@@ -150,10 +161,10 @@ export default {
     uploadExcel() {
       const formData = new FormData();
       formData.append("file", this.excel);
-      axios
-        .post("api/product/excelUpload", formData, {
+      axios.post("api/product/excelUpload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            'Authorization': this.token,
           },
         })
         .then((response) => {
@@ -173,6 +184,9 @@ export default {
     onExportApi() {
       axios.get(`https://vuecrud-etj2v.ondigitalocean.app/api/product/download`,{
         responseType: 'blob',
+        headers: {
+          'Authorization': this.token
+        },
       })
         .then((response) => {
           FileSaver.saveAs(response.data, 'Export2.xlsx');
