@@ -94,7 +94,7 @@
                                     >Remember me</base-checkbox
                                     >-->
                   <div>
-                    <div class="g-recaptcha" :data-sitekey="your_site_key"></div>
+<!--                    <div class="g-recaptcha" :data-sitekey="your_site_key"></div>-->
 <!--                    <vue-recaptcha
                       ref="invisibleRecaptcha"
                       @verify="onVerify"
@@ -155,7 +155,7 @@ export default {
   components:{ },
   methods:{
     ...authMethods,
-    onVerify: function (response) {
+    /*onVerify: function (response) {
       console.log('Verify: ' + response)
     },
     onExpired: function () {
@@ -163,9 +163,9 @@ export default {
     },
     resetRecaptcha() {
       this.$refs.recaptcha.reset() // Direct call reset method
-    },
+    },*/
     submit(){
-      this.$refs.invisibleRecaptcha.execute();
+     // this.$refs.invisibleRecaptcha.execute();
       console.log(this.form);
       this.register(this.form)
         .then(()=>{

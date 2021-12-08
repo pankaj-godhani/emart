@@ -13,7 +13,7 @@ import Card from "../components/Cards/Card";
 import StatsCard from "../components/Cards/StatsCard";
 import Table from "../components/Table";
 import DataModal from "../components/dataModal";
-import NewModal from "../components/newModal" 
+import NewModal from "../components/newModal"
 import { ElTooltip, ElPopover, ElLoading } from "element-plus";
 
 const GlobalComponents = {
