@@ -44,6 +44,7 @@
 
                 <form @submit.prevent="submit" >
                   <div class="pb-2">
+                    <label class="form-control-label">E-mail</label>
                     <input
                       type="text"
                       class="form-control"
@@ -53,8 +54,8 @@
                   </div>
 
                   <div>
+                    <label class="form-control-label">Password</label>
                     <input
-
                       type="password"
                       class="form-control"
                       placeholder="Password"
@@ -75,12 +76,12 @@
             <div class="row mt-3">
               <div class="col-6">
                 <router-link to="/dashboard" class="text-light">
-                  <small>Forgot password?</small>
+                  <h5>Forgot password?</h5>
                 </router-link>
               </div>
               <div class="col-6 text-right ">
                 <router-link :to="{name:'Register'}" class="text-light">
-                  <small>Create new account</small>
+                  <h5>Create new account</h5>
                 </router-link>
               </div>
             </div>
@@ -116,7 +117,7 @@ export default {
         //this.$router.push( '/' );
         this.$router.go({
           path: "/",
-          force: true
+          //force: true
         });
       });
     }

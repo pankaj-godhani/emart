@@ -10,15 +10,16 @@
             icon: 'ni ni-shop text-primary',
           }"
         ></sidebar-item>
-<!--        <div v-show="isAdmin">
+
+        <div v-show="isAdmin">
           <sidebar-item
             :link="{
             name: 'Users',
-            path: '/',
+            path: '/users',
             icon: 'ni ni-shop text-info',
           }"
           ></sidebar-item>
-        </div>-->
+        </div>
 
 
         <sidebar-item

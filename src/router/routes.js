@@ -2,6 +2,8 @@ import auth from './middleware/auth';
 import guest from './middleware/guest';
 //Projects main views
 
+import Users from "../views/users/index";
+import UserEdit from "../views/users/edit";
 import DashboardLayout from "@/views/Layout/DashboardLayout";
 import Products from "../views/masterProducts/products/index";
 import ProductCreate from "../views/masterProducts/products/create";
@@ -35,6 +37,24 @@ export default [
     name: "Dashboard",
 
     children: [
+      {
+        path: "/Users",
+        name: "Users",
+        components: { default: Users },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+      {
+        path: "/Users/edit/:id",
+        name: "UserEdit",
+        components: { default: UserEdit },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
       {
         path: "/master-products/products",
         name: "Products",

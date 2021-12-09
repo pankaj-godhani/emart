@@ -81,7 +81,7 @@
                   </div>
 
                   <div class="pb-2">
-                    <label class="form-control-label">PassWord</label>
+                    <label class="form-control-label">Password</label>
                     <input
                       type="password"
                       class="form-control"
@@ -104,15 +104,27 @@
                     >
                     </vue-recaptcha>-->
                   </div>
+                  <vue-recaptcha sitekey="6Lc5XY0dAAAAAHH5yvVqDjP4aPVPXFRjeW0APlSt" @verify="mxVerify"></vue-recaptcha>
+                  <div><strong>{{ loginForm.pleaseTickRecaptchaMessage }}</strong></div>
+                  <div class="d-flex float-right">
+                    <div class="text-center mt-4 px-2">
+                      <router-link :to="{name:'Login'}">
+                        <button class="btn btn-default"
+                        >cancel</button>
+                      </router-link>
 
-                  <div class="text-center mt-4">
-                    <button class="btn btn-default"
-                    >Sign up</button>
+                    </div>
+
+                    <div class="text-center mt-4">
+                      <button class="btn btn-default"
+                      >Sign up</button>
+                    </div>
                   </div>
+
                 </form>
               </div>
             </div>
-            <div class="row mt-3">
+<!--            <div class="row mt-3">
               <div class="col-6">
                 <router-link to="/dashboard" class="text-light"
                 ><small>Forgot password?</small></router-link
@@ -123,7 +135,7 @@
                 ><small>Create new account</small></router-link
                 >
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -135,12 +147,16 @@
 
 <script>
 import {authMethods} from "../../state/helpers";
-//import { VueRecaptcha } from 'vue-recaptcha';
+import { VueRecaptcha } from 'vue-recaptcha';
 
 export default {
   data() {
     return {
-     // sitekey:'fgfdgdg',
+      recaptcha: null,
+      loginForm: {
+        recaptchaVerified: false,
+        pleaseTickRecaptchaMessage: ''
+      },
       form: {
 
         firstName:'',
@@ -152,25 +168,27 @@ export default {
       }
     }
   },
-  components:{ },
+  components:{VueRecaptcha },
   methods:{
     ...authMethods,
-    /*onVerify: function (response) {
-      console.log('Verify: ' + response)
+    mxVerify( response ) {
+      this.loginForm.pleaseTickRecaptchaMessage = '';
+      this.loginForm.recaptchaVerified = true;
+
     },
-    onExpired: function () {
-      console.log('Expired')
-    },
-    resetRecaptcha() {
-      this.$refs.recaptcha.reset() // Direct call reset method
-    },*/
     submit(){
-     // this.$refs.invisibleRecaptcha.execute();
       console.log(this.form);
-      this.register(this.form)
-        .then(()=>{
-          this.$router.push(this.$route.query.redirectFrom || {name: 'Login'})
-        });
+      if (!this.loginForm.recaptchaVerified) {
+        this.loginForm.pleaseTickRecaptchaMessage = 'Please tick recaptcha.';
+        return true; // prevent form from submitting
+      }
+      else{
+        this.register(this.form)
+          .then(()=>{
+            this.$router.push(this.$route.query.redirectFrom || {name: 'Login'})
+          });
+      }
+
     }
   }
 

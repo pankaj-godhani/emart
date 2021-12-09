@@ -72,7 +72,7 @@ export const actions = {
 
     // Logs out the current user.
     logOut({commit}) {
-        return commit('SET_TOKEN',{token:null,userID:null,user:null});
+        return commit('SET_TOKEN',{token:null,userID:null,user:null,isAdmin:null});
     },
 
     register({commit, dispatch, getters}, form = {}) {

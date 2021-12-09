@@ -42,12 +42,35 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Primary Barcode</h4>
-                <label class="form-control-label">{{purchaseOrdersData.PrimaryBarCode }}</label>
+                <label class="form-control-label" id="primaryBar">{{purchaseOrdersData.PrimaryBarCode }}</label>
+<!--                <svg id="barcodePri"></svg>-->
+<!--                <svg class="barcode"
+                     jsbarcode-format="auto"
+                     :jsbarcode-value="purchaseOrdersData.PrimaryBarCode "
+                     jsbarcode-textmargin="0"
+                     jsbarcode-fontoptions="bold"></svg>-->
+<!--                <BarcodeGenerator
+                  :value="'12345678345'"
+                  :format="'auto'"
+                  :lineColor="'blue'"
+                  :width="4"
+                  :height="40"
+                  :elementTag="'img'"
+                />-->
+<!--                <BarcodeGeneratorComponent
+                  id="barcode"
+                  ref="barcodeControl"
+                  :width="width"
+                  :height="height"
+                  :type="type"
+                  :value="value"
+                  :mode="mode"
+                ></BarcodeGeneratorComponent>-->
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Secondary Barcode </h4>
-                <label class="form-control-label">{{purchaseOrdersData.secondaryBarcode }}</label>
-
+                <label class="form-control-label" id="secondaryBar">{{purchaseOrdersData.secondaryBarcode }}</label>
+<!--                <svg id="barcodeSec"></svg>-->
               </div>
 
               <div class="w-100 mt-4"></div>
@@ -141,7 +164,7 @@
         </template>
       </Table>
     </div>
-    <div  id="myPDF">
+    <div  id="myPDF" v-show="invisibleTable">
       <h1 class="px-4 mt-4 text-dark">e-metro</h1>
       <div class="d-flex">
         <h4 class="px-4 text-dark">PO Number :</h4>
@@ -164,30 +187,35 @@ import jsPDF from 'jspdf';
 import examplePDF from "./examplePDF";
 import html2pdf from 'html2pdf.js';
 import {mapGetters} from "vuex";
+import $ from "jquery";
+//import BarcodeGenerator from "../../../components/BarcodeGenerator.vue";
 
 /*import {
   BarcodeGeneratorComponent,
 } from "@syncfusion/ej2-vue-barcode-generator";*/
 //import VueBarcode from 'vue-barcode';
 
-
+var JsBarcode = require("jsbarcode");
 export default {
-  components: {examplePDF, },
+  components: {examplePDF,},
   props: ["id"],
   data() {
     return {
-      options: {},
-      barcodeValue: 'test',
-      invisibleTable:false,
-      imageURL: null,
-      purchaseOrdersData:[],
-      itemList:[],
-      status: "",
       width: "200px",
       height: "150px",
       type: "Codabar",
       value: "123456789",
       mode: "SVG",
+      options: {},
+      barcodeValue: 'test',
+      invisibleTable:false,
+      imageURL: null,
+      purchaseOrdersData:{
+        PrimaryBarCode:'',
+        secondaryBarcode:''
+      },
+      itemList:[],
+      status: "",
       displaytext: { text: 'BarcodeGenerator'},
     };
   },
@@ -200,6 +228,28 @@ export default {
     }),
   },
   methods: {
+    /*generateBarcodePri(){
+      var barcodeValue = $("#primaryBar").val();
+      JsBarcode("#barcodePri",barcodeValue, {
+        format: "code128",
+        displayValue: true,
+        lineColor: "#24292e",
+        width:2,
+        height:40,
+        fontSize: 20
+      });
+    },*/
+   /* generateBarcodeSec(){
+      var barcodeValue = $("#secondaryBar").val();
+      JsBarcode("#barcodeSec",barcodeValue, {
+        format: "code128",
+        displayValue: true,
+        lineColor: "#24292e",
+        width:2,
+        height:40,
+        fontSize: 20
+      });
+    },*/
     downloadLabel(){
       var element = document.getElementById('myPDF');
       html2pdf(element);
@@ -215,13 +265,15 @@ export default {
         .then((response) => {
           this.purchaseOrdersData = _.merge(this.purchaseOrdersData, response.data[0]);
           this.itemList=this.purchaseOrdersData.itemList;
+          //this.purchaseOrdersData.PrimaryBarCode=this.generateBarcode(this.purchaseOrdersData.PrimaryBarCode);
+         // this.purchaseOrdersData.secondaryBarcode=this.generateBarcode(this.purchaseOrdersData.secondaryBarcode);
          // this.labelData= _.map(response.data[0], function square(n) {return n;});
           console.log( this.purchaseOrdersData.itemList);
-
         })
         .catch((error) => {
           this.error = error;
         });
+
     },
 
     update() {

@@ -26,6 +26,8 @@ window.axios = require("axios");
 import Axios from "axios";
 import excel from "vue-excel-export";
 import GlobalMixin from "./globalMixin";
+import VueBarcode from '@chenfengyuan/vue-barcode';
+//import { BarcodeGeneratorPlugin } from '@syncfusion/ej2-vue-barcode-generator';
 
 
 Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
@@ -39,7 +41,9 @@ appInstance.use(store);
 appInstance.use(excel);
 appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);
+//appInstance.use(BarcodeGeneratorPlugin);
 appInstance.mixin(GlobalMixin);
+appInstance.component(VueBarcode.name, VueBarcode);
 appInstance.mount("#app");
 
 
