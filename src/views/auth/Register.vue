@@ -105,7 +105,7 @@
                     </vue-recaptcha>-->
                   </div>
                   <vue-recaptcha sitekey="6Lc5XY0dAAAAAHH5yvVqDjP4aPVPXFRjeW0APlSt" @verify="mxVerify"></vue-recaptcha>
-                  <div><strong>{{ loginForm.pleaseTickRecaptchaMessage }}</strong></div>
+                  <div><p class="text-danger">{{ loginForm.pleaseTickRecaptchaMessage }}</p></div>
                   <div class="d-flex float-right">
                     <div class="text-center mt-4 px-2">
                       <router-link :to="{name:'Login'}">
@@ -179,7 +179,7 @@ export default {
     submit(){
       console.log(this.form);
       if (!this.loginForm.recaptchaVerified) {
-        this.loginForm.pleaseTickRecaptchaMessage = 'Please tick recaptcha.';
+        this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
       }
       else{
