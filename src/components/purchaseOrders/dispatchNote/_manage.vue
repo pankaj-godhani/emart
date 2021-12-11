@@ -184,7 +184,6 @@ export default {
   },
   computed: {
     ...mapGetters('auth',{
-      token:'getToken',
       userID:'getUserID',
     }),
     editing() {
@@ -193,11 +192,8 @@ export default {
   },
   methods: {
     fetch() {
-      axios.get(`api/desPatchNote/get/${this.id}`,{
-        headers: {
-          'Authorization': this.token
-        },
-      }).then((response) => {
+      axios.get(`api/desPatchNote/get/${this.id}`)
+        .then((response) => {
         this.form = _.merge(this.form, response.data[0]);
       });
     },
@@ -217,10 +213,6 @@ export default {
           DriverName: this.form.DriverName,
           DriverContact: this.form.DriverContact,
           VehicleNumber: this.form.VehicleNumber,
-        },{
-          headers: {
-            'Authorization': this.token
-          },
         })
         .then(() => {
           this.goBack();
@@ -234,11 +226,7 @@ export default {
     },
 
     update() {
-      axios.put(`api/desPatchNote/edit/${this.id}`, this.form,{
-        headers: {
-          'Authorization': this.token
-        },
-      })
+      axios.put(`api/desPatchNote/edit/${this.id}`, this.form)
         .then(() => {
         this.goBack();
         this.notification("Dispatch Note updated Successfully","success");

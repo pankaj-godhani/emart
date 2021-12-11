@@ -186,14 +186,11 @@ export default {
     }
   },
   emits:['refresh'],
- /* watch:{
-    productDetails(){
-      this.form=this.productDetails;
-    },
-  },*/
+
   computed:{
     ...mapGetters('auth',{
-      token:'getToken',
+
+      userID:'getUserID',
     }),
   },
   mounted(){
@@ -204,6 +201,7 @@ export default {
 
       axios
         .post(`api/schema/create`, {
+          userID:this.form.userID,
           schemaName: this.form.schemaName,
           date: this.form.date,
           productName: this.form.productName,
@@ -217,15 +215,9 @@ export default {
           nararation: this.form.nararation,
           active: this.form.active,
           schemaNumber: this.form.schemaNumber,
-        },
-        {
-            headers: {
-              'Authorization': this.token
-            },
         })
         .then((response) => {
           this.status=response.status;
-          console.log(response);
           if(this.status==200){
             this.notification("Scheme Uploaded Successfully", "success");
           }

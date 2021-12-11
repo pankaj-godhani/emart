@@ -24,6 +24,8 @@ import DispatchNoteEdit from "../views/purchaseOrders/dispatchNote/edit";
 import Example from "../views/example";
 import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
+import ResetPassword from "../views/auth/ResetPassword";
+import ForgetPassword from "../views/auth/ForgetPassword";
 
 
 export default [
@@ -227,6 +229,18 @@ export default [
     path: "/register",
     name: "Register",
     components: {default: Register },
+    meta:{middleware: [guest]}
+  },
+  {
+    path: "/forgot-password",
+    name: "ForgetPassword",
+    components: {default: ForgetPassword },
+    meta:{middleware: [guest]}
+  },
+  {
+    path: "/password-reset/:id",
+    name: "ResetePassword",
+    components: {default: ResetPassword },
     meta:{middleware: [guest]}
   }
 ];

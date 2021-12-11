@@ -156,9 +156,6 @@ export default {
     BasePagination,
   },
   computed: {
-    ...mapGetters('auth',{
-      token:'getToken',
-    }),
     pagedData() {
       return this.schemeData.slice(this.from, this.to);
     },
@@ -214,10 +211,7 @@ export default {
             startDate: this.form.startDate,
             endDate: this.form.endDate,
             schemaNumber: this.form.schemaNumber,
-          },
-          headers: {
-            'Authorization': this.token
-          },
+          }
         })
         .then((response) => {
           this.schemeData = response.data;
@@ -245,11 +239,8 @@ export default {
       this.deleting = type;
     },
     destroy(id) {
-      axios.delete(`api/schema/delete/` + id,{
-        headers: {
-          'Authorization': this.token
-        },
-      }).then(() => {
+      axios.delete(`api/schema/delete/` + id)
+        .then(() => {
         this.fetchSchemes();
         this.deleting = null;
       });

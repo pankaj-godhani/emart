@@ -213,18 +213,9 @@ export default {
       percentage: "",
     };
   },
-  computed:{
-    ...mapGetters('auth',{
-      token:'getToken',
-    }),
-  },
 
   methods: {
-    selectedOption(e){
-      if(e.target.value=='Create Scheme'){
-       this.visibleCard=true;
-      }
-    },
+
     calMargin(){
       this.productDetails.margin = (this.productDetails.MRP * this.percentage) / 100;
     },
@@ -237,9 +228,6 @@ export default {
         .get(`api/product/getProductDetails?`, {
           params: {
             EANCode: this.EANCode,
-          },
-          headers: {
-            'Authorization': this.token
           },
         })
         .then((response) => {
@@ -262,11 +250,7 @@ export default {
 
     update() {
       axios
-        .put(`api/product/edit/${this.productDetails._id}`, this.productDetails,{
-          headers: {
-            'Authorization': this.token
-          }
-        })
+        .put(`api/product/edit/${this.productDetails._id}`, this.productDetails)
         .then(() => {
           this.notification("Product Updated Successfully", "success");
           this.goBack();

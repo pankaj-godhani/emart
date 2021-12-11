@@ -5,6 +5,7 @@ export const state = {
   userID:getState('auth.userID'),
   user:getState('auth.user'),
   isAdmin:getState('auth.isAdmin'),
+  isActive:getState('auth.isActive'),
 };
 
 export const mutations = {
@@ -12,10 +13,13 @@ export const mutations = {
     state.token = payLoad.token;
     state.userID = payLoad.userID;
     state.user = payLoad.user;
+    state.isAdmin = payLoad.isAdmin;
+    state.isActive = payLoad.isActive;
     saveState('auth.token', payLoad.token);
     saveState('auth.userID', payLoad.userID);
     saveState('auth.user', payLoad.user);
     saveState('auth.isAdmin', payLoad.isAdmin);
+    saveState('auth.isActive', payLoad.isActive);
 
     /*if (user) {
       window.moment.locale(user.locale ? user.locale : 'de');
@@ -34,10 +38,13 @@ export const getters = {
       return state.userID;
     },
     getUser(state){
-      return state.user
+      return state.user;
     },
   getIsAdmin(state){
-    return state.isAdmin
+    return state.isAdmin;
+  },
+  getIsActive(state){
+    return state.isActive;
   }
 };
 
@@ -45,7 +52,7 @@ export const actions = {
     // This is automatically run in `src/state/store.js` when the app
     // starts, along with any other actions named `init` in other modules.
     // TODO
-    init({state, dispatch}) {
+    init({ dispatch}) {
         dispatch('auth/validate');
     },
 
@@ -56,12 +63,12 @@ export const actions = {
         }
         return axios.post('api/auth/login', form)
             .then(response => {
-              console.log(response,'inside logIn');
                 commit('SET_TOKEN', {
                   token:response.data.token,
                   userID:response.data.detail._id,
                   user:response.data.detail,
                   isAdmin:response.data.detail.isAdmin,
+                  isActive: response.data.detail.isActive,
                 });
                 return response.data.token;
             })
@@ -72,10 +79,10 @@ export const actions = {
 
     // Logs out the current user.
     logOut({commit}) {
-        return commit('SET_TOKEN',{token:null,userID:null,user:null,isAdmin:null});
+        return commit('SET_TOKEN',{token:null,userID:null,user:null,isAdmin:null,isActive:null});
     },
 
-    register({commit, dispatch, getters}, form = {}) {
+    register({ dispatch, getters}, form = {}) {
         if (getters.loggedIn) {
             return dispatch('validate');
         }
@@ -88,7 +95,7 @@ export const actions = {
     },
 
     // Validates the current user's token and refreshes it  with new data from the API.
-    validate({commit, state,getters},form={}) {
+    validate({ state,getters},form={}) {
         if (!state.token) {
             return Promise.resolve(null);
         }

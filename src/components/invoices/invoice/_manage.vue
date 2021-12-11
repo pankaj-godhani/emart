@@ -156,7 +156,6 @@ export default {
   props: ["id"],
   data() {
     return {
-      status:"",
       error: "",
       schemaNumber: Math.floor(Math.random() * 100000),
       form: {
@@ -182,7 +181,6 @@ export default {
   },
   computed: {
     ...mapGetters('auth',{
-      token:'getToken',
       userID:'getUserID',
     }),
     editing() {
@@ -191,11 +189,7 @@ export default {
   },
   methods: {
     fetch() {
-      axios.get(`api/invoice/get/${this.id}`,{
-        headers: {
-          'Authorization': this.token
-        },
-      }).then((response) => {
+      axios.get(`api/invoice/get/${this.id}`,).then((response) => {
         console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
       });
@@ -219,22 +213,11 @@ export default {
         SGSTValue: this.form.SGSTValue,
         IGSTValue: this.form.IGSTValue,
         paymentReceived: this.form.paymentReceived,
-      },{
-        headers: {
-          'Authorization': this.token
-        },
       })
         .then((response) => {
           console.log(response);
           this.goBack();
           this.notification("Invoice added successfully", "success");
-         /* if(this.status==200){
-            this.notification("Scheme Uploaded Successfully", "success");
-            this.goBack();
-          }
-          else if(this.status==201){
-            this.notification(""+response.data.message, "error");
-          }*/
         })
         .catch((error) => {
           this.error = error;
@@ -245,11 +228,7 @@ export default {
     },
 
     update() {
-      axios.put(`api/invoice/edit/${this.id}`, this.form,{
-        headers: {
-          'Authorization': this.token
-        },
-      }).then(() => {
+      axios.put(`api/invoice/edit/${this.id}`, this.form).then(() => {
         this.notification("Invoice updated successfully", "success");
         this.goBack();
       });

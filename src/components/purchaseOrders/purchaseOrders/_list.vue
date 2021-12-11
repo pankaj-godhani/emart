@@ -89,7 +89,7 @@
           </tr>
         </template>
         <template #tbody>
-          <tr  v-for="(data, index) in purchaseOrdersData" @click="goToData(data._id)">
+          <tr  v-for="(data, index) in purchaseOrdersData" @click="goToData(data._id)" :key="data._id">
             <td>{{ index + 1 }}</td>
             <td>{{ changeDateFormat(data.PODate)  }}</td>
             <td>{{ data.PONumber }}</td>
@@ -193,9 +193,6 @@ export default {
             startDate: this.form.startDate,
             endDate: this.form.endDate,
             PONumber: this.form.PONumber,
-          },
-          headers: {
-            'Authorization': this.token
           },
         })
         .then((response) => {

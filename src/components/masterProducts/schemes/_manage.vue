@@ -232,12 +232,10 @@ export default {
         })
         .then((response) => {
           this.productData=response.data[0];
-          console.log(this.productData,'here-success');
             this.form = _.merge(this.form, response.data[0]);
             this.form.schemaName=response.data[0].schemes;
         })
         .catch((error) => {
-          console.log(error,'here-error');
           this.error = error;
           this.form={}
         });

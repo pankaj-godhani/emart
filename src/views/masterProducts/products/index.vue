@@ -31,7 +31,7 @@
                   <button type="button" class="dropdown-item">Add Product</button>
                 </router-link>
 
-                <button type="button" class="dropdown-item" @click="onExportApi">
+                <button type="button" class="dropdown-item" @click="onExportSample">
                   Template
                 </button>
 
@@ -52,27 +52,6 @@
             </base-dropdown>
           </div>
 
-<!--          <div class="col-lg-8 text-right">
-            <button type="button" class="btn base-button btn-default" @click="onExportApi">
-               Sample Excel
-            </button>
-            <button type="button" class="btn base-button btn-default">
-              <export-excel :data="productData"> Download Excel </export-excel>
-            </button>
-
-            <button
-              type="button"
-              class="btn base-button btn-default"
-              @click="visibleCard = true"
-              data-toggle="modal"
-              data-target="#myModal"
-            >
-              Excel Upload
-            </button>
-            <router-link :to="{ name: 'ProductCreate' }">
-              <base-button type="default">Add Product</base-button>
-            </router-link>
-          </div>-->
           <div v-if="visibleCard">
             <DataModal :title="'Upload Excel'">
               <template v-slot:body>
@@ -85,8 +64,7 @@
                       @change="handleFileUpload"
                       name="file"
                     />
-                    <label class=" "
-                           style="font-size: 13px;position: absolute;top: 0px;
+                    <label style="font-size: 13px;position: absolute;top: 0px;
                      font-family: 'Roboto', sans-serif;font-weight: 300;">Upload only .xlsx file</label>
                   </form>
                 </div>
@@ -118,10 +96,9 @@
 </template>
 <script>
 import ProductList from "../../../components/masterProducts/products/_list";
-import sampleData from "./sampleExcel";
 import axios from "axios";
-import FileSaver from 'file-saver';
-import {mapGetters} from "vuex";
+import FileSaver from "file-saver";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -129,9 +106,15 @@ export default {
   },
   data() {
     return {
+      form: {
+        productName: "",
+        EANCode: "",
+        SKUCode: "",
+        startDate: "",
+        endDate: "",
+      },
       visibleCard: false,
       productData: [],
-      sampleData,
     }
   },
   mounted() {
@@ -139,7 +122,7 @@ export default {
   },
   computed:{
     ...mapGetters('auth',{
-      token:'getToken',
+      userID:'getUserID',
     }),
   },
   methods: {
@@ -147,24 +130,17 @@ export default {
       this.excel = this.$refs.file.files[0];
     },
     fetchProduct() {
-      axios.get(`/api/product/get`,{
-        headers: {
-          'Authorization': this.token
-        },
-      }).then((response) => {
+      axios.get(`/api/product/get`,).then((response) => {
         this.productData = response.data;
-        console.log(response.data[0]);
-        this.response= _.map(response.data[0], function square(n) {return n;});
-        console.log(this.response);
       });
     },
     uploadExcel() {
       const formData = new FormData();
+      formData.append("userID", this.userID);
       formData.append("file", this.excel);
       axios.post("api/product/excelUpload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
-            'Authorization': this.token,
           },
         })
         .then((response) => {
@@ -181,12 +157,10 @@ export default {
         });
       this.$refs.file.value = null;
     },
-    onExportApi() {
-      axios.get(`https://vuecrud-etj2v.ondigitalocean.app/api/product/download`,{
+
+    onExportSample() {
+      axios.get(`api/product/download`,{
         responseType: 'blob',
-        headers: {
-          'Authorization': this.token
-        },
       })
         .then((response) => {
           FileSaver.saveAs(response.data, 'Export2.xlsx');
