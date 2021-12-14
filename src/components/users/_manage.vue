@@ -19,8 +19,10 @@
 
         <div class="col-md-4">
           <h4 class="text-dark">Status</h4>
-          <label class="px-3 form-control-label p-1 rounded bg-danger text-white" v-if="userData.isActive===false">Inactive</label>
-          <label class="px-3 form-control-label p-1 rounded bg-success text-white" v-if="userData.isActive===true">active</label>
+          <label :class="userData.isActive?'px-3 form-control-label p-1 rounded bg-success text-white':'px-3 form-control-label p-1 rounded bg-danger text-white'">
+            {{ userData.isActive?'Active':'InActive' }}
+          </label>
+
           <base-dropdown
             menu-on-left
             class="nav-item"
@@ -42,12 +44,8 @@
               </a>
             </template>
 
-            <button v-if="userData.isActive===false" type="button" class="dropdown-item" @click="changeStatus">
-              Active
-            </button>
-
-            <button v-if="userData.isActive===true" type="button" class="dropdown-item" @click="changeStatus">
-               Inactive
+            <button type="button" class="dropdown-item" @click="changeStatus">
+              {{userData.isActive?'Inactive':'Active'}}
             </button>
 
           </base-dropdown>

@@ -132,7 +132,7 @@
       >
         <div class="">
           <p class="card-category">
-            Showing {{ from + 1 }} to {{ to }} of {{ total }} entries
+            Showing {{ from }} to {{ to }} of {{ total }} entries
           </p>
         </div>
         <base-pagination
@@ -149,7 +149,6 @@
 <script>
 import BasePagination from "@/components/BasePagination";
 import axios from "axios";
-import {mapGetters} from "vuex";
 
 export default {
   components: {
@@ -168,12 +167,21 @@ export default {
       return highBound;
     },
     from() {
-      return this.pagination.perPage * (this.pagination.currentPage - 1);
+      if(this.visibleScheme===true){
+        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
+      }
+      else{
+        return 0;
+      }
+
     },
     total() {
-      if(this.schemeData.length > 0)
+      if(this.visibleScheme===true)
       {
-        return this.schemeData.length
+        return this.schemeData.length;
+      }
+      else{
+        return 0;
       }
     },
   },

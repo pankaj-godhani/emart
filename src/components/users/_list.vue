@@ -12,6 +12,7 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>E-mail ID</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </template>
@@ -22,6 +23,11 @@
             <td>{{ data.firstName }}</td>
             <td>{{ data.lastName }}</td>
             <td>{{ data.email }}</td>
+            <td>
+              <span :class="data.isActive?'px-3 p-1 rounded bg-success text-white':'px-3 p-1 rounded bg-danger text-white'">
+                {{ data.isActive?'Active':'Inactive' }}
+              </span>
+            </td>
             <td>
               <div class="d-flex">
                 <div class="pr-2">

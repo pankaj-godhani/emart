@@ -16,7 +16,7 @@
                 </div>
               </div>
               <div class="card-body px-lg-5 py-lg-5">
-
+                <p class="text-danger" style="font-weight: normal">{{errorMsg}}</p>
                 <form @submit.prevent="submit" >
                   <div class="pb-2">
                     <label class="form-control-label">E-mail</label>
@@ -73,9 +73,10 @@ export default {
   data() {
     return {
       form: {
-        email: '',
-        passWord: '',
-      }
+        email: "",
+        passWord: "",
+      },
+      errorMsg: "",
     }
   },
 
@@ -83,14 +84,23 @@ export default {
     ...authMethods,
 
     submit(){
-      console.log(this.form);
+      //console.log(this.form);
       this.logIn(this.form)
-      .then(()=>{
-       // this.$router.push( '/' );
-        this.$router.go({
-          path: "/",
-          //force: true
-        });
+      .then((response)=>{
+        if(response)
+        {
+         // this.$router.push( '/' );
+          this.$router.go({
+            path: "/",
+            //force: true
+          });
+          console.log('success');
+        }
+        else if(!response)
+        {
+          this.errorMsg = "These credentials do not match our records.";
+          console.log('error');
+        }
       })
     }
   }

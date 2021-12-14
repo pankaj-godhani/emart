@@ -70,7 +70,6 @@
         <template v-slot:thead>
           <tr class="thead">
             <th >Sr No</th>
-            <!--            <th>ID</th>-->
             <th>EAN Code</th>
             <th>HSN Code</th>
             <th>Date of Availability</th>
@@ -93,7 +92,6 @@
         <template v-slot:tbody>
           <tr v-for="(data, index) in pagedData" :key="data._id">
             <td>{{ index + 1 }}</td>
-            <!--            <td>{{data._id}}</td>-->
             <td>{{ data.EANCode }}</td>
             <td>{{ data.HSNCode }}</td>
             <td>{{ changeDateFormat(data.dateOfAvailability)}}</td>
@@ -128,7 +126,7 @@
       >
         <div class="">
           <p class="card-category">
-            Showing {{ from + 1 }} to {{ to }} of {{ total }} entries
+            Showing {{ from }} to {{ to }} of {{ total }} entries
           </p>
         </div>
         <base-pagination
@@ -147,7 +145,7 @@ import BasePagination from "@/components/BasePagination";
 import Card from "../../Cards/Card";
 import axios from "axios";
 import {authMethods} from "../../../state/helpers";
-import {mapGetters} from "vuex";
+//import {mapGetters} from "vuex";
 export default {
   components: {
     Card,
@@ -166,12 +164,20 @@ export default {
       return highBound;
     },
     from() {
-      return this.pagination.perPage * (this.pagination.currentPage - 1);
+      if(this.visible===true){
+        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
+      }
+      else{
+        return  0;
+      }
+
     },
     total() {
-      if(this.productData.length > 0)
-      {
-        return this.productData.length
+      if(this.visible===true){
+        return this.productData.length;
+      }
+      else{
+        return  0;
       }
     },
   },

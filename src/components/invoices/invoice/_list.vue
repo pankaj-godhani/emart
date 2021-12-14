@@ -125,7 +125,7 @@
       >
         <div class="">
           <p class="card-category">
-            Showing {{ from + 1 }} to {{ to }} of {{ total }} entries
+            Showing {{ from }} to {{ to }} of {{ total }} entries
           </p>
         </div>
         <base-pagination
@@ -180,12 +180,21 @@ export default {
       return highBound;
     },
     from() {
-      return this.pagination.perPage * (this.pagination.currentPage - 1);
+      if(this.visible===true){
+        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
+      }
+      else{
+        return 0;
+      }
+
     },
     total() {
-      return this.invoiceData.length > 0
-        ? this.invoiceData.length
-        : this.invoiceData.length;
+     if(this.visible===true){
+       return this.invoiceData.length;
+     }
+     else{
+       return 0;
+     }
     },
   },
 

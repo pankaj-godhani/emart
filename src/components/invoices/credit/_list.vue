@@ -1,118 +1,48 @@
 <template>
-  <card class="no-border-card" body-classes="px-0 pb-1" footer-classes="pb-2">
-    <div>
-      <div
-        class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
-      >
-        <el-select
-          class="select-primary pagination-select"
-          v-model="pagination.perPage"
-          placeholder="Per page"
-        >
-          <el-option
-            class="select-primary"
-            v-for="item in pagination.perPageOptions"
-            :key="item"
-            :label="item"
-            :value="item"
-          >
-          </el-option>
-        </el-select>
+  <card  class="no-border-card"
+         body-classes="px-0 pb-1 py-3"
+         footer-classes="pb-2"
+  >
+    <div class="pl-0">
+      <Table>
+        <template #thead>
+          <tr>
+            <th>Sr No</th>
+            <th>Product Name</th>
+            <th>Vendor Invoice Reference</th>
+            <th>e-Metro PO Reference & Date</th>
+            <th>Description</th>
+            <th>Item Quantity</th>
+            <th>HSN Code</th>
+            <th>Unit Price</th>
+            <th>Price Difference</th>
+            <th>Tax Rate</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>IGST</th>
+            <th>Amount</th>
+          </tr>
+        </template>
+        <template #tbody>
+          <tr>
 
-        <div>
-          <el-input
-            type="search"
-            class="mb-3"
-            clearable
-            prefix-icon="el-icon-search"
-            style="width: 200px"
-            placeholder="Search records"
-            v-model="searchQuery"
-            aria-controls="datatables"
-          >
-          </el-input>
-        </div>
-      </div>
-      <el-table
-        :data="queriedData"
-        row-key="id"
-        header-row-class-name="thead-light"
-        @selection-change="selectionChange"
-      >
-        <el-table-column
-          min-width="100"
-          prop="index"
-          label="Sr No"
-        ></el-table-column>
-        <el-table-column min-width="150" prop="name" label="Product Name">
-        </el-table-column>
-        <el-table-column
-          min-width="230"
-          prop="job"
-          label="Vendor Invoice Reference"
-        >
-        </el-table-column>
-        <el-table-column
-          min-width="200"
-          prop="salary"
-          label="e-Metro PO Reference & Date"
-        >
-        </el-table-column>
-        <el-table-column min-width="140" prop="salary" label="Description">
-        </el-table-column>
-        <el-table-column min-width="150" prop="salary" label="Item Quantity">
-        </el-table-column>
-        <el-table-column min-width="150" prop="salary" label="HSN Code">
-        </el-table-column>
-        <el-table-column min-width="120" prop="salary" label="Unit Price">
-        </el-table-column>
-        <el-table-column min-width="200" prop="salary" label="Price Difference">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="Tax Rate">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="CGST">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="SGST">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="IGST">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="Amount">
-        </el-table-column>
-
-        <el-table-column min-width="180px" align="right" label="Actions">
-          <template v-slot:default="props">
-            <div class="d-flex">
-              <base-button
-                @click="handleLike(props.$index, props.row)"
-                class="like btn-link"
-                type="info"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-like-2"></i>
-              </base-button>
-              <base-button
-                @click="handleEdit(props.$index, props.row)"
-                class="edit"
-                type="warning"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-ruler-pencil"></i>
-              </base-button>
-              <base-button
-                @click="handleDelete(props.$index, props.row)"
-                class="remove btn-link"
-                type="danger"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-fat-remove"></i>
-              </base-button>
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
+            <td>1</td>
+            <td>tyuy</td>
+            <td>yyhj</td>
+            <td>tyjuytu</td>
+            <td>tyuytu</td>
+            <td>tyutyu</td>
+            <td>tyuty</td>
+            <td>yujyy</td>
+            <td>tyut</td>
+            <td>yujyu</td>
+            <td>yujiyji</td>
+            <td>uyjyu</td>
+            <td>yujiuy</td>
+            <td>yujuj</td>
+          </tr>
+        </template>
+      </Table>
     </div>
     <template v-slot:footer>
       <div
@@ -135,13 +65,6 @@
   </card>
 </template>
 <script>
-import {
-  ElTable,
-  ElTableColumn,
-  ElSelect,
-  ElOption,
-  ElInput,
-} from "element-plus";
 
 import BasePagination from "@/components/BasePagination";
 import swal from "sweetalert2";
@@ -150,39 +73,10 @@ import users from "../../../views/Tables/users2";
 export default {
   components: {
     BasePagination,
-
-    [ElSelect.name]: ElSelect,
-    [ElOption.name]: ElOption,
-    [ElTable.name]: ElTable,
-    [ElInput.name]: ElInput,
-    [ElTableColumn.name]: ElTableColumn,
   },
   computed: {
     pagedData() {
       return this.tableData.slice(this.from, this.to);
-    },
-    /***
-     * Searches through table data and returns a paginated array.
-     * Note that this should not be used for table with a lot of data as it might be slow!
-     * Do the search and the pagination on the server and display the data retrieved from server instead.
-     * @returns {computed.pagedData}
-     */
-    queriedData() {
-      if (!this.searchQuery) {
-        return this.pagedData;
-      }
-      let result = this.tableData.filter((row) => {
-        let isIncluded = false;
-        for (let key of this.propsToSearch) {
-          let rowValue = row[key].toString();
-          if (rowValue.includes && rowValue.includes(this.searchQuery)) {
-            isIncluded = true;
-          }
-        }
-        return isIncluded;
-      });
-
-      return result.slice(this.from, this.to);
     },
     to() {
       let highBound = this.from + this.pagination.perPage;

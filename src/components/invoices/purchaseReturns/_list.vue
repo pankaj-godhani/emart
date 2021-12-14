@@ -1,108 +1,68 @@
 <template>
-  <card class="no-border-card" body-classes="px-0 pb-1" footer-classes="pb-2">
-    <div>
-      <div
-        class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
-      >
-        <el-select
-          class="select-primary pagination-select"
-          v-model="pagination.perPage"
-          placeholder="Per page"
-        >
-          <el-option
-            class="select-primary"
-            v-for="item in pagination.perPageOptions"
-            :key="item"
-            :label="item"
-            :value="item"
-          >
-          </el-option>
-        </el-select>
+  <card class="no-border-card"
+        body-classes="px-0 pb-1 py-3"
+        footer-classes="pb-2">
+    <div class="pl-0">
+      <Table>
+        <template #thead>
+          <tr>
+            <th>Sr No</th>
+            <th>PO Number</th>
+            <th>PO Date</th>
+            <th>Invoice Number</th>
+            <th>Invoice Date</th>
+            <th>EAN</th>
+            <th>Product Name</th>
+            <th>Quantity Purchased</th>
+            <th>Quantity Returned</th>
+            <th>Reason of Return</th>
+            <th>Credit Note ID</th>
+            <th>Remarks</th>
+          </tr>
+        </template>
+        <template #tbody>
+          <tr>
 
-        <div>
-          <el-input
-            type="search"
-            class="mb-3"
-            clearable
-            prefix-icon="el-icon-search"
-            style="width: 200px"
-            placeholder="Search records"
-            v-model="searchQuery"
-            aria-controls="datatables"
-          >
-          </el-input>
-        </div>
-      </div>
-      <el-table
-        :data="queriedData"
-        row-key="id"
-        header-row-class-name="thead-light"
-        @selection-change="selectionChange"
-      >
-        <el-table-column
-          min-width="100"
-          prop="index"
-          label="Sr No"
-        ></el-table-column>
-        <el-table-column min-width="150" prop="name" label="PO Number">
-        </el-table-column>
-        <el-table-column min-width="150" prop="job" label="PO Date">
-        </el-table-column>
-        <el-table-column min-width="160" prop="salary" label="Invoice Number">
-        </el-table-column>
-        <el-table-column min-width="140" prop="salary" label="Invoice Date">
-        </el-table-column>
-        <el-table-column min-width="100" prop="salary" label="EAN">
-        </el-table-column>
-        <el-table-column min-width="150" prop="salary" label="Product Name">
-        </el-table-column>
-        <el-table-column min-width="150" prop="salary" label="Invoice Value">
-        </el-table-column>
-        <el-table-column min-width="200" prop="salary" label="Quantity Purchased">
-        </el-table-column>
-        <el-table-column min-width="200" prop="salary" label="Quantity Returned">
-        </el-table-column>
-        <el-table-column min-width="120" prop="salary" label="Reason of Return">
-        </el-table-column>
-        <el-table-column min-width="130" prop="salary" label="Credit Note ID">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="Remarks">
-        </el-table-column>
-
-        <el-table-column min-width="180px" align="right" label="Actions">
-          <template v-slot:default="props">
-            <div class="d-flex">
-              <base-button
-                @click="handleLike(props.$index, props.row)"
-                class="like btn-link"
-                type="info"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-like-2"></i>
-              </base-button>
-              <base-button
-                @click="handleEdit(props.$index, props.row)"
-                class="edit"
-                type="warning"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-ruler-pencil"></i>
-              </base-button>
-              <base-button
-                @click="handleDelete(props.$index, props.row)"
-                class="remove btn-link"
-                type="danger"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-fat-remove"></i>
-              </base-button>
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
+            <td>1</td>
+            <td>rere</td>
+            <td>ertr</td>
+            <td>ertr</td>
+            <td>retr</td>
+            <td>etr</td>
+            <td>erte</td>
+            <td>reet</td>
+            <td>rret</td>
+            <td>rtry</td>
+            <td>yghgj</td>
+            <td>yhyt</td>
+<!--            <td>
+              <div class="d-flex">
+                <div class="pr-2">
+                  <router-link
+                    :to="{ name: 'UserEdit', params: { id: data._id } }"
+                  >
+                    <button
+                      type="button"
+                      class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
+                    >
+                      <i class="text-white ni ni-ruler-pencil"></i>
+                    </button>
+                  </router-link>
+                </div>
+                &lt;!&ndash;                <div>
+                                  <button
+                                    type="button"
+                                    class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
+                                    @click.prevent="destroy(data._id)"
+                                  >
+                                    <i class="text-white ni ni-fat-remove"></i>
+                                  </button>
+                                </div>&ndash;&gt;
+              </div>
+            </td>-->
+          </tr>
+        </template>
+      </Table>
     </div>
     <template v-slot:footer>
       <div
@@ -125,54 +85,18 @@
   </card>
 </template>
 <script>
-import {
-  ElTable,
-  ElTableColumn,
-  ElSelect,
-  ElOption,
-  ElInput,
-} from "element-plus";
 
 import BasePagination from "@/components/BasePagination";
-import swal from "sweetalert2";
 import users from "../../../views/Tables/users2";
 
 export default {
   components: {
     BasePagination,
 
-    [ElSelect.name]: ElSelect,
-    [ElOption.name]: ElOption,
-    [ElTable.name]: ElTable,
-    [ElInput.name]: ElInput,
-    [ElTableColumn.name]: ElTableColumn,
   },
   computed: {
     pagedData() {
       return this.tableData.slice(this.from, this.to);
-    },
-    /***
-     * Searches through table data and returns a paginated array.
-     * Note that this should not be used for table with a lot of data as it might be slow!
-     * Do the search and the pagination on the server and display the data retrieved from server instead.
-     * @returns {computed.pagedData}
-     */
-    queriedData() {
-      if (!this.searchQuery) {
-        return this.pagedData;
-      }
-      let result = this.tableData.filter((row) => {
-        let isIncluded = false;
-        for (let key of this.propsToSearch) {
-          let rowValue = row[key].toString();
-          if (rowValue.includes && rowValue.includes(this.searchQuery)) {
-            isIncluded = true;
-          }
-        }
-        return isIncluded;
-      });
-
-      return result.slice(this.from, this.to);
     },
     to() {
       let highBound = this.from + this.pagination.perPage;
@@ -206,66 +130,8 @@ export default {
     };
   },
   methods: {
-    handleLike(index, row) {
-      const swalWithBootstrapButtons1 = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success btn-fill",
-        },
-        buttonsStyling: false,
-      });
 
-      swalWithBootstrapButtons1.fire({
-        title: `You liked ${row.name}`,
-      });
-    },
-    handleEdit(index, row) {
-      const swalWithBootstrapButtons2 = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-info btn-fill",
-        },
-        buttonsStyling: false,
-      });
 
-      swalWithBootstrapButtons2.fire({
-        title: `You want to edit ${row.name}`,
-      });
-    },
-    handleDelete(index, row) {
-      const swalWithBootstrapButtons3 = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success btn-fill",
-          cancelButton: "btn btn-danger btn-fill",
-        },
-        buttonsStyling: false,
-      });
-      swalWithBootstrapButtons3
-        .fire({
-          title: "Are you sure?",
-          text: `You won't be able to revert this!`,
-          showCancelButton: true,
-          confirmButtonText: "Yes, delete it!",
-        })
-        .then((result) => {
-          if (result.value) {
-            this.deleteRow(row);
-            swalWithBootstrapButtons3.fire({
-              title: "Deleted!",
-              text: `You deleted ${row.name}`,
-            });
-          }
-        });
-    },
-    deleteRow(row) {
-      let indexToDelete = this.tableData.findIndex(
-        (tableRow) => tableRow.id === row.id
-      );
-      if (indexToDelete >= 0) {
-        this.tableData.splice(indexToDelete, 1);
-      }
-    },
-    selectionChange(selectedRows) {
-      this.selectedRows = selectedRows;
-    },
   },
 };
 </script>

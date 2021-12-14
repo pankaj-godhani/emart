@@ -63,6 +63,7 @@ export const actions = {
         }
         return axios.post('api/auth/login', form)
             .then(response => {
+              //console.log(response)
                 commit('SET_TOKEN', {
                   token:response.data.token,
                   userID:response.data.detail._id,
@@ -73,6 +74,7 @@ export const actions = {
                 return response.data.token;
             })
             .catch((error)=>{
+
                   console.log(error,'inside logIn error')
                 });
     },
@@ -95,7 +97,7 @@ export const actions = {
     },
 
     // Validates the current user's token and refreshes it  with new data from the API.
-    validate({ state,getters},form={}) {
+    validate({ state,getters}) {
         if (!state.token) {
             return Promise.resolve(null);
         }

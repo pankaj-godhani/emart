@@ -72,7 +72,7 @@
             </tr>
           </template>
           <template #tbody>
-            <tr v-for="(data, index) in dispatchNoteData" :key="data._id">
+            <tr v-for="(data, index) in pagedData" :key="data._id">
               <td>{{ index + 1 }}</td>
               <td>{{ data._id }}</td>
               <td>{{ data.DCNumber }}</td>
@@ -123,7 +123,7 @@
       >
         <div class="">
           <p class="card-category">
-            Showing {{ from + 1 }} to {{ to }} of {{ total }} entries
+            Showing {{ from }} to {{ to }} of {{ total }} entries
           </p>
         </div>
         <base-pagination
@@ -145,6 +145,37 @@ import axios from "axios";
 export default {
   components: {
     BasePagination,
+  },
+  computed: {
+    pagedData() {
+      return this.dispatchNoteData.slice(this.from, this.to);
+    },
+
+    to() {
+      let highBound = this.from + this.pagination.perPage;
+      if (this.total < highBound) {
+        highBound = this.total;
+      }
+      return highBound;
+    },
+    from() {
+      if(this.visible===true){
+        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
+      }
+      else{
+        return 0;
+      }
+
+    },
+    total() {
+      if(this.visible===true)
+      {
+        return this.dispatchNoteData.length;
+      }
+      else{
+        return  0;
+      }
+    },
   },
   data() {
     return {

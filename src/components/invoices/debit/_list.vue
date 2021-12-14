@@ -1,116 +1,72 @@
 <template>
-  <card class="no-border-card" body-classes="px-0 pb-1" footer-classes="pb-2">
-    <div>
-      <div
-        class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
-      >
-        <el-select
-          class="select-primary pagination-select"
-          v-model="pagination.perPage"
-          placeholder="Per page"
-        >
-          <el-option
-            class="select-primary"
-            v-for="item in pagination.perPageOptions"
-            :key="item"
-            :label="item"
-            :value="item"
-          >
-          </el-option>
-        </el-select>
+  <card  class="no-border-card"
+         body-classes="px-0 pb-1 py-3"
+         footer-classes="pb-2"
+  >
+    <div class="pl-0">
 
-        <div>
-          <el-input
-            type="search"
-            class="mb-3"
-            clearable
-            prefix-icon="el-icon-search"
-            style="width: 200px"
-            placeholder="Search records"
-            v-model="searchQuery"
-            aria-controls="datatables"
-          >
-          </el-input>
-        </div>
-      </div>
-      <el-table
-        :data="queriedData"
-        row-key="id"
-        header-row-class-name="thead-light"
-        @selection-change="selectionChange"
-      >
-        <el-table-column
-          min-width="100"
-          prop="index"
-          label="Sr No"
-        ></el-table-column>
-        <el-table-column min-width="150" prop="name" label="Product Name">
-        </el-table-column>
-        <el-table-column
-          min-width="230"
-          prop="job"
-          label="Vendor Invoice Reference & Date"
-        >
-        </el-table-column>
-        <el-table-column
-          min-width="200"
-          prop="salary"
-          label="e-Metro PO Reference & Date"
-        >
-        </el-table-column>
-        <el-table-column min-width="140" prop="salary" label="Description">
-        </el-table-column>
-        <el-table-column min-width="150" prop="salary" label="Item Quantity">
-        </el-table-column>
-        <el-table-column min-width="150" prop="salary" label="HSN Code">
-        </el-table-column>
-        <el-table-column min-width="120" prop="salary" label="Unit Price">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="Tax Rate">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="CGST">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="SGST">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="IGST">
-        </el-table-column>
-        <el-table-column min-width="110" prop="salary" label="Amount">
-        </el-table-column>
+      <Table>
+        <template #thead>
+          <tr>
+            <th>Sr No</th>
+            <th>Product Name</th>
+            <th>Vendor Invoice Reference & Date</th>
+            <th>e-Metro PO Reference & Date</th>
+            <th>Description</th>
+            <th>Item Quantity</th>
+            <th>HSN Code</th>
+            <th>Unit Price</th>
+            <th>Tax Rate</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>IGST</th>
+            <th>Amount</th>
+          </tr>
+        </template>
+        <template #tbody>
+          <tr>
 
-        <el-table-column min-width="180px" align="right" label="Actions">
-          <template v-slot:default="props">
-            <div class="d-flex">
-              <base-button
-                @click="handleLike(props.$index, props.row)"
-                class="like btn-link"
-                type="info"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-like-2"></i>
-              </base-button>
-              <base-button
-                @click="handleEdit(props.$index, props.row)"
-                class="edit"
-                type="warning"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-ruler-pencil"></i>
-              </base-button>
-              <base-button
-                @click="handleDelete(props.$index, props.row)"
-                class="remove btn-link"
-                type="danger"
-                size="sm"
-                icon
-              >
-                <i class="text-white ni ni-fat-remove"></i>
-              </base-button>
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
+            <td>1</td>
+            <td>rrgre</td>
+            <td>thtyh</td>
+            <td>yhuyt</td>
+            <td>tyyt</td>
+            <td>tuty</td>
+            <td>tyyt</td>
+            <td>ytjt</td>
+            <td>tyjut</td>
+            <td>tyjtj</td>
+            <td>tyjt</td>
+            <td>tyuty</td>
+            <td>yujiuy</td>
+<!--            <td>
+              <div class="d-flex">
+                <div class="pr-2">
+                  <router-link
+                    :to="{ name: 'UserEdit', params: { id: data._id } }"
+                  >
+                    <button
+                      type="button"
+                      class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
+                    >
+                      <i class="text-white ni ni-ruler-pencil"></i>
+                    </button>
+                  </router-link>
+                </div>
+                &lt;!&ndash;                <div>
+                                  <button
+                                    type="button"
+                                    class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
+                                    @click.prevent="destroy(data._id)"
+                                  >
+                                    <i class="text-white ni ni-fat-remove"></i>
+                                  </button>
+                                </div>&ndash;&gt;
+              </div>
+            </td>-->
+          </tr>
+        </template>
+      </Table>
     </div>
     <template v-slot:footer>
       <div
