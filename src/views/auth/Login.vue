@@ -86,11 +86,11 @@ export default {
       console.log(this.form);
       this.logIn(this.form)
       .then(()=>{
-        this.$router.push( '/' );
-        /*this.$router.go({
+       // this.$router.push( '/' );
+        this.$router.go({
           path: "/",
           //force: true
-        });*/
+        });
       })
     }
   }

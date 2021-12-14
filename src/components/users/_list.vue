@@ -9,7 +9,6 @@
         <template #thead>
           <tr>
             <th>Sr No</th>
-            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>E-mail ID</th>
@@ -20,7 +19,6 @@
           <tr v-for="(data, index) in usersData" :key="data._id">
 
             <td>{{ index + 1 }}</td>
-            <td>{{data._id}}</td>
             <td>{{ data.firstName }}</td>
             <td>{{ data.lastName }}</td>
             <td>{{ data.email }}</td>
