@@ -6,14 +6,14 @@
   >
     <form @submit.prevent="fetchProduct">
       <div class="d-flex flex-row mb-3">
-        <div class="px-2 w-50">
+<!--        <div class="px-2 w-50">
           <select class="form-control" @change="onChange($event)">
             <option disabled value="0" selected="selected">Select User</option>
             <option>
               rgdrtfg
             </option>
           </select>
-        </div>
+        </div>-->
         <div class="d-flex w-25">
           <label class="mt-2 pr-1">From:</label>
           <input
@@ -162,7 +162,7 @@ export default {
   },
   computed: {
     pagedData() {
-      return this.productData.slice(this.from, this.to);
+      return this.productData.slice(this.from-1, this.to);
     },
 
     to() {
@@ -173,21 +173,10 @@ export default {
       return highBound;
     },
     from() {
-      if(this.visible===true){
-        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
-      }
-      else{
-        return  0;
-      }
-
+      return this.visible ?this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
     },
     total() {
-      if(this.visible===true){
-        return this.productData.length;
-      }
-      else{
-        return  0;
-      }
+      return this.visible ? this.productData.length : 0;
     },
   },
   data() {
