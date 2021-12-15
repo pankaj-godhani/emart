@@ -154,7 +154,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.isActive);
     this.initScrollbar();
     //this.forUser();
   },

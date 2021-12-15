@@ -58,7 +58,6 @@
           <template #thead>
             <tr>
               <th>Sr No</th>
-              <th>ID</th>
               <th>Deliver Challan/Invoice No</th>
               <th>Date of Deliver Challan No</th>
               <th>PO Number</th>
@@ -74,7 +73,6 @@
           <template #tbody>
             <tr v-for="(data, index) in pagedData" :key="data._id">
               <td>{{ index + 1 }}</td>
-              <td>{{ data._id }}</td>
               <td>{{ data.DCNumber }}</td>
               <td>{{ changeDateFormat(data.DateOfDeliverChallan) }}</td>
               <td>{{ data.PONumber }}</td>
@@ -148,7 +146,7 @@ export default {
   },
   computed: {
     pagedData() {
-      return this.dispatchNoteData.slice(this.from, this.to);
+      return this.dispatchNoteData.slice(this.from-1, this.to);
     },
 
     to() {
@@ -159,22 +157,10 @@ export default {
       return highBound;
     },
     from() {
-      if(this.visible===true){
-        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
-      }
-      else{
-        return 0;
-      }
-
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
     },
     total() {
-      if(this.visible===true)
-      {
-        return this.dispatchNoteData.length;
-      }
-      else{
-        return  0;
-      }
+      return this.visible ? this.dispatchNoteData.length : 0;
     },
   },
   data() {

@@ -186,21 +186,10 @@ export default {
       return highBound;
     },
     from() {
-      if(this.visible===true){
-        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
-      }
-      else{
-        return 0;
-      }
-
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
     },
     total() {
-      if(this.visible===true){
-        return this.purchaseOrdersData.length;
-      }
-      else{
-        return 0;
-      }
+      return this.visible ? this.purchaseOrdersData.length : 0;
     },
   },
   mounted() {

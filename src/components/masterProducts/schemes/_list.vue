@@ -156,7 +156,7 @@ export default {
   },
   computed: {
     pagedData() {
-      return this.schemeData.slice(this.from, this.to);
+      return this.schemeData.slice(this.from-1, this.to);
     },
 
     to() {
@@ -167,22 +167,10 @@ export default {
       return highBound;
     },
     from() {
-      if(this.visibleScheme===true){
-        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
-      }
-      else{
-        return 0;
-      }
-
+      return this.visibleScheme ? this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
     },
     total() {
-      if(this.visibleScheme===true)
-      {
-        return this.schemeData.length;
-      }
-      else{
-        return 0;
-      }
+      return this.visibleScheme ? this.schemeData.length : 0;
     },
   },
   data() {

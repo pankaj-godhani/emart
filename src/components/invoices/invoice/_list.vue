@@ -170,7 +170,7 @@ export default {
   },
   computed: {
     pagedData() {
-      return this.invoiceData.slice(this.from, this.to);
+      return this.invoiceData.slice(this.from-1, this.to);
     },
     to() {
       let highBound = this.from + this.pagination.perPage;

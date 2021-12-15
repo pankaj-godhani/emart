@@ -6,17 +6,26 @@
   >
     <form @submit.prevent="fetchProduct">
       <div class="d-flex flex-row mb-3">
-        <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
-        <div>
-          <input
-            type="date"
-            class="form-control"
-            placeholder="from"
-            v-model="form.startDate"
-          />
+        <div class="px-2 w-50">
+          <select class="form-control" @change="onChange($event)">
+            <option disabled value="0" selected="selected">Select User</option>
+            <option>
+              rgdrtfg
+            </option>
+          </select>
         </div>
-        <div><label class="mt-2 pl-2">To:</label></div>
-        <div class="px-2">
+        <div class="d-flex w-25">
+          <label class="mt-2 pr-1">From:</label>
+          <input
+          type="date"
+          class="form-control"
+          placeholder="from"
+          v-model="form.startDate"
+        />
+        </div>
+
+        <div class="d-flex pl-1">
+          <label class="mt-2 pr-1">To:</label>
           <input
             type="date"
             class="form-control"
@@ -25,7 +34,7 @@
             @mouseout="fetchProduct"
           />
         </div>
-        <div class="px-2">
+        <div class="w-50 pl-1">
           <input
             type="text"
             class="form-control"
@@ -35,14 +44,14 @@
             @keyup="fetchProduct"
           />
         </div>
-        <div class="px-2">
+        <div class="w-50 pl-1">
           <input
             class="form-control"
             placeholder="EAN Code"
             v-model="form.EANCode"
           />
         </div>
-        <div class="px-2">
+        <div class="w-50 pl-1">
           <input
             class="form-control"
             placeholder="SKU Code"
