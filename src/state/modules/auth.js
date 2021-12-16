@@ -92,7 +92,10 @@ export const actions = {
             .then(response => {
               //commit('SET_TOKEN', {token:response.data.token,userID:response.data.detail._id,user:response.data.detail});
               return response.data;
-            });
+            })
+          .catch((error)=>{
+            console.log(error,'register error');
+          });
 
     },
 

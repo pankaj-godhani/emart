@@ -1,153 +1,174 @@
 <template>
-  <card
-    class="no-border-card"
-    body-classes="px-0 pb-1 py-3"
-    footer-classes="pb-2"
-  >
-    <form @submit.prevent="fetchProduct">
-      <div class="d-flex flex-row mb-3">
-<!--        <div class="px-2 w-50">
-          <select class="form-control" @change="onChange($event)">
-            <option disabled value="0" selected="selected">Select User</option>
-            <option>
-              rgdrtfg
-            </option>
-          </select>
-        </div>-->
-        <div class="d-flex w-25">
-          <label class="mt-2 pr-1">From:</label>
-          <input
-          type="date"
-          class="form-control"
-          placeholder="from"
-          v-model="form.startDate"
-        />
-        </div>
-
-        <div class="d-flex pl-1">
-          <label class="mt-2 pr-1">To:</label>
-          <input
-            type="date"
-            class="form-control"
-            placeholder="to"
-            v-model="form.endDate"
-            @mouseout="fetchProduct"
-          />
-        </div>
-        <div class="w-50 pl-1">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Product Name"
-            aria-controls="datatables"
-            v-model="form.productName"
-            @keyup="fetchProduct"
-          />
-        </div>
-        <div class="w-50 pl-1">
-          <input
-            class="form-control"
-            placeholder="EAN Code"
-            v-model="form.EANCode"
-          />
-        </div>
-        <div class="w-50 pl-1">
-          <input
-            class="form-control"
-            placeholder="SKU Code"
-            v-model="form.SKUCode"
-          />
-        </div>
-        <div class="d-flex float-right">
-          <div class="pl-3">
-            <base-button type="default" native-type="submit">Search</base-button>
-          </div>
-          <div class="px-2">
-            <button
-              type="button"
-              class="btn base-button btn-default"
-              @click="resetForm"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
-    <div v-if="visible">
-      <Table>
-        <template v-slot:thead>
-          <tr class="thead">
-            <th >Sr No</th>
-            <th>EAN Code</th>
-            <th>HSN Code</th>
-            <th>Date of Availability</th>
-            <th>Brand Name</th>
-            <th>Mftr Article No/SKU Code</th>
-            <th>Product Category</th>
-            <th>Product Name</th>
-            <th>UOM</th>
-            <th>UOM Conversion</th>
-            <th>Shelf Life in Days</th>
-            <th>MRP</th>
-            <th>Margin</th>
-            <th>Net PTR - Price to Retail</th>
-            <th>Product Scheme</th>
-            <th>Remarks</th>
-            <th>Price Approval</th>
-            <th>Selling Price</th>
-          </tr>
-        </template>
-        <template v-slot:tbody>
-          <tr v-for="(data, index) in pagedData" :key="data._id">
-            <td>{{ index + 1 }}</td>
-            <td>{{ data.EANCode }}</td>
-            <td>{{ data.HSNCode }}</td>
-            <td>{{ changeDateFormat(data.dateOfAvailability)}}</td>
-            <td>{{ data.brandName }}</td>
-            <td>{{ data.SKUCode }}</td>
-            <td>{{ data.productCategory }}</td>
-            <td>{{ data.productName }}</td>
-            <td>{{ data.UOM }}</td>
-            <td>{{ data.UOMConversation }}</td>
-            <td>{{ data.shelfLifeDays }}</td>
-            <td>{{ data.MRP }}</td>
-            <td>{{ data.margin }}</td>
-            <td>net ptr</td>
-            <td>{{ data.schemes }}</td>
-            <td>{{ data.remarks }}</td>
-            <td>price approval</td>
-            <td>{{ data.sellingPrice }}</td>
-
-
-
-          </tr>
-        </template>
-      </Table>
-    </div>
-    <div v-else-if="status === 201||error" class="text-center mt-4 text-dark">
-      Data not found
+  <div>
+    <div class="d-flex mb-2" v-if="selectAll || select">
+      <button class="btn btn-default" @click="approveProduct">approve</button>
+      <button class="btn btn-default" @click="disApproveProduct">Disapprove</button>
     </div>
 
-    <template v-slot:footer>
-      <div
-        class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+    <div>
+      <card
+        class="no-border-card"
+        body-classes="px-0 pb-1 py-3"
+        footer-classes="pb-2"
       >
-        <div class="">
-          <p class="card-category">
-            Showing {{ from }} to {{ to }} of {{ total }} entries
-          </p>
+        <form @submit.prevent="fetchProduct">
+          <div class="d-flex flex-row mb-3">
+            <!--        <div class="px-2 w-50">
+                      <select class="form-control" @change="onChange($event)">
+                        <option disabled value="0" selected="selected">Select User</option>
+                        <option>
+                          rgdrtfg
+                        </option>
+                      </select>
+                    </div>-->
+
+            <div class="d-flex w-25">
+              <label class="mt-2 px-1">From:</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder="from"
+                v-model="form.startDate"
+              />
+            </div>
+
+            <div class="d-flex pl-1">
+              <label class="mt-2 pr-1">To:</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder="to"
+                v-model="form.endDate"
+                @mouseout="fetchProduct"
+              />
+            </div>
+            <div class="w-50 pl-1">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Product Name"
+                aria-controls="datatables"
+                v-model="form.productName"
+                @keyup="fetchProduct"
+              />
+            </div>
+            <div class="w-50 pl-1">
+              <input
+                class="form-control"
+                placeholder="EAN Code"
+                v-model="form.EANCode"
+              />
+            </div>
+            <div class="w-50 pl-1">
+              <input
+                class="form-control"
+                placeholder="SKU Code"
+                v-model="form.SKUCode"
+              />
+            </div>
+            <div class="d-flex float-right">
+              <div class="pl-3">
+                <base-button type="default" native-type="submit">Search</base-button>
+              </div>
+              <div class="px-2">
+                <button
+                  type="button"
+                  class="btn base-button btn-default"
+                  @click="resetForm"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div v-if="visible">
+          <Table>
+            <template v-slot:thead>
+              <tr class="thead">
+                <th v-show="isAdmin"><input type="checkbox" v-model="selectAll"></th>
+                <th >Sr No</th>
+                <th>Price Approval</th>
+                <th>EAN Code</th>
+                <th>HSN Code</th>
+                <th>Date of Availability</th>
+                <th>Brand Name</th>
+                <th>Mftr Article No/SKU Code</th>
+                <th>Product Category</th>
+                <th>Product Name</th>
+                <th>UOM</th>
+                <th>UOM Conversion</th>
+                <th>Shelf Life in Days</th>
+                <th>MRP</th>
+                <th>Margin</th>
+                <th>Net PTR - Price to Retail</th>
+                <th>Product Scheme</th>
+                <th>Remarks</th>
+                <th>Selling Price</th>
+              </tr>
+            </template>
+            <template v-slot:tbody>
+              <tr v-for="(data, index) in pagedData" :key="data._id">
+                <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected"></td>
+                <td>{{ index + 1 }}</td>
+                <td v-if="data.priceApproval">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-lg text-success" viewBox="0 0 16 16">
+                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                   </svg>
+                </td>
+                <td v-else>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x text-danger" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+                </td>
+                <td>{{ data.EANCode }}</td>
+                <td>{{ data.HSNCode }}</td>
+                <td>{{ changeDateFormat(data.dateOfAvailability)}}</td>
+                <td>{{ data.brandName }}</td>
+                <td>{{ data.SKUCode }}</td>
+                <td>{{ data.productCategory }}</td>
+                <td>{{ data.productName }}</td>
+                <td>{{ data.UOM }}</td>
+                <td>{{ data.UOMConversation }}</td>
+                <td>{{ data.shelfLifeDays }}</td>
+                <td>{{ data.MRP }}</td>
+                <td>{{ data.margin }}</td>
+                <td>net ptr</td>
+                <td>{{ data.schemes }}</td>
+                <td>{{ data.remarks }}</td>
+                <td>{{ data.sellingPrice }}</td>
+
+              </tr>
+            </template>
+          </Table>
         </div>
-        <base-pagination
-          class="pagination-no-border"
-          v-model="pagination.currentPage"
-          :per-page="pagination.perPage"
-          :total="total"
-        >
-        </base-pagination>
-      </div>
-    </template>
-  </card>
+        <div v-else-if="status === 201||error" class="text-center mt-4 text-dark">
+          Data not found
+        </div>
+
+        <template v-slot:footer>
+          <div
+            class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+          >
+            <div class="">
+              <p class="card-category">
+                Showing {{ from }} to {{ to }} of {{ total }} entries
+              </p>
+            </div>
+            <base-pagination
+              class="pagination-no-border"
+              v-model="pagination.currentPage"
+              :per-page="pagination.perPage"
+              :total="total"
+            >
+            </base-pagination>
+          </div>
+        </template>
+      </card>
+    </div>
+
+  </div>
+
 </template>
 <script>
 import BasePagination from "@/components/BasePagination";
@@ -161,6 +182,27 @@ export default {
     BasePagination,
   },
   computed: {
+    isAdmin(){
+      return this.$store.getters['auth/getIsAdmin'];
+    },
+    select(){
+      return this.selected.length ? true: false;
+    },
+    selectAll: {
+      get: function () {
+        return this.productData ? this.selected.length == this.productData.length : false;
+      },
+      set: function (value) {
+        var selected = [];
+
+        if (value) {
+          this.productData.forEach(function (product) {
+            selected.push(product._id);
+          });
+        }
+        this.selected = selected;
+      }
+    },
     pagedData() {
       return this.productData.slice(this.from-1, this.to);
     },
@@ -193,6 +235,7 @@ export default {
         currentPage: 1,
         total: 0,
       },
+      selected:[],
       productData: [],
       visible: false,
       status: "",
@@ -205,6 +248,26 @@ export default {
   },
   methods: {
     ...authMethods,
+    approveProduct(){
+      axios.put(`api/product/changeStatusPriceApproval`,{
+        "productIdList" : this.selected,
+          "priceApproval":true,
+      },
+      )
+      .then(()=>{
+        this.$router.go();
+      });
+    },
+    disApproveProduct(){
+      axios.put(`api/product/changeStatusPriceApproval`,{
+          "productIdList" : this.selected,
+          "priceApproval":false,
+        },
+      )
+        .then(()=>{
+          this.$router.go();
+        });
+    },
     resetForm() {
       this.form = {};
       this.fetchProduct();

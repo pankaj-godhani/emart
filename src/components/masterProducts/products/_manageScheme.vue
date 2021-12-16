@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataModal :title="'Add Scheme'" @close="$emit('close')">
+      <DataModal :title="'Add Scheme'" @close="$emit('close')">
       <template v-slot:body>
         <div class="container ct-example-row">
           <form>
