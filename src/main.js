@@ -11,7 +11,6 @@ window.axios = require("axios");
 import Axios from "axios";
 import excel from "vue-excel-export";
 import GlobalMixin from "./globalMixin";
-import "bootstrap-icons/font/bootstrap-icons";
 
 const token = store.getters['auth/getToken'];
 Axios.defaults.headers.common['Authorization']=token;
