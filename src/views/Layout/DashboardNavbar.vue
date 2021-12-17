@@ -92,7 +92,7 @@ export default {
     ...authMethods,
     doLogOut(){
       this.logOut()
-        .then(response => {
+        .then(() => {
           this.$router.push('/login');
         });
     },

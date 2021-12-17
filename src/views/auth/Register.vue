@@ -131,7 +131,7 @@ export default {
   components:{VueRecaptcha },
   methods:{
     ...authMethods,
-    mxVerify( response ) {
+    mxVerify() {
       this.loginForm.pleaseTickRecaptchaMessage = '';
       this.loginForm.recaptchaVerified = true;
 
