@@ -4,7 +4,7 @@
       <div>
         <div class="row align-items-center pb-4">
           <div class="col-lg-4">
-            <h3 class="mb-0">Products</h3>
+            <h3 class="mb-0 mt-2">Products</h3>
           </div>
           <div class="col-lg-8 text-right">
             <base-dropdown

@@ -142,7 +142,7 @@
         </template>
       </Table>
     </div>
-    <div  id="myPDF">
+    <div  id="myPDF" v-show="false">
       <h1 class="px-4 mt-4 text-dark">e-metro</h1>
       <div class="row">
         <div class="col">
@@ -212,7 +212,6 @@ export default {
       mode: "SVG",
       options: {},
       barcodeValue: "test",
-      invisibleTable: false,
       imageURL: null,
       purchaseOrdersData: {
         PrimaryBarCode: "",

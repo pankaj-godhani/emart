@@ -95,11 +95,6 @@
                   <h5>Back to login</h5>
                 </router-link>
               </div>
-<!--              <div class="col-6 text-right ">
-                <router-link :to="{name:'Register'}" class="text-light">
-                  <h5>Create new account</h5>
-                </router-link>
-              </div>-->
             </div>
           </div>
         </div>

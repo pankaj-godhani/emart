@@ -110,19 +110,17 @@
           <button
             type="button"
             class="btn base-button btn-default"
-            v-if="editing"
             @click.prevent="update"
           >
             Save
           </button>
-          <button
+<!--          <button
             type="button"
             class="btn base-button btn-default"
-            v-else
             @click.prevent="store"
           >
             Submit
-          </button>
+          </button>-->
         </div>
 
       </div>
@@ -132,114 +130,40 @@
 
 <script>
 import axios from "axios";
-//import {mapGetters} from "vuex";
-
 
 export default {
   props:['id'],
   data(){
     return{
-      //userData:[],
       imageURL: null,
-      form: {
-        firstName:'',
-        lastName:'',
-        mobileNumber:'',
-        email: '',
-        passWord: '',
-        isAdmin:false,
-        isActive:false,
-        file:null,
-      },
+      form:{},
+      logo: null,
+    }
+  },
+  computed:{
+    user(){
+      return this.$store.getters['auth/getUser'];
     }
   },
 
-  computed:{
-    editing() {
-      return !!this.id;
-    },
-    user(){
-      return this.$store.getters['auth/getUser'];
-    },
-  },
-  mounted(){
-    if (this.editing) {
-      this.fetch();
-    }
-    console.log(this.user);
-    console.log(this.id);
+  mounted() {
+    this.form=this.user;
   },
 
   methods:{
     getImage() {
-      this.form.file = this.$refs.file1.files.item(0);
-      this.imageURL = URL.createObjectURL(this.form.file);
-    },
-    submit() {
-      this.editing ? this.update() : this.store();
-    },
-    fetch(){
-      axios.get(`api/auth/getAllUser/${this.id}`)
-      .then(response=>{
-        this.form=response.data.userList[0];
-      });
+      this.logo = this.$refs.file1.files.item(0);
+      this.imageURL = URL.createObjectURL(this.logo);
     },
 
     update(){
-      const formData = new FormData();
-      formData.append('firstName',this.form.firstName);
-      formData.append('lastName',this.form.lastName);
-      formData.append('mobileNumber',this.form.mobileNumber);
-      formData.append('email',this.form.email);
-      formData.append('passWord',this.form.passWord);
-      formData.append('isAdmin',this.form.isAdmin);
-      formData.append('isActive',this.form.isActive);
-      formData.append('file',this.form.file);
-        axios.put(`api/auth/edit/${this.id}`,formData,{
-          header: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
+      axios.put(`api/auth/edit/${this.id}`,this.form)
         .then((response)=>{
           console.log(response);
           this.notification('User updated successfully','success');
           this.goBack();
         })
     },
-
-    store(){
-      const formData = new FormData();
-      formData.append('firstName',this.form.firstName);
-      formData.append('lastName',this.form.lastName);
-      formData.append('mobileNumber',this.form.mobileNumber);
-      formData.append('email',this.form.email);
-      formData.append('passWord',this.form.passWord);
-      formData.append('isAdmin',this.form.isAdmin);
-      formData.append('isActive',this.form.isActive);
-      formData.append('file',this.form.file);
-        axios.post(`api/auth/create`,formData,{
-          header: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-      .then((response)=>{
-        console.log(response);
-        this.notification('User created successfully','success');
-        this.goBack();
-      })
-    },
-    /*changeStatus(){
-      axios.put(`api/auth/changeActiveStatus/${this.id}`,{
-        headers: {
-          'Authorization': this.token
-        },
-      })
-      .then(response=>{
-        console.log(response);
-        this.$router.go();
-      })
-    }*/
   }
-};
-
+}
 </script>

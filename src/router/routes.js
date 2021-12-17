@@ -2,9 +2,15 @@ import auth from './middleware/auth';
 import guest from './middleware/guest';
 //Projects main views
 
-import Users from "../views/users/index";
-import UserEdit from "../views/users/edit";
+import Alternative from "../views/Dashboard/AlternativeDashboard";
 import DashboardLayout from "@/views/Layout/DashboardLayout";
+import Users from "../views/users/index";
+
+import UserCreate from "../views/users/create";
+import UserEdit from "../views/users/edit";
+import Profile from "../views/users/profileIndex";
+import ProfileEdit from "../views/users/profileEdit";
+
 import Products from "../views/masterProducts/products/index";
 import ProductCreate from "../views/masterProducts/products/create";
 import Schemes from "../views/masterProducts/schemes/index";
@@ -36,13 +42,30 @@ export default [
       middleware: [auth],
       navbarType: "light",
     },
-    name: "Dashboard",
+    name: "Dashboards",
 
     children: [
+      {
+        path: "/",
+        name: "Dashboard",
+        components: { default: Alternative },
+        meta: {
+          navbarType: "light",
+        },
+      },
       {
         path: "/Users",
         name: "Users",
         components: { default: Users },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+      {
+        path: "/Users/create",
+        name: "UserCreate",
+        components: { default: UserCreate },
         meta: {
           middleware: [auth],
           navbarType: "light",
@@ -57,6 +80,27 @@ export default [
           navbarType: "light",
         },
       },
+
+      {
+        path: "/profile",
+        name: "Profile",
+        components: { default: Profile },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/profile/edit/:id",
+        name: "ProfileEdit",
+        components: { default: ProfileEdit },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+
       {
         path: "/master-products/products",
         name: "Products",

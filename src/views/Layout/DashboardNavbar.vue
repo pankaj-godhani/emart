@@ -20,8 +20,14 @@
         <template v-slot:title-container>
           <a href="#" class="nav-link pr-0" @click.prevent>
             <div class="media align-items-center">
-              <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="img/theme/team-4.jpg" />
+              <span v-if="user.userImg" class="avatar avatar-sm rounded-circle">
+                <img alt="Image placeholder" :src="url+user.userImg" />
+              </span>
+              <span v-else class="avatar avatar-sm rounded-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+               </svg>
               </span>
               <div class="media-body ml-2 d-none d-lg-block">
                 <span class="mb-0 text-sm font-weight-bold">{{user.firstName}} {{user.lastName}}</span>
@@ -33,10 +39,10 @@
         <div class="dropdown-header noti-title">
           <h6 class="text-overflow m-0">Welcome!</h6>
         </div>
-        <a href="#!" class="dropdown-item">
+        <router-link :to="{name:'Profile'}" class="dropdown-item">
           <i class="ni ni-single-02"></i>
           <span>My profile</span>
-        </a>
+        </router-link>
         <div class="dropdown-divider"></div>
         <a  class="dropdown-item" @click="doLogOut">
           <i class="ni ni-user-run"></i>
@@ -75,6 +81,7 @@ export default {
   },
   data() {
     return {
+      url:"https://vuecrud-etj2v.ondigitalocean.app",
       activeNotifications: false,
       showMenu: false,
       searchModalVisible: false,

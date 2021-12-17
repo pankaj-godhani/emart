@@ -8,6 +8,7 @@
       <Table>
         <template #thead>
           <tr>
+
             <th>Sr No</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -90,7 +91,6 @@ export default {
       })
       .then(response=>{
         this.usersData=response.data.userList;
-        console.log(response.data.userList);
       });
     }
   }

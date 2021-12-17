@@ -196,7 +196,6 @@ export default {
   },
   computed: {
     ...mapGetters('auth',{
-      token:'getToken',
       userID:'getUserID',
     }),
     editing() {
@@ -205,11 +204,7 @@ export default {
   },
   methods: {
     fetch() {
-      axios.get(`api/schema/get/${this.id}`,{
-        headers: {
-          'Authorization': this.token
-        },
-      }).then((response) => {
+      axios.get(`api/schema/get/${this.id}`).then((response) => {
         console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
         this.EANCode= response.data[0].EANCode;
@@ -226,9 +221,6 @@ export default {
           params: {
             EANCode: this.EANCode,
           },
-        headers: {
-          'Authorization': this.token
-        },
         })
         .then((response) => {
           this.productData=response.data[0];
@@ -257,11 +249,7 @@ export default {
           nararation: this.form.nararation,
           active: this.form.active,
           schemaNumber: this.schemaNumber,
-        },{
-        headers: {
-          'Authorization': this.token
-        },
-      })
+        })
         .then((response) => {
           console.log(response);
           this.status=response.status;

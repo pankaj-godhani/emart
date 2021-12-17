@@ -1,9 +1,18 @@
 <template>
   <div>
-    <div class="d-flex mb-2" v-if="selectAll || select">
-      <button class="btn btn-default" @click="approveProduct">approve</button>
-      <button class="btn btn-default" @click="disApproveProduct">Disapprove</button>
+    <div class="d-flex mb-2" v-if="isAdmin===true">
+      <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
+        <option disabled value="0" selected>Select User</option>
+        <option v-for="data in UserData" :key="data._id" :value="data._id">
+          {{data.firstName}} {{data.lastName}}
+        </option>
+      </select>
+      <div  v-if="selectAll || select" class="px-2">
+        <button class="btn btn-default" @click="approveProduct">approve</button>
+        <button class="btn btn-default" @click="disApproveProduct">Disapprove</button>
+      </div>
     </div>
+
 
     <div>
       <card
@@ -175,8 +184,10 @@ import BasePagination from "@/components/BasePagination";
 import Card from "../../Cards/Card";
 import axios from "axios";
 import {authMethods} from "../../../state/helpers";
+import UserData from "../../../mixins/UserData";
 //import {mapGetters} from "vuex";
 export default {
+  mixins: [UserData],
   components: {
     Card,
     BasePagination,
@@ -229,14 +240,17 @@ export default {
         SKUCode: "",
         startDate: "",
         endDate: "",
+        userID: "",
       },
       pagination: {
         perPage: 8,
         currentPage: 1,
         total: 0,
       },
+      selected_option: true,
       selected:[],
       productData: [],
+
       visible: false,
       status: "",
       error: "",
@@ -248,6 +262,11 @@ export default {
   },
   methods: {
     ...authMethods,
+    onChange(){
+      console.log(event.target.value);
+      this.fetchProduct();
+    },
+
     approveProduct(){
       axios.put(`api/product/changeStatusPriceApproval`,{
         "productIdList" : this.selected,
@@ -282,6 +301,7 @@ export default {
             SKUCode: this.form.SKUCode,
             startDate: this.form.startDate,
             endDate: this.form.endDate,
+            userID: this.form.userID,
           },
         })
         .then((response) => {

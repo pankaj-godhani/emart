@@ -1,7 +1,7 @@
 <template>
   <div>
     <base-header class="pb-6" type="">
-      <div class="row align-items-center py-4">
+<!--      <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
           <h6 class="h2 d-inline-block mb-0">Alternative</h6>
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
@@ -20,10 +20,10 @@
           <base-button size="sm" type="neutral">New</base-button>
           <base-button size="sm" type="neutral">Filters</base-button>
         </div>
-      </div>
+      </div>-->
       <!-- Card stats -->
-      <div class="row">
-        <div class="col-xl-3 col-md-6">
+      <div class="row mt-4">
+        <div class="col-xl-4 col-md-6">
           <div class="card bg-gradient-primary border-0">
             <!-- Card body -->
             <div class="card-body">
@@ -32,7 +32,7 @@
                   <h5
                     class="card-title text-uppercase text-muted mb-0 text-white"
                   >
-                    Tasks completed
+                    Users
                   </h5>
                   <span class="h2 font-weight-bold mb-0 text-white">8/24</span>
                   <base-progress
@@ -41,7 +41,7 @@
                     :value="30"
                   ></base-progress>
                 </div>
-                <div class="col-auto">
+<!--                <div class="col-auto">
                   <base-dropdown
                     title-classes="btn btn-sm btn-neutral mr-0"
                     menu-on-right
@@ -55,7 +55,7 @@
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                   </base-dropdown>
-                </div>
+                </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
                 <a href="#!" class="text-nowrap text-white font-weight-600"
@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-4 col-md-6">
           <div class="card bg-gradient-info border-0">
             <!-- Card body -->
             <div class="card-body">
@@ -74,7 +74,7 @@
                   <h5
                     class="card-title text-uppercase text-muted mb-0 text-white"
                   >
-                    Contacts
+                    Products
                   </h5>
                   <span class="h2 font-weight-bold mb-0 text-white"
                     >123/267</span
@@ -85,7 +85,7 @@
                     :value="50"
                   ></base-progress>
                 </div>
-                <div class="col-auto">
+<!--                <div class="col-auto">
                   <base-dropdown
                     title-classes="btn btn-sm btn-neutral mr-0"
                     menu-on-right
@@ -99,7 +99,7 @@
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                   </base-dropdown>
-                </div>
+                </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
                 <a href="#!" class="text-nowrap text-white font-weight-600"
@@ -109,7 +109,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-4 col-md-6">
           <div class="card bg-gradient-danger border-0">
             <!-- Card body -->
             <div class="card-body">
@@ -118,7 +118,7 @@
                   <h5
                     class="card-title text-uppercase text-muted mb-0 text-white"
                   >
-                    Items sold
+                    Schemes
                   </h5>
                   <span class="h2 font-weight-bold mb-0 text-white"
                     >200/300</span
@@ -129,7 +129,7 @@
                     :value="80"
                   ></base-progress>
                 </div>
-                <div class="col-auto">
+<!--                <div class="col-auto">
                   <base-dropdown
                     title-classes="btn btn-sm btn-neutral mr-0"
                     menu-on-right
@@ -143,7 +143,7 @@
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                   </base-dropdown>
-                </div>
+                </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
                 <a href="#!" class="text-nowrap text-white font-weight-600"
@@ -153,8 +153,11 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="card bg-gradient-default border-0">
+
+      </div>
+      <div class="row mt-4">
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-primary border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
@@ -162,16 +165,16 @@
                   <h5
                     class="card-title text-uppercase text-muted mb-0 text-white"
                   >
-                    Notifications
+                    Invoice
                   </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white">50/62</span>
+                  <span class="h2 font-weight-bold mb-0 text-white">8/24</span>
                   <base-progress
                     class="progress-xs mt-3 mb-0"
                     type="success"
-                    :value="90"
+                    :value="30"
                   ></base-progress>
                 </div>
-                <div class="col-auto">
+<!--                <div class="col-auto">
                   <base-dropdown
                     title-classes="btn btn-sm btn-neutral mr-0"
                     menu-on-right
@@ -185,21 +188,110 @@
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                   </base-dropdown>
-                </div>
+                </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
                 <a href="#!" class="text-nowrap text-white font-weight-600"
-                  >See details</a
+                >See details</a
                 >
               </p>
             </div>
           </div>
         </div>
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-info border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5
+                    class="card-title text-uppercase text-muted mb-0 text-white"
+                  >
+                   Purchase Note
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0 text-white"
+                  >123/267</span
+                  >
+                  <base-progress
+                    class="progress-xs mt-3 mb-0"
+                    type="success"
+                    :value="50"
+                  ></base-progress>
+                </div>
+<!--                <div class="col-auto">
+                  <base-dropdown
+                    title-classes="btn btn-sm btn-neutral mr-0"
+                    menu-on-right
+                    :has-toggle="false"
+                  >
+                    <template v-slot:title>
+                      <i class="fas fa-ellipsis-h"></i>
+                    </template>
+
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </base-dropdown>
+                </div>-->
+              </div>
+              <p class="mt-3 mb-0 text-sm">
+                <a href="#!" class="text-nowrap text-white font-weight-600"
+                >See details</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-danger border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5
+                    class="card-title text-uppercase text-muted mb-0 text-white"
+                  >
+                    Dispatch Note
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0 text-white"
+                  >200/300</span
+                  >
+                  <base-progress
+                    class="progress-xs mt-3 mb-0"
+                    type="success"
+                    :value="80"
+                  ></base-progress>
+                </div>
+<!--                <div class="col-auto">
+                  <base-dropdown
+                    title-classes="btn btn-sm btn-neutral mr-0"
+                    menu-on-right
+                    :has-toggle="false"
+                  >
+                    <template v-slot:title>
+                      <i class="fas fa-ellipsis-h"></i>
+                    </template>
+
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </base-dropdown>
+                </div>-->
+              </div>
+              <p class="mt-3 mb-0 text-sm">
+                <a href="#!" class="text-nowrap text-white font-weight-600"
+                >See details</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </base-header>
 
-    <div class="container-fluid mt--6">
-      <!--Charts-->
+<!--    <div class="container-fluid mt&#45;&#45;6">
+      &lt;!&ndash;Charts&ndash;&gt;
       <div class="card-deck flex-column flex-xl-row">
         <card header-classes="bg-transparent">
           <template v-slot:header>
@@ -228,15 +320,15 @@
             <canvas :height="350" :id="ordersChartID"></canvas>
           </div>
         </card>
-        <!-- Progress track list-->
+        &lt;!&ndash; Progress track list&ndash;&gt;
         <card>
-          <!-- Card header -->
+          &lt;!&ndash; Card header &ndash;&gt;
           <template v-slot:header>
             <div class="row align-items-center">
               <div class="col-8">
-                <!-- Surtitle -->
+                &lt;!&ndash; Surtitle &ndash;&gt;
                 <h6 class="surtitle">5/23 projects</h6>
-                <!-- Title -->
+                &lt;!&ndash; Title &ndash;&gt;
                 <h5 class="h3 mb-0">Progress track</h5>
               </div>
               <div class="col-4 text-right">
@@ -244,13 +336,13 @@
               </div>
             </div>
           </template>
-          <!-- Card body -->
+          &lt;!&ndash; Card body &ndash;&gt;
           <progress-track-list :item-limit="5"></progress-track-list>
         </card>
       </div>
-      <!-- End charts-->
+      &lt;!&ndash; End charts&ndash;&gt;
 
-      <!--Tables & Widgets-->
+      &lt;!&ndash;Tables & Widgets&ndash;&gt;
       <div class="row">
         <div class="col-xl-8">
           <light-table :item-limit="5"></light-table>
@@ -259,30 +351,30 @@
           <vector-map-card></vector-map-card>
         </div>
       </div>
-      <!--End Tables & Widgets-->
+      &lt;!&ndash;End Tables & Widgets&ndash;&gt;
 
-      <!--Lists-->
+      &lt;!&ndash;Lists&ndash;&gt;
       <div class="card-deck flex-column flex-xl-row">
-        <!-- Members list group card -->
+        &lt;!&ndash; Members list group card &ndash;&gt;
         <members-card :show-search="false"></members-card>
-        <!-- Checklist -->
+        &lt;!&ndash; Checklist &ndash;&gt;
         <task-list></task-list>
-        <!-- Progress track -->
+        &lt;!&ndash; Progress track &ndash;&gt;
         <card>
-          <!-- Card header -->
+          &lt;!&ndash; Card header &ndash;&gt;
           <template v-slot:header>
             <h5 class="h3 mb-0">Progress track</h5>
           </template>
-          <!-- Card body -->
+          &lt;!&ndash; Card body &ndash;&gt;
           <progress-track-list :item-limit="5"></progress-track-list>
         </card>
       </div>
-      <!--End lists-->
-    </div>
+      &lt;!&ndash;End lists&ndash;&gt;
+    </div>-->
   </div>
 </template>
 
-<script>
+<!--<script>
 // Charts
 import { ordersChart } from "@/components/Charts/Chart";
 import Chart from "chart.js";
@@ -385,6 +477,6 @@ export default {
     ordersChart.createChart(this.ordersChartID);
   },
 };
-</script>
+</script>-->
 
 <style></style>
