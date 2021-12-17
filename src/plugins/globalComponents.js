@@ -14,7 +14,7 @@ import StatsCard from "../components/Cards/StatsCard";
 import Table from "../components/Table";
 import DataModal from "../components/dataModal";
 import NewModal from "../components/newModal"
-import MultiSelect from "../components/MultiSelect"
+//import MultiSelect from "../components/MultiSelect"
 import { ElTooltip, ElPopover, ElLoading } from "element-plus";
 
 const GlobalComponents = {
@@ -35,7 +35,7 @@ const GlobalComponents = {
     app.component("Table", Table);
     app.component("DataModal", DataModal);
     app.component("NewModal", NewModal);
-    app.component("MultiSelect", MultiSelect);
+    //app.component("MultiSelect", MultiSelect);
     app.use(ElTooltip);
     app.use(ElPopover);
     app.use(ElLoading);
