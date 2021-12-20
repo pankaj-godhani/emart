@@ -21,7 +21,7 @@
           <a href="#" class="nav-link pr-0" @click.prevent>
             <div class="media align-items-center">
               <span v-if="user.userImg" class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" :src="url+user.userImg" />
+                <img :alt="user.firstName" :src="url+user.userImg" />
               </span>
               <span v-else class="avatar avatar-sm rounded-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">

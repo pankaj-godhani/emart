@@ -8,7 +8,7 @@
       <div class="text-center mb-4">
 
         <div v-if="user.userImg">
-          <img :src="url+user.userImg" class="rounded" style="height: 125px; width: 125px" alt="100x100">
+          <img :src="url+user.userImg" class="rounded" style="height: 125px; width: 125px" :alt="user.firstName">
         </div>
         <div v-else>
           <svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">

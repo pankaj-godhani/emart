@@ -83,14 +83,10 @@ export default {
 
   methods:{
     fetch(){
-      axios.get(`api/auth/getAllUser`,{
-
-        headers: {
-          'Authorization': this.token
-        },
-      })
+      axios.get(`api/auth/getAllUser`)
       .then(response=>{
         this.usersData=response.data.userList;
+        console.log(this.usersData);
       });
     }
   }

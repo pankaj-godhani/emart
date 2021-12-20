@@ -59,8 +59,12 @@
           </div>
         </div>
       </form>
-
-      <div v-if="visible">
+      <div class="text-center mt-4" v-if="loading">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div v-else-if="visible">
         <Table>
           <template v-slot:thead>
             <tr>
@@ -171,6 +175,7 @@ export default {
       },
 
       visible: false,
+      loading: false,
       status: "",
       error: "",
       invoiceData:[],
@@ -229,6 +234,7 @@ export default {
       this.fetch();
     },
     fetch(){
+      this.loading = true;
       axios.get(`api/invoice/get`,{
         params:{
           startDate:this.form.startDate,
@@ -250,7 +256,8 @@ export default {
       .catch((error)=>{
         this.error=error;
         this.visible=false;
-      });
+      })
+      .finally(()=>(this.loading = false));
     },
     destroy(id){
       axios.delete(`api/invoice/delete/`+id,)

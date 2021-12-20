@@ -23,7 +23,7 @@
       </div>-->
       <!-- Card stats -->
       <div class="row mt-4">
-        <div class="col-xl-4 col-md-6">
+        <div v-if="isAdmin===true" class="col-xl-4 col-md-6">
           <div class="card bg-gradient-primary border-0">
             <!-- Card body -->
             <div class="card-body">
@@ -34,7 +34,7 @@
                   >
                     Users
                   </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white">8/24</span>
+                  <span class="h2 font-weight-bold mb-0 text-white">{{userLen}}</span>
                   <base-progress
                     class="progress-xs mt-3 mb-0"
                     type="success"
@@ -58,14 +58,12 @@
                 </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
-                <a href="#!" class="text-nowrap text-white font-weight-600"
-                  >See details</a
-                >
+                <router-link :to="{name:'Users'}" class="text-nowrap text-white font-weight-600">See details</router-link>
               </p>
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-md-6">
+        <div :class="isAdmin?'col-xl-4 col-md-6':'col-xl-6 col-md-6'">
           <div class="card bg-gradient-info border-0">
             <!-- Card body -->
             <div class="card-body">
@@ -77,7 +75,7 @@
                     Products
                   </h5>
                   <span class="h2 font-weight-bold mb-0 text-white"
-                    >123/267</span
+                    >{{productLen}}</span
                   >
                   <base-progress
                     class="progress-xs mt-3 mb-0"
@@ -102,14 +100,12 @@
                 </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
-                <a href="#!" class="text-nowrap text-white font-weight-600"
-                  >See details</a
-                >
+                <router-link :to="{name:'Products'}" class="text-nowrap text-white font-weight-600">See details</router-link>
               </p>
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-md-6">
+        <div :class="isAdmin?'col-xl-4 col-md-6':'col-xl-6 col-md-6'">
           <div class="card bg-gradient-danger border-0">
             <!-- Card body -->
             <div class="card-body">
@@ -121,7 +117,7 @@
                     Schemes
                   </h5>
                   <span class="h2 font-weight-bold mb-0 text-white"
-                    >200/300</span
+                    >{{schemeLen}}</span
                   >
                   <base-progress
                     class="progress-xs mt-3 mb-0"
@@ -146,9 +142,7 @@
                 </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
-                <a href="#!" class="text-nowrap text-white font-weight-600"
-                  >See details</a
-                >
+                <router-link :to="{name:'Schemes'}" class="text-nowrap text-white font-weight-600">See details</router-link>
               </p>
             </div>
           </div>
@@ -167,7 +161,7 @@
                   >
                     Invoice
                   </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white">8/24</span>
+                  <span class="h2 font-weight-bold mb-0 text-white">{{invoiceLen}}</span>
                   <base-progress
                     class="progress-xs mt-3 mb-0"
                     type="success"
@@ -191,9 +185,7 @@
                 </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
-                <a href="#!" class="text-nowrap text-white font-weight-600"
-                >See details</a
-                >
+                <router-link :to="{name:'Invoice'}" class="text-nowrap text-white font-weight-600">See details</router-link>
               </p>
             </div>
           </div>
@@ -207,10 +199,10 @@
                   <h5
                     class="card-title text-uppercase text-muted mb-0 text-white"
                   >
-                   Purchase Note
+                   Purchase Orders
                   </h5>
                   <span class="h2 font-weight-bold mb-0 text-white"
-                  >123/267</span
+                  >{{purOrdersLen}}</span
                   >
                   <base-progress
                     class="progress-xs mt-3 mb-0"
@@ -235,9 +227,7 @@
                 </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
-                <a href="#!" class="text-nowrap text-white font-weight-600"
-                >See details</a
-                >
+                <router-link :to="{name:'PurchaseOrders'}" class="text-nowrap text-white font-weight-600">See details</router-link>
               </p>
             </div>
           </div>
@@ -254,7 +244,7 @@
                     Dispatch Note
                   </h5>
                   <span class="h2 font-weight-bold mb-0 text-white"
-                  >200/300</span
+                  >{{disNoteLen}}</span
                   >
                   <base-progress
                     class="progress-xs mt-3 mb-0"
@@ -279,9 +269,7 @@
                 </div>-->
               </div>
               <p class="mt-3 mb-0 text-sm">
-                <a href="#!" class="text-nowrap text-white font-weight-600"
-                >See details</a
-                >
+                <router-link :to="{name:'DispatchNote'}" class="text-nowrap text-white font-weight-600">See details</router-link>
               </p>
             </div>
           </div>
@@ -374,109 +362,80 @@
   </div>
 </template>
 
-<!--<script>
-// Charts
-import { ordersChart } from "@/components/Charts/Chart";
-import Chart from "chart.js";
-let chart;
+<script>
+import axios from "axios";
 
 export default {
-  components: {},
-  data() {
-    return {
-      salesChartID: "salesChart",
-      ordersChartID: "ordersChart",
-      bigLineChart: {
-        allData: [
-          [0, 20, 10, 30, 15, 40, 20, 60, 60],
-          [0, 20, 5, 25, 10, 30, 15, 40, 40],
-        ],
-        activeIndex: 0,
-      },
-    };
+  data(){
+    return{
+      userLen: "",
+      productLen: "",
+      schemeLen: "",
+      invoiceLen: "",
+      purOrdersLen: "",
+      disNoteLen: "",
+    }
   },
-  methods: {
-    initBigChart(index) {
-      chart.update(
-        (chart.config.data.datasets[0].data = this.bigLineChart.allData[index])
-      );
-      this.bigLineChart.activeIndex = index;
-    },
+
+  computed:{
+    isAdmin(){
+      return this.$store.getters['auth/getIsAdmin'];
+    }
   },
+
   mounted() {
-    console.log('inside dashboard');
-    chart = new Chart(
-      document.getElementById(this.salesChartID).getContext("2d"),
-      {
-        type: "line",
-        data: {
-          labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-          datasets: [
-            {
-              label: "Performance",
-              tension: 0.4,
-              borderWidth: 4,
-              borderColor: "#5e72e4",
-              pointRadius: 0,
-              backgroundColor: "transparent",
-              data: this.bigLineChart.allData[0],
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            display: false,
-          },
-          tooltips: {
-            enabled: true,
-            mode: "index",
-            intersect: false,
-          },
-          scales: {
-            yAxes: [
-              {
-                barPercentage: 1.6,
-                gridLines: {
-                  drawBorder: false,
-                  color: "transparent",
-                  zeroLineColor: "transparent",
-                },
-                ticks: {
-                  padding: 0,
-                  fontColor: "#8898aa",
-                  fontSize: 13,
-                  fontFamily: "Open Sans",
-                },
-              },
-            ],
-            xAxes: [
-              {
-                barPercentage: 1.6,
-                gridLines: {
-                  drawBorder: false,
-                  color: "rgba(29,140,248,0.0)",
-                  zeroLineColor: "transparent",
-                },
-                ticks: {
-                  padding: 10,
-                  fontColor: "#8898aa",
-                  fontSize: 13,
-                  fontFamily: "Open Sans",
-                },
-              },
-            ],
-          },
-          layout: {
-            padding: 0,
-          },
-        },
-      }
-    );
-    ordersChart.createChart(this.ordersChartID);
+    this.fetchUserLen();
+    this.fetchProductLen();
+    this.fetchSchemeLen();
+    this.fetchInvoiceLen();
+    this.fetchPurOrdersLen();
+    this.fetchDisNoteLen();
   },
-};
-</script>-->
+
+  methods: {
+    fetchUserLen(){
+      axios.get(`api/auth/getAllUser`)
+        .then(response=>{
+          this.userLen=response.data.userList.length;
+        });
+    },
+
+    fetchProductLen(){
+      axios.get(`api/product/get`)
+        .then(response=>{
+        this.productLen=response.data.length;
+      });
+    },
+
+    fetchSchemeLen(){
+      axios.get(`api/schema/get`)
+        .then(response=>{
+          this.schemeLen=response.data.length;
+        });
+    },
+
+    fetchInvoiceLen(){
+      axios.get(`api/invoice/get`)
+        .then(response=>{
+          this.invoiceLen=response.data.length;
+        });
+    },
+
+    fetchPurOrdersLen(){
+      axios.get(`api/purChaseOrder/get`)
+        .then(response=>{
+          this.purOrdersLen=response.data.length;
+        });
+    },
+
+    fetchDisNoteLen(){
+      axios.get(`api/desPatchNote/get`)
+        .then(response=>{
+          this.disNoteLen=response.data.length;
+        });
+    }
+  }
+}
+</script>
 
 <style></style>

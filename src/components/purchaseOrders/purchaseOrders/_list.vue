@@ -14,6 +14,7 @@
       footer-classes="pb-2"
     >
       <form>
+
         <div class="d-flex flex-row mb-3">
           <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
           <div class="px-1">
@@ -62,7 +63,12 @@
           </div>
         </div>
       </form>
-      <div class="pl-0" v-if="visible">
+      <div class="text-center mt-4" v-if="loading">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="pl-0" v-else-if="visible">
         <Table>
           <template #thead>
             <tr>
@@ -180,6 +186,7 @@ export default {
       visible: false,
       error: "",
       status: "",
+      loading: false,
       pagination: {
         perPage: 10,
         currentPage: 1,
@@ -221,8 +228,8 @@ export default {
       this.fetchPurchaseOrders();
     },
     fetchPurchaseOrders() {
-      axios
-        .get(`api/purChaseOrder/get`, {
+      this.loading = true;
+      axios.get(`api/purChaseOrder/get`, {
           params: {
             startDate: this.form.startDate,
             endDate: this.form.endDate,
@@ -242,7 +249,8 @@ export default {
         .catch((error)=>{
           this.error = error;
           this.visible=false;
-        });
+        })
+      .finally(()=>(this.loading = false));
     },
     resetForm() {
       this.form = {};

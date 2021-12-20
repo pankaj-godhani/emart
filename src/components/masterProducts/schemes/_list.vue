@@ -62,8 +62,12 @@
           </div>
         </div>
       </form>
-
-      <div class="pl-0" v-if="visibleScheme">
+      <div class="text-center mt-4" v-if="loading">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div class="pl-0" v-else-if="visibleScheme">
         <Table>
           <template #thead>
             <tr>
@@ -118,10 +122,19 @@
                     </router-link>
                   </div>
                   <div>
-                    <button
+<!--                    <button
                       type="button"
                       class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
                       @click.prevent="destroy(data._id)"
+                    >
+                      <i class="text-white ni ni-fat-remove"></i>
+                    </button>-->
+
+                    <button
+                      type="button"
+                      class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
+                      data-toggle="modal" data-target="#exampleModal"
+                      @click="confirmModal=true"
                     >
                       <i class="text-white ni ni-fat-remove"></i>
                     </button>
@@ -154,6 +167,9 @@
         </div>
       </template>
     </card>
+    <div v-if="confirmModal">
+      <ConfirmDelete></ConfirmDelete>
+    </div>
   </div>
 
 </template>
@@ -222,6 +238,7 @@ export default {
       this.fetchSchemes();
     },
     fetchSchemes() {
+      this.loading = true;
       axios
         .get(`api/schema/get`, {
           params: {
@@ -244,7 +261,8 @@ export default {
         .catch((error) => {
           this.error=error;
           this.visibleScheme = false;
-        });
+        })
+        .finally(() => (this.loading = false));;
     },
 
     resetForm() {

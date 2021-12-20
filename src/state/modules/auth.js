@@ -88,7 +88,11 @@ export const actions = {
         if (getters.loggedIn) {
             return dispatch('validate');
         }
-        return axios.post('api/auth/create', form)
+        return axios.post('api/auth/create', form,{
+          header: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
             .then(response => {
               //commit('SET_TOKEN', {token:response.data.token,userID:response.data.detail._id,user:response.data.detail});
               return response.data;

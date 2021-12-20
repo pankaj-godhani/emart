@@ -130,14 +130,23 @@
 
 <script>
 import axios from "axios";
+import {authMethods} from "../../state/helpers";
 
 export default {
   props:['id'],
   data(){
     return{
       imageURL: null,
-      form:{},
-      logo: null,
+      form:{
+        firstName:'',
+        lastName:'',
+        mobileNumber:'',
+        email: '',
+        passWord: '',
+        isAdmin:false,
+        isActive:false,
+        file:null,
+      },
     }
   },
   computed:{
@@ -151,13 +160,27 @@ export default {
   },
 
   methods:{
+    ...authMethods,
     getImage() {
-      this.logo = this.$refs.file1.files.item(0);
-      this.imageURL = URL.createObjectURL(this.logo);
+      this.form.file = this.$refs.file1.files.item(0);
+      this.imageURL = URL.createObjectURL(this.form.file);
     },
 
     update(){
-      axios.put(`api/auth/edit/${this.id}`,this.form)
+      const formData = new FormData();
+      formData.append('firstName',this.form.firstName);
+      formData.append('lastName',this.form.lastName);
+      formData.append('mobileNumber',this.form.mobileNumber);
+      formData.append('email',this.form.email);
+      formData.append('passWord',this.form.passWord);
+      formData.append('isAdmin',this.form.isAdmin);
+      formData.append('isActive',this.form.isActive);
+      formData.append('file',this.form.file);
+      axios.put(`api/auth/edit/${this.id}`,formData,{
+        header: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
         .then((response)=>{
           console.log(response);
           this.notification('User updated successfully','success');

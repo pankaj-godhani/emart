@@ -108,6 +108,7 @@
 <script>
 import {authMethods} from "../../state/helpers";
 import { VueRecaptcha } from 'vue-recaptcha';
+import axios from "axios";
 
 export default {
   data() {
@@ -119,39 +120,60 @@ export default {
       },
       form: {
 
-        firstName:'',
-        lastName:'',
-        mobileNumber:'',
+        firstName: '',
+        lastName: '',
+        mobileNumber: '',
         email: '',
         passWord: '',
-        isAdmin:false,
+        isAdmin: false,
+        isActive: false,
       }
     }
   },
-  components:{VueRecaptcha },
-  methods:{
+  components: {VueRecaptcha},
+  methods: {
     ...authMethods,
     mxVerify() {
       this.loginForm.pleaseTickRecaptchaMessage = '';
       this.loginForm.recaptchaVerified = true;
 
     },
-    submit(){
+    submit() {
       console.log(this.form);
       if (!this.loginForm.recaptchaVerified) {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
-      }
-      else{
-        this.register(this.form)
-          .then(()=>{
-            this.$router.push(this.$route.query.redirectFrom || {name: 'Login'})
+      } else {
+        /*const formData = new FormData();
+        formData.append('firstName',this.form.firstName);
+        formData.append('lastName',this.form.lastName);
+        formData.append('mobileNumber',this.form.mobileNumber);
+        formData.append('email',this.form.email);
+        formData.append('passWord',this.form.passWord);
+        formData.append('isAdmin',this.form.isAdmin);
+        formData.append('isActive',this.form.isActive);
+        formData.append('file',this.form.file);
+        axios.post(`api/auth/create`, formData,{
+          header: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+          .then((response) => {
+
+            console.log(response);
+            this.$router.push('/login');
+            this.notification('User created successfully', 'success');
           });
+*/
+
+        this.register(this.form)
+        .then(()=>{
+          this.$router.push('/login');
+        })
       }
-
     }
-  }
 
+  }
 }
 
 </script>

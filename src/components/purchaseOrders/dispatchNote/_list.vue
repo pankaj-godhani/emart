@@ -62,7 +62,12 @@
             </div>
           </div>
         </form>
-        <div v-if="visible">
+        <div class="text-center mt-4" v-if="loading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div v-else-if="visible">
           <Table>
             <template #thead>
               <tr>
@@ -99,7 +104,10 @@
                         class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
                         @click="downloadLabel(data._id)"
                       >
-                        Print
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                          <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                          <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+                        </svg>
                       </button>
                     </div>
                     <div class="pr-2">
@@ -133,55 +141,100 @@
         <div v-else-if="visible === false||error" class="text-center mt-4 text-dark">
           Data not found
         </div>
-        <div v-show="false">
+
+        <div v-show="false" >
           <div v-for="data in pagedData" :key="data._id" :id="data._id" class="mt-4">
             <h2 style="text-align: center;" class="text-dark">Dispatch Note details</h2>
             <div class="p-5">
-              <h4 class="px-4 text-dark"> Deliver Challan/Invoice No :
-                <span class="px-2 font-weight-400">
-                {{data.DCNumber}}
-              </span>
-              </h4>
-              <h4 class="px-4 text-dark">Date of Deliver Challan No :
-                <span class="px-2 font-weight-400">
-                {{ changeDateFormat(data.DateOfDeliverChallan) }}
-              </span>
-              </h4>
-              <h4 class="px-4 text-dark">PO Number :
-                <span class="px-2 font-weight-400">
-                {{ data.PONumber }}
-              </span>
-              </h4>
-              <h4 class="px-4 text-dark">PO Date :
-                <span class="px-2 font-weight-400">
-                {{ changeDateFormat(data.PODate) }}
-              </span>
-              </h4>
-              <h4 class="px-4 text-dark">No. of Carton Loaded :
-                <span class="px-2 font-weight-400">
-                {{ data.NumberOfCarton }}
-              </span>
-              </h4>
-              <h4 class="px-4 text-dark">Transporter Details :
-                <span class="px-2 font-weight-400">
-                {{ data.TransporterDetails }}
-              </span>
-              </h4>
-              <h4 class="px-4 text-dark">Driver Name :
-                <span class="px-2 font-weight-400">
-                {{ data.DriverName }}
-              </span>
-              </h4>
-              <h4 class="px-4 text-dark">Driver Contact :
-                <span class="px-2 font-weight-400">
-                {{ data.DriverContact }}
-              </span>
-              </h4>
-              <h4 class="px-4 text-dark">Vehicle Number :
-                <span class="px-2 font-weight-400">
-                {{ data.VehicleNumber }}
-              </span>
-              </h4>
+              <div class="row">
+                <div class="col-5"><h4 class="px-4 text-dark"> Deliver Challan/Invoice No </h4></div>
+                <div class="col-2">
+                  <h4>:</h4>
+                </div>
+                <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{data.DCNumber}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5"><h4 class="px-4 text-dark"> PO Number </h4></div>
+                <div class="col-2">
+                  <h4>:</h4>
+                </div>
+                <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{data.PONumber}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5"><h4 class="px-4 text-dark"> PO Date </h4></div>
+                <div class="col-2">
+                  <h4>:</h4>
+                </div>
+                <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{changeDateFormat(data.PODate)}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5"><h4 class="px-4 text-dark"> No. of Carton Loaded </h4></div>
+                <div class="col-2">
+                  <h4>:</h4>
+                </div>
+                <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{data.NumberOfCarton}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5"><h4 class="px-4 text-dark"> Transporter Details </h4></div>
+                <div class="col-2">
+                  <h4>:</h4>
+                </div>
+                <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{data.TransporterDetails}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5"><h4 class="px-4 text-dark"> Driver Name </h4></div>
+                <div class="col-2">
+                  <h4>:</h4>
+                </div>
+                <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{data.DriverName}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5"><h4 class="px-4 text-dark"> Driver Contact </h4></div>
+                <div class="col-2">
+                  <h4>:</h4>
+                </div>
+                <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{data.DriverContact}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5"><h4 class="px-4 text-dark"> Vehicle Number </h4></div>
+                <div class="col-2">
+                  <h4>:</h4>
+                </div>
+                <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{data.VehicleNumber}}
+                  </span>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -260,6 +313,7 @@ export default {
       dispatchNoteData: [],
       status: "",
       error: "",
+      loading: false,
       deleting: null,
       visible:false,
     };
@@ -278,6 +332,7 @@ export default {
       html2pdf(element);
     },
     fetchDispatchNote() {
+      this.loading = true;
       axios.get(`api/desPatchNote/get`,{
         params: {
           startDate: this.form.startDate,
@@ -298,7 +353,8 @@ export default {
       .catch((error)=>{
         this.error=error;
         this.visible=false;
-      });
+      })
+      .finally(()=>(this.loading = false));
     },
     destroy(id) {
       axios.delete(`api/desPatchNote/delete/` + id).then(() => {
