@@ -2,7 +2,7 @@
   <div>
     <div class="mb-2" v-if="isAdmin===true">
       <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled value="0" selected>Select User</option>
+        <option disabled selected value>Select User</option>
         <option v-for="data in UserData" :key="data._id" :value="data._id">
           {{data.firstName}} {{data.lastName}}
         </option>
@@ -116,7 +116,9 @@
                     <button
                       type="button"
                       class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                      @click.prevent="destroy(data._id)"
+                      data-toggle="modal"
+                      data-target="#myModal"
+                      @click.prevent="confirmDelete(data)"
                     >
                       <i class="text-white ni ni-fat-remove"></i>
                     </button>
@@ -151,6 +153,31 @@
         </div>
       </template>
     </card>
+    <div v-if="confirmModal">
+      <DataModal :title="('Delete Invoice')" @close="confirmModal=false">
+        <template v-slot:body>
+          <div><p>Are you sure you want to delete this record?</p></div>
+          <div class="float-right">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              @click="confirmModal=false"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn base-button btn-default"
+              data-dismiss="modal"
+              @click="destroy"
+            >
+              Delete It
+            </button>
+          </div>
+        </template>
+      </DataModal>
+    </div>
   </div>
 
 </template>
@@ -176,6 +203,8 @@ export default {
 
       visible: false,
       loading: false,
+      confirmModal: false,
+      deleting: null,
       status: "",
       error: "",
       invoiceData:[],
@@ -225,6 +254,10 @@ export default {
   },
 
   methods: {
+    confirmDelete(type) {
+      this.confirmModal = true;
+      this.deleting = type;
+    },
     resetForm() {
       this.form = {};
       this.fetch();
@@ -259,10 +292,12 @@ export default {
       })
       .finally(()=>(this.loading = false));
     },
-    destroy(id){
-      axios.delete(`api/invoice/delete/`+id,)
+    destroy(){
+      axios.delete(`api/invoice/delete/${this.deleting._id}`)
       .then(()=>{
         this.fetch();
+        this.deleting = null;
+        this.confirmModal = false;
       })
     },
   },

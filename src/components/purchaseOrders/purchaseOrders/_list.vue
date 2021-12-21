@@ -2,7 +2,7 @@
   <div>
     <div class="mb-2" v-if="isAdmin===true">
       <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled value="0" selected>Select User</option>
+        <option disabled selected value>Select User</option>
         <option v-for="data in UserData" :key="data._id" :value="data._id">
           {{data.firstName}} {{data.lastName}}
         </option>

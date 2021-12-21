@@ -2,7 +2,7 @@
   <div>
     <div class="mb-2" v-if="isAdmin===true">
       <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled value="0" selected>Select User</option>
+        <option disabled selected value>Select User</option>
         <option v-for="data in UserData" :key="data._id" :value="data._id">
           {{data.firstName}} {{data.lastName}}
         </option>
@@ -126,7 +126,9 @@
                       <button
                         type="button"
                         class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                        @click.prevent="destroy(data._id)"
+                        data-toggle="modal"
+                        data-target="#myModal"
+                        @click="confirmDelete(data)"
                       >
                         <i class="text-white ni ni-fat-remove"></i>
                       </button>
@@ -259,6 +261,31 @@
         </div>
       </template>
     </card>
+    <div v-if="confirmModal">
+      <DataModal :title="('Delete Dispatch Note')" @close="confirmModal=false">
+        <template v-slot:body>
+          <div><p>Are you sure you want to delete this record?</p></div>
+          <div class="float-right">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              @click="confirmModal=false"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn base-button btn-default"
+              data-dismiss="modal"
+              @click="destroy"
+            >
+              Delete It
+            </button>
+          </div>
+        </template>
+      </DataModal>
+    </div>
   </div>
 
 </template>
@@ -314,8 +341,9 @@ export default {
       status: "",
       error: "",
       loading: false,
+      confirmModal: false,
       deleting: null,
-      visible:false,
+      visible: false,
     };
   },
   mounted() {
@@ -323,6 +351,10 @@ export default {
   },
 
   methods: {
+    confirmDelete(type) {
+      this.confirmModal = true;
+      this.deleting = type;
+    },
     onChange(){
       console.log(event.target.value);
       this.fetchDispatchNote();
@@ -356,10 +388,12 @@ export default {
       })
       .finally(()=>(this.loading = false));
     },
-    destroy(id) {
-      axios.delete(`api/desPatchNote/delete/` + id).then(() => {
+    destroy() {
+      axios.delete(`api/desPatchNote/delete/${this.deleting._id}`)
+        .then(() => {
         this.fetchDispatchNote();
         this.deleting = null;
+        this.confirmModal=false;
       });
     },
     resetForm() {

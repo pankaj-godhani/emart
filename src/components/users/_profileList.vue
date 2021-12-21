@@ -18,13 +18,7 @@
         </div>
 
       </div>
-<!--      <div class="form-row justify-content-center">
-        <div class="form-group col-md-5">
-          <h3>Profile Image</h3>
-          <img  class="" src="user" alt="">
-          <img  class="rounded" style="height: 125px; width: 125px" alt="100x100">
-        </div>
-      </div>-->
+
       <div class="row px-6">
         <div class="col">
           <h4 class="text-dark">First Name</h4>
@@ -41,7 +35,7 @@
       </div>
       <div class="row px-6 mt-4">
         <div class="col-4">
-          <h4 class="text-dark">Authority</h4>
+          <h4 class="text-dark">Role</h4>
           <label class="form-control-label">{{ user.isAdmin?'Admin':'User' }}</label>
         </div>
         <div class="col-4">

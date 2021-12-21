@@ -2,22 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e583a44-ef30-40f3-96b8-3e1c602e1909" name="Changes" comment="new commit done.">
-      <change afterPath="$PROJECT_DIR$/src/components/ConfirmDelete.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/MultiSelect.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ConfirmDelete.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/invoices/invoice/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invoices/invoice/_list.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/masterProducts/products/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/masterProducts/products/_list.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/masterProducts/schemes/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/masterProducts/schemes/_list.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/purchaseOrders/dispatchNote/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/purchaseOrders/dispatchNote/_list.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/_list.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/users/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/_list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/users/_manageProfile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/_manageProfile.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/users/_profileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/_profileList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/plugins/globalComponents.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugins/globalComponents.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/modules/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Dashboard/AlternativeDashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Dashboard/AlternativeDashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Layout/DashboardNavbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Layout/DashboardNavbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/auth/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/auth/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/auth/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/invoices/invoice/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/invoices/invoice/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/masterProducts/products/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/masterProducts/products/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,13 +144,8 @@
       <workItem from="1639111121817" duration="21280000" />
       <workItem from="1639196924327" duration="20168000" />
       <workItem from="1639971399151" duration="20229000" />
-    </task>
-    <task id="LOCAL-00005" summary=" Commit-from office">
-      <created>1636464394649</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1636464394649</updated>
+      <workItem from="1640003759547" duration="373000" />
+      <workItem from="1640057390231" duration="23528000" />
     </task>
     <task id="LOCAL-00006" summary=" Commit-from office">
       <created>1636550486557</created>
@@ -490,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639744301948</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="new commit done.">
+      <created>1640003826582</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1640003826583</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

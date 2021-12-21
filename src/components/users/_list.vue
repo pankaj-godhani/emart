@@ -3,8 +3,12 @@
     class="no-border-card"
     body-classes="px-0 pb-1 py-3"
     footer-classes="pb-2"
-  >
-    <div class="pl-0">
+  > <div class="text-center mt-4" v-if="loading">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+    <div v-else class="pl-0">
       <Table>
         <template #thead>
           <tr>
@@ -69,6 +73,7 @@ export default {
   data(){
     return{
       usersData:[],
+      loading: false,
     }
   },
   computed: {
@@ -83,11 +88,14 @@ export default {
 
   methods:{
     fetch(){
+      this.loading = true;
       axios.get(`api/auth/getAllUser`)
       .then(response=>{
         this.usersData=response.data.userList;
-        console.log(this.usersData);
-      });
+       // let array=Object.values(this.usersData[0]);
+        //console.log(array);
+      })
+      .finally(()=>(this.loading = false));
     }
   }
 };

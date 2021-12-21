@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex mb-2" v-if="isAdmin===true">
       <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled value="0" selected>Select User</option>
+        <option disabled selected value>Select User</option>
         <option v-for="data in UserData" :key="data._id" :value="data._id">
           {{data.firstName}} {{data.lastName}}
         </option>
@@ -248,7 +248,7 @@ export default {
         userID: "",
       },
       pagination: {
-        perPage: 8,
+        perPage: 7,
         currentPage: 1,
         total: 0,
       },
@@ -276,7 +276,7 @@ export default {
     approveProduct(){
       axios.put(`api/product/changeStatusPriceApproval`,{
         "productIdList" : this.selected,
-          "priceApproval":true,
+        "priceApproval" : true,
       },
       )
       .then(()=>{
@@ -296,6 +296,7 @@ export default {
     resetForm() {
       this.form = {};
       this.fetchProduct();
+      //this.$router.go();
     },
     fetchProduct() {
       this.loading = true;

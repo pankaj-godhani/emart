@@ -2,7 +2,7 @@
   <div>
     <div class="mb-2" v-if="isAdmin===true">
       <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled value="0" :selected="selected_option">Select User</option>
+        <option disabled selected value>Select User</option>
         <option v-for="data in UserData" :key="data._id" :value="data._id">
           {{data.firstName}} {{data.lastName}}
         </option>
@@ -122,19 +122,12 @@
                     </router-link>
                   </div>
                   <div>
-<!--                    <button
-                      type="button"
-                      class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                      @click.prevent="destroy(data._id)"
-                    >
-                      <i class="text-white ni ni-fat-remove"></i>
-                    </button>-->
-
                     <button
                       type="button"
                       class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                      data-toggle="modal" data-target="#exampleModal"
-                      @click="confirmModal=true"
+                      data-toggle="modal"
+                      data-target="#myModal"
+                      @click="confirmDelete(data)"
                     >
                       <i class="text-white ni ni-fat-remove"></i>
                     </button>
@@ -168,7 +161,29 @@
       </template>
     </card>
     <div v-if="confirmModal">
-      <ConfirmDelete></ConfirmDelete>
+      <DataModal :title="('Delete Scheme')" @close="confirmModal=false">
+        <template v-slot:body>
+          <div><span>Are you sure you want to delete this record?</span></div>
+          <div class="float-right">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              @click="confirmModal=false"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn base-button btn-default"
+              data-dismiss="modal"
+              @click="destroy"
+            >
+              Delete It
+            </button>
+          </div>
+        </template>
+      </DataModal>
     </div>
   </div>
 
@@ -177,10 +192,12 @@
 import BasePagination from "@/components/BasePagination";
 import axios from "axios";
 import UserData from "../../../mixins/UserData";
+import DataModal from "../../dataModal";
 
 export default {
   mixins: [UserData],
   components: {
+    DataModal,
     BasePagination,
   },
   computed: {
@@ -219,7 +236,7 @@ export default {
       },
 
       pagination: {
-        perPage: 8,
+        perPage: 7,
         currentPage: 1,
         total: 0,
       },
@@ -233,6 +250,10 @@ export default {
     this.fetchSchemes();
   },
   methods: {
+    confirmDelete(type) {
+      this.confirmModal = true;
+      this.deleting = type;
+    },
     onChange(){
       console.log(event.target.value);
       this.fetchSchemes();
@@ -270,15 +291,12 @@ export default {
       this.fetchSchemes();
     },
 
-    confirmDelete(type) {
-      this.confirmModal = true;
-      this.deleting = type;
-    },
-    destroy(id) {
-      axios.delete(`api/schema/delete/` + id)
+    destroy() {
+      axios.delete(`api/schema/delete/${this.deleting._id}`)
         .then(() => {
         this.fetchSchemes();
         this.deleting = null;
+        this.confirmModal = false;
       });
     },
   },

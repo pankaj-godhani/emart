@@ -22,128 +22,73 @@
         </div>
       </div>-->
       <!-- Card stats -->
-      <div class="row mt-4">
-        <div v-if="isAdmin===true" class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-primary border-0">
+      <div class="row mt-4" v-if="isAdmin===true">
+        <div  class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5
-                    class="card-title text-uppercase text-muted mb-0 text-white"
-                  >
-                    Users
-                  </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white">{{userLen}}</span>
-                  <base-progress
-                    class="progress-xs mt-3 mb-0"
-                    type="success"
-                    :value="30"
-                  ></base-progress>
-                </div>
-<!--                <div class="col-auto">
-                  <base-dropdown
-                    title-classes="btn btn-sm btn-neutral mr-0"
-                    menu-on-right
-                    :has-toggle="false"
-                  >
-                    <template v-slot:title>
-                      <i class="fas fa-ellipsis-h"></i>
-                    </template>
 
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </base-dropdown>
-                </div>-->
+                <div class="col">
+                  <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Total Users
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{userLen}}</h2>
+
+                </div>
               </div>
-              <p class="mt-3 mb-0 text-sm">
-                <router-link :to="{name:'Users'}" class="text-nowrap text-white font-weight-600">See details</router-link>
-              </p>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Users'}" class="text-nowrap ">See details</router-link>
+              </h4>
             </div>
           </div>
         </div>
-        <div :class="isAdmin?'col-xl-4 col-md-6':'col-xl-6 col-md-6'">
-          <div class="card bg-gradient-info border-0">
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5
-                    class="card-title text-uppercase text-muted mb-0 text-white"
-                  >
-                    Products
-                  </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white"
-                    >{{productLen}}</span
-                  >
-                  <base-progress
-                    class="progress-xs mt-3 mb-0"
-                    type="success"
-                    :value="50"
-                  ></base-progress>
-                </div>
-<!--                <div class="col-auto">
-                  <base-dropdown
-                    title-classes="btn btn-sm btn-neutral mr-0"
-                    menu-on-right
-                    :has-toggle="false"
-                  >
-                    <template v-slot:title>
-                      <i class="fas fa-ellipsis-h"></i>
-                    </template>
 
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </base-dropdown>
-                </div>-->
+                <div class="col">
+                  <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Active Users
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
+                </div>
               </div>
-              <p class="mt-3 mb-0 text-sm">
-                <router-link :to="{name:'Products'}" class="text-nowrap text-white font-weight-600">See details</router-link>
-              </p>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Users'}" class="text-nowrap ">See details</router-link>
+              </h4>
             </div>
           </div>
         </div>
-        <div :class="isAdmin?'col-xl-4 col-md-6':'col-xl-6 col-md-6'">
-          <div class="card bg-gradient-danger border-0">
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5
-                    class="card-title text-uppercase text-muted mb-0 text-white"
-                  >
-                    Schemes
-                  </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white"
-                    >{{schemeLen}}</span
-                  >
-                  <base-progress
-                    class="progress-xs mt-3 mb-0"
-                    type="success"
-                    :value="80"
-                  ></base-progress>
-                </div>
-<!--                <div class="col-auto">
-                  <base-dropdown
-                    title-classes="btn btn-sm btn-neutral mr-0"
-                    menu-on-right
-                    :has-toggle="false"
-                  >
-                    <template v-slot:title>
-                      <i class="fas fa-ellipsis-h"></i>
-                    </template>
 
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </base-dropdown>
-                </div>-->
+                <div class="col">
+                  <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Inactive Users
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
+                </div>
               </div>
-              <p class="mt-3 mb-0 text-sm">
-                <router-link :to="{name:'Schemes'}" class="text-nowrap text-white font-weight-600">See details</router-link>
-              </p>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Users'}" class="text-nowrap ">See details</router-link>
+              </h4>
             </div>
           </div>
         </div>
@@ -151,126 +96,250 @@
       </div>
       <div class="row mt-4">
         <div class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-primary border-0">
+          <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5
-                    class="card-title text-uppercase text-muted mb-0 text-white"
-                  >
-                    Invoice
-                  </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white">{{invoiceLen}}</span>
-                  <base-progress
-                    class="progress-xs mt-3 mb-0"
-                    type="success"
-                    :value="30"
-                  ></base-progress>
-                </div>
-<!--                <div class="col-auto">
-                  <base-dropdown
-                    title-classes="btn btn-sm btn-neutral mr-0"
-                    menu-on-right
-                    :has-toggle="false"
-                  >
-                    <template v-slot:title>
-                      <i class="fas fa-ellipsis-h"></i>
-                    </template>
 
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </base-dropdown>
-                </div>-->
+                <div class="col">
+                  <i class="fa fa-shopping-bag text-danger fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Total Products
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
+                </div>
               </div>
-              <p class="mt-3 mb-0 text-sm">
-                <router-link :to="{name:'Invoice'}" class="text-nowrap text-white font-weight-600">See details</router-link>
-              </p>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Products'}" class="text-nowrap ">See details</router-link>
+              </h4>
             </div>
           </div>
         </div>
         <div class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-info border-0">
+          <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5
-                    class="card-title text-uppercase text-muted mb-0 text-white"
-                  >
-                   Purchase Orders
-                  </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white"
-                  >{{purOrdersLen}}</span
-                  >
-                  <base-progress
-                    class="progress-xs mt-3 mb-0"
-                    type="success"
-                    :value="50"
-                  ></base-progress>
-                </div>
-<!--                <div class="col-auto">
-                  <base-dropdown
-                    title-classes="btn btn-sm btn-neutral mr-0"
-                    menu-on-right
-                    :has-toggle="false"
-                  >
-                    <template v-slot:title>
-                      <i class="fas fa-ellipsis-h"></i>
-                    </template>
 
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </base-dropdown>
-                </div>-->
+                <div class="col">
+                  <i class="fa fa-shopping-bag text-danger fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Last 10 days Products
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
+                </div>
               </div>
-              <p class="mt-3 mb-0 text-sm">
-                <router-link :to="{name:'PurchaseOrders'}" class="text-nowrap text-white font-weight-600">See details</router-link>
-              </p>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Products'}" class="text-nowrap ">See details</router-link>
+              </h4>
             </div>
           </div>
         </div>
         <div class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-danger border-0">
+          <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <h5
-                    class="card-title text-uppercase text-muted mb-0 text-white"
-                  >
-                    Dispatch Note
-                  </h5>
-                  <span class="h2 font-weight-bold mb-0 text-white"
-                  >{{disNoteLen}}</span
-                  >
-                  <base-progress
-                    class="progress-xs mt-3 mb-0"
-                    type="success"
-                    :value="80"
-                  ></base-progress>
-                </div>
-<!--                <div class="col-auto">
-                  <base-dropdown
-                    title-classes="btn btn-sm btn-neutral mr-0"
-                    menu-on-right
-                    :has-toggle="false"
-                  >
-                    <template v-slot:title>
-                      <i class="fas fa-ellipsis-h"></i>
-                    </template>
 
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </base-dropdown>
-                </div>-->
+                <div class="col">
+                  <i class="fa fa-cubes text-primary fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Total Schemes
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
+                </div>
               </div>
-              <p class="mt-3 mb-0 text-sm">
-                <router-link :to="{name:'DispatchNote'}" class="text-nowrap text-white font-weight-600">See details</router-link>
-              </p>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Schemes'}" class="text-nowrap ">See details</router-link>
+              </h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row mt-4">
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col">
+                  <i class="fa fa-cubes text-primary fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Last 10 days Schemes
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
+                </div>
+              </div>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Schemes'}" class="text-nowrap ">See details</router-link>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col">
+                  <i class="fas fa-file-invoice text-warning fa-2x"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Total Invoice
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
+                </div>
+              </div>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Invoice'}" class="text-nowrap ">See details</router-link>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col">
+                  <i class="fas fa-file-invoice text-warning fa-2x"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Last 10 days invoice
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
+                </div>
+              </div>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'Invoice'}" class="text-nowrap ">See details</router-link>
+              </h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row mt-4">
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col">
+                  <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-fill text-success" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+                  </svg>-->
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Total Purchase orders
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
+                </div>
+              </div>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'PurchaseOrders'}" class="text-nowrap ">See details</router-link>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col">
+                  <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Last 10 days Purchase Orders
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
+                </div>
+              </div>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'PurchaseOrders'}" class="text-nowrap ">See details</router-link>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-heading text-info" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                    <path d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
+                  </svg>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                   Total Dispatch Note
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
+                </div>
+              </div>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'DispatchNote'}" class="text-nowrap ">See details</router-link>
+              </h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row mt-4">
+        <div class="col-xl-4 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-heading text-info" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                    <path d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
+                  </svg>
+                </div>
+                <div class="col-auto">
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Last 10 days dispatch Note
+                  </h5>
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
+                </div>
+              </div>
+              <h4 class="mt-3 mb-0 ">
+                <router-link :to="{name:'DispatchNote'}" class="text-nowrap ">See details</router-link>
+              </h4>
             </div>
           </div>
         </div>
@@ -278,87 +347,6 @@
       </div>
     </base-header>
 
-<!--    <div class="container-fluid mt&#45;&#45;6">
-      &lt;!&ndash;Charts&ndash;&gt;
-      <div class="card-deck flex-column flex-xl-row">
-        <card header-classes="bg-transparent">
-          <template v-slot:header>
-            <div class="row align-items-center">
-              <div class="col">
-                <h6 class="text-muted text-uppercase ls-1 mb-1">Overview</h6>
-                <h5 class="h3 mb-0">Sales value</h5>
-              </div>
-            </div>
-          </template>
-          <div class="chart-area">
-            <canvas :height="350" :id="salesChartID"></canvas>
-          </div>
-        </card>
-
-        <card header-classes="bg-transparent">
-          <template v-slot:header>
-            <div class="row align-items-center">
-              <div class="col">
-                <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                <h5 class="h3 mb-0">Total orders</h5>
-              </div>
-            </div>
-          </template>
-          <div class="chart-area">
-            <canvas :height="350" :id="ordersChartID"></canvas>
-          </div>
-        </card>
-        &lt;!&ndash; Progress track list&ndash;&gt;
-        <card>
-          &lt;!&ndash; Card header &ndash;&gt;
-          <template v-slot:header>
-            <div class="row align-items-center">
-              <div class="col-8">
-                &lt;!&ndash; Surtitle &ndash;&gt;
-                <h6 class="surtitle">5/23 projects</h6>
-                &lt;!&ndash; Title &ndash;&gt;
-                <h5 class="h3 mb-0">Progress track</h5>
-              </div>
-              <div class="col-4 text-right">
-                <a href="#!" class="btn btn-sm btn-neutral">Action</a>
-              </div>
-            </div>
-          </template>
-          &lt;!&ndash; Card body &ndash;&gt;
-          <progress-track-list :item-limit="5"></progress-track-list>
-        </card>
-      </div>
-      &lt;!&ndash; End charts&ndash;&gt;
-
-      &lt;!&ndash;Tables & Widgets&ndash;&gt;
-      <div class="row">
-        <div class="col-xl-8">
-          <light-table :item-limit="5"></light-table>
-        </div>
-        <div class="col-xl-4">
-          <vector-map-card></vector-map-card>
-        </div>
-      </div>
-      &lt;!&ndash;End Tables & Widgets&ndash;&gt;
-
-      &lt;!&ndash;Lists&ndash;&gt;
-      <div class="card-deck flex-column flex-xl-row">
-        &lt;!&ndash; Members list group card &ndash;&gt;
-        <members-card :show-search="false"></members-card>
-        &lt;!&ndash; Checklist &ndash;&gt;
-        <task-list></task-list>
-        &lt;!&ndash; Progress track &ndash;&gt;
-        <card>
-          &lt;!&ndash; Card header &ndash;&gt;
-          <template v-slot:header>
-            <h5 class="h3 mb-0">Progress track</h5>
-          </template>
-          &lt;!&ndash; Card body &ndash;&gt;
-          <progress-track-list :item-limit="5"></progress-track-list>
-        </card>
-      </div>
-      &lt;!&ndash;End lists&ndash;&gt;
-    </div>-->
   </div>
 </template>
 

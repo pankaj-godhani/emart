@@ -53,7 +53,7 @@
           </div>
 
           <div v-if="visibleCard">
-            <DataModal :title="'Upload Excel'">
+            <DataModal :title="'Upload Excel'" @close="visibleCard=false">
               <template v-slot:body>
                 <div>
                   <form>
@@ -74,6 +74,7 @@
                   type="button"
                   class="btn btn-secondary"
                   data-dismiss="modal"
+                  @click="visibleCard=false"
                 >
                   Close
                 </button>
@@ -151,11 +152,13 @@ export default {
           } else if (this.status == 201) {
             this.notification("" + response.data.message, "error");
           }
+          this.visibleCard=false;
         })
         .catch(() => {
           this.notification("Something went wrong", "error");
         });
       this.$refs.file.value = null;
+      this.visibleCard=false;
     },
 
     onExportSample() {
@@ -163,7 +166,7 @@ export default {
         responseType: 'blob',
       })
         .then((response) => {
-          FileSaver.saveAs(response.data, 'Export2.xlsx');
+          FileSaver.saveAs(response.data, 'sampleProductSheet.xlsx');
           console.log(response);
         })
         .catch((error) => {
