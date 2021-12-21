@@ -98,6 +98,7 @@
 import InvoiceList from "../../../components/invoices/invoice/_list";
 import axios from "axios";
 import FileSaver from "file-saver";
+import {mapGetters} from "vuex";
 
 export default {
   components: {
@@ -111,7 +112,11 @@ export default {
       status: "",
     }
   },
-
+  computed:{
+    ...mapGetters('auth',{
+      userID:'getUserID',
+    }),
+  },
   mounted() {
     this.fetchInvoice();
   },
