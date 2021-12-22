@@ -90,7 +90,7 @@ export default {
         if(response)
         {
          // this.$router.push( '/' );
-          this.$router.go(this.$route.query.redirectFrom || {name: 'Dashboard'});
+          this.$router.go({path:this.$route.query.redirectFrom} || {path: '/'});
           console.log('success');
         }
         else if(!response)

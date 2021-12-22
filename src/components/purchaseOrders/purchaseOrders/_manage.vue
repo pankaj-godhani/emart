@@ -8,7 +8,7 @@
               <button
                 type="button"
                 class="btn base-button btn-default"
-                @click="downloadLabel "
+                @click="downloadLabel(purchaseOrdersData._id) "
               >
                 Packing Label
               </button>
@@ -142,49 +142,52 @@
         </template>
       </Table>
     </div>
-    <div  id="myPDF" v-show="false">
-      <h1 class="px-4 mt-4 text-dark">e-metro</h1>
-      <div class="row">
-        <div class="col">
-          <div>
-            <h4 class="px-4 text-dark">Primary Barcode : <svg id="barcodePri"></svg></h4>
-          </div>
-          <div>
-            <h4 class="px-4 text-dark">PO Number : <span class="px-2 font-weight-400">{{ purchaseOrdersData.PONumber }}</span></h4>
-          </div>
-          <div>
-            <h4 class="px-4 text-dark">PO Date :<span class="px-2 font-weight-400">{{ changeDateFormat(purchaseOrdersData.PODate) }}</span> </h4>
+    <div v-show="false">
+      <div  :id="purchaseOrdersData._id">
+        <h1 class="px-4 mt-4 text-dark">e-metro</h1>
+        <div class="row">
+          <div class="col">
+            <div>
+              <h4 class="px-4 text-dark">Primary Barcode : <svg id="barcodePri"></svg></h4>
+            </div>
+            <div>
+              <h4 class="px-4 text-dark">PO Number : <span class="px-2 font-weight-400">{{ purchaseOrdersData.PONumber }}</span></h4>
+            </div>
+            <div>
+              <h4 class="px-4 text-dark">PO Date :<span class="px-2 font-weight-400">{{ changeDateFormat(purchaseOrdersData.PODate) }}</span> </h4>
 
+            </div>
+            <div >
+              <h4 class="px-4 text-dark" v-for="(item,index) in itemList" :key="item.itemCode">
+                Line Item :{{index+1}}
+                <span class="px-2 font-weight-400">{{ item.itemName }}</span>
+              </h4>
+            </div>
+            <div>
+              <h4 class="px-4 text-dark">Secondary Barcode : <svg id="barcodeSec"></svg></h4>
+            </div>
           </div>
-          <div >
-            <h4 class="px-4 text-dark" v-for="(item,index) in itemList" :key="item.itemCode">
-              Line Item :{{index+1}}
-              <span class="px-2 font-weight-400">{{ item.itemName }}</span>
-            </h4>
-          </div>
-          <div>
-            <h4 class="px-4 text-dark">Secondary Barcode : <svg id="barcodeSec"></svg></h4>
-          </div>
-        </div>
-        <div class="col">
-          <div>
-            <h4 class="px-4 text-dark">Bill to Address :
-              <span class="px-2 font-weight-400">
+          <div class="col">
+            <div>
+              <h4 class="px-4 text-dark">Bill to Address :
+                <span class="px-2 font-weight-400">
                 47,Bhaktinandan Society 47,Bhaktinandan Society 47,Bhaktinandan Society 47,Bhaktinandan Society
               </span>
-            </h4>
-          </div>
-          <div class="mt-6">
-            <h4 class="px-4 text-dark">Ship to Address :
-              <span class="px-2 font-weight-400">
+              </h4>
+            </div>
+            <div class="mt-6">
+              <h4 class="px-4 text-dark">Ship to Address :
+                <span class="px-2 font-weight-400">
                 47,Bhaktinandan Society 47,Bhaktinandan Society 47,Bhaktinandan Society 47,Bhaktinandan Society
               </span>
-            </h4>
+              </h4>
+            </div>
           </div>
         </div>
-      </div>
 
       </div>
+    </div>
+
 
 
 
@@ -219,6 +222,7 @@ export default {
       },
       itemList: [],
       status: "",
+      visibleLabel:false,
       displaytext: { text: "BarcodeGenerator"},
     };
   },
@@ -241,8 +245,8 @@ export default {
         fontSize: 20
       });
     },
-    downloadLabel(){
-      var element = document.getElementById("myPDF");
+    downloadLabel(id){
+      var element = document.getElementById(id);
       html2pdf(element);
     },
 

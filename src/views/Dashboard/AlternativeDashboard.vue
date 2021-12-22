@@ -22,27 +22,28 @@
         </div>
       </div>-->
       <!-- Card stats -->
-      <div class="row mt-4" v-if="isAdmin===true">
-        <div  class="col-xl-4 col-md-6">
+      <div class="row mt-4 px-5" v-if="isAdmin===true">
+        <div class="col-xl-4 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
+                <div class="col mt-2">
                   <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
                 </div>
-                <div class="col-auto">
+                <div class="col-auto ">
+                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.totalUser}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Users
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{userLen}}</h2>
+
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
+<!--              <h4 class="mt-3 mb-0 ">
                 <router-link :to="{name:'Users'}" class="text-nowrap ">See details</router-link>
-              </h4>
+              </h4>-->
             </div>
           </div>
         </div>
@@ -50,22 +51,20 @@
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
+                <div class="col mt-2">
                   <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.activeUser}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Active Users
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Users'}" class="text-nowrap ">See details</router-link>
-              </h4>
             </div>
           </div>
         </div>
@@ -73,277 +72,272 @@
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
-
-                <div class="col">
+              <div class="row mt-3 mb-3">
+                <div class="col mt-2">
                   <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.inActiveUser}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Inactive Users
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Users'}" class="text-nowrap ">See details</router-link>
-              </h4>
             </div>
           </div>
         </div>
-
       </div>
-      <div class="row mt-4">
-        <div class="col-xl-4 col-md-6">
+      <div :class="isAdmin?'row justify-content-md-center':'row mt-4 justify-content-md-center'">
+        <div class="col-xl-5 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
+                <div class="col mt-2">
                   <i class="fa fa-shopping-bag text-danger fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen.totalProduct}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Products
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
+<!--              <h4 class="mt-3 mb-0 ">
                 <router-link :to="{name:'Products'}" class="text-nowrap ">See details</router-link>
-              </h4>
+              </h4>-->
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-md-6">
+        <div class="col-xl-5 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
+                <div class="col mt-2">
                   <i class="fa fa-shopping-bag text-danger fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen.last10DayProductDetail}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Products
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
+<!--              <h4 class="mt-3 mb-0 ">
                 <router-link :to="{name:'Products'}" class="text-nowrap ">See details</router-link>
-              </h4>
+              </h4>-->
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-md-6">
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col-xl-5 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
+                <div class="col mt-2">
                   <i class="fa fa-cubes text-primary fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen.totalSchema}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Schemes
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
+<!--              <h4 class="mt-3 mb-0 ">
                 <router-link :to="{name:'Schemes'}" class="text-nowrap ">See details</router-link>
-              </h4>
+              </h4>-->
             </div>
           </div>
         </div>
-
-      </div>
-      <div class="row mt-4">
-        <div class="col-xl-4 col-md-6">
+        <div class="col-xl-5 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
+                <div class="col mt-2">
                   <i class="fa fa-cubes text-primary fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen.last10DaySchemaDetail}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Schemes
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
+<!--              <h4 class="mt-3 mb-0 ">
                 <router-link :to="{name:'Schemes'}" class="text-nowrap ">See details</router-link>
-              </h4>
+              </h4>-->
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-white border-0">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-
-                <div class="col">
-                  <i class="fas fa-file-invoice text-warning fa-2x"></i>
-                </div>
-                <div class="col-auto">
-                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
-                    Total Invoice
-                  </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
-
-                </div>
-              </div>
-              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Invoice'}" class="text-nowrap ">See details</router-link>
-              </h4>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-white border-0">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-
-                <div class="col">
-                  <i class="fas fa-file-invoice text-warning fa-2x"></i>
-                </div>
-                <div class="col-auto">
-                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
-                    Last 10 days invoice
-                  </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
-
-                </div>
-              </div>
-              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Invoice'}" class="text-nowrap ">See details</router-link>
-              </h4>
-            </div>
-          </div>
-        </div>
-
       </div>
-      <div class="row mt-4">
-        <div class="col-xl-4 col-md-6">
+      <div class="row justify-content-md-center">
+        <div class="col-xl-5 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
+                <div class="col mt-2">
                   <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-<!--                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bag-fill text-success" viewBox="0 0 16 16">
-                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-                  </svg>-->
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{purOrdersLen.totalPurchaseOrder}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Purchase orders
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
-
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
+<!--              <h4 class="mt-3 mb-0 ">
                 <router-link :to="{name:'PurchaseOrders'}" class="text-nowrap ">See details</router-link>
-              </h4>
+              </h4>-->
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-md-6">
+        <div class="col-xl-5 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
+                <div class="col mt-2">
                   <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{purOrdersLen.last10DayPurchaseOrderDetail}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Purchase Orders
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{productLen}}</h2>
+
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
+<!--              <h4 class="mt-3 mb-0 ">
                 <router-link :to="{name:'PurchaseOrders'}" class="text-nowrap ">See details</router-link>
-              </h4>
+              </h4>-->
             </div>
           </div>
         </div>
-        <div class="col-xl-4 col-md-6">
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col-xl-5 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-heading text-info" viewBox="0 0 16 16">
-                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                    <path d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
-                  </svg>
+                <div class="col mt-2">
+                  <i class="fa fa-sticky-note fa-2x text-info" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{disNoteLen.totalDespatch}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
-                   Total Dispatch Note
+                    Total Dispatch Note
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
+
 
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
+<!--              <h4 class="mt-3 mb-0 ">
                 <router-link :to="{name:'DispatchNote'}" class="text-nowrap ">See details</router-link>
-              </h4>
+              </h4>-->
             </div>
           </div>
         </div>
-
-      </div>
-      <div class="row mt-4">
-        <div class="col-xl-4 col-md-6">
+        <div class="col-xl-5 col-md-6">
           <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+              <div class="row mt-3 mb-3">
 
-                <div class="col">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-heading text-info" viewBox="0 0 16 16">
-                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                    <path d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
-                  </svg>
+                <div class="col mt-2">
+                  <i class="fa fa-sticky-note fa-2x text-info" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{disNoteLen.last10DayDespatch}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days dispatch Note
                   </h5>
-                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen}}</h2>
-
                 </div>
               </div>
-              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'DispatchNote'}" class="text-nowrap ">See details</router-link>
-              </h4>
+
             </div>
           </div>
         </div>
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col-xl-5 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row ">
 
+                <div class="col mt-2">
+                  <i class="fas fa-file-invoice text-warning fa-2x"></i>
+                </div>
+                <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-right">{{invoiceLen.totalInvoice}}</h2>
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Total Invoice
+                  </h5>
+
+
+                </div>
+              </div>
+              <div class="float-right">
+                <h2 class="font-weight-bold mb-0 mt-3 text-right">{{invoiceLen.sumOfTotalInvoice}}</h2>
+                  <h5 class="text-uppercase text-muted mb-0 text-dark ">
+                    Total Invoice value
+                  </h5>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-5 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col mt-2">
+                  <i class="fas fa-file-invoice text-warning fa-2x"></i>
+                </div>
+                <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-right">{{invoiceLen.last10DayInvoice}}</h2>
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Last 10 days invoice
+                  </h5>
+
+
+                </div>
+              </div>
+              <div class="float-right">
+                <h2 class="font-weight-bold mb-0 mt-3 text-right">{{invoiceLen.sumOfDaysInvoice}}</h2>
+                <h5 class="text-uppercase text-muted mb-0 text-dark ">
+                  Total Invoice value of last 10 days
+                </h5>
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </base-header>
 
@@ -356,6 +350,7 @@ import axios from "axios";
 export default {
   data(){
     return{
+      countList: "",
       userLen: "",
       productLen: "",
       schemeLen: "",
@@ -372,15 +367,33 @@ export default {
   },
 
   mounted() {
-    this.fetchUserLen();
-    this.fetchProductLen();
-    this.fetchSchemeLen();
-    this.fetchInvoiceLen();
-    this.fetchPurOrdersLen();
-    this.fetchDisNoteLen();
+    this.fetchCount();
   },
 
   methods: {
+    fetchCount(){
+      axios.get(`api/auth/getCountDetail`)
+        .then(response=>{
+          console.log(response.data);
+          if(this.isAdmin){
+            this.userLen = response.data.countList[0];
+            this.disNoteLen = response.data.countList[1];
+            this.invoiceLen = response.data.countList[2];
+            this.productLen = response.data.countList[3];
+            this.purOrdersLen = response.data.countList[4];
+            this.schemeLen = response.data.countList[5];
+          }
+          else
+          {
+            this.disNoteLen = response.data.countList[0];
+            this.invoiceLen = response.data.countList[1];
+            this.productLen = response.data.countList[2];
+            this.purOrdersLen = response.data.countList[3];
+            this.schemeLen = response.data.countList[4];
+          }
+
+        });
+    },
     fetchUserLen(){
       axios.get(`api/auth/getAllUser`)
         .then(response=>{
