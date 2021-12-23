@@ -11,6 +11,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Product Name"
+                v-model="form.productName"
               />
             </div>
             <div class="col-sm">
@@ -18,6 +19,7 @@
               <input
                 class="form-control"
                 type="date"
+                v-model="form.vendorInvoiceRef_Date"
               />
             </div>
             <div class="col-sm">
@@ -25,6 +27,7 @@
               <input
                 class="form-control"
                 type="date"
+                v-model="form.eMetroPoRef_Date"
               />
             </div>
           </div>
@@ -35,7 +38,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Description"
-
+                v-model="form.description"
               />
             </div>
             <div class="col-sm">
@@ -44,7 +47,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Item Quantity"
-
+                v-model="form.itemQuantity"
               />
             </div>
             <div class="col-sm">
@@ -52,8 +55,8 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Enter Free Quantity"
-
+                placeholder="HSN Code"
+                v-model="form.HSNCode"
               />
             </div>
           </div>
@@ -67,7 +70,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Unit Price"
-
+                v-model="form.unitPrice"
               />
             </div>
             <div class="col-sm">
@@ -76,7 +79,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Price Difference"
-
+                v-model="form.priceDifference"
               />
             </div>
             <div class="col-sm">
@@ -85,7 +88,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Tax Rate"
-
+                v-model="form.taxRate"
               />
             </div>
 
@@ -97,6 +100,7 @@
                 type="text"
                 class="form-control"
                 placeholder="CGST"
+                v-model="form.CGST"
               />
             </div>
             <div class="col-sm">
@@ -105,6 +109,7 @@
                 type="text"
                 class="form-control"
                 placeholder="SGST"
+                v-model="form.SGST"
               />
             </div>
             <div class="col-sm">
@@ -113,6 +118,7 @@
                 type="text"
                 class="form-control"
                 placeholder="IGST"
+                v-model="form.IGST"
               />
             </div>
 
@@ -124,6 +130,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Amount"
+                v-model="form.amount"
               />
             </div>
 
@@ -131,24 +138,24 @@
         </div>
         <div class="d-flex mt-3 float-right">
           <div class="pr-2">
-            <router-link :to="{ name: 'Schemes' }">
+            <router-link :to="{ name: 'Credit' }">
               <base-button outline type="default">Cancel</base-button>
             </router-link>
           </div>
           <div>
             <button
+              v-if="editing"
               type="button"
               class="btn base-button btn-default"
               @click.prevent="update"
-
             >
               Save
             </button>
             <button
+              v-else
               type="button"
               class="btn base-button btn-default"
               @click.prevent="submit"
-
             >
               Submit
             </button>
@@ -159,3 +166,56 @@
     </div>
   </card>
 </template>
+<script>
+
+import {mapGetters} from "vuex";
+import axios from "axios";
+import _ from "lodash";
+
+export default {
+  props:['id'],
+  data(){
+    return{
+      form:{},
+    }
+  },
+  mounted() {
+    if (this.editing) {
+      this.fetch();
+    }
+  },
+  computed: {
+    ...mapGetters('auth',{
+      userID:'getUserID',
+    }),
+    editing() {
+      return !!this.id;
+    },
+  },
+  methods:{
+    submit() {
+      this.editing ? this.update() : this.store();
+    },
+    fetch() {
+      axios.get(`api/creditMemo/getAllUserCreditMemo/${this.id}`).then((response) => {
+        console.log(response.data[0]);
+        this.form = _.merge(this.form, response.data[0]);
+      });
+    },
+    store(){
+      axios.post(`api/creditMemo/AddUserCreditMemo`,this.form)
+        .then(()=>{
+          this.goBack();
+          this.notification('Credit Memo created successfully.','success');
+        })
+    },
+    update(){
+      axios.put(`api/creditMemo/ChangeUserCreditMemo/${this.id}`,this.form)
+        .then(()=>{
+          this.goBack();
+          this.notification('Credit Memo updated successfully.','success');
+        })
+    }
+  }
+}
+</script>

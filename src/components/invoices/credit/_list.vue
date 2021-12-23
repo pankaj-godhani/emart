@@ -3,7 +3,12 @@
          body-classes="px-0 pb-1 py-3"
          footer-classes="pb-2"
   >
-    <div class="pl-0">
+    <div class="text-center mt-4" v-if="loading">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="pl-0" v-else-if="visible">
       <Table>
         <template #thead>
           <tr>
@@ -21,28 +26,58 @@
             <th>SGST</th>
             <th>IGST</th>
             <th>Amount</th>
+            <th>Action</th>
           </tr>
         </template>
         <template #tbody>
-          <tr>
-
-            <td>1</td>
-            <td>tyuy</td>
-            <td>yyhj</td>
-            <td>tyjuytu</td>
-            <td>tyuytu</td>
-            <td>tyutyu</td>
-            <td>tyuty</td>
-            <td>yujyy</td>
-            <td>tyut</td>
-            <td>yujyu</td>
-            <td>yujiyji</td>
-            <td>uyjyu</td>
-            <td>yujiuy</td>
-            <td>yujuj</td>
+          <tr v-for="(data,index) in creditData" :key="data._id">
+            <td>{{ index+1 }}</td>
+            <td>{{ data.productName }}</td>
+            <td>{{ data.vendorInvoiceRef_Date }}</td>
+            <td>{{ data.eMetroPoRef_Date }}</td>
+            <td>{{ data.description }}</td>
+            <td>{{ data.itemQuantity }}</td>
+            <td>{{ data.HSNCode }}</td>
+            <td>{{ data.unitPrice }}</td>
+            <td>{{ data.priceDifference }}</td>
+            <td>{{ data.taxRate }}</td>
+            <td>{{ data.CGST }}</td>
+            <td>{{ data.SGST }}</td>
+            <td>{{ data.IGST }}</td>
+            <td>{{ data.amount }}</td>
+            <td>
+              <div class="d-flex">
+                <div class="pr-2">
+                  <router-link
+                    :to="{ name: 'CreditEdit', params: { id: data._id } }"
+                  >
+                    <button
+                      type="button"
+                      class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
+                    >
+                      <i class="text-white ni ni-ruler-pencil"></i>
+                    </button>
+                  </router-link>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
+                    data-toggle="modal"
+                    data-target="#myModal"
+                    @click.prevent="confirmDelete(data)"
+                  >
+                    <i class="text-white ni ni-fat-remove"></i>
+                  </button>
+                </div>
+              </div>
+            </td>
           </tr>
         </template>
       </Table>
+    </div>
+    <div v-else-if="status===201||error" class="text-center mt-4">
+      Data not found
     </div>
     <template v-slot:footer>
       <div
@@ -50,7 +85,7 @@
       >
         <div class="">
           <p class="card-category">
-            Showing {{ from + 1 }} to {{ to }} of {{ total }} entries
+            Showing {{ from }} to {{ to }} of {{ total }} entries
           </p>
         </div>
         <base-pagination
@@ -63,12 +98,36 @@
       </div>
     </template>
   </card>
+  <div v-if="confirmModal">
+    <DataModal :title="('Delete Credit Memo')" @close="confirmModal=false">
+      <template v-slot:body>
+        <div><span>Are you sure you want to delete this record?</span></div>
+        <div class="float-right">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            @click="confirmModal=false"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn base-button btn-default"
+            data-dismiss="modal"
+            @click="destroy"
+          >
+            Delete It
+          </button>
+        </div>
+      </template>
+    </DataModal>
+  </div>
 </template>
 <script>
 
 import BasePagination from "@/components/BasePagination";
-import swal from "sweetalert2";
-import users from "../../../views/Tables/users2";
+import axios from "axios";
 
 export default {
   components: {
@@ -76,7 +135,7 @@ export default {
   },
   computed: {
     pagedData() {
-      return this.tableData.slice(this.from, this.to);
+      return this.creditData.slice(this.from-1, this.to);
     },
     to() {
       let highBound = this.from + this.pagination.perPage;
@@ -86,12 +145,10 @@ export default {
       return highBound;
     },
     from() {
-      return this.pagination.perPage * (this.pagination.currentPage - 1);
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
     },
     total() {
-      return this.searchedData.length > 0
-        ? this.searchedData.length
-        : this.tableData.length;
+      return this.visible ? this.creditData.length : 0;
     },
   },
   data() {
@@ -99,77 +156,55 @@ export default {
       pagination: {
         perPage: 5,
         currentPage: 1,
-        perPageOptions: [5, 10, 25, 50],
         total: 0,
       },
-      searchQuery: "",
-      propsToSearch: ["name", "email"],
-      tableData: users,
-      fuseSearch: null,
-      searchedData: [],
+      creditData: [],
+      visible: false,
+      confirmModal: false,
+      loading: false,
+      status: "",
+      error: "",
+      deleting: null,
     };
   },
+  mounted() {
+    this.fetch();
+  },
   methods: {
-    handleLike(index, row) {
-      const swalWithBootstrapButtons1 = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success btn-fill",
-        },
-        buttonsStyling: false,
-      });
-
-      swalWithBootstrapButtons1.fire({
-        title: `You liked ${row.name}`,
-      });
+    confirmDelete(type) {
+      this.confirmModal = true;
+      this.deleting = type;
     },
-    handleEdit(index, row) {
-      const swalWithBootstrapButtons2 = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-info btn-fill",
-        },
-        buttonsStyling: false,
-      });
-
-      swalWithBootstrapButtons2.fire({
-        title: `You want to edit ${row.name}`,
-      });
-    },
-    handleDelete(index, row) {
-      const swalWithBootstrapButtons3 = swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success btn-fill",
-          cancelButton: "btn btn-danger btn-fill",
-        },
-        buttonsStyling: false,
-      });
-      swalWithBootstrapButtons3
-        .fire({
-          title: "Are you sure?",
-          text: `You won't be able to revert this!`,
-          showCancelButton: true,
-          confirmButtonText: "Yes, delete it!",
-        })
-        .then((result) => {
-          if (result.value) {
-            this.deleteRow(row);
-            swalWithBootstrapButtons3.fire({
-              title: "Deleted!",
-              text: `You deleted ${row.name}`,
-            });
+    fetch(){
+      this.loading = true;
+      axios.get(`api/creditMemo/getAllUserCreditMemo`)
+        .then(response=>{
+          this.creditData = response.data;
+          console.log(response.data);
+          this.status = response.status;
+          console.log(this.status);
+          if(this.status===200){
+            this.visible=true;
           }
-        });
+          else{
+            this.visible=false;
+          }
+        })
+        .catch((error)=>{
+          this.error=error;
+          this.visible=false;
+        })
+        .finally(()=>(this.loading = false));
     },
-    deleteRow(row) {
-      let indexToDelete = this.tableData.findIndex(
-        (tableRow) => tableRow.id === row.id
-      );
-      if (indexToDelete >= 0) {
-        this.tableData.splice(indexToDelete, 1);
-      }
-    },
-    selectionChange(selectedRows) {
-      this.selectedRows = selectedRows;
-    },
+    destroy(){
+      axios.delete(`api/creditMemo/removeUserCreditMemo/${this.deleting._id}`)
+        .then(()=>{
+          this.fetch();
+          this.deleting = null;
+          this.confirmModal = false;
+        })
+    }
+
   },
 };
 </script>

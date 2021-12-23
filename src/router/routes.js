@@ -22,8 +22,10 @@ import InvoiceEdit from "../views/invoices/invoice/edit";
 import PurchaseReturns from "../views/invoices/purchaseReturns/index";
 import Debit from "../views/invoices/debit/index";
 import DebitCreate from "../views/invoices/debit/create";
+import DebitEdit from "../views/invoices/debit/edit";
 import Credit from "../views/invoices/credit/index";
 import CreditCreate from "../views/invoices/credit/create";
+import CreditEdit from "../views/invoices/credit/edit";
 import PurchaseOrders from "../views/purchaseOrders/purchaseOrders/index";
 import PurchaseOrdersCreate from "../views/purchaseOrders/purchaseOrders/create";
 import DispatchNote from "../views/purchaseOrders/dispatchNote/index";
@@ -211,6 +213,15 @@ export default [
       },
 
       {
+        path: "/invoices/debit/edit/:id",
+        name: "DebitEdit",
+        components: { default: DebitEdit },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+      {
         path: "/invoices/credit",
         name: "Credit",
         components: { default: Credit },
@@ -224,6 +235,16 @@ export default [
         path: "/invoices/credit/create",
         name: "CreditCreate",
         components: { default: CreditCreate },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/invoices/credit/edit/:id",
+        name: "CreditEdit",
+        components: { default: CreditEdit },
         meta: {
           middleware: [auth],
           navbarType: "light",

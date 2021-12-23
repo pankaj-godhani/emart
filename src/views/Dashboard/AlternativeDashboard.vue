@@ -244,7 +244,7 @@
               <div class="row mt-3 mb-3">
 
                 <div class="col mt-2">
-                  <i class="fa fa-sticky-note fa-2x text-info" aria-hidden="true"></i>
+                  <i class="fa fa-sticky-note fa-2x text-primary" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
                   <h2 class="font-weight-bold mb-0 text-center">{{disNoteLen.totalDespatch}}</h2>
@@ -268,12 +268,101 @@
               <div class="row mt-3 mb-3">
 
                 <div class="col mt-2">
-                  <i class="fa fa-sticky-note fa-2x text-info" aria-hidden="true"></i>
+                  <i class="fa fa-sticky-note fa-2x text-primary" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
                   <h2 class="font-weight-bold mb-0 text-center">{{disNoteLen.last10DayDespatch}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days dispatch Note
+                  </h5>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col-xl-5 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row mt-3 mb-3">
+
+                <div class="col mt-2">
+                  <i class="fa fa-credit-card fa-2x text-info" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{debitLen.totalDebit}}</h2>
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Total Debit Memo
+                  </h5>
+
+
+                </div>
+              </div>
+              <!--              <h4 class="mt-3 mb-0 ">
+                              <router-link :to="{name:'DispatchNote'}" class="text-nowrap ">See details</router-link>
+                            </h4>-->
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-5 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row mt-3 mb-3">
+
+                <div class="col mt-2">
+                  <i class="fa fa-credit-card fa-2x text-info" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{debitLen.last10DayDebitDetail}}</h2>
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Last 10 days Debit Memo
+                  </h5>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col-xl-5 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row mt-3 mb-3">
+
+                <div class="col mt-2">
+                  <i class="fa fa-credit-card fa-2x text-info" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{creditLen.totalCredit}}</h2>
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Total Credit Memo
+                  </h5>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-5 col-md-6">
+          <div class="card bg-gradient-white border-0">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row mt-3 mb-3">
+
+                <div class="col mt-2">
+                  <i class="fa fa-credit-card fa-2x text-info" aria-hidden="true"></i>
+                </div>
+                <div class="col-auto">
+                  <h2 class="font-weight-bold mb-0 text-center">{{creditLen.last10DayCreditDetail}}</h2>
+                  <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
+                    Last 10 days Credit Memo
                   </h5>
                 </div>
               </div>
@@ -357,6 +446,8 @@ export default {
       invoiceLen: "",
       purOrdersLen: "",
       disNoteLen: "",
+      creditLen: "",
+      debitLen: "",
     }
   },
 
@@ -375,13 +466,16 @@ export default {
       axios.get(`api/auth/getCountDetail`)
         .then(response=>{
           console.log(response.data);
-          if(this.isAdmin){
+          if(this.isAdmin)
+          {
             this.userLen = response.data.countList[0];
             this.disNoteLen = response.data.countList[1];
             this.invoiceLen = response.data.countList[2];
             this.productLen = response.data.countList[3];
             this.purOrdersLen = response.data.countList[4];
             this.schemeLen = response.data.countList[5];
+            this.creditLen = response.data.countList[6];
+            this.debitLen = response.data.countList[7];
           }
           else
           {
@@ -390,6 +484,8 @@ export default {
             this.productLen = response.data.countList[2];
             this.purOrdersLen = response.data.countList[3];
             this.schemeLen = response.data.countList[4];
+            this.creditLen = response.data.countList[5];
+            this.debitLen = response.data.countList[6];
           }
 
         });
