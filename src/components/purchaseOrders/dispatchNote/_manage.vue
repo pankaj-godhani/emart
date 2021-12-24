@@ -100,6 +100,7 @@
             <div class="col-sm">
               <label class="form-control-label"> Delivery Location</label>
               <input
+                v-model="form.deliveryLocation"
                 type="text"
                 class="form-control"
                 placeholder="Enter Delivery Location"
@@ -107,9 +108,36 @@
             </div>
           </div>
           <div class="row mt-2">
+            <div class="col-sm">
+              <label class="form-control-label">Total No. of Packages</label>
+              <input
+                class="form-control"
+                placeholder="Enter Total No. of Packages"
+                v-model="form.totalNoOfPackages"
+              />
+            </div>
+            <div class="col-sm">
+              <label class="form-control-label">Net Weight in Kgs</label>
+              <input
+                class="form-control"
+                placeholder="Enter Net Weight"
+                v-model="form.netWeightInKgs"
+              />
+            </div>
+            <div class="col-sm">
+              <label class="form-control-label">Gross Weight in Kgs</label>
+              <input
+                class="form-control"
+                placeholder="Enter Gross Weight"
+                v-model="form.grossWeightInKgs"
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
             <div class="col-4">
               <label class="form-control-label">eMetro Representative ID</label>
               <input
+                v-model="form.eMetroRepresentativeID"
                 type="text"
                 class="form-control"
                 placeholder="Enter eMetro Representative ID"
@@ -174,6 +202,11 @@ export default {
         DriverName: "",
         DriverContact: "",
         VehicleNumber: "",
+        totalNoOfPackages: "",
+        netWeightInKgs: "",
+        grossWeightInKgs: "",
+        deliveryLocation: "",
+        eMetroRepresentativeID: "",
       },
     };
   },
@@ -213,6 +246,11 @@ export default {
           DriverName: this.form.DriverName,
           DriverContact: this.form.DriverContact,
           VehicleNumber: this.form.VehicleNumber,
+          totalNoOfPackages: this.form.totalNoOfPackages,
+          netWeightInKgs: this.form.netWeightInKgs,
+          grossWeightInKgs: this.form.grossWeightInKgs,
+          deliveryLocation: this.form.deliveryLocation,
+          eMetroRepresentativeID: this.form.eMetroRepresentativeID,
         })
         .then(() => {
           this.goBack();

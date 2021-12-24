@@ -45,7 +45,7 @@
         </div>
         <div class="mt-4">
           <h3><b>Group Heading 2</b></h3>
-          <div class="row mt-3">
+<!--          <div class="row mt-3">
             <div class="col-sm">
               <label class="form-control-label">Total No. of Packages</label>
               <input
@@ -70,7 +70,7 @@
                 v-model="form.grossWeight"
               />
             </div>
-          </div>
+          </div>-->
           <div class="row mt-4">
             <div class="col-sm-4">
               <label class="form-control-label">Invoice Value</label>

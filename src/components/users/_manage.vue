@@ -15,7 +15,6 @@
 
       </div>
 
-
       <div class="form-row justify-content-center">
         <div class="form-group col-md-5">
           <input  class="form-control"
@@ -25,7 +24,6 @@
                   accept="image/*"/>
         </div>
       </div>
-
 
       <div class="row">
         <div class="col-sm pb-2">
@@ -38,12 +36,33 @@
           />
         </div>
         <div class="col-sm pb-2">
+          <label class="form-control-label">Middle Name</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Middle Name"
+            v-model="form.middleName"
+          />
+        </div>
+        <div class="col-sm pb-2">
           <label class="form-control-label">Last Name</label>
           <input
             type="text"
             class="form-control"
             placeholder="Last Name"
             v-model="form.lastName"
+          />
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-sm pb-2">
+          <label class="form-control-label">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Address"
+            v-model="form.address"
           />
         </div>
         <div class="col-sm pb-2">
@@ -55,9 +74,6 @@
             v-model="form.email"
           />
         </div>
-      </div>
-
-      <div class="row">
         <div class="col-sm pb-2">
           <label class="form-control-label">Mobile Number</label>
           <input
@@ -65,6 +81,19 @@
             class="form-control"
             placeholder="Mobile Number"
             v-model="form.mobileNumber"
+          />
+        </div>
+
+
+      </div>
+      <div class="row">
+        <div class="col-sm pb-2">
+          <label class="form-control-label">PAN Number</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="PAN Number"
+            v-model="form.panNo"
           />
         </div>
         <div class="col-sm pb-2">
@@ -83,12 +112,50 @@
           </select>
         </div>
 
-
-
       </div>
-
       <div class="row">
-
+        <div class="col-sm pb-2">
+          <label class="form-control-label">Payment Terms</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Payment Terms"
+            v-model="form.paymentTerms"
+          />
+        </div>
+        <div class="col-sm pb-2">
+          <label class="form-control-label">Shipping Terms</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Shipping Terms"
+            v-model="form.shippingTerms"
+          />
+        </div>
+        <div class="col-sm pb-2">
+          <label class="form-control-label">GST</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="GST"
+            v-model="form.GST"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 pb-2">
+          <label class="form-control-label">Vendor Type</label>
+          <select class="form-control" v-model="form.vendorType">
+            <option disabled selected value>Select Vendor Type</option>
+            <option value="Farmer">Farmer</option>
+            <option value="Manufacturer">Manufacturer</option>
+            <option value="Traders">Traders</option>
+            <option value="Packhouse">Packhouse</option>
+            <option value="Millers">Millers</option>
+            <option value="Packaging house">Packaging house</option>
+            <option value="Processors">Processors</option>
+          </select>
+        </div>
         <div class="col-sm-4 pb-2">
           <label class="form-control-label">Password</label>
           <input
@@ -100,6 +167,39 @@
         </div>
 
       </div>
+      <h3 class="mt-3"><b>Bank Details</b></h3>
+      <div class="row">
+        <div class="col-sm pb-2">
+          <label class="form-control-label">Bank Name</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Bank Name"
+            v-model="form.bankName"
+          />
+        </div>
+        <div class="col-sm pb-2">
+          <label class="form-control-label">Account Number</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Account Number"
+            v-model="form.accountNumber"
+          />
+        </div>
+        <div class="col-sm pb-2">
+          <label class="form-control-label">IFSC Code</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="IFSC Code"
+            v-model="form.IFSCCode"
+          />
+        </div>
+
+
+      </div>
+
       <div class="d-flex float-right">
         <div class="pr-2">
           <router-link :to="{ name: 'Users' }">
@@ -143,9 +243,19 @@ export default {
       imageURL: null,
       form: {
         firstName:'',
+        middleName:'',
         lastName:'',
+        address:'',
         mobileNumber:'',
         email: '',
+        panNo: '',
+        bankName: '',
+        accountNumber: '',
+        IFSCCode: '',
+        paymentTerms: '',
+        shippingTerms: '',
+        GST: '',
+        vendorType: '',
         passWord: '',
         isAdmin:false,
         isActive:false,
@@ -188,9 +298,19 @@ export default {
     update(){
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
+      formData.append('middleName',this.form.middleName);
       formData.append('lastName',this.form.lastName);
+      formData.append('address',this.form.address);
       formData.append('mobileNumber',this.form.mobileNumber);
       formData.append('email',this.form.email);
+      formData.append('panNo',this.form.panNo);
+      formData.append('bankName',this.form.bankName);
+      formData.append('accountNumber',this.form.accountNumber);
+      formData.append('IFSCCode',this.form.IFSCCode);
+      formData.append('paymentTerms',this.form.paymentTerms);
+      formData.append('shippingTerms',this.form.shippingTerms);
+      formData.append('GST',this.form.GST);
+      formData.append('vendorType',this.form.vendorType);
       formData.append('passWord',this.form.passWord);
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
@@ -210,9 +330,19 @@ export default {
     store(){
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
+      formData.append('middleName',this.form.middleName);
       formData.append('lastName',this.form.lastName);
+      formData.append('address',this.form.address);
       formData.append('mobileNumber',this.form.mobileNumber);
       formData.append('email',this.form.email);
+      formData.append('panNo',this.form.panNo);
+      formData.append('bankName',this.form.bankName);
+      formData.append('accountNumber',this.form.accountNumber);
+      formData.append('IFSCCode',this.form.IFSCCode);
+      formData.append('paymentTerms',this.form.paymentTerms);
+      formData.append('shippingTerms',this.form.shippingTerms);
+      formData.append('GST',this.form.GST);
+      formData.append('vendorType',this.form.vendorType);
       formData.append('passWord',this.form.passWord);
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
