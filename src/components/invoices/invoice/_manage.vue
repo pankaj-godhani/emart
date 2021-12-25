@@ -41,37 +41,6 @@
                 v-model="form.invoiceDate"
               />
             </div>
-          </div>
-        </div>
-        <div class="mt-4">
-          <h3><b>Group Heading 2</b></h3>
-<!--          <div class="row mt-3">
-            <div class="col-sm">
-              <label class="form-control-label">Total No. of Packages</label>
-              <input
-                class="form-control"
-                placeholder="Enter Total No. of Packages"
-                v-model="form.NoOfPackages"
-              />
-            </div>
-            <div class="col-sm">
-              <label class="form-control-label">Net Weight in Kgs</label>
-              <input
-                class="form-control"
-                placeholder="Enter Net Weight"
-                v-model="form.netWeight"
-              />
-            </div>
-            <div class="col-sm">
-              <label class="form-control-label">Gross Weight in Kgs</label>
-              <input
-                class="form-control"
-                placeholder="Enter Gross Weight"
-                v-model="form.grossWeight"
-              />
-            </div>
-          </div>-->
-          <div class="row mt-4">
             <div class="col-sm-4">
               <label class="form-control-label">Invoice Value</label>
               <input
@@ -82,7 +51,6 @@
               />
             </div>
           </div>
-
         </div>
         <div class="mt-4">
           <h3><b>Group Heading 3</b></h3>
@@ -163,9 +131,6 @@ export default {
         PODate: "",
         invoiceNumber: "",
         invoiceDate: "",
-        NoOfPackages: "",
-        netWeight: "",
-        grossWeight: "",
         invoiceValue: "",
         CGSTValue: "",
         SGSTValue: "",
@@ -205,9 +170,6 @@ export default {
         PODate: this.form.PODate,
         invoiceNumber: this.form.invoiceNumber,
         invoiceDate: this.form.invoiceDate,
-        NoOfPackages: this.form.NoOfPackages,
-        netWeight: this.form.netWeight,
-        grossWeight: this.form.grossWeight,
         invoiceValue: this.form.invoiceValue,
         CGSTValue: this.form.CGSTValue,
         SGSTValue: this.form.SGSTValue,

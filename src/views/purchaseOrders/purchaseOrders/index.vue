@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="container-fluid mt-2">
+    <div class="container-fluid mt-3">
       <div>
         <div>
             <h3 class="mb-2">Purchase Orders</h3>

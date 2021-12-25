@@ -211,7 +211,7 @@
             type="button"
             class="btn base-button btn-default"
             v-if="editing"
-            @click.prevent="update"
+            @click.prevent="onUpdate"
           >
             Save
           </button>
@@ -233,6 +233,7 @@
 <script>
 import axios from "axios";
 //import {mapGetters} from "vuex";
+import { authMethods } from "../../state/helpers";
 
 
 export default {
@@ -281,12 +282,13 @@ export default {
   },
 
   methods:{
+    ...authMethods,
     getImage() {
       this.form.file = this.$refs.file1.files.item(0);
       this.imageURL = URL.createObjectURL(this.form.file);
     },
     submit() {
-      this.editing ? this.update() : this.store();
+      this.editing ? this.onUpdate() : this.store();
     },
     fetch(){
       axios.get(`api/auth/getAllUser/${this.id}`)
@@ -295,7 +297,7 @@ export default {
       });
     },
 
-    update(){
+    onUpdate(){
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
       formData.append('middleName',this.form.middleName);
@@ -315,11 +317,12 @@ export default {
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
       formData.append('file',this.form.file);
-        axios.put(`api/auth/edit/${this.id}`,formData,{
+        /*axios.put(`api/auth/edit/${this.id}`,formData,{
           header: {
             'Content-Type': 'multipart/form-data'
           }
-        })
+        })*/
+      this.update({id:this.id,form:formData})
         .then((response)=>{
           console.log(response);
           this.notification('User updated successfully','success');

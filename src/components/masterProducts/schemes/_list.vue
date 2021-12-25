@@ -1,13 +1,6 @@
 <template>
   <div>
-    <div class="mb-2" v-if="isAdmin===true">
-      <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled selected value>Select User</option>
-        <option v-for="data in UserData" :key="data._id" :value="data._id">
-          {{data.firstName}} {{data.lastName}}
-        </option>
-      </select>
-    </div>
+
     <card
       class="no-border-card"
       body-classes="px-0 pb-1 py-3"
@@ -15,6 +8,14 @@
     >
       <form>
         <div class="d-flex flex-row mb-3">
+          <div class="pl-1" v-if="isAdmin===true">
+            <select class="form-control" @change="onChange($event)" v-model="form.userID" style="width:150px;">
+              <option disabled selected value>Select User</option>
+              <option v-for="data in UserData" :key="data._id" :value="data._id">
+                {{data.firstName}} {{data.lastName}}
+              </option>
+            </select>
+          </div>
           <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
           <div>
             <input

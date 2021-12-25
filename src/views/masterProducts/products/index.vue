@@ -2,54 +2,57 @@
   <div class="content">
     <div class="container-fluid mt-3">
       <div>
-        <div>
+        <div class="row">
+          <div class="col-sm">
             <h3 class="mb-2 ">Products</h3>
-        </div>
-        <div class="float-right">
-          <base-dropdown
-            menu-on-right
-            class="nav-item"
-            tag="li"
-            title-tag="a"
-            title-classes="nav-link pr-0"
-          >
-            <template v-slot:title-container>
-              <a href="#" class="nav-link pr-0" @click.prevent>
-                <div class="media align-items-center">
-                  <div class="media-body ml-2 d-none d-lg-block">
-                    <button class="mb-0 rounded-circle border border-light btn-secondary">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </a>
-            </template>
-            <router-link :to="{ name: 'ProductCreate' }" >
-              <button type="button" class="dropdown-item">Add Product</button>
-            </router-link>
-
-            <button type="button" class="dropdown-item" @click="onExportSample">
-              Template
-            </button>
-
-            <button type="button" class="dropdown-item">
-              <export-excel :data="productData"> Download </export-excel>
-            </button>
-
-            <button
-              type="button"
-              class="dropdown-item"
-              @click="visibleCard = true"
-              data-toggle="modal"
-              data-target="#myModal"
+          </div>
+          <div class=" col-sm text-right">
+            <base-dropdown
+              menu-on-right
+              class="nav-item"
+              tag="li"
+              title-tag="a"
+              title-classes="nav-link pr-0"
             >
-              Upload
-            </button>
+              <template v-slot:title-container>
+                <a href="#" class="nav-link pr-0" @click.prevent>
+                  <div class="media align-items-center">
+                    <div class="media-body ml-2 d-none d-lg-block">
+                      <button class="mb-0 rounded-circle border border-light btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                          <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </a>
+              </template>
+              <router-link :to="{ name: 'ProductCreate' }" >
+                <button type="button" class="dropdown-item">Add Product</button>
+              </router-link>
 
-          </base-dropdown>
+              <button type="button" class="dropdown-item" @click="onExportSample">
+                Template
+              </button>
+
+              <button type="button" class="dropdown-item">
+                <export-excel :data="productData"> Download </export-excel>
+              </button>
+
+              <button
+                type="button"
+                class="dropdown-item"
+                @click="visibleCard = true"
+                data-toggle="modal"
+                data-target="#myModal"
+              >
+                Upload
+              </button>
+
+            </base-dropdown>
+          </div>
         </div>
+
         <div v-if="visibleCard">
           <DataModal :title="'Upload Excel'" @close="visibleCard=false">
             <template v-slot:body>

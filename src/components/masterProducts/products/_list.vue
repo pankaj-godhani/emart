@@ -1,17 +1,9 @@
 <template>
   <div>
-    <div class="d-flex mb-2" v-if="isAdmin===true">
-      <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled selected value>Select User</option>
-        <option v-for="data in UserData" :key="data._id" :value="data._id">
-          {{data.firstName}} {{data.lastName}}
-        </option>
-      </select>
-      <div  v-if="selectAll || select" class="px-2">
+      <div  v-if="selectAll || select" class="px-2 mb-2">
         <button class="btn btn-default" @click="approveProduct">approve</button>
         <button class="btn btn-default" @click="disApproveProduct">Disapprove</button>
       </div>
-    </div>
     <div>
       <card
         class="no-border-card"
@@ -20,20 +12,23 @@
       >
         <form @submit.prevent="fetchProduct">
           <div class="d-flex flex-row mb-3">
-            <!--        <div class="px-2 w-50">
-                      <select class="form-control" @change="onChange($event)">
-                        <option disabled value="0" selected="selected">Select User</option>
-                        <option>
-                          rgdrtfg
-                        </option>
-                      </select>
-                    </div>-->
 
-            <div class="d-flex w-25">
+            <div v-if="isAdmin===true" class="pl-1">
+              <select class="form-control " @change="onChange($event)" v-model="form.userID" style="width:150px;">
+                <option disabled selected value>Select User</option>
+                <option v-for="data in UserData" :key="data._id" :value="data._id">
+                  {{data.firstName}} {{data.lastName}}
+                </option>
+              </select>
+
+            </div>
+
+            <div class="d-flex ">
               <label class="mt-2 px-1">From:</label>
               <input
                 type="date"
                 class="form-control"
+                style="width:155px;"
                 placeholder="from"
                 v-model="form.startDate"
               />
@@ -43,33 +38,36 @@
               <label class="mt-2 pr-1">To:</label>
               <input
                 type="date"
-                class="form-control"
+                class="form-control "
+                style="width:155px;"
                 placeholder="to"
                 v-model="form.endDate"
                 @mouseout="fetchProduct"
               />
             </div>
-            <div class="w-50 pl-1">
+            <div class="pl-1">
               <input
                 type="text"
                 class="form-control"
                 placeholder="Product Name"
-                aria-controls="datatables"
+                style="width:125px;"
                 v-model="form.productName"
                 @keyup="fetchProduct"
               />
             </div>
-            <div class="w-50 pl-1">
+            <div class=" pl-1">
               <input
                 class="form-control"
                 placeholder="EAN Code"
+                style="width:100px;"
                 v-model="form.EANCode"
               />
             </div>
-            <div class="w-50 pl-1">
+            <div class="pl-1">
               <input
                 class="form-control"
                 placeholder="SKU Code"
+                style="width:100px;"
                 v-model="form.SKUCode"
               />
             </div>

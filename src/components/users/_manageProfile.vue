@@ -110,7 +110,7 @@
           <button
             type="button"
             class="btn base-button btn-default"
-            @click.prevent="update"
+            @click.prevent="onUpdate"
           >
             Save
           </button>
@@ -166,7 +166,7 @@ export default {
       this.imageURL = URL.createObjectURL(this.form.file);
     },
 
-    update(){
+    onUpdate(){
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
       formData.append('lastName',this.form.lastName);
@@ -176,7 +176,7 @@ export default {
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
       formData.append('file',this.form.file);
-      axios.put(`api/auth/edit/${this.id}`,formData,{
+     /* axios.put(`api/auth/edit/${this.id}`,formData,{
         header: {
           'Content-Type': 'multipart/form-data'
         }
@@ -185,7 +185,14 @@ export default {
           console.log(response);
           this.notification('User updated successfully','success');
           this.goBack();
-        })
+        })*/
+      this.update({id:this.id,form:formData})
+        .then((response)=>{
+          console.log(response);
+          this.logIn(formData);
+          this.notification('User updated successfully','success');
+          this.goBack();
+        });
     },
   }
 }

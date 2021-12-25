@@ -1,13 +1,6 @@
 <template>
   <div>
-    <div class="mb-2" v-if="isAdmin===true">
-      <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled selected value>Select User</option>
-        <option v-for="data in UserData" :key="data._id" :value="data._id">
-          {{data.firstName}} {{data.lastName}}
-        </option>
-      </select>
-    </div>
+
     <card
       class="no-border-card"
       body-classes="px-0 pb-1 py-3"
@@ -16,6 +9,14 @@
       <div>
         <form>
           <div class="d-flex flex-row mb-3">
+            <div class="pl-1" v-if="isAdmin===true">
+              <select class="form-control " @change="onChange($event)" v-model="form.userID" style="width:150px;">
+                <option disabled selected value>Select User</option>
+                <option v-for="data in UserData" :key="data._id" :value="data._id">
+                  {{data.firstName}} {{data.lastName}}
+                </option>
+              </select>
+            </div>
             <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
             <div class="px-1">
               <input
@@ -81,6 +82,12 @@
                 <th>Driver Name</th>
                 <th>Driver Contact</th>
                 <th>Vehicle Number</th>
+                <th>e-Way bill Number</th>
+                <th>Total No. of Packages</th>
+                <th>Net Weight in Kgs</th>
+                <th>Gross Weight in Kgs</th>
+                <th>Delivery Location</th>
+                <th>eMetro Representative ID</th>
                 <th>Actions</th>
               </tr>
             </template>
@@ -96,6 +103,12 @@
                 <td>{{ data.DriverName }}</td>
                 <td>{{ data.DriverContact }}</td>
                 <td>{{ data.VehicleNumber }}</td>
+                <td>{{ data.eWayBillNumber }}</td>
+                <td>{{ data.totalNoOfPackages }}</td>
+                <td>{{ data.netWeightInKgs }}</td>
+                <td>{{ data.grossWeightInKgs }}</td>
+                <td>{{ data.deliveryLocation }}</td>
+                <td>{{ data.eMetroRepresentativeID }}</td>
                 <td>
                   <div class="d-flex">
                     <div class="pr-2">
@@ -371,6 +384,7 @@ export default {
         },
       }).then((response) => {
         this.dispatchNoteData = response.data;
+        console.log(this.dispatchNoteData);
         this.status=response.status;
         if(this.status==200){
           this.visible=true;

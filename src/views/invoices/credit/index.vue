@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="container-fluid mt-4">
+    <div class="container-fluid mt-3">
       <div>
         <div class="row align-items-center pb-2">
           <div class="col-lg-6 col-7">

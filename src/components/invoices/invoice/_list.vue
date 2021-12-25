@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div class="mb-2" v-if="isAdmin===true">
-      <select class="form-control w-25" @change="onChange($event)" v-model="form.userID">
-        <option disabled selected value>Select User</option>
-        <option v-for="data in UserData" :key="data._id" :value="data._id">
-          {{data.firstName}} {{data.lastName}}
-        </option>
-      </select>
-    </div>
+
     <card class="no-border-card" body-classes="px-0 pb-1" footer-classes="pb-2">
 
       <form>
         <div class="d-flex flex-row mb-3">
+          <div class="pl-1" v-if="isAdmin===true">
+            <select class="form-control" @change="onChange($event)" v-model="form.userID" style="width:150px;">
+              <option disabled selected value>Select User</option>
+              <option v-for="data in UserData" :key="data._id" :value="data._id">
+                {{data.firstName}} {{data.lastName}}
+              </option>
+            </select>
+          </div>
           <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
           <div>
             <input
@@ -73,8 +74,6 @@
               <th>PO Date</th>
               <th>Invoice Number</th>
               <th>Invoice Date</th>
-              <th>total no. of Packages</th>
-              <th>Net Weight in Kgs</th>
               <th>Invoice Value</th>
               <th>CGST Value</th>
               <th>SGST Value</th>
@@ -91,8 +90,6 @@
               <td>{{changeDateFormat(data.PODate)}}</td>
               <td>{{data.invoiceNumber}}</td>
               <td>{{changeDateFormat(data.invoiceDate)}}</td>
-              <td>{{data.NoOfPackages}}</td>
-              <td>{{data.netWeight}}</td>
               <td>{{data.invoiceValue}}</td>
               <td>{{data.CGSTValue}}</td>
               <td>{{data.SGSTValue}}</td>

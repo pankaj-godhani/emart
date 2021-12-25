@@ -27,6 +27,17 @@
               />
             </div>
             <div class="col-sm">
+              <label class="form-control-label">e-Way Bill Number</label>
+              <input
+                v-model="form.eWayBillNumber"
+                type="text"
+                class="form-control"
+                placeholder="e-Way Bill Number"
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-4">
               <label class="form-control-label">PO Number</label>
               <input
                 v-model="form.PONumber"
@@ -35,8 +46,6 @@
                 placeholder="PO Number"
               />
             </div>
-          </div>
-          <div class="row mt-2">
             <div class="col-4">
               <label class="form-control-label">PO Date</label>
               <input
@@ -202,6 +211,7 @@ export default {
         DriverName: "",
         DriverContact: "",
         VehicleNumber: "",
+        eWayBillNumber : "",
         totalNoOfPackages: "",
         netWeightInKgs: "",
         grossWeightInKgs: "",
@@ -246,6 +256,7 @@ export default {
           DriverName: this.form.DriverName,
           DriverContact: this.form.DriverContact,
           VehicleNumber: this.form.VehicleNumber,
+          eWayBillNumber : this.form.eWayBillNumber,
           totalNoOfPackages: this.form.totalNoOfPackages,
           netWeightInKgs: this.form.netWeightInKgs,
           grossWeightInKgs: this.form.grossWeightInKgs,
