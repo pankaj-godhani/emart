@@ -5,8 +5,8 @@
       <template v-slot:links>
         <sidebar-item
           :link="{
-            name: 'Dashboard',
-            path: '/',
+            name: 'Dashboards',
+             path: '/dashboard',
             icon: 'ni ni-shop text-primary',
           }"
         ></sidebar-item>
@@ -47,6 +47,12 @@
              />
              <sidebar-item
                :link="{
+              name: 'Payment Report',
+              path: '/invoices/payment-report',
+            }"
+             />
+             <sidebar-item
+               :link="{
               name: 'Purchase Returns',
               path: '/invoices/purchase-returns',
             }"
@@ -61,6 +67,12 @@
                :link="{
               name: 'Credit Memo',
               path: '/invoices/credit',
+            }"
+             />
+             <sidebar-item
+               :link="{
+              name: 'Outstanding Report',
+              path: '/invoices/vendorwise-outstanding-report',
             }"
              />
            </sidebar-item>

@@ -193,7 +193,7 @@
 import axios from "axios";
 import _ from "lodash";
 import ManageScheme from "./_manageScheme"
-import {mapGetters} from "vuex";
+//import {mapGetters} from "vuex";
 export default {
   components: {ManageScheme},
   data() {

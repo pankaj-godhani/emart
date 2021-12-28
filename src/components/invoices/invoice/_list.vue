@@ -40,7 +40,7 @@
               v-model="form.invoiceNumber"
             />
           </div>
-          <div class="px-2">
+          <div class="pl-2">
             <button
               class="btn base-button btn-default"
               type="button"
@@ -49,7 +49,7 @@
               search
             </button>
           </div>
-          <div>
+          <div class="pl-1">
             <button
               class="btn base-button btn-default"
               type="button"
@@ -78,7 +78,6 @@
               <th>CGST Value</th>
               <th>SGST Value</th>
               <th>IGST Value</th>
-              <th>Payment Received</th>
               <th>Action</th>
             </tr>
           </template>
@@ -94,7 +93,6 @@
               <td>{{data.CGSTValue}}</td>
               <td>{{data.SGSTValue}}</td>
               <td>{{data.IGSTValue}}</td>
-              <td>2546</td>
               <td>
                 <div class="d-flex">
                   <div class="pr-2">
@@ -137,7 +135,7 @@
         >
           <div class="">
             <p class="card-category">
-              Showing {{ from }} to {{ to }} of {{ total }} entries
+              Showing {{ from +1 }} to {{ to }} of {{ total }} entries
             </p>
           </div>
           <base-pagination
@@ -206,7 +204,7 @@ export default {
       error: "",
       invoiceData:[],
       pagination: {
-        perPage: 8,
+        perPage: 7,
         currentPage: 1,
         total: 0,
       },
@@ -218,7 +216,7 @@ export default {
       return this.$store.getters['auth/getIsAdmin'];
     },
     pagedData() {
-      return this.invoiceData.slice(this.from-1, this.to);
+      return this.invoiceData.slice(this.from, this.to);
     },
     to() {
       let highBound = this.from + this.pagination.perPage;
@@ -228,21 +226,10 @@ export default {
       return highBound;
     },
     from() {
-      if(this.visible===true){
-        return this.pagination.perPage * (this.pagination.currentPage - 1)+1;
-      }
-      else{
-        return 0;
-      }
-
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1)
     },
     total() {
-     if(this.visible===true){
-       return this.invoiceData.length;
-     }
-     else{
-       return 0;
-     }
+      return this.visible ? this.invoiceData.length : 0
     },
   },
 

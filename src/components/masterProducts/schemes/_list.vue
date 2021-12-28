@@ -43,18 +43,18 @@
               v-model="form.schemaNumber"
             />
           </div>
-          <div class="px-2">
+          <div class="pl-2">
             <button
-              class="btn base-button btn-default"
+              class="btn btn-default"
               type="button"
               @click="fetchSchemes"
             >
               search
             </button>
           </div>
-          <div>
+          <div class="pl-1">
             <button
-              class="btn base-button btn-default"
+              class="btn btn-default"
               type="button"
               @click="resetForm"
             >
@@ -148,7 +148,7 @@
         >
           <div class="">
             <p class="card-category">
-              Showing {{ from }} to {{ to }} of {{ total }} entries
+              Showing {{ from +1 }} to {{ to }} of {{ total }} entries
             </p>
           </div>
           <base-pagination
@@ -206,7 +206,7 @@ export default {
       return this.$store.getters['auth/getIsAdmin'];
     },
     pagedData() {
-      return this.schemeData.slice(this.from-1, this.to);
+      return this.schemeData.slice(this.from, this.to);
     },
 
     to() {
@@ -217,7 +217,7 @@ export default {
       return highBound;
     },
     from() {
-      return this.visibleScheme ? this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
+      return this.visibleScheme ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1);
     },
     total() {
       return this.visibleScheme ? this.schemeData.length : 0;

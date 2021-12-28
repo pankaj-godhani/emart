@@ -269,9 +269,9 @@ export default {
     editing() {
       return !!this.id;
     },
-    user(){
+   /* user(){
       return this.$store.getters['auth/getUser'];
-    },
+    },*/
   },
   mounted(){
     if (this.editing) {
@@ -286,14 +286,16 @@ export default {
     getImage() {
       this.form.file = this.$refs.file1.files.item(0);
       this.imageURL = URL.createObjectURL(this.form.file);
+      console.log(this.form.file);
     },
     submit() {
       this.editing ? this.onUpdate() : this.store();
     },
     fetch(){
-      axios.get(`api/auth/getAllUser/${this.id}`)
+      axios.get(`api/auth/user/${this.id}`)
       .then(response=>{
-        this.form=response.data.userList[0];
+        this.form=response.data[0];
+        console.log(this.form);
       });
     },
 
@@ -317,17 +319,17 @@ export default {
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
       formData.append('file',this.form.file);
-        /*axios.put(`api/auth/edit/${this.id}`,formData,{
-          header: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })*/
-      this.update({id:this.id,form:formData})
+
+      axios.put(`api/auth/edit/${this.id}`,formData,{
+        header: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
         .then((response)=>{
           console.log(response);
           this.notification('User updated successfully','success');
-          this.goBack();
-        })
+          this.$router.go(-1);
+        });
     },
 
     store(){
@@ -355,11 +357,22 @@ export default {
             'Content-Type': 'multipart/form-data'
           }
         })
-      .then((response)=>{
+        .then((response)=>{
         console.log(response);
         this.notification('User created successfully','success');
         this.goBack();
       })
+        .catch(error=>{
+          console.log(error,'error');
+          if(this.form.email || this.form.mobileNumber){
+            this.notification('Email or Mobile Number already exist.','error');
+          }
+          else
+          {
+            this.notification('Email or Mobile Number is required.','error');
+          }
+
+        });
     },
     /*changeStatus(){
       axios.put(`api/auth/changeActiveStatus/${this.id}`,{

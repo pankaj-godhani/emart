@@ -72,10 +72,10 @@
               />
             </div>
             <div class="d-flex float-right">
-              <div class="pl-3">
+              <div class="pl-2">
                 <base-button type="default" native-type="submit">Search</base-button>
               </div>
-              <div class="px-2">
+              <div class="pl-1">
                 <button
                   type="button"
                   class="btn base-button btn-default"
@@ -158,7 +158,7 @@
           >
             <div class="">
               <p class="card-category">
-                Showing {{ from }} to {{ to }} of {{ total }} entries
+                Showing {{ from +1}} to {{ to }} of {{ total }} entries
               </p>
             </div>
             <base-pagination
@@ -212,7 +212,7 @@ export default {
       }
     },
     pagedData() {
-      return this.productData.slice(this.from-1, this.to);
+      return this.productData.slice(this.from, this.to);
     },
 
     to() {
@@ -223,7 +223,7 @@ export default {
       return highBound;
     },
     from() {
-      return this.visible ?this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
+      return this.visible ?this.pagination.perPage * (this.pagination.currentPage - 1) : (-1);
     },
     total() {
       return this.visible ? this.productData.length : 0;

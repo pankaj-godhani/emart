@@ -112,20 +112,6 @@ export const actions = {
         return getters.getToken;
     },
 
-    update({commit}, {form={}, id=""}){
-      return axios.put(`api/auth/edit/${id}`,form,{
-        header: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-        .then(response => {
-          commit('SET_TOKEN', {token:response.data.token,userID:response.data.detail._id,user:response.data.detail});
-          return response.data;
-        })
-        .catch((error)=>{
-          console.log(error,'update error');
-        });
-    }
 };
 
 function getState(key) {

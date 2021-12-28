@@ -2,7 +2,6 @@
   <card class="">
     <div class="container ct-example-row">
       <form>
-        <div>
           <div>
             <div class="text-right">
               <button
@@ -15,7 +14,7 @@
               <button
                 type="button"
                 class="btn base-button btn-default"
-                @click="update"
+                @click="downloadLabel('generatePackage')"
               >
                 Generate Package
               </button>
@@ -82,7 +81,6 @@
               </div>
             </div>
           </div>
-        </div>
       </form>
     </div>
     <div class="mt-4">
@@ -187,6 +185,12 @@
 
       </div>
     </div>
+    <div  >
+      <div id="generatePackage">
+        <GeneratePackage :purchaseOrdersData="purchaseOrdersData"></GeneratePackage>
+      </div>
+
+    </div>
 
 
 
@@ -200,11 +204,12 @@ import axios from "axios";
 import _ from "lodash";
 import html2pdf from "html2pdf.js";
 import { mapGetters } from "vuex";
+import GeneratePackage from "./generatePackage"
 
 var JsBarcode = require("jsbarcode");
 
 export default {
-  components: {},
+  components: { GeneratePackage },
   props: ["id"],
   data() {
     return {
@@ -258,6 +263,7 @@ export default {
           },
         })
         .then((response) => {
+          console.log(response)
           this.purchaseOrdersData = _.merge( this.purchaseOrdersData, response.data[0]);
           this.itemList = this.purchaseOrdersData.itemList;
           this.generateBarCode({id:"#barcodePri",value:this.purchaseOrdersData.PrimaryBarCode});

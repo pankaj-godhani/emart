@@ -199,8 +199,7 @@ export default {
   methods:{
     storeScheme() {
 
-      axios
-        .post(`api/schema/create`, {
+      axios.post(`api/schema/create`, {
           userID:this.form.userID,
           schemaName: this.form.schemaName,
           date: this.form.date,

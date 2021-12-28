@@ -270,11 +270,8 @@ export default {
     },
 
     update() {
-      axios.put(`api/schema/edit/${this.id}`, this.form,{
-        headers: {
-          'Authorization': this.token
-        },
-      }).then(() => {
+      axios.put(`api/schema/edit/${this.id}`, this.form)
+        .then(() => {
         this.notification("Scheme updated successfully", "success");
         this.goBack();
       })

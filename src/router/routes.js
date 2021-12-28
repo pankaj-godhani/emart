@@ -9,8 +9,6 @@ import Users from "../views/users/index";
 import UserCreate from "../views/users/create";
 import UserEdit from "../views/users/edit";
 import Profile from "../views/users/profileIndex";
-import ProfileEdit from "../views/users/profileEdit";
-
 import Products from "../views/masterProducts/products/index";
 import ProductCreate from "../views/masterProducts/products/create";
 import Schemes from "../views/masterProducts/schemes/index";
@@ -19,6 +17,9 @@ import SchemesEdit from "../views/masterProducts/schemes/edit";
 import Invoice from "../views/invoices/invoice/index";
 import InvoiceCreate from "../views/invoices/invoice/create";
 import InvoiceEdit from "../views/invoices/invoice/edit";
+import PaymentReport from "../views/invoices/paymentReport/index";
+import PaymentCreate from "../views/invoices/paymentReport/create";
+import OutstandingReport from "../views/invoices/outstandingReport/index";
 import PurchaseReturns from "../views/invoices/purchaseReturns/index";
 import Debit from "../views/invoices/debit/index";
 import DebitCreate from "../views/invoices/debit/create";
@@ -41,7 +42,8 @@ import ForgetPassword from "../views/auth/ForgetPassword";
 export default [
   {
     path: "/",
-    component: DashboardLayout,
+    redirect: "/dashboard",
+    component:  DashboardLayout ,
     meta: {
       middleware: [auth],
       navbarType: "light",
@@ -50,10 +52,11 @@ export default [
 
     children: [
       {
-        path: "/",
+        path: "/dashboard",
         name: "Dashboard",
         components: { default: Alternative },
         meta: {
+          middleware: [auth],
           navbarType: "light",
         },
       },
@@ -86,19 +89,9 @@ export default [
       },
 
       {
-        path: "/profile",
+        path: "/profile/:id",
         name: "Profile",
         components: { default: Profile },
-        meta: {
-          middleware: [auth],
-          navbarType: "light",
-        },
-      },
-
-      {
-        path: "/profile/edit/:id",
-        name: "ProfileEdit",
-        components: { default: ProfileEdit },
         meta: {
           middleware: [auth],
           navbarType: "light",
@@ -176,6 +169,36 @@ export default [
         path: "/invoices/invoice/edit/:id",
         name: "InvoiceEdit",
         components: { default: InvoiceEdit },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/invoices/payment-report",
+        name: "PaymentReport",
+        components: { default: PaymentReport },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/invoices/payment/create",
+        name: "PaymentCreate",
+        components: { default: PaymentCreate },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+
+      {
+        path: "/invoices/vendorwise-outstanding-report",
+        name: "OutstandingReport",
+        components: { default: OutstandingReport },
         meta: {
           middleware: [auth],
           navbarType: "light",

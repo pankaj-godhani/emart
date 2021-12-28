@@ -143,7 +143,7 @@ export default {
       if (!this.loginForm.recaptchaVerified) {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
-      } else {
+      } else  {
         /*const formData = new FormData();
         formData.append('firstName',this.form.firstName);
         formData.append('lastName',this.form.lastName);
@@ -167,8 +167,12 @@ export default {
 */
 
         this.register(this.form)
-        .then(()=>{
+        .then((response)=>{
+          console.log(response,'success from Register component')
           this.$router.push('/login');
+        })
+        .catch(error=>{
+          console.log(error,'error from Register component');
         })
       }
     }

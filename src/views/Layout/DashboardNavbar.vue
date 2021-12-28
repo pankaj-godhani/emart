@@ -18,18 +18,18 @@
         title-classes="nav-link pr-0"
       >
         <template v-slot:title-container>
-          <a href="#" class="nav-link pr-0" @click.prevent>
-            <div class="media align-items-center">
-              <span v-if="user.userImg" class="avatar avatar-sm rounded-circle">
+          <a href="#" class="nav-link pr-0">
+            <div class="media align-items-center" v-for="user in users" :key="user._id">
+              <span v-if="user.userImg && loginUser.email===user.email" class="avatar avatar-sm rounded-circle">
                 <img :alt="user.firstName" :src="url+user.userImg" />
               </span>
-              <span v-else class="avatar avatar-sm rounded-circle">
+              <span v-else-if="loginUser.email===user.email" class="avatar avatar-sm rounded-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                </svg>
               </span>
-              <div class="media-body ml-2 d-none d-lg-block">
+              <div class="media-body ml-2 d-none d-lg-block" v-if="loginUser.email===user.email">
                 <span class="mb-0 text-sm font-weight-bold">{{user.firstName}} {{user.lastName}}</span>
               </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="dropdown-header noti-title">
           <h6 class="text-overflow m-0">Welcome!</h6>
         </div>
-        <router-link :to="{name:'Profile'}" class="dropdown-item">
+        <router-link :to="{name:'Profile',params:{id:loginUser._id}}" class="dropdown-item">
           <i class="ni ni-single-02"></i>
           <span>My profile</span>
         </router-link>
@@ -55,7 +55,8 @@
 <script>
 import BaseNav from "@/components/Navbar/BaseNav";
 import { authMethods} from '../../state/helpers';
-import {mapGetters} from "vuex";
+//import {mapGetters} from "vuex";
+import axios from "axios";
 
 export default {
   components: {
@@ -69,16 +70,6 @@ export default {
         "Look of the dashboard navbar. Default (Green) or light (gray)",
     },
   },
-  computed: {
-    ...mapGetters('auth',{
-      user:'getUser',
-
-    }),
-    routeName() {
-      const { name } = this.$route;
-      return this.capitalizeFirstLetter(name);
-    },
-  },
   data() {
     return {
       url:"https://vuecrud-etj2v.ondigitalocean.app",
@@ -86,7 +77,20 @@ export default {
       showMenu: false,
       searchModalVisible: false,
       searchQuery: "",
+      users:{}
     };
+  },
+  computed: {
+    loginUser(){
+      return this.$store.getters['auth/getUser'];
+    },
+    routeName() {
+      const { name } = this.$route;
+      return this.capitalizeFirstLetter(name);
+    },
+  },
+  mounted() {
+    this.getUser();
   },
   methods: {
     ...authMethods,
@@ -94,6 +98,13 @@ export default {
       this.logOut()
         .then(() => {
           this.$router.push('/login');
+        });
+    },
+    getUser(){
+      axios.get(`api/auth/user`)
+        .then(response=>{
+          this.users=response.data;
+          //console.log(response.data);
         });
     },
     capitalizeFirstLetter(string) {

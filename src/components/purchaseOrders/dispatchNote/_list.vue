@@ -43,18 +43,18 @@
                 class="form-control"
                 v-model="form.DCNumber"/>
             </div>
-            <div class="px-2">
+            <div class="pl-2">
               <button
-                class="btn base-button btn-default"
+                class="btn btn-default"
                 type="button"
                 @click="fetchDispatchNote"
               >
                 search
               </button>
             </div>
-            <div>
+            <div class="pl-1">
               <button
-                class="btn base-button btn-default"
+                class="btn btn-default"
                 type="button"
                 @click="resetForm"
               >
@@ -258,7 +258,7 @@
         >
           <div class="">
             <p class="card-category">
-              Showing {{ from }} to {{ to }} of {{ total }} entries
+              Showing {{ from +1 }} to {{ to }} of {{ total }} entries
             </p>
           </div>
           <base-pagination
@@ -286,7 +286,7 @@
             </button>
             <button
               type="button"
-              class="btn base-button btn-default"
+              class="btn btn-default"
               data-dismiss="modal"
               @click="destroy"
             >
@@ -316,7 +316,7 @@ export default {
       return this.$store.getters['auth/getIsAdmin'];
     },
     pagedData() {
-      return this.dispatchNoteData.slice(this.from-1, this.to);
+      return this.dispatchNoteData.slice(this.from, this.to);
     },
 
     to() {
@@ -327,7 +327,7 @@ export default {
       return highBound;
     },
     from() {
-      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1);
     },
     total() {
       return this.visible ? this.dispatchNoteData.length : 0;

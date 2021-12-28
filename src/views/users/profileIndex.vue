@@ -7,7 +7,7 @@
             <h3 class="mb-0">Your Profile</h3>
           </div>
           <div class="col-lg-6 col-5 text-right">
-            <router-link :to="{ name: 'ProfileEdit', params: { id: userID } }">
+            <router-link :to="{ name: 'UserEdit', params: { id: userID } }">
               <base-button type="default">Edit Profile</base-button>
             </router-link>
           </div>

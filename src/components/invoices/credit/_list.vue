@@ -85,7 +85,7 @@
       >
         <div class="">
           <p class="card-category">
-            Showing {{ from }} to {{ to }} of {{ total }} entries
+            Showing {{ from +1}} to {{ to }} of {{ total }} entries
           </p>
         </div>
         <base-pagination
@@ -135,7 +135,7 @@ export default {
   },
   computed: {
     pagedData() {
-      return this.creditData.slice(this.from-1, this.to);
+      return this.creditData.slice(this.from, this.to);
     },
     to() {
       let highBound = this.from + this.pagination.perPage;
@@ -145,7 +145,7 @@ export default {
       return highBound;
     },
     from() {
-      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1)+1 : 0;
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1);
     },
     total() {
       return this.visible ? this.creditData.length : 0;

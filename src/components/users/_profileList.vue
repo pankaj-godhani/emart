@@ -25,47 +25,114 @@
           <label class="form-control-label">{{ user.firstName }}</label>
         </div>
         <div class="col">
+          <h4 class="text-dark">Middle Name</h4>
+          <label class="form-control-label">{{ user.middleName }}</label>
+        </div>
+        <div class="col">
           <h4 class="text-dark">Last Name</h4>
           <label class="form-control-label">{{ user.lastName }}</label>
+        </div>
+
+      </div>
+      <div class="row px-6 mt-4">
+        <div class="col">
+          <h4 class="text-dark">Address</h4>
+          <label class="form-control-label">{{ user.address }}</label>
         </div>
         <div class="col">
           <h4 class="text-dark">Email</h4>
           <label class="form-control-label">{{ user.email }}</label>
         </div>
+        <div class="col">
+          <h4 class="text-dark">Mobile Number</h4>
+          <label class="form-control-label">{{ user.mobileNumber }}</label>
+        </div>
+
       </div>
       <div class="row px-6 mt-4">
-        <div class="col-4">
+        <div class="col">
+          <h4 class="text-dark">Vendor Type</h4>
+          <label class="form-control-label">{{ user.vendorType }}</label>
+        </div>
+        <div class="col">
           <h4 class="text-dark">Role</h4>
           <label class="form-control-label">{{ user.isAdmin?'Admin':'User' }}</label>
         </div>
-        <div class="col-4">
+        <div class="col">
           <h4 class="text-dark">Status</h4>
           <label :class="user.isActive?'px-3 form-control-label p-1 rounded bg-success text-white':'px-3 form-control-label p-1 rounded bg-danger text-white'">
             {{ user.isActive?'Active':'InActive' }}
           </label>
         </div>
       </div>
-
+      <div class="row px-6 mt-4">
+        <div class="col">
+          <h4 class="text-dark">PAN Number</h4>
+          <label class="form-control-label">{{ user.panNo }}</label>
+        </div>
+        <div class="col">
+          <h4 class="text-dark">Payment Terms</h4>
+          <label class="form-control-label">{{ user.paymentTerms }}</label>
+        </div>
+        <div class="col">
+          <h4 class="text-dark">Shipping Terms</h4>
+          <label class="form-control-label">{{ user.shippingTerms }}</label>
+        </div>
+      </div>
+      <div class="row px-6 mt-4">
+        <div class="col">
+          <h4 class="text-dark">GST</h4>
+          <label class="form-control-label">{{ user.GST }}</label>
+        </div>
+      </div>
+      <h2 class="px-6 mt-4">Bank Details :</h2>
+      <div class="row px-6 mt-4">
+        <div class="col">
+          <h4 class="text-dark">Bank Name</h4>
+          <label class="form-control-label">{{ user.bankName }}</label>
+        </div>
+        <div class="col">
+          <h4 class="text-dark">Account Number</h4>
+          <label class="form-control-label">{{ user.accountNumber }}</label>
+        </div>
+        <div class="col">
+          <h4 class="text-dark">IFSC Code</h4>
+          <label class="form-control-label">{{ user.IFSCCode }}</label>
+        </div>
+      </div>
     </div>
   </card>
 </template>
 
 <script>
 
+import axios from "axios";
+
 export default {
   data(){
     return{
+      id:this.$route.params.id,
+      user:{},
       url:"https://vuecrud-etj2v.ondigitalocean.app",
     }
   },
-  computed:{
+  /*computed:{
     user(){
       return this.$store.getters['auth/getUser'];
     }
-  },
+  },*/
   mounted() {
+    this.getUser();
+  },
+  methods:{
+    getUser(){
+      axios.get(`api/auth/user/${this.id}`)
+        .then(response=>{
+          this.user=response.data[0];
+          console.log(response.data);
+        });
+    },
+  },
 
-
-  }
 }
 </script>
