@@ -7,10 +7,13 @@
           <div class="row">
             <div class="d-flex col-sm-5">
               <label class=" mt-2" style="width: 150px"> Invoice Number :</label>
-              <select class="form-control" style="width: 200px" @change="onChange()" v-model="form.invoiceNumber">
-                <option disabled selected value>Select</option>
-                <option v-for="invoice in invoiceNumbers" :key="invoice" :value="invoice">{{invoice}}</option>
-              </select>
+              <div>
+                <select  class="form-control" style="width: 200px;" @change="onChange()" v-model="form.invoiceNumber">
+                  <option disabled selected value>Select</option>
+                  <option v-for="invoice in invoiceNumbers" :key="invoice" :value="invoice">{{invoice}}</option>
+                </select>
+              </div>
+
             </div>
             <div class="d-flex col-sm">
               <label style="width: 150px" class="mt-2"> Payment Value : </label>
@@ -24,10 +27,10 @@
 
             <div class="d-flex col-sm-5">
               <label style="width: 150px" class="mt-2"> Payment Mode : </label>
-              <select class="form-control" style="width: 200px" v-model="form.paymentMode">
+              <select class="form-control" style="width: 200px;" v-model="form.paymentMode" >
                 <option disabled selected value>Select</option>
                 <option value="online">online</option>
-                <option value="check">check</option>
+                <option value="cheque">cheque</option>
               </select>
             </div>
             <div class="d-flex col-sm-5">

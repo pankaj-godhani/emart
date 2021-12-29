@@ -10,146 +10,149 @@
         body-classes="px-0 pb-1 py-3"
         footer-classes="pb-2"
       >
-        <form @submit.prevent="fetchProduct">
-          <div class="d-flex flex-row mb-3">
+        <div >
+          <form @submit.prevent="fetchProduct">
+            <div class="d-flex flex-row mb-3">
 
-            <div v-if="isAdmin===true" class="pl-1">
-              <select class="form-control " @change="onChange($event)" v-model="form.userID" style="width:150px;">
-                <option disabled selected value>Select User</option>
-                <option v-for="data in UserData" :key="data._id" :value="data._id">
-                  {{data.firstName}} {{data.lastName}}
-                </option>
-              </select>
+              <div v-if="isAdmin===true" class="pl-1">
+                <select class="form-control " @change="onChange($event)" v-model="form.userID" style="width:150px;">
+                  <option disabled selected value>Select User</option>
+                  <option v-for="data in UserData" :key="data._id" :value="data._id">
+                    {{data.firstName}} {{data.lastName}}
+                  </option>
+                </select>
 
-            </div>
+              </div>
 
-            <div class="d-flex ">
-              <label class="mt-2 px-1">From:</label>
-              <input
-                type="date"
-                class="form-control"
-                style="width:155px;"
-                placeholder="from"
-                v-model="form.startDate"
-              />
-            </div>
+              <div class="d-flex ">
+                <label class="mt-2 px-1">From:</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  style="width:155px;"
+                  placeholder="from"
+                  v-model="form.startDate"
+                />
+              </div>
 
-            <div class="d-flex pl-1">
-              <label class="mt-2 pr-1">To:</label>
-              <input
-                type="date"
-                class="form-control "
-                style="width:155px;"
-                placeholder="to"
-                v-model="form.endDate"
-                @mouseout="fetchProduct"
-              />
-            </div>
-            <div class="pl-1">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Product Name"
-                style="width:125px;"
-                v-model="form.productName"
-                @keyup="fetchProduct"
-              />
-            </div>
-            <div class=" pl-1">
-              <input
-                class="form-control"
-                placeholder="EAN Code"
-                style="width:100px;"
-                v-model="form.EANCode"
-              />
-            </div>
-            <div class="pl-1">
-              <input
-                class="form-control"
-                placeholder="SKU Code"
-                style="width:100px;"
-                v-model="form.SKUCode"
-              />
-            </div>
-            <div class="d-flex float-right">
-              <div class="pl-2">
-                <base-button type="default" native-type="submit">Search</base-button>
+              <div class="d-flex pl-1">
+                <label class="mt-2 pr-1">To:</label>
+                <input
+                  type="date"
+                  class="form-control "
+                  style="width:155px;"
+                  placeholder="to"
+                  v-model="form.endDate"
+                  @mouseout="fetchProduct"
+                />
               </div>
               <div class="pl-1">
-                <button
-                  type="button"
-                  class="btn base-button btn-default"
-                  @click="resetForm"
-                >
-                  Reset
-                </button>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Product Name"
+                  style="width:125px;"
+                  v-model="form.productName"
+                  @keyup="fetchProduct"
+                />
+              </div>
+              <div class=" pl-1">
+                <input
+                  class="form-control"
+                  placeholder="EAN Code"
+                  style="width:100px;"
+                  v-model="form.EANCode"
+                />
+              </div>
+              <div class="pl-1">
+                <input
+                  class="form-control"
+                  placeholder="SKU Code"
+                  style="width:100px;"
+                  v-model="form.SKUCode"
+                />
+              </div>
+              <div class="d-flex float-right">
+                <div class="pl-2">
+                  <base-button type="default" native-type="submit">Search</base-button>
+                </div>
+                <div class="pl-1">
+                  <button
+                    type="button"
+                    class="btn base-button btn-default"
+                    @click="resetForm"
+                  >
+                    Reset
+                  </button>
+                </div>
               </div>
             </div>
+          </form>
+          <div class="text-center mt-4" v-if="loading">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
           </div>
-        </form>
-        <div class="text-center mt-4" v-if="loading">
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
-        <div v-else-if="visible">
-          <Table>
-            <template v-slot:thead>
-              <tr class="thead">
-                <th v-show="isAdmin"><input type="checkbox" v-model="selectAll"></th>
-                <th >Sr No</th>
-                <th>Price Approval</th>
-                <th>EAN Code</th>
-                <th>HSN Code</th>
-                <th>Date of Availability</th>
-                <th>Brand Name</th>
-                <th>Mftr Article No/SKU Code</th>
-                <th>Product Category</th>
-                <th>Product Name</th>
-                <th>UOM</th>
-                <th>UOM Conversion</th>
-                <th>Shelf Life in Days</th>
-                <th>MRP</th>
-                <th>Margin</th>
-                <th>Net PTR - Price to Retail</th>
-                <th>Product Scheme</th>
-                <th>Remarks</th>
-                <th>Selling Price</th>
-              </tr>
-            </template>
-            <template v-slot:tbody>
-              <tr v-for="(data, index) in pagedData" :key="data._id">
-                <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected"></td>
-                <td>{{ index + 1 }}</td>
-                <td v-if="data.priceApproval">
-                  <i class="fa fa-check fa-lg text-success" aria-hidden="true"></i>
-                </td>
-                <td v-else>
-                  <i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i>
-                </td>
-                <td>{{ data.EANCode }}</td>
-                <td>{{ data.HSNCode }}</td>
-                <td>{{ changeDateFormat(data.dateOfAvailability)}}</td>
-                <td>{{ data.brandName }}</td>
-                <td>{{ data.SKUCode }}</td>
-                <td>{{ data.productCategory }}</td>
-                <td>{{ data.productName }}</td>
-                <td>{{ data.UOM }}</td>
-                <td>{{ data.UOMConversation }}</td>
-                <td>{{ data.shelfLifeDays }}</td>
-                <td>{{ data.MRP }}</td>
-                <td>{{ data.margin }}</td>
-                <td>net ptr</td>
-                <td>{{ data.schemes }}</td>
-                <td>{{ data.remarks }}</td>
-                <td>{{ data.sellingPrice }}</td>
+          <div v-else-if="visible">
+            <Table>
+              <template v-slot:thead>
+                <tr class="thead">
+                  <th v-show="isAdmin"><input type="checkbox" v-model="selectAll"></th>
+                  <th >Sr No</th>
+                  <th>Price Approval</th>
+                  <th>EAN Code</th>
+                  <th>HSN Code</th>
+                  <th>Date of Availability</th>
+                  <th>Brand Name</th>
+                  <th>Mftr Article No/SKU Code</th>
+                  <th>Product Category</th>
+                  <th>Product Name</th>
+                  <th>UOM</th>
+                  <th>UOM Conversion</th>
+                  <th>Shelf Life in Days</th>
+                  <th>MRP</th>
+                  <th>Margin</th>
+                  <th>Net PTR - Price to Retail</th>
+                  <th>Product Scheme</th>
+                  <th>Remarks</th>
+                  <th>Selling Price</th>
+                </tr>
+              </template>
+              <template v-slot:tbody>
+                <tr v-for="(data, index) in pagedData" :key="data._id">
+                  <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected"></td>
+                  <td>{{ index + 1 }}</td>
+                  <td v-if="data.priceApproval">
+                    <i class="fa fa-check fa-lg text-success" aria-hidden="true"></i>
+                  </td>
+                  <td v-else>
+                    <i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i>
+                  </td>
+                  <td>{{ data.EANCode }}</td>
+                  <td>{{ data.HSNCode }}</td>
+                  <td>{{ changeDateFormat(data.dateOfAvailability)}}</td>
+                  <td>{{ data.brandName }}</td>
+                  <td>{{ data.SKUCode }}</td>
+                  <td>{{ data.productCategory }}</td>
+                  <td>{{ data.productName }}</td>
+                  <td>{{ data.UOM }}</td>
+                  <td>{{ data.UOMConversation }}</td>
+                  <td>{{ data.shelfLifeDays }}</td>
+                  <td>{{ data.MRP }}</td>
+                  <td>{{ data.margin }}</td>
+                  <td>net ptr</td>
+                  <td>{{ data.schemes }}</td>
+                  <td>{{ data.remarks }}</td>
+                  <td>{{ data.sellingPrice }}</td>
 
-              </tr>
-            </template>
-          </Table>
-        </div>
-        <div v-else-if="status === 201||error" class="text-center mt-4 text-dark">
-          Data not found
+                </tr>
+              </template>
+            </Table>
+          </div>
+          <div v-else-if="status === 201||error" class="text-center mt-4 text-dark">
+            Data not found
+          </div>
+
         </div>
 
         <template v-slot:footer>

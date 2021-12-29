@@ -73,7 +73,7 @@
             <template #thead>
               <tr>
                 <th>Sr No</th>
-                <th>Deliver Challan/Invoice No</th>
+                <th sortable>Deliver Challan/Invoice No</th>
                 <th>Date of Deliver Challan No</th>
                 <th>PO Number</th>
                 <th>PO Date</th>

@@ -1,8 +1,13 @@
 <template>
 
   <div>
-    <card class="no-border-card" body-classes="px-0 pb-1" footer-classes="pb-2">
-      <div>
+    <card class="no-border-card" body-classes="px-0 pb-1" footer-classes="pb-2" >
+      <div class="text-center mt-4" v-if="loading">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div v-else>
         <Table>
           <template v-slot:thead>
             <tr>
@@ -16,15 +21,12 @@
           </template>
 
           <template v-slot:tbody>
-            <tr v-for="data in pagedData" :key="data._id">
-              <td>{{data.userId._id}}</td>
-              <td>{{data.invoiceNumber}}</td>
-              <td>{{data.userId.GST}}</td>
-              <td>{{data.userId.firstName}} {{data.userId.lastName}}</td>
-              <td>{{changeDateFormat(data.paymentDate)}}</td>
-              <td>{{data.paymentMode}}</td>
-              <td>{{data.amount}}</td>
-              <td>{{data.Remarks}}</td>
+            <tr v-for="data in outstandingReportData" :key="data._id">
+              <td>{{data.vendorCode}}</td>
+              <td>{{data.vendorName}}</td>
+              <td>{{data.invoiceTotal}}</td>
+              <td>{{data.paymentTotal}}</td>
+              <td>{{data.balanceTotal}}</td>
               <!--              <td>
                               <div class="d-flex">
                                 <div class="pr-2">
@@ -56,9 +58,34 @@
 
           </template>
         </Table>
-
       </div>
     </card>
   </div>
 
 </template>
+
+<script>
+import axios from "axios";
+export default {
+  data(){
+    return{
+      outstandingReportData: [],
+      loading:false,
+    }
+  },
+  mounted() {
+    this.fetch();
+  },
+  methods:{
+    fetch(){
+      this.loading = true;
+      axios.get(`api/vendorPaymentReport/getOutStandingReport`)
+        .then(response=>{
+          this.outstandingReportData = response.data;
+          console.log(response.data);
+        })
+        .finally(()=>(this.loading = false));
+    }
+  }
+}
+</script>
