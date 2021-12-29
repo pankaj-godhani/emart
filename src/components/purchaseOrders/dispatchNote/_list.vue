@@ -154,101 +154,11 @@
           Data not found
         </div>
 
-        <div v-show="false" >
-          <div v-for="data in pagedData" :key="data._id" :id="data._id" class="mt-4">
-            <h2 style="text-align: center;" class="text-dark">Dispatch Note details</h2>
-            <div class="p-5">
-              <div class="row">
-                <div class="col-5"><h4 class="px-4 text-dark"> Deliver Challan/Invoice No </h4></div>
-                <div class="col-2">
-                  <h4>:</h4>
-                </div>
-                <div class="col-5">
-                  <span class="px-2 font-weight-400">
-                    {{data.DCNumber}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-5"><h4 class="px-4 text-dark"> PO Number </h4></div>
-                <div class="col-2">
-                  <h4>:</h4>
-                </div>
-                <div class="col-5">
-                  <span class="px-2 font-weight-400">
-                    {{data.PONumber}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-5"><h4 class="px-4 text-dark"> PO Date </h4></div>
-                <div class="col-2">
-                  <h4>:</h4>
-                </div>
-                <div class="col-5">
-                  <span class="px-2 font-weight-400">
-                    {{changeDateFormat(data.PODate)}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-5"><h4 class="px-4 text-dark"> No. of Carton Loaded </h4></div>
-                <div class="col-2">
-                  <h4>:</h4>
-                </div>
-                <div class="col-5">
-                  <span class="px-2 font-weight-400">
-                    {{data.NumberOfCarton}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-5"><h4 class="px-4 text-dark"> Transporter Details </h4></div>
-                <div class="col-2">
-                  <h4>:</h4>
-                </div>
-                <div class="col-5">
-                  <span class="px-2 font-weight-400">
-                    {{data.TransporterDetails}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-5"><h4 class="px-4 text-dark"> Driver Name </h4></div>
-                <div class="col-2">
-                  <h4>:</h4>
-                </div>
-                <div class="col-5">
-                  <span class="px-2 font-weight-400">
-                    {{data.DriverName}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-5"><h4 class="px-4 text-dark"> Driver Contact </h4></div>
-                <div class="col-2">
-                  <h4>:</h4>
-                </div>
-                <div class="col-5">
-                  <span class="px-2 font-weight-400">
-                    {{data.DriverContact}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-5"><h4 class="px-4 text-dark"> Vehicle Number </h4></div>
-                <div class="col-2">
-                  <h4>:</h4>
-                </div>
-                <div class="col-5">
-                  <span class="px-2 font-weight-400">
-                    {{data.VehicleNumber}}
-                  </span>
-                </div>
-              </div>
-
+        <div  v-show="false">
+          <div>
+            <div v-for="data in pagedData" :key="data._id" :id="data._id">
+              <DispatchNotePDF :data="data"></DispatchNotePDF>
             </div>
-
           </div>
         </div>
       </div>
@@ -304,12 +214,14 @@ import BasePagination from "@/components/BasePagination";
 import axios from "axios";
 import html2pdf from "html2pdf.js";
 import UserData from "../../../mixins/UserData";
+import DispatchNotePDF from "./dispatchNotePDF"
 
 
 export default {
   mixins: [UserData],
   components: {
     BasePagination,
+    DispatchNotePDF,
   },
   computed: {
     isAdmin(){

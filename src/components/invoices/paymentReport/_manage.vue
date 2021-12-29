@@ -16,7 +16,7 @@
               <label style="width: 150px" class="mt-2"> Payment Value : </label>
               <div>
                 <input type="text" class="form-control" style="width: 200px" v-model="form.amount"/>
-                <p v-if="invoiceValue || errorMsg" class="text-warning">Invoice value sholud not be more then {{invoiceValue}}</p>
+                <p v-if="invoiceValue || errorMsg" class="text-warning text-xs">Payment value sholud not be more then {{invoiceValue}}</p>
               </div>
             </div>
           </div>
@@ -97,9 +97,12 @@ export default {
             this.goBack();
           });
       }
+      else if(this.form.paymentMode===""){
+        this.notification('Please selct Payment Mode','error');
+      }
       else{
         this.errorMsg = true;
-        this.notification('Invoice value sholud not be more then'+this.invoiceValue,'error');
+        this.notification('Payment value sholud not be more then '+this.invoiceValue,'error');
       }
 
     }

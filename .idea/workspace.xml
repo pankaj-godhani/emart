@@ -2,20 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e583a44-ef30-40f3-96b8-3e1c602e1909" name="Changes" comment="new commit done.">
+      <change afterPath="$PROJECT_DIR$/src/components/purchaseOrders/dispatchNote/dispatchNotePDF.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/packingLabel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ConfirmDelete.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/invoices/invoice/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invoices/invoice/_list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/masterProducts/products/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/masterProducts/products/_list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/masterProducts/schemes/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/masterProducts/schemes/_list.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/invoices/paymentReport/_manage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/invoices/paymentReport/_manage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/purchaseOrders/dispatchNote/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/purchaseOrders/dispatchNote/_list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/_list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/users/_list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/_list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/users/_profileList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/_profileList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/plugins/globalComponents.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugins/globalComponents.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Dashboard/AlternativeDashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Dashboard/AlternativeDashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/auth/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/invoices/invoice/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/invoices/invoice/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/masterProducts/products/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/masterProducts/products/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/_manage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/_manage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/generatePackage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/purchaseOrders/purchaseOrders/generatePackage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/users/_manageProfile.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +54,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../xampp/htdocs/Node_Crud" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views/invoices/outstandingReport" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
@@ -69,11 +64,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\pc\vue\e-metro\src\components" />
-      <recent name="C:\Users\pc\vue\e-metro\src" />
-      <recent name="C:\Users\pc\vue\e-metro\src\router" />
-      <recent name="C:\Users\pc\vue\e-metro\src\components\invoices\credit" />
+      <recent name="C:\Users\pc\vue\e-metro\src\views\invoices\outstandingReport" />
+      <recent name="C:\Users\pc\vue\e-metro\src\views\invoices\paymentReport" />
       <recent name="C:\Users\pc\vue\e-metro\src\views\invoices\credit" />
+      <recent name="C:\Users\pc\vue\e-metro\src\components\invoices\credit" />
+      <recent name="C:\Users\pc\vue\e-metro\src\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\pc\vue\e-metro\public" />
@@ -145,56 +140,14 @@
       <workItem from="1639196924327" duration="20168000" />
       <workItem from="1639971399151" duration="20229000" />
       <workItem from="1640003759547" duration="373000" />
-      <workItem from="1640057390231" duration="23528000" />
-    </task>
-    <task id="LOCAL-00006" summary=" Commit-from office">
-      <created>1636550486557</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1636550486557</updated>
-    </task>
-    <task id="LOCAL-00007" summary=" Commit-from office">
-      <created>1636550759049</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1636550759049</updated>
-    </task>
-    <task id="LOCAL-00008" summary=" Commit-from office">
-      <created>1636550934629</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1636550934629</updated>
-    </task>
-    <task id="LOCAL-00009" summary="new changes done.">
-      <created>1636635085917</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1636635085917</updated>
-    </task>
-    <task id="LOCAL-00010" summary="new commit done.">
-      <created>1636635644911</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1636635644911</updated>
-    </task>
-    <task id="LOCAL-00011" summary="new commit done">
-      <created>1636637667185</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1636637667185</updated>
-    </task>
-    <task id="LOCAL-00012" summary="new commit done">
-      <created>1636723448064</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1636723448064</updated>
+      <workItem from="1640057390231" duration="24614000" />
+      <workItem from="1640143917227" duration="23485000" />
+      <workItem from="1640230278394" duration="16588000" />
+      <workItem from="1640316868393" duration="12786000" />
+      <workItem from="1640403543038" duration="12615000" />
+      <workItem from="1640576223808" duration="20233000" />
+      <workItem from="1640662375738" duration="22419000" />
+      <workItem from="1640748804686" duration="8796000" />
     </task>
     <task id="LOCAL-00013" summary="new commit done.">
       <created>1636809126234</created>
@@ -490,7 +443,56 @@
       <option name="project" value="LOCAL" />
       <updated>1640003826583</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="new commit done.">
+      <created>1640089304612</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1640089304613</updated>
+    </task>
+    <task id="LOCAL-00056" summary="new commit done.">
+      <created>1640090038611</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1640090038611</updated>
+    </task>
+    <task id="LOCAL-00057" summary="new commit done.">
+      <created>1640175516215</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1640175516216</updated>
+    </task>
+    <task id="LOCAL-00058" summary="new commit done.">
+      <created>1640260276934</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1640260276934</updated>
+    </task>
+    <task id="LOCAL-00059" summary="new commit done.">
+      <created>1640348751508</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1640348751508</updated>
+    </task>
+    <task id="LOCAL-00060" summary="new commit done.">
+      <created>1640416930137</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1640416930138</updated>
+    </task>
+    <task id="LOCAL-00061" summary="new commit done.">
+      <created>1640693611881</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1640693611882</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
