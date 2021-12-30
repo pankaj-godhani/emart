@@ -45,7 +45,11 @@
             </div>
           </div>-->
         </div>
-        <div class="mt-4 text-center">
+        <div class="d-flex mt-4 justify-content-center">
+
+            <router-link :to="{ name: 'Invoice' }" class="px-2">
+              <base-button outline type="default">Cancel</base-button>
+            </router-link>
           <button class="btn btn-default" @click.prevent="onSubmit">Submit</button>
         </div>
       </form>

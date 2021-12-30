@@ -229,8 +229,12 @@ export default {
           params: {
             EANCode: this.EANCode,
           },
+          headers:{
+            'Authorization' : this.$store.getters['auth/getToken'],
+          }
         })
         .then((response) => {
+          console.log(response);
           this.productDetails = _.merge(this.productDetails, response.data[0]);
           this.percentage=(this.productDetails.margin*100)/this.productDetails.MRP;
           this.status = response.status;

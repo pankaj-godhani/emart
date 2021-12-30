@@ -5,9 +5,9 @@
     <button
       type="button"
       class="btn base-button btn-default"
-      @click="showModal=!showModal"
+      @click="orderTable"
     >
-    show modal
+ sort
     </button>
     <div v-if="showModal" class="animate__animated animate__bounceIn higher">
 
@@ -151,156 +151,7 @@
     </div>
 
     <div >
-<!--      <ExampleModal v-if="showModal">
-        <template v-slot:title>
-          Add Scheme
-        </template>
-        <template v-slot:body>
-          <div class="container ct-example-row">
-            <form>
-              <div>
-                <h3><b>Group Heading 1</b></h3>
-                <div class="row mt-3">
-                  <div class="col-sm">
-                    <label class="form-control-label">Scheme Name</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      placeholder="Scheme Name"
 
-                    />
-                  </div>
-                  <div class="col-sm">
-                    <label class="form-control-label">Date</label>
-                    <input class="form-control" type="date"/>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm">
-                    <label class="form-control-label">EAN Code</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter EAN Code"
-
-                    />
-                  </div>
-                  <div class="col-sm">
-                    <label class="form-control-label">Product Name</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter Product Name"
-
-                    />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm">
-                    <label class="form-control-label">Quantity</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter Quantity"
-                    />
-                  </div>
-                  <div class="col-sm">
-                    <label class="form-control-label">Free Quantity</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter Free Quantity"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="mt-4">
-                <h3><b>Group Heading 2</b></h3>
-                <div class="row mt-3">
-                  <div class="col-sm">
-                    <label class="form-control-label">Net PTR</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter Net PTR"
-                    />
-                  </div>
-                  <div class="col-sm">
-                    <label class="form-control-label">UOM</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter UOM"
-                    />
-                  </div>
-
-                </div>
-                <div class="row mt-4">
-                  <div class="col-sm">
-                    <label class="form-control-label">Discount</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter Discount"
-
-                    />
-                  </div>
-                  <div class="col-sm">
-                    <label class="form-control-label">Validity</label>
-                    <input
-                      class="form-control"
-                      type="date"
-
-                    />
-                  </div>
-
-                </div>
-                <div class="row mt-4">
-                  <div class="col-sm">
-                    <label class="form-control-label">Narration</label>
-                    <input
-                      class="form-control"
-                      placeholder="Enter Narration"
-
-                    />
-                  </div>
-                  <div class="col-sm">
-                    <label class="form-control-label">Scheme Number</label>
-                    <input
-                      class="form-control"
-                      placeholder="Scheme Number-Auto Generated"
-                    />
-                  </div>
-
-                </div>
-                <div class="row mt-4">
-                  <div class="col-sm">
-                    <div class="pl-4">
-                      <div class="custom-control custom-switch">
-                        <input
-                          type="checkbox"
-                          class="custom-control-input pr-0"
-                          id="customSwitch1"
-                        />
-                        <label class="custom-control-label" for="customSwitch1">Active</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </template>
-        <template v-slot:footer>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            @click="showModal=!showModal"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn base-button btn-default"
-          >
-            Save
-          </button>
-        </template>
-      </ExampleModal>-->
     </div>
 
     <form @submit="submit">
@@ -461,6 +312,7 @@
 import 'animate.css';
 import axios from "axios";
 import ExampleModal from "./exampleModal";
+import _ from "lodash";
 
 import "flatpickr/dist/flatpickr.css";
 import { useToast } from "vue-toastification";
@@ -489,6 +341,11 @@ export default {
     this.fetchSchemes();
   },
   methods: {
+    orderTable(){
+
+      this.schemeData = _.orderBy( this.schemeData,['schemaNumber'],['desc']);
+      console.log(this.schemeData,'sort');
+    },
     selectChange(e){
       if(e.target.value=='Create Scheme'){
         this.visible=true;
@@ -540,6 +397,7 @@ export default {
         })
         .then((response) => {
           this.schemeData = response.data;
+         // console.log(this.schemeData);
         });
     },
     submit() {

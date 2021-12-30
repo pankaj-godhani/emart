@@ -45,6 +45,7 @@
                       placeholder="Mobile Number"
                       v-model="form.mobileNumber"
                     />
+                    <p class="text-danger text-xs">{{ errMobileNumber }}</p>
                   </div>
                   <div class="pb-2">
                     <label class="form-control-label">E-mail</label>
@@ -54,6 +55,7 @@
                       placeholder="Email"
                       v-model="form.email"
                     />
+                    <p class="text-danger text-xs">{{ errEmail }}</p>
                   </div>
 
                   <div class="pb-2">
@@ -114,12 +116,14 @@ export default {
   data() {
     return {
       recaptcha: null,
+      status: "",
+      errMobileNumber: "",
+      errEmail: "",
       loginForm: {
         recaptchaVerified: false,
         pleaseTickRecaptchaMessage: ''
       },
       form: {
-
         firstName: '',
         lastName: '',
         mobileNumber: '',
@@ -127,7 +131,8 @@ export default {
         passWord: '',
         isAdmin: false,
         isActive: false,
-      }
+      },
+
     }
   },
   components: {VueRecaptcha},
@@ -144,36 +149,29 @@ export default {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
       } else  {
-        /*const formData = new FormData();
-        formData.append('firstName',this.form.firstName);
-        formData.append('lastName',this.form.lastName);
-        formData.append('mobileNumber',this.form.mobileNumber);
-        formData.append('email',this.form.email);
-        formData.append('passWord',this.form.passWord);
-        formData.append('isAdmin',this.form.isAdmin);
-        formData.append('isActive',this.form.isActive);
-        formData.append('file',this.form.file);
-        axios.post(`api/auth/create`, formData,{
-          header: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-          .then((response) => {
+        if(this.form.mobileNumber==="" ||this.form.email===""){
+          this.errEmail="email is required.";
+          this.errMobileNumber="mobile number is required."
+        }
+        else{
+          axios.post(`api/auth/create`,this.form)
+            .then((response)=>{
+              this.status = response.status;
+              console.log(response);
+              if(this.status===201){
+                this.errMobileNumber = response.data.message.mobileNumber;
+                this.errEmail = response.data.message.email;
+              }
+              else{
+                this.$router.push('/login');
+              }
+              //this.$router.push('/login');
+            })
+            .catch(error=>{
+              console.log(error,'error from Register component');
+            });
+        }
 
-            console.log(response);
-            this.$router.push('/login');
-            this.notification('User created successfully', 'success');
-          });
-*/
-
-        this.register(this.form)
-        .then((response)=>{
-          console.log(response,'success from Register component')
-          this.$router.push('/login');
-        })
-        .catch(error=>{
-          console.log(error,'error from Register component');
-        })
       }
     }
 

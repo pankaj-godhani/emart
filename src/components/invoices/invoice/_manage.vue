@@ -83,14 +83,14 @@
         </div>
         <div class="d-flex float-right mt-4">
           <div class="pr-2">
-            <router-link :to="{ name: 'Schemes' }">
+            <router-link :to="{ name: 'Invoice' }">
               <base-button outline type="default">Cancel</base-button>
             </router-link>
           </div>
           <div>
             <button
               type="button"
-              class="btn base-button btn-default"
+              class="btn btn-default"
               data-dismiss="modal"
               @click.prevent="update"
               v-if="editing"
@@ -99,7 +99,7 @@
             </button>
             <button
               type="button"
-              class="btn base-button btn-default"
+              class="btn btn-default"
               data-dismiss="modal"
               @click.prevent="submit"
               v-else
