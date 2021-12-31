@@ -97,15 +97,18 @@ export default {
         })
     },
     onSubmit(){
-      if(this.form.amount<=this.invoiceValue){
+      if(this.form.amount===""){
+        this.notification('Please enter payment amount','error');
+      }
+      else if(this.form.paymentMode===""){
+        this.notification('Please select Payment Mode','error');
+      }
+      else if(this.form.amount<=this.invoiceValue ){
         axios.post(`api/vendorPaymentReport/create`,this.form)
           .then(response=>{
             console.log(response);
             this.goBack();
           });
-      }
-      else if(this.form.paymentMode===""){
-        this.notification('Please selct Payment Mode','error');
       }
       else{
         this.errorMsg = true;
