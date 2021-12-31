@@ -19,7 +19,7 @@
               <label style="width: 150px" class="mt-2"> Payment Value : </label>
               <div>
                 <input type="text" class="form-control" style="width: 200px" v-model="form.amount"/>
-                <p v-if="invoiceValue || errorMsg" class="text-warning text-xs">Payment value sholud not be more then {{invoiceValue}}</p>
+                <p v-if="invoiceValue || errorMsg" class="text-warning text-xs">Payment value should not be more then {{invoiceValue}}</p>
               </div>
             </div>
           </div>
@@ -38,12 +38,6 @@
               <input type="text" class="form-control" style="width: 200px" v-model="form.Remarks"/>
             </div>
           </div>
-<!--          <div class="row mt-4">
-            <div class="d-flex col-sm">
-              <label style="width: 150px" class="mt-2"> Remarks : </label>
-              <input type="text" class="form-control" style="width: 200px" v-model="form.remarks"/>
-            </div>
-          </div>-->
         </div>
         <div class="d-flex mt-4 justify-content-center">
 
@@ -81,7 +75,6 @@ export default {
   },
   methods:{
     onChange(){
-     // console.log(event.target.value);
       let value = event.target.value;
       axios.get(`api/invoice/getInvoiceValue/${value}`)
         .then(response=>{
@@ -112,7 +105,7 @@ export default {
       }
       else{
         this.errorMsg = true;
-        this.notification('Payment value sholud not be more then '+this.invoiceValue,'error');
+        this.notification('Payment value should not be more then '+this.invoiceValue,'error');
       }
 
     }

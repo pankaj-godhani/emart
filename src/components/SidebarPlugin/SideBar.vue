@@ -8,7 +8,7 @@
       <div class="sidenav-header d-flex align-items-center">
         <a class="navbar-brand" href="#">
           <h1>e metro</h1>
-        
+
         </a>
         <div class="ml-auto">
           <!-- Sidenav toggler -->

@@ -45,7 +45,7 @@
                       placeholder="Mobile Number"
                       v-model="form.mobileNumber"
                     />
-                    <p class="text-danger text-xs">{{ errMobileNumber }}</p>
+                    <p class="text-danger text-xs">{{ errors.mobileNumber ?errors.mobileNumber: errMobileNumber }}</p>
                   </div>
                   <div class="pb-2">
                     <label class="form-control-label">E-mail</label>
@@ -55,7 +55,7 @@
                       placeholder="Email"
                       v-model="form.email"
                     />
-                    <p class="text-danger text-xs">{{ errEmail }}</p>
+                    <p class="text-danger text-xs">{{ errors.email ?errors.email:errEmail }}</p>
                   </div>
 
                   <div class="pb-2">
@@ -71,7 +71,7 @@
                   <div>
 
                   </div>
-                  <vue-recaptcha sitekey="6Lc5XY0dAAAAAHH5yvVqDjP4aPVPXFRjeW0APlSt" @verify="mxVerify"></vue-recaptcha>
+                  <vue-recaptcha sitekey="6Lc5XY0dAAAAAHH5yvVqDjP4aPVPXFRjeW0APlSt" @verify="mxVerify" @expired="mxExpire"></vue-recaptcha>
                   <div><p class="text-danger">{{ loginForm.pleaseTickRecaptchaMessage }}</p></div>
                   <div class="d-flex float-right">
                     <div class="text-center mt-4 px-2">
@@ -111,6 +111,7 @@
 import {authMethods} from "../../state/helpers";
 import { VueRecaptcha } from 'vue-recaptcha';
 import axios from "axios";
+import SignupValidations from "../../services/SignupValidations";
 
 export default {
   data() {
@@ -119,6 +120,7 @@ export default {
       status: "",
       errMobileNumber: "",
       errEmail: "",
+      errors:[],
       loginForm: {
         recaptchaVerified: false,
         pleaseTickRecaptchaMessage: ''
@@ -141,7 +143,9 @@ export default {
     mxVerify() {
       this.loginForm.pleaseTickRecaptchaMessage = '';
       this.loginForm.recaptchaVerified = true;
-
+    },
+    mxExpire(){
+      this.loginForm.recaptchaVerified = false;
     },
     submit() {
       console.log(this.form);
@@ -149,15 +153,10 @@ export default {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
       } else  {
-        /*if(this.form.mobileNumber==="" || this.form.email==="") {
-          this.errMobileNumber="mobile number is required.";
-          this.errEmail = "email is required.";
-        }
-        else*/ if(!this.form.email){
-          this.errEmail = "email is required.";
-        }
-        else if(!this.form.mobileNumber){
-          this.errMobileNumber="mobile number is required.";
+        let validations =new SignupValidations(this.form.email,this.form.mobileNumber);
+        this.errors= validations.checkValidations();
+        if(this.errors.length){
+          return false;
         }
         else{
           axios.post(`api/auth/create`,this.form)
