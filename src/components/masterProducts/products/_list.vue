@@ -99,7 +99,7 @@
                   <tr class="thead">
                     <th v-show="isAdmin"><input type="checkbox" v-model="selectAll"></th>
                     <th >Sr No</th>
-                    <th>Price Approval</th>
+                    <th v-show="isAdmin">Price Approval</th>
                     <th>EAN Code
                       <i class="fa fa-caret-up fa-lg" aria-hidden="true" @click="orderTableData('EANCode','asc')"></i>
                       <i class="fa fa-caret-down fa-lg" aria-hidden="true" @click="orderTableData('EANCode','desc')"></i>
@@ -121,7 +121,10 @@
                       <i class="fa fa-caret-up fa-lg" aria-hidden="true" @click="orderTableData('margin','asc')"></i>
                       <i class="fa fa-caret-down fa-lg" aria-hidden="true" @click="orderTableData('margin','desc')"></i>
                     </th>
-                    <th>Net PTR - Price to Retail</th>
+                    <th>Net PTR - Price to Retail
+                      <i class="fa fa-caret-up fa-lg" aria-hidden="true" @click="orderTableData('netPTR','asc')"></i>
+                      <i class="fa fa-caret-down fa-lg" aria-hidden="true" @click="orderTableData('netPTR','desc')"></i>
+                    </th>
                     <th>Product Scheme</th>
                     <th>Remarks</th>
                     <th>Selling Price</th>
@@ -131,11 +134,8 @@
                   <tr v-for="(data, index) in pagedData" :key="data._id">
                     <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected"></td>
                     <td>{{ index + 1 }}</td>
-                    <td v-if="data.priceApproval">
-                      <i class="fa fa-check fa-lg text-success" aria-hidden="true"></i>
-                    </td>
-                    <td v-else>
-                      <i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i>
+                    <td v-show="isAdmin">
+                      <i :class="data.priceApproval?'fa fa-check fa-lg text-success':'fa fa-times fa-lg text-danger'" aria-hidden="true"></i>
                     </td>
                     <td>{{ data.EANCode }}</td>
                     <td>{{ data.HSNCode }}</td>
@@ -149,7 +149,7 @@
                     <td>{{ data.shelfLifeDays }}</td>
                     <td>{{ data.MRP }}</td>
                     <td>{{ data.margin }}</td>
-                    <td>net ptr</td>
+                    <td>{{data.netPTR}}</td>
                     <td>{{ data.schemes }}</td>
                     <td>{{ data.remarks }}</td>
                     <td>{{ data.sellingPrice }}</td>

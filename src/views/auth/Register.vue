@@ -149,9 +149,15 @@ export default {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
       } else  {
-        if(this.form.mobileNumber==="" ||this.form.email===""){
-          this.errEmail="email is required.";
-          this.errMobileNumber="mobile number is required."
+        /*if(this.form.mobileNumber==="" || this.form.email==="") {
+          this.errMobileNumber="mobile number is required.";
+          this.errEmail = "email is required.";
+        }
+        else*/ if(!this.form.email){
+          this.errEmail = "email is required.";
+        }
+        else if(!this.form.mobileNumber){
+          this.errMobileNumber="mobile number is required.";
         }
         else{
           axios.post(`api/auth/create`,this.form)
