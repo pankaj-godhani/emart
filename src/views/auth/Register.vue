@@ -7,17 +7,16 @@
         <div class="row justify-content-center">
           <div class="col-lg-6 col-md-7">
             <div class="card bg-secondary border-0 mb-0">
-              <div class="card-header bg-gradient-success bg-transparent pb-4">
-                <div class="text-muted text-left mt-2">
+              <div class="bg-gradient-success bg-transparent" style="border-radius:10px 10px 0px 0px">
+                <img src="../../../public/img/e-metro.png" class="w-50 h-50 mt-2 px-2"  alt="Sidebar logo" />
+              </div>
+              <div class="card-header bg-gradient-success bg-transparent pb-2">
+                <div class="text-muted text-left">
                   <h1 class="text-black">Welcome to Register!</h1>
                   <h5 class="text-black">Sign up to continue to login</h5>
                 </div>
-                <div class="btn-wrapper text-center">
-
-                </div>
               </div>
               <div class="card-body px-lg-5 py-lg-5">
-
                 <form @submit.prevent="submit" >
                   <div class="pb-2">
                     <label class="form-control-label">First Name</label>

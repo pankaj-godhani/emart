@@ -6,9 +6,8 @@
   >
     <div class="scrollbar-inner" ref="sidebarScrollArea">
       <div class="sidenav-header d-flex align-items-center">
-        <a class="navbar-brand" href="#">
-          <h1>e metro</h1>
-
+        <a class=" " href="/">
+          <img src="../../../public/img/e-metro.png" class="img-fluid" style="max-width: 80%; height: auto; padding-left: 15px; margin-top: 10px" alt="Sidebar logo" />
         </a>
         <div class="ml-auto">
           <!-- Sidenav toggler -->
@@ -65,7 +64,7 @@ export default {
     logo: {
       type: String,
       default:
-        "https://demos.creative-tim.com/vue-argon-dashboard-pro/img/brand/green.png",
+        "img/e-metro.png",
       description: "Sidebar app logo",
     },
     sidebarLinks: {
@@ -80,6 +79,11 @@ export default {
       description:
         "Whether sidebar should autoclose on mobile when clicking an item",
     },
+  },
+  data(){
+    return{
+      brandLogo:"img/e-metro.png",
+    }
   },
   provide() {
     return {

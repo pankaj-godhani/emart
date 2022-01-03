@@ -61,7 +61,7 @@ export default [
         },
       },
       {
-        path: "/Users",
+        path: "/users",
         name: "Users",
         components: { default: Users },
         meta: {

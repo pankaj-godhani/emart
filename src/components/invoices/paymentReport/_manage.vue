@@ -7,10 +7,10 @@
           <div class="row">
             <div class="d-flex col-sm-5">
               <label class=" mt-2" style="width: 150px"> Invoice Number :</label>
-              <div>
-                <select  class="form-control" style="width: 200px;" @change="onChange()" v-model="form.invoiceNumber">
+              <div class="wrapper">
+                <select  class="form-control" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();' @change="onChange()" v-model="form.invoiceNumber" >
                   <option disabled selected value>Select</option>
-                  <option v-for="invoice in invoiceNumbers" :key="invoice" :value="invoice">{{invoice}}</option>
+                  <option v-for="invoice in invoiceNumbers" :key="invoice" :value="invoice" >{{invoice}}</option>
                 </select>
               </div>
 
@@ -86,7 +86,7 @@ export default {
       axios.get(`api/invoice/getInvoiceNumList`)
         .then(response=>{
           this.invoiceNumbers = response.data;
-          console.log(response.data);
+          console.log(response);
         })
     },
     onSubmit(){
@@ -112,3 +112,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.wrapper{
+  width:200px;
+
+
+}
+</style>

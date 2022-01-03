@@ -26,7 +26,6 @@ appInstance.use(store);
 appInstance.use(excel);
 appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);
-
 appInstance.mixin(GlobalMixin);
 appInstance.mount("#app");
 

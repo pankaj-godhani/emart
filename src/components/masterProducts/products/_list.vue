@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div  v-show="selectAll || select" class="px-2 mb-2" v-cloak>
+      <div  v-show="selectAll || select" class="px-2 mb-2">
         <button class="btn btn-default" @click="approveProduct">approve</button>
         <button class="btn btn-default" @click="disApproveProduct">Disapprove</button>
       </div>

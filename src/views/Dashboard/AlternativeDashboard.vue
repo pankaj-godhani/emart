@@ -4,7 +4,8 @@
       <!-- Card stats -->
       <div class="row mt-4 px-5" v-if="isAdmin===true">
         <div class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Users'}">
+             <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -26,9 +27,11 @@
               </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Users'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -47,9 +50,11 @@
               </div>
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-4 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Users'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -66,11 +71,13 @@
               </div>
             </div>
           </div>
+          </router-link>
         </div>
       </div>
       <div :class="isAdmin?'row justify-content-md-center':'row mt-4 justify-content-md-center'">
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Products'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -92,9 +99,11 @@
               </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Products'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -116,11 +125,13 @@
               </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
       </div>
       <div class="row justify-content-md-center">
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Schemes'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -142,9 +153,11 @@
               </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Schemes'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -166,11 +179,13 @@
               </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
       </div>
       <div class="row justify-content-md-center">
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'PurchaseOrders'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -190,9 +205,11 @@
               </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'PurchaseOrders'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -214,11 +231,13 @@
               </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
       </div>
       <div class="row justify-content-md-center">
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'DispatchNote'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -240,9 +259,11 @@
               </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'DispatchNote'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -260,11 +281,13 @@
 
             </div>
           </div>
+          </router-link>
         </div>
       </div>
       <div class="row justify-content-md-center">
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Debit'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -286,9 +309,11 @@
                             </h4>-->
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Debit'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -306,11 +331,13 @@
 
             </div>
           </div>
+          </router-link>
         </div>
       </div>
       <div class="row justify-content-md-center">
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Credit'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -329,9 +356,11 @@
               </div>
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Credit'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row mt-3 mb-3">
@@ -349,11 +378,13 @@
 
             </div>
           </div>
+          </router-link>
         </div>
       </div>
       <div class="row justify-content-md-center">
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Invoice'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row ">
@@ -379,9 +410,11 @@
               </div>
             </div>
           </div>
+          </router-link>
         </div>
         <div class="col-xl-5 col-md-6">
-          <div class="card bg-gradient-white border-0">
+          <router-link :to="{name:'Invoice'}">
+            <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
@@ -406,6 +439,7 @@
               </div>
             </div>
           </div>
+          </router-link>
         </div>
       </div>
     </base-header>

@@ -20,16 +20,16 @@
         <template v-slot:title-container>
           <a href="#" class="nav-link pr-0">
             <div class="media align-items-center" v-for="user in users" :key="user._id">
-              <span v-if="user.userImg && loginUser.email===user.email" class="avatar avatar-sm rounded-circle">
+              <span v-if="user.userImg && loginUser._id===user._id" class="avatar avatar-sm rounded-circle">
                 <img :alt="user.firstName" :src="url+user.userImg" />
               </span>
-              <span v-else-if="loginUser.email===user.email" class="avatar avatar-sm rounded-circle">
+              <span v-else-if="loginUser._id===user._id" class="avatar avatar-sm rounded-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                </svg>
               </span>
-              <div class="media-body ml-2 d-none d-lg-block" v-if="loginUser.email===user.email">
+              <div class="media-body ml-2 d-none d-lg-block" v-if="loginUser._id===user._id">
                 <span class="mb-0 text-sm font-weight-bold">{{user.firstName}} {{user.lastName}}</span>
               </div>
             </div>

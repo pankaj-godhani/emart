@@ -162,7 +162,7 @@
             type="password"
             class="form-control"
             placeholder="Password"
-            v-model="form.passWord"
+            v-model="passWord"
           />
         </div>
 
@@ -202,9 +202,10 @@
 
       <div class="d-flex float-right">
         <div class="pr-2">
-          <router-link :to="{ name: 'Users' }">
-            <base-button outline type="default">Cancel</base-button>
-          </router-link>
+<!--          <router-link :to="{ name: 'Profile' }">
+            <base-button outline type="default" @click="goBack">Cancel</base-button>
+          </router-link>-->
+          <button class="btn btn-outline-default" @click="$router.go(-1)">Cancel</button>
         </div>
         <div>
           <button
@@ -257,11 +258,12 @@ export default {
         shippingTerms: '',
         GST: '',
         vendorType: '',
-        passWord: '',
+
         isAdmin:false,
         isActive:false,
         file:null,
       },
+      passWord: '',
     }
   },
 
@@ -269,9 +271,6 @@ export default {
     editing() {
       return !!this.id;
     },
-   /* user(){
-      return this.$store.getters['auth/getUser'];
-    },*/
   },
   mounted(){
     if (this.editing) {
@@ -315,7 +314,9 @@ export default {
       formData.append('shippingTerms',this.form.shippingTerms);
       formData.append('GST',this.form.GST);
       formData.append('vendorType',this.form.vendorType);
-      formData.append('passWord',this.form.passWord);
+      if(this.passWord!==""){
+        formData.append('passWord',this.passWord);
+      }
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
       formData.append('file',this.form.file);
@@ -348,7 +349,7 @@ export default {
       formData.append('shippingTerms',this.form.shippingTerms);
       formData.append('GST',this.form.GST);
       formData.append('vendorType',this.form.vendorType);
-      formData.append('passWord',this.form.passWord);
+      formData.append('passWord',this.passWord);
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
       formData.append('file',this.form.file);
@@ -374,17 +375,6 @@ export default {
 
         });
     },
-    /*changeStatus(){
-      axios.put(`api/auth/changeActiveStatus/${this.id}`,{
-        headers: {
-          'Authorization': this.token
-        },
-      })
-      .then(response=>{
-        console.log(response);
-        this.$router.go();
-      })
-    }*/
   }
 };
 
