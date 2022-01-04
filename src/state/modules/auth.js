@@ -104,28 +104,12 @@ export const actions = {
     },
 
     // Validates the current user's token and refreshes it  with new data from the API.
-    validate({ commit,state}) {
+    validate({ state,getters}) {
         if (!state.token) {
             return Promise.resolve(null);
         }
 
-        //return getters.getToken;
-      return axios.get(`api/auth/user/${state.userID}`)
-        .then(response => {
-          //console.log(response)
-          commit('SET_TOKEN', {
-            token:response.data[0].accessToken,
-            userID:response.data[0]._id,
-            user:response.data[0],
-            isAdmin:response.data[0].isAdmin,
-            isActive: response.data[0].isActive,
-          });
-          return response.data[0].accessToken;
-        })
-        .catch((error)=>{
-          commit('SET_TOKEN',{token:null,userID:null,user:null,isAdmin:null,isActive:null});
-          return null;
-        });
+        return getters.getToken;
     },
 
 };
