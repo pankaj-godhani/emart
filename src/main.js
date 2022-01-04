@@ -8,15 +8,15 @@ import "element-plus/lib/theme-chalk/index.css";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 window.axios = require("axios");
-import Axios from "axios";
+import axios from "axios";
 import excel from "vue-excel-export";
 import GlobalMixin from "./globalMixin";
 
 const token = store.getters['auth/getToken'];
-Axios.defaults.headers.common['Authorization']=token;
-Axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
+axios.defaults.headers.common['Authorization']=token;
+axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 
-//Axios.defaults.baseURL = "http://localhost:9999/";
+//axios.defaults.baseURL = "http://localhost:9999/";
 
 const options = { containerClassName: "ct-notification" };
 

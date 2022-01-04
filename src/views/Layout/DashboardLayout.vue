@@ -5,7 +5,7 @@
       <template v-slot:links>
         <sidebar-item
           :link="{
-            name: 'Dashboards',
+            name: 'Dashboard',
              path: '/dashboard',
             icon: 'ni ni-shop text-primary',
           }"

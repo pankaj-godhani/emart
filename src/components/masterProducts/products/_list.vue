@@ -96,7 +96,7 @@
             <div v-else-if="visible">
               <Table>
                 <template v-slot:thead>
-                  <tr class="thead">
+                  <tr>
                     <th v-show="isAdmin"><input type="checkbox" v-model="selectAll"></th>
                     <th >Sr No</th>
                     <th v-show="isAdmin">Price Approval</th>

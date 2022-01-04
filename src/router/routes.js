@@ -5,7 +5,6 @@ import guest from './middleware/guest';
 import Alternative from "../views/Dashboard/AlternativeDashboard";
 import DashboardLayout from "@/views/Layout/DashboardLayout";
 import Users from "../views/users/index";
-
 import UserCreate from "../views/users/create";
 import UserEdit from "../views/users/edit";
 import Profile from "../views/users/profileIndex";

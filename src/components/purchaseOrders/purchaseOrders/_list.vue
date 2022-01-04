@@ -260,11 +260,14 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .no-border-card .card-footer {
   border-top: 0;
 }
 .btn-full {
   display: block; width: 100%; height: 100%;
+}
+tr th{
+  font-weight: bolder;
 }
 </style>

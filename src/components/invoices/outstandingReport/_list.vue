@@ -89,3 +89,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+tr th{
+  font-weight: bolder;
+}
+</style>

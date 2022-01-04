@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import MiddlewarePipeline from './middlewarePipeline';
 import NProgress from 'nprogress/nprogress';
 import routes from './routes';
+import _ from 'lodash';
 
 
 

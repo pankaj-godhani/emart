@@ -287,8 +287,12 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .no-border-card .card-footer {
   border-top: 0;
 }
+tr th{
+  font-weight: bolder;
+}
+
 </style>
