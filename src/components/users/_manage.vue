@@ -109,7 +109,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Last Name"
+            placeholder="Vendor Code"
             v-model="form.vendor_Code"
           />
         </div>
