@@ -3,6 +3,7 @@
     :is="baseComponent"
     :to="link.path ? link.path : '/'"
     class="nav-item"
+    style="rgb(244 177 96)"
     :class="{ active: isActive }"
     tag="li"
   >
@@ -10,20 +11,22 @@
       v-if="isMenu"
       :href="'#' + link.name"
       class="sidebar-menu-item nav-link"
+      style="rgb(244 177 96)"
       :aria-expanded="isActive"
       data-toggle="collapse"
       @click.prevent="collapseMenu"
+
       role="button"
       :aria-controls="link.name"
     >
       <template v-if="addLink">
-        <span class="nav-link-text">
+        <span class="nav-link-text" style="color: #044e7f;">
           {{ link.name }} <b class="caret"></b>
         </span>
       </template>
       <template v-else>
-        <i :class="link.icon"></i>
-        <span class="nav-link-text">{{ link.name }} <b class="caret"></b></span>
+        <i :class="link.icon" style="color: #044e7f;"></i>
+        <span class="nav-link-text" style="color: #044e7f;">{{ link.name }} <b class="caret"></b></span>
       </template>
     </a>
 
@@ -31,6 +34,7 @@
       v-if="this.$slots.default || this.isMenu"
       :id="link.name"
       class="collapse"
+      style="rgb(244 177 96)"
       :class="{ show: isActive }"
     >
       <ul class="nav nav-sm flex-column">
@@ -42,21 +46,23 @@
       name="title"
       v-if="children.length === 0 && !$slots.default && link.path"
     >
+<!--      :is="elementType(link, false)"-->
       <component
         :to="link.path"
-        @click="linkClick"
         :is="elementType(link, false)"
+        @click="linkClick"
         class="nav-link"
+        style="color: #044e7f;"
         :class="{ active: link.active }"
         :target="link.target"
         :href="link.path"
       >
         <template v-if="addLink">
-          <span class="nav-link-text">{{ link.name }}</span>
+          <span class="nav-link-text" style="color: #044e7f;">{{ link.name }}</span>
         </template>
         <template v-else>
-          <i :class="link.icon"></i>
-          <span class="nav-link-text">{{ link.name }}</span>
+          <i :class="link.icon" style="color: #044e7f;"></i>
+          <span class="nav-link-text" style="color: #044e7f;">{{ link.name }}</span>
         </template>
       </component>
     </slot>
@@ -211,7 +217,12 @@ export default {
   opacity: 0;
   height: 0 !important;
 }
-
+.navbar-vertical .navbar-nav .nav-link[data-toggle="collapse"][aria-expanded="true"]:after {
+  color: #d5d8ec;
+}
+.navbar-vertical .navbar-nav .nav-link[data-toggle="collapse"]:after {
+  color: #085180;
+}
 .navbar-dark .sidebar-menu-item.active .nav-link-text {
   color: black;
 }

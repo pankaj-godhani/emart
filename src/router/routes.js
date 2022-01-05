@@ -47,7 +47,7 @@ export default [
       middleware: [auth],
       navbarType: "light",
     },
-    name: "Dashboards",
+    name: "Dashboard",
 
     children: [
       {
@@ -69,7 +69,7 @@ export default [
         },
       },
       {
-        path: "/Users/create",
+        path: "/users/create",
         name: "UserCreate",
         components: { default: UserCreate },
         meta: {

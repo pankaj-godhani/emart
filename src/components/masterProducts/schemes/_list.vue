@@ -279,12 +279,13 @@ export default {
           else{
             this.visibleScheme = false;
           }
+          this.loading = false;
         })
         .catch((error) => {
           this.error=error;
           this.visibleScheme = false;
-        })
-        .finally(() => (this.loading = false));;
+          this.loading = false;
+        });
     },
 
     resetForm() {

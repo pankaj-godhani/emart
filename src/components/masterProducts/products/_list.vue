@@ -333,12 +333,13 @@ export default {
           } else if (this.status == 201) {
             this.visible = false;
           }
+          this.loading = false;
         })
         .catch((error)=>{
           this.error=error;
           this.visible=false;
-        })
-        .finally(() => (this.loading = false));;
+          this.loading = false;
+        });
     },
   },
 };

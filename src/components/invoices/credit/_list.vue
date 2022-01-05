@@ -189,12 +189,13 @@ export default {
           else{
             this.visible=false;
           }
+          this.loading = false
         })
         .catch((error)=>{
           this.error=error;
           this.visible=false;
-        })
-        .finally(()=>(this.loading = false));
+          this.loading = false
+        });
     },
     destroy(){
       axios.delete(`api/creditMemo/removeUserCreditMemo/${this.deleting._id}`)

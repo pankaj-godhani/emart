@@ -2,6 +2,7 @@
   <base-nav
     container-classes="container-fluid"
     class="navbar-top border-bottom navbar-expand"
+    style="background: #044e7f;"
     :class="{ 'bg-success navbar-dark': type === 'default' }"
   >
 
@@ -30,7 +31,7 @@
                </svg>
               </span>
               <div class="media-body ml-2 d-none d-lg-block" v-if="loginUser._id===user._id">
-                <span class="mb-0 text-sm font-weight-bold">{{user.firstName}} {{user.lastName}}</span>
+                <span class="mb-0 text-sm font-weight-bold text-white">{{user.firstName}} {{user.lastName}}</span>
               </div>
             </div>
           </a>

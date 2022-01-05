@@ -7,92 +7,94 @@
           :link="{
             name: 'Dashboard',
              path: '/dashboard',
-            icon: 'ni ni-shop text-primary',
+            icon: 'ni ni-shop ',
           }"
         ></sidebar-item>
 
-        <div v-show="isAdmin">
           <sidebar-item
+            v-show="isAdmin"
             :link="{
             name: 'Users',
             path: '/users',
-            icon: 'ni ni-shop text-info',
+            icon: 'fa fa-user',
           }"
           ></sidebar-item>
-        </div>
 
-         <div v-if="isActive===true">
+
            <sidebar-item
+             v-if="isActive===true"
              :link="{
             name: 'MasterProducts',
-            icon: 'ni ni-ungroup text-orange',
+            icon: 'fa fa-shopping-bag',
           }"
            >
-             <sidebar-item
-               :link="{ name: 'Products', path: '/master-products/products' }"
-             />
-             <sidebar-item
-               :link="{ name: 'Schemes', path: '/master-products/schemes' }"
-             />
+                 <sidebar-item
+                   :link="{ name: 'Products', path: '/master-products/products' }"
+                 />
+                 <sidebar-item
+                   :link="{ name: 'Schemes', path: '/master-products/schemes' }"
+                 />
            </sidebar-item>
 
            <sidebar-item
+             v-if="isActive===true"
              :link="{
             name: 'Invoices',
-            icon: 'ni ni-ui-04 text-info',
+            icon: 'fas fa-file-invoice ',
           }"
            >
-             <sidebar-item
-               :link="{ name: 'Invoice', path: '/invoices/invoice' }"
-             />
-             <sidebar-item
-               :link="{
-              name: 'Payment Report',
-              path: '/invoices/payment-report',
-            }"
-             />
-             <sidebar-item
-               :link="{
-              name: 'Purchase Returns',
-              path: '/invoices/purchase-returns',
-            }"
-             />
-             <sidebar-item
-               :link="{
-              name: 'Debit Memo',
-              path: '/invoices/debit',
-            }"
-             />
-             <sidebar-item
-               :link="{
-              name: 'Credit Memo',
-              path: '/invoices/credit',
-            }"
-             />
-             <sidebar-item
-               :link="{
-              name: 'Outstanding Report',
-              path: '/invoices/vendorwise-outstanding-report',
-            }"
-             />
+                 <sidebar-item
+                   :link="{ name: 'Invoice', path: '/invoices/invoice' }"
+                 />
+                 <sidebar-item
+                   :link="{
+                  name: 'Payment Report',
+                  path: '/invoices/payment-report',
+                }"
+                 />
+                 <sidebar-item
+                   :link="{
+                  name: 'Purchase Returns',
+                  path: '/invoices/purchase-returns',
+                }"
+                 />
+                 <sidebar-item
+                   :link="{
+                  name: 'Debit Memo',
+                  path: '/invoices/debit',
+                }"
+                 />
+                 <sidebar-item
+                   :link="{
+                  name: 'Credit Memo',
+                  path: '/invoices/credit',
+                }"
+                 />
+                 <sidebar-item
+                   :link="{
+                  name: 'Outstanding Report',
+                  path: '/invoices/vendorwise-outstanding-report',
+                }"
+                 />
            </sidebar-item>
            <sidebar-item
+             v-if="isActive===true"
              :link="{
             name: 'PurchaseOrders',
-            icon: 'ni ni-single-copy-04 text-pink',
+            icon: 'fa fa-shopping-cart ',
           }"
            >
-             <sidebar-item
-               :link="{ name: 'Purchase Orders', path: '/purchase-orders' }"
-             />
-             <sidebar-item
-               :link="{
-              name: 'Dispatch Note',
-              path: '/purchase-orders/dispatch-note',
-            }"
-             />
+                 <sidebar-item
+                   :link="{ name: 'Purchase Orders', path: '/purchase-orders' }"
+                 />
+                 <sidebar-item
+                   :link="{
+                  name: 'Dispatch Note',
+                  path: '/purchase-orders/dispatch-note',
+                }"
+                 />
            </sidebar-item>
-         </div>
+
 
       </template>
     </side-bar>

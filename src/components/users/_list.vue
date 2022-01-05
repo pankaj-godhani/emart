@@ -92,10 +92,8 @@ export default {
       axios.get(`api/auth/getAllUser`)
       .then(response=>{
         this.usersData=response.data.userList;
-       // let array=Object.values(this.usersData[0]);
-        //console.log(array);
-      })
-      .finally(()=>(this.loading = false));
+        this.loading = false;
+      });
     }
   }
 };

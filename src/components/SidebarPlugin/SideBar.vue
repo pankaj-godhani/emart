@@ -3,9 +3,10 @@
     class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white"
     @mouseenter="$sidebar.onMouseEnter()"
     @mouseleave="$sidebar.onMouseLeave()"
+
   >
-    <div class="scrollbar-inner" ref="sidebarScrollArea">
-      <div class="sidenav-header d-flex align-items-center">
+    <div class="scrollbar-inner bg-gradient" ref="sidebarScrollArea" >
+      <div class="sidenav-header d-flex align-items-center" >
         <a class=" " href="/">
           <img src="../../../public/img/e-metro.png" class="img-fluid" style="max-width: 80%; height: auto; padding-left: 15px; margin-top: 10px" alt="Sidebar logo" />
         </a>
@@ -26,7 +27,7 @@
       </div>
       <slot></slot>
       <div class="navbar-inner">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav bg-gradient" >
           <slot name="links">
             <sidebar-item
               v-for="(link, index) in sidebarLinks"
@@ -81,9 +82,7 @@ export default {
     },
   },
   data(){
-    return{
-      brandLogo:"img/e-metro.png",
-    }
+    return{}
   },
   provide() {
     return {
@@ -108,3 +107,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+element.style {
+  background: rgb(244, 177, 96);
+}
+.navbar-vertical.navbar-expand-xs .navbar-nav {
+  flex-direction: column;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+.bg-gradient{
+  background: linear-gradient(
+    87deg, #c8883b 0, #e4a85f 100%) !important;
+}
+</style>

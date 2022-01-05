@@ -7,13 +7,13 @@
           <div class="col-lg-5 col-md-7">
 
             <div class="card bg-secondary border-0 mb-0">
-              <div class="bg-gradient-success bg-transparent" style="border-radius:10px 10px 0px 0px">
+              <div class="bg-gradient bg-transparent text-center" style="border-radius:10px 10px 0px 0px">
                 <img src="../../../public/img/e-metro.png" class="w-50 h-50 mt-2 px-2"  alt="Sidebar logo" />
               </div>
-              <div class="card-header bg-gradient-success bg-transparent pb-2">
+              <div class="card-header bg-gradient bg-transparent pb-2">
                 <div class="text-muted text-left ">
-                  <h1 class="text-black">Welcome!</h1>
-                  <h5 class="text-black">Sign in to continue to admin</h5>
+                  <h1 style="color: #044e7f;">Welcome!</h1>
+                  <h5 style="color: #044e7f;">Sign in to continue to admin</h5>
                 </div>
               </div>
               <div class="card-body px-lg-5 py-lg-5">
@@ -41,6 +41,7 @@
 
                   <div class="text-center mt-4">
                     <button class="btn btn-default"
+
                     >Sign in</button>
                   </div>
                 </form>
@@ -106,3 +107,10 @@ export default {
 }
 
 </script>
+
+<style scoped>
+.bg-gradient {
+  background: linear-gradient(
+    87deg, #aa7c44 0, #fbb140 100%) !important;
+}
+</style>

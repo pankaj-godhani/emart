@@ -83,8 +83,8 @@ export default {
         .then(response=>{
           this.outstandingReportData = response.data;
           console.log(response.data);
-        })
-        .finally(()=>(this.loading = false));
+          this.loading = false
+        });
     }
   }
 }
