@@ -430,7 +430,7 @@ export default {
         });
     },
 
-    /*store(){
+    store(){
       axios.post(`https://api.trevy.ai/nichesuite-webservices/service/user/accounts/createNewVendor`,{
         "vendor_Name": this.form.vendor_name,
         "vendor_CO_FirstName": this.form.firstName,
@@ -447,9 +447,9 @@ export default {
         "city": this.form.city,
         "type_of_Vendors": this.form.vendorType,
         "vendor_Code": this.form.vendor_Code,
-        /!*"vatNo": "",
+        /*"vatNo": "",
         "cstNo": "",
-        "gstNo": ""*!/
+        "gstNo": ""*/
       },
         {
           headers:{
@@ -462,9 +462,9 @@ export default {
       .then(response=>{
         console.log(response);
       })
-    }*/
+    },
 
-    store(){
+    /*store(){
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
       formData.append('middleName',this.form.middleName);
@@ -515,7 +515,7 @@ export default {
           }
 
         });
-    },
+    },*/
   }
 };
 
