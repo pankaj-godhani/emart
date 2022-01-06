@@ -5,9 +5,27 @@
     style="background: #044e7f;"
     :class="{ 'bg-success navbar-dark': type === 'default' }"
   >
-
     <!-- Navbar links -->
     <ul class="navbar-nav align-items-center ml-md-auto">
+      <li class="nav-item d-xl-none">
+        <!-- Sidenav toggler -->
+        <div
+          class="pr-3 sidenav-toggler"
+          :style="$sidebar.showSidebar?'padding-left:250px':'padding-left:0px'"
+          :class="{
+            active: $sidebar.showSidebar,
+            'sidenav-toggler-dark': type === 'default',
+            'sidenav-toggler-light': type === 'light',
+          }"
+          @click="toggleSidebar"
+        >
+          <div class="sidenav-toggler-inner">
+            <i class="sidenav-toggler-line"></i>
+            <i class="sidenav-toggler-line"></i>
+            <i class="sidenav-toggler-line"></i>
+          </div>
+        </div>
+      </li>
 
     </ul>
     <ul class="navbar-nav align-items-center ml-auto ml-md-0">
@@ -21,8 +39,8 @@
         <template v-slot:title-container>
           <a href="#" class="nav-link pr-0">
             <div class="media align-items-center" v-for="user in users" :key="user._id">
-              <span v-if="user.userImg && loginUser._id===user._id" class="avatar avatar-sm rounded-circle">
-                <img :alt="user.firstName" :src="url+user.userImg" />
+              <span v-if="user.userImg && loginUser._id===user._id" >
+                <img :alt="user.firstName" :src="url+user.userImg"  class="avatar-sm rounded-circle" style="height: 40px; width: 40px"/>
               </span>
               <span v-else-if="loginUser._id===user._id" class="avatar avatar-sm rounded-circle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">

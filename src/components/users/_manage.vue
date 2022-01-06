@@ -456,6 +456,7 @@ export default {
             'app-key':'2b845f01-789f-4d2f-a864-24075721408e',
             'user-code':'1-1',
             'Content-Type':'application/json',
+            "Access-Control-Allow-Origin": "*",
           }
         })
       .then(response=>{
