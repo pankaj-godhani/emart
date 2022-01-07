@@ -93,6 +93,9 @@ export default {
       .then(response=>{
         this.usersData=response.data.userList;
         this.loading = false;
+      })
+      .catch(()=>{
+        this.loading = false;
       });
     }
   }
