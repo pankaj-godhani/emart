@@ -13,7 +13,7 @@
         <template #thead>
           <tr>
 
-            <th>Sr No</th>
+            <th>Sr. No</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>E-mail ID</th>
@@ -87,7 +87,30 @@ export default {
   },
 
   methods:{
+
+
+
     fetch(){
+
+      axios.get(`https://api.trevy.ai/nichesuite-webservices/service/user/accounts/getChoiceListForCountry`,{
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": 'Origin, Accept, Content-Type, Authorization, Access-Control-Allow-Origin',
+        }
+      }).then(response=>{
+          console.log(response);
+      })
+    }
+
+
+
+
+
+
+
+
+
+    /*fetch(){
       this.loading = true;
       axios.get(`api/auth/getAllUser`)
       .then(response=>{
@@ -97,7 +120,7 @@ export default {
       .catch(()=>{
         this.loading = false;
       });
-    }
+    }*/
   }
 };
 
