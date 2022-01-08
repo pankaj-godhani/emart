@@ -63,17 +63,16 @@
           <span>My profile</span>
         </router-link>
         <div class="dropdown-divider"></div>
-        <a  class="dropdown-item" @click="doLogOut">
+        <router-link :to="{name: 'Logout'}"  class="dropdown-item">
           <i class="ni ni-user-run"></i>
-          <span>Logout</span>
-        </a>
+          <span>Sign out</span>
+        </router-link>
       </base-dropdown>
     </ul>
   </base-nav>
 </template>
 <script>
 import BaseNav from "@/components/Navbar/BaseNav";
-import { authMethods} from '../../state/helpers';
 //import {mapGetters} from "vuex";
 import axios from "axios";
 
@@ -112,13 +111,7 @@ export default {
     this.getUser();
   },
   methods: {
-    ...authMethods,
-    doLogOut(){
-      this.logOut()
-        .then(() => {
-          this.$router.push('/login');
-        });
-    },
+
     getUser(){
       axios.get(`api/auth/user`)
         .then(response=>{

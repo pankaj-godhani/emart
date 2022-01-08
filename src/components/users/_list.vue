@@ -90,7 +90,7 @@ export default {
 
 
 
-    fetch(){
+    /*fetch(){
 
       axios.get(`https://api.trevy.ai/nichesuite-webservices/service/user/accounts/getChoiceListForCountry`,{
         headers: {
@@ -100,17 +100,9 @@ export default {
       }).then(response=>{
           console.log(response);
       })
-    }
+    }*/
 
-
-
-
-
-
-
-
-
-    /*fetch(){
+    fetch(){
       this.loading = true;
       axios.get(`api/auth/getAllUser`)
       .then(response=>{
@@ -120,7 +112,7 @@ export default {
       .catch(()=>{
         this.loading = false;
       });
-    }*/
+    }
   }
 };
 

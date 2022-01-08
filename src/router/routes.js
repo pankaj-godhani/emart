@@ -33,6 +33,7 @@ import DispatchNoteCreate from "../views/purchaseOrders/dispatchNote/create";
 import DispatchNoteEdit from "../views/purchaseOrders/dispatchNote/edit";
 import Example from "../views/example";
 import Login from "../views/auth/Login";
+import Logout from "../views/auth/Logout";
 import Register from "../views/auth/Register";
 import ResetPassword from "../views/auth/ResetPassword";
 import ForgetPassword from "../views/auth/ForgetPassword";
@@ -327,6 +328,12 @@ export default [
         name: "Example",
         components: { default: Example },
       },
+      {
+        path: "/logout",
+        name: "Logout",
+        components: {default: Logout },
+        meta:{middleware: [auth],navbarType: "light",}
+      },
     ],
   },
   {
@@ -335,6 +342,7 @@ export default [
     components: {default: Login },
     meta:{middleware: [guest]}
   },
+
   {
     path: "/register",
     name: "Register",
