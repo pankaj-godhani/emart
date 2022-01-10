@@ -11,7 +11,6 @@
         <!-- Sidenav toggler -->
         <div
           class="pr-3 sidenav-toggler"
-          :style="$sidebar.showSidebar?'padding-left:250px':'padding-left:0px'"
           :class="{
             active: $sidebar.showSidebar,
             'sidenav-toggler-dark': type === 'default',
@@ -19,7 +18,7 @@
           }"
           @click="toggleSidebar"
         >
-          <div class="sidenav-toggler-inner">
+          <div class="sidenav-toggler-inner" :style="$sidebar.showSidebar?'margin-left:250px':'margin-left:250px:0px'">
             <i class="sidenav-toggler-line"></i>
             <i class="sidenav-toggler-line"></i>
             <i class="sidenav-toggler-line"></i>
@@ -137,3 +136,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+/*.active{
+  margin-left: 250px;
+}*/
+</style>
