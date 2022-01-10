@@ -114,22 +114,22 @@
           />
         </div>
         <div class="col-sm ">
-          <label class="form-control-label">Country ID</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Country ID"
-            v-model="form.country_id"
-          />
+          <label class="form-control-label" >Country ID</label>
+          <select class="form-control" v-model="form.country_id" @change="getStates($event.target.value)">
+            <option disabled selected value>Choose Platform</option>
+            <option v-for="country in countries" :key="country.key" :value="country.key">
+              {{ country.value }}
+            </option>
+          </select>
         </div>
         <div class="col-sm ">
           <label class="form-control-label">State</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="State"
-            v-model="form.state"
-          />
+          <select class="form-control" v-model="form.state">
+            <option disabled selected value>Choose Platform</option>
+            <option v-for="state in states" :key="state.key" :value="state.value">
+              {{ state.value }}
+            </option>
+          </select>
         </div>
 
         <div class="col-sm ">
@@ -322,6 +322,8 @@ export default {
     return{
       //userData:[],
       imageURL: null,
+      countries:[],
+      states:[],
       form: {
         firstName:'',
         middleName:'',
@@ -361,6 +363,7 @@ export default {
     },
   },
   mounted(){
+    this.getCountries();
     if (this.editing) {
       this.fetch();
     }
@@ -385,7 +388,20 @@ export default {
         console.log(this.form);
       });
     },
-
+    getCountries(){
+      axios.get(`api/auth/getCountry`)
+      .then(response=>{
+        this.countries = response.data;
+        console.log(response.data);
+      })
+    },
+    getStates(){
+      axios.get(`api/auth/getState/${this.form.country_id}`)
+      .then(response=>{
+        this.states = response.data;
+        console.log(response.data);
+      })
+    },
     onUpdate(){
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
@@ -456,7 +472,7 @@ export default {
             'app-key':'2b845f01-789f-4d2f-a864-24075721408e',
             'user-code':'1-1',
             'Content-Type':'application/json',
-            "Access-Control-Allow-Origin": "*",
+            //"Access-Control-Allow-Origin": "*",
           }
         })
       .then(response=>{

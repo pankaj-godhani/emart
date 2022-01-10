@@ -3,7 +3,7 @@
   <div>
 
       <div class="overflow-auto">
-        <div class="table-responsive-lg">
+        <div class="table-responsive-sm">
           <table class="table table-striped overflow-auto">
             <thead class="border h-100">
               <slot name="thead"></slot>
