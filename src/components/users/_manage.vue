@@ -116,7 +116,7 @@
         <div class="col-sm ">
           <label class="form-control-label" >Country ID</label>
           <select class="form-control" v-model="form.country_id" @change="getStates($event.target.value)">
-            <option disabled selected value>Choose Platform</option>
+            <option disabled selected value>Choose Country</option>
             <option v-for="country in countries" :key="country.key" :value="country.key">
               {{ country.value }}
             </option>
@@ -125,7 +125,7 @@
         <div class="col-sm ">
           <label class="form-control-label">State</label>
           <select class="form-control" v-model="form.state">
-            <option disabled selected value>Choose Platform</option>
+            <option disabled selected value>Choose State</option>
             <option v-for="state in states" :key="state.key" :value="state.value">
               {{ state.value }}
             </option>

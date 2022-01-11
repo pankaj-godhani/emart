@@ -90,16 +90,15 @@ export default {
 
 
 
-    /*fetch(){
+   /* fetch(){
 
-      axios.get(`https://api.trevy.ai/nichesuite-webservices/service/user/accounts/getChoiceListForCountry`,{
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": 'Origin, Accept, Content-Type, Authorization, Access-Control-Allow-Origin',
-        }
-      }).then(response=>{
-          console.log(response);
-      })
+      let res = axios.get('https://api.trevy.ai/nichesuite-webservices/service/user/accounts/getChoiceListForCountry')
+      res.then(response => {
+        console.log('data:', response)
+      }).catch(e => {
+        console.log('error:', e)
+      });
+
     }*/
 
     fetch(){
