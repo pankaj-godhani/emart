@@ -152,10 +152,10 @@ export default {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
       } else  {
-        let validations =new SignupValidations(this.form.email,this.form.mobileNumber);
+        let validations =new SignupValidations(this.form.email,this.form.passWord,this.form.mobileNumber);
         this.errors= validations.checkValidations();
         if(this.errors.length){
-          return false;
+          return this.errors;
         }
         else{
           axios.post(`api/auth/create`,this.form)
@@ -169,7 +169,6 @@ export default {
               else{
                 this.$router.push('/login');
               }
-              //this.$router.push('/login');
             })
             .catch(error=>{
               console.log(error,'error from Register component');
@@ -187,6 +186,7 @@ export default {
 <style scoped>
 .bg-gradient {
   background: linear-gradient(
-    87deg, #aa7c44 0, #fbb140 100%) !important;
+    87deg, #aa7c44 0, #fbb140 100%
+  ) !important;
 }
 </style>

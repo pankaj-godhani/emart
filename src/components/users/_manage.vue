@@ -354,6 +354,7 @@ export default {
         file:null,
       },
       passWord: '',
+      system_Vendor_id:'',
     }
   },
 
@@ -393,6 +394,9 @@ export default {
       .then(response=>{
         this.countries = response.data;
         console.log(response.data);
+      })
+      .catch(e=>{
+        console.log(e);
       })
     },
     getStates(){
@@ -447,40 +451,44 @@ export default {
     },
 
     store(){
-      axios.post(`https://api.trevy.ai/nichesuite-webservices/service/user/accounts/createNewVendor`,{
-        "vendor_Name": this.form.vendor_name,
-        "vendor_CO_FirstName": this.form.firstName,
-        "vendor_CO_MiddleName": this.form.middleName,
-        "vendor_CO_LastName": this.form.lastName,
-        "vendor_Address_Code": this.form.vendor_Address_code,
-        "address_Line1": this.form.address_Line1,
-        "address_Line2": this.form.address_Line2,
-        "postal_Code": this.form.postal_Code,
-        "vendor_Phone_Number": this.form.mobileNumber,
-        "vendor_Email": this.form.email,
-        "state": this.form.state,
-        "country_id": this.form.country_id,
-        "city": this.form.city,
-        "type_of_Vendors": this.form.vendorType,
-        "vendor_Code": this.form.vendor_Code,
+      axios.post(`api/auth/createUser`,{
+          "firstName":this.form.firstName,
+          "middleName":this.form.state,
+          "lastName":this.form.lastName,
+          "mobileNumber":this.form.mobileNumber,
+          "email": this.form.email,
+          "panNo": this.form.panNo,
+          "bankName": this.form.bankName,
+          "accountNumber": this.form.accountNumber,
+          "IFSCCode": this.form.IFSCCode,
+          "paymentTerms": this.form.paymentTerms,
+          "shippingTerms": this.form.shippingTerms,
+          "GST": this.form.GST,
+          "vendorType": this.form.vendorType,
+          "vendor_name": this.form.vendor_name,
+          "vendor_Address_code": this.form.vendor_Address_code,
+          "address_Line1": this.form.address_Line1,
+          "address_Line2": this.form.address_Line2,
+          "postal_Code": this.form.postal_Code,
+          "country_id":this.form.country_id,
+          "state": this.form.state,
+          "city": this.form.city,
+          "vendor_Code": this.form.vendor_Code,
         /*"vatNo": "",
         "cstNo": "",
         "gstNo": ""*/
-      },
-        {
-          headers:{
-            'app-key':'2b845f01-789f-4d2f-a864-24075721408e',
-            'user-code':'1-1',
-            'Content-Type':'application/json',
-            //"Access-Control-Allow-Origin": "*",
-          }
-        })
+      },)
       .then(response=>{
+        this.system_Vendor_id=response.data;
+        this.storeUser();
         console.log(response);
       })
+       .catch(()=>{
+        this.storeUser();
+       })
     },
 
-    /*store(){
+    storeUser(){
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
       formData.append('middleName',this.form.middleName);
@@ -505,7 +513,7 @@ export default {
       formData.append('state',this.form.state);
       formData.append('city',this.form.city);
       formData.append('vendor_Code',this.form.vendor_Code);
-      formData.append('system_vendor_id',"");
+      formData.append('system_Vendor_id',this.system_Vendor_id);
       formData.append('passWord',this.passWord);
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
@@ -531,7 +539,7 @@ export default {
           }
 
         });
-    },*/
+    },
   }
 };
 

@@ -150,13 +150,13 @@
             </template>
           </Table>
         </div>
-        <div v-else-if="visible === false||error" class="text-center mt-4 text-dark">
+        <div v-else-if="status!==200||error" class="text-center mt-4 text-dark">
           Data not found
         </div>
 
-        <div  v-show="false">
+        <div  v-show="showTemplate && loading===false">
           <div>
-            <div v-for="data in pagedData" :key="data._id" :id="data._id">
+            <div v-for="data in dispatchNoteData" :key="data._id" :id="data._id">
               <DispatchNotePDF :data="data"></DispatchNotePDF>
             </div>
           </div>
@@ -214,8 +214,7 @@ import BasePagination from "@/components/BasePagination";
 import axios from "axios";
 import html2pdf from "html2pdf.js";
 import UserData from "../../../mixins/UserData";
-import DispatchNotePDF from "./dispatchNotePDF"
-
+import DispatchNotePDF from "./dispatchNotePDF";
 
 export default {
   mixins: [UserData],
@@ -264,6 +263,7 @@ export default {
       error: "",
       loading: false,
       confirmModal: false,
+      showTemplate: false,
       deleting: null,
       visible: false,
     };
@@ -296,14 +296,16 @@ export default {
         },
       }).then((response) => {
         this.dispatchNoteData = response.data;
-        console.log(this.dispatchNoteData);
         this.status=response.status;
-        if(this.status==200){
+        if(this.status===200){
           this.visible=true;
+          console.log('status is 200');
         }
-        else if(this.status==201){
+        else if(this.status===201){
           this.visible=false;
+          console.log('status is 201');
         }
+        console.log('outside');
         this.loading = false;
       })
       .catch((error)=>{
