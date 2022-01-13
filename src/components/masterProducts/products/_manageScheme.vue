@@ -35,7 +35,7 @@
                   <input
                     class="form-control"
                     placeholder="Enter Product Name"
-                    v-model="form.productName"
+                    v-model="form.item_name"
                   />
                 </div>
               </div>

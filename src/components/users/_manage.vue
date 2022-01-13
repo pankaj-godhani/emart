@@ -154,6 +154,7 @@
             placeholder="Email"
             v-model="form.email"
           />
+          <p class="text-danger text-xs" v-if="errMessage.email">{{ errMessage.email }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Mobile Number</label>
@@ -163,6 +164,7 @@
             placeholder="Mobile Number"
             v-model="form.mobileNumber"
           />
+          <p class="text-danger text-xs" v-if="errMessage.mobileNumber">{{ errMessage.mobileNumber }}</p>
         </div>
         <div class="col-sm">
           <h4 class="form-control-label">Status</h4>
@@ -324,11 +326,12 @@ export default {
       imageURL: null,
       countries:[],
       states:[],
+      status:'',
+      errMessage:'',
       form: {
         firstName:'',
         middleName:'',
         lastName:'',
-        address:'',
         mobileNumber:'',
         email: '',
         panNo: '',
@@ -368,8 +371,6 @@ export default {
     if (this.editing) {
       this.fetch();
     }
-    console.log(this.user);
-    console.log(this.id);
   },
 
   methods:{
@@ -377,7 +378,6 @@ export default {
     getImage() {
       this.form.file = this.$refs.file1.files.item(0);
       this.imageURL = URL.createObjectURL(this.form.file);
-      console.log(this.form.file);
     },
     submit() {
       this.editing ? this.onUpdate() : this.store();
@@ -385,15 +385,15 @@ export default {
     fetch(){
       axios.get(`api/auth/user/${this.id}`)
       .then(response=>{
+        console.log(response);
         this.form=response.data[0];
-        console.log(this.form);
+        this.form.state=this.getStates();
       });
     },
     getCountries(){
       axios.get(`api/auth/getCountry`)
       .then(response=>{
         this.countries = response.data;
-        console.log(response.data);
       })
       .catch(e=>{
         console.log(e);
@@ -403,7 +403,6 @@ export default {
       axios.get(`api/auth/getState/${this.form.country_id}`)
       .then(response=>{
         this.states = response.data;
-        console.log(response.data);
       })
     },
     onUpdate(){
@@ -411,7 +410,6 @@ export default {
       formData.append('firstName',this.form.firstName);
       formData.append('middleName',this.form.middleName);
       formData.append('lastName',this.form.lastName);
-      formData.append('address',this.form.address);
       formData.append('mobileNumber',this.form.mobileNumber);
       formData.append('email',this.form.email);
       formData.append('panNo',this.form.panNo);
@@ -443,8 +441,7 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-        .then((response)=>{
-          console.log(response);
+        .then(()=>{
           this.notification('User updated successfully','success');
           this.$router.go(-1);
         });
@@ -479,9 +476,9 @@ export default {
         "gstNo": ""*/
       },)
       .then(response=>{
-        this.system_Vendor_id=response.data;
+        console.log(response)
+        this.system_Vendor_id=response.data.data;
         this.storeUser();
-        console.log(response);
       })
        .catch(()=>{
         this.storeUser();
@@ -493,7 +490,6 @@ export default {
       formData.append('firstName',this.form.firstName);
       formData.append('middleName',this.form.middleName);
       formData.append('lastName',this.form.lastName);
-      formData.append('address',this.form.address);
       formData.append('mobileNumber',this.form.mobileNumber);
       formData.append('email',this.form.email);
       formData.append('panNo',this.form.panNo);
@@ -508,36 +504,45 @@ export default {
       formData.append('vendor_Address_code',this.form.vendor_Address_code);
       formData.append('address_Line1',this.form.address_Line1);
       formData.append('address_Line2',this.form.address_Line2);
-      formData.append('postal_code',this.form.postal_Code);
+      formData.append('postal_Code',this.form.postal_Code);
       formData.append('country_id',this.form.country_id);
       formData.append('state',this.form.state);
       formData.append('city',this.form.city);
       formData.append('vendor_Code',this.form.vendor_Code);
-      formData.append('system_Vendor_id',this.system_Vendor_id);
       formData.append('passWord',this.passWord);
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
       formData.append('file',this.form.file);
-        axios.post(`api/auth/create`,formData,{
+     /* if(this.system_Vendor_id===null || this.system_Vendor_id==='')
+      {
+        return formData
+      }
+      else {
+        return formData.append('system_Vendor_id',this.system_Vendor_id);
+      }*/
+      axios.post(`api/auth/create`,formData,{
           header: {
             'Content-Type': 'multipart/form-data'
           }
         })
         .then((response)=>{
-        console.log(response);
-        this.notification('User created successfully','success');
-        this.goBack();
-      })
-        .catch(error=>{
-          console.log(error,'error');
-          if(this.form.email || this.form.mobileNumber){
-            this.notification('Email or Mobile Number already exist.','error');
-          }
-          else
+          console.log(response);
+          this.status = response.status;
+          console.log(this.status)
+          if(this.status===200)
           {
-            this.notification('Email or Mobile Number is required.','error');
+            this.notification('User created successfully','success');
+            this.goBack();
           }
+          else if(this.status===201)
+          {
+            this.errMessage = response.data.message;
+          }
+        //this.notification('User created successfully','success');
 
+      })
+        .catch(()=>{
+          this.notification('Something went wrong','error');
         });
     },
   }

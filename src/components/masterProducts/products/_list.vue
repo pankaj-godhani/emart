@@ -10,9 +10,10 @@
           body-classes="px-0 pb-1 py-3"
           footer-classes="pb-2"
         >
-          <div >
+
+          <div class="">
             <form @submit.prevent="fetchProduct">
-              <div class="d-flex flex-row mb-3">
+              <div class="d-flex flex-md-row mb-3 sm">
 
                 <div v-if="isAdmin===true" class="pl-1">
                   <select class="form-control " @change="onChange($event)" v-model="form.userID" style="width:150px;">
@@ -260,7 +261,7 @@ export default {
       selected_option: true,
       selected:[],
       productData: [],
-
+      priceApprovalValue:[],
       visible: false,
       loading: false,
       status: "",
@@ -269,6 +270,7 @@ export default {
   },
 
   mounted() {
+
     this.fetchProduct();
   },
   methods: {
@@ -280,10 +282,6 @@ export default {
 
     orderTableData(name,type){
      this.productData = _.orderBy( this.productData,[name],[type]);
-      console.log(this.productData,'sort');
-    },
-    orderDesc(){
-      this.productData = _.orderBy( this.productData,['dateOfAvailability'],['desc']);
       console.log(this.productData,'sort');
     },
     approveProduct(){
@@ -327,6 +325,10 @@ export default {
         .then((response) => {
           this.productData = response.data;
           console.log(this.productData);
+          this.priceApprovalValue= _.map(this.productData, function(n) {return n.priceApproval;});
+          console.log(this.priceApprovalValue,'response');
+          console.log(this.priceApprovalValue.includes(false),'value');
+
           this.status = response.status;
           if (this.status == 200) {
             this.visible = true;

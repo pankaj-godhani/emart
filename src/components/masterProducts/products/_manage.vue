@@ -30,7 +30,7 @@
             <div class="row mt-4">
               <div class="col-md-4">
                 <h4 class="text-dark">EAN Code</h4>
-                <label class="form-control-label">{{ productDetails.EANCode }}</label>
+                <label class="form-control-label">{{ EANCode}}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">HSN Code</h4>
@@ -38,7 +38,7 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Product Name</h4>
-                <label class="form-control-label">{{ productDetails.productName }}</label>
+                <label class="form-control-label">{{ productDetails.item_name }}</label>
               </div>
 
               <div class="w-100 mt-4"></div>
@@ -49,11 +49,11 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Product Category</h4>
-                <label class="form-control-label">{{ productDetails.productCategory }}</label>
+                <label class="form-control-label">{{ productDetails.categoryName }}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Mftr Article No/SKU Code</h4>
-                <label class="form-control-label">{{ productDetails.SKUCode }}</label>
+                <label class="form-control-label">{{ productDetails.item_code }}</label>
               </div>
 
               <div class="w-100 mt-4"></div>
@@ -64,26 +64,26 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">UOM</h4>
-                <label class="form-control-label">{{ productDetails.UOM }}</label>
+                <label class="form-control-label">{{ productDetails.itemUomCode }}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">UOM Conversion - PCS</h4>
-                <label class="form-control-label">{{ productDetails.UOMConversation }}</label>
+                <label class="form-control-label">{{ productDetails.itemUomDescription }}</label>
               </div>
 
               <div class="w-100 mt-4"></div>
 
               <div class="col-md-4">
                 <h4 class="text-dark">Quantity</h4>
-                <label class="form-control-label">{{ productDetails.quantity }}</label>
+                <label class="form-control-label">{{ productDetails.quantity?productDetails.quantity:0 }}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Date of Availability</h4>
-                <label class="form-control-label">{{ changeDateFormat(productDetails.dateOfAvailability) }}</label>
+                <label class="form-control-label">13-01-2022</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Active</h4>
-                <label class="form-control-label">{{ productDetails.active }}</label>
+                <label class="form-control-label">True</label>
               </div>
 
               <div class="w-100"></div>
@@ -95,7 +95,7 @@
                   class="form-control"
                   name="text"
                   placeholder="Enter MRP of Product"
-                  v-model="productDetails.MRP"
+                  v-model="productDetails.item_mrp"
                   @keyup="calMargin"
                 />
               </div>
@@ -105,7 +105,7 @@
                   class="form-control"
                   name="text"
                   placeholder="Enter Selling Price of Product"
-                  v-model="productDetails.sellingPrice"
+                  v-model="productDetails.item_selling_price"
                 />
               </div>
               <div class="col-sm">
@@ -177,10 +177,10 @@
             </div>
           </div>
           <div
-            v-else-if="status === 201 || error"
+            v-else
             class="text-center mt-4 text-dark"
           >
-            Data not found
+           {{errMessage}}
           </div>
         </div>
       </form>
@@ -201,10 +201,11 @@ export default {
       imageURL: null,
       EANCode: "",
       visibleCard:false,
+      errMessage:'',
       productDetails: {
         schemes: "",
         margin: "",
-        MRP: "",
+        item_mrp: "",
       },
       status: "",
       visibleProductDetails: false,
@@ -217,12 +218,37 @@ export default {
   methods: {
 
     calMargin(){
-      this.productDetails.margin = (this.productDetails.MRP * this.percentage) / 100;
+      this.productDetails.margin = (this.productDetails.item_mrp * this.percentage) / 100;
     },
     calPercentage() {
-      this.percentage=(this.productDetails.margin*100)/this.productDetails.MRP;
+      this.percentage=(this.productDetails.margin*100)/this.productDetails.item_mrp;
     },
     fetch() {
+      this.loading = true;
+      axios.get(`api/product/getProductByEANCode/${this.EANCode}`)
+      .then(response=>{
+        console.log(response.data[0]);
+        if(response.data.length===0)
+        {
+          this.errMessage='No Match Found.';
+          this.visibleProductDetails = false;
+        }
+        else if(response.data.length>1)
+        {
+          this.errMessage='No Exact Match Found.';
+          this.visibleProductDetails = false;
+        }
+        else if(response.data.length===1)
+        {
+          this.productDetails=response.data[0];
+          this.visibleProductDetails = true;
+        }
+        console.log(response.data.length);
+
+        this.loading = false;
+      });
+    },
+    /*fetch() {
       this.loading = true;
       axios
         .get(`api/product/getProductDetails?`, {
@@ -250,7 +276,7 @@ export default {
           this.visibleProductDetails = false;
         })
         .finally(() => (this.loading = false));
-    },
+    },*/
 
     update() {
       axios
