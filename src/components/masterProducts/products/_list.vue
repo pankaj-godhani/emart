@@ -1,8 +1,8 @@
 <template>
   <div>
       <div  v-show="selectAll || select" class="px-2 mb-2">
-        <button class="btn btn-default" @click="approveProduct">approve</button>
-        <button class="btn btn-default" @click="disApproveProduct">Disapprove</button>
+        <button class="btn btn-default" @click="approveProduct" v-if="priceApprovalValue.includes(false)">approve</button>
+        <button class="btn btn-default" @click="disApproveProduct" v-if="priceApprovalValue.includes(true)">Disapprove</button>
       </div>
       <div>
         <card
@@ -98,7 +98,7 @@
               <Table>
                 <template v-slot:thead>
                   <tr>
-                    <th v-show="isAdmin"><input type="checkbox" v-model="selectAll"></th>
+                    <th v-show="isAdmin"><input type="checkbox" v-model="selectAll" @change="getPriceApprovalValue"></th>
                     <th >Sr No</th>
                     <th v-show="isAdmin">Price Approval</th>
                     <th>EAN Code
@@ -133,7 +133,7 @@
                 </template>
                 <template v-slot:tbody>
                   <tr v-for="(data, index) in pagedData" :key="data._id">
-                    <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected"></td>
+                    <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected" @change="getPriceApprovalValue"></td>
                     <td>{{ index + 1 }}</td>
                     <td v-show="isAdmin">
                       <i :class="data.priceApproval?'fa fa-check fa-lg text-success':'fa fa-times fa-lg text-danger'" aria-hidden="true"></i>
@@ -196,7 +196,7 @@ import axios from "axios";
 import {authMethods} from "../../../state/helpers";
 import UserData from "../../../mixins/UserData";
 import _ from "lodash";
-//import {mapGetters} from "vuex";
+
 export default {
   mixins: [UserData],
   components: {
@@ -210,13 +210,13 @@ export default {
     select(){
       return this.selected.length ? true: false;
     },
+
     selectAll: {
       get: function () {
-        return this.productData ? this.selected.length == this.productData.length : false;
+        return this.productData ? this.selected.length == this.productData.length  : false;
       },
       set: function (value) {
         var selected = [];
-
         if (value) {
           this.productData.forEach(function (product) {
             selected.push(product._id);
@@ -258,10 +258,9 @@ export default {
         currentPage: 1,
         total: 0,
       },
-      selected_option: true,
       selected:[],
+      priceApprovalValue : [],
       productData: [],
-      priceApprovalValue:[],
       visible: false,
       loading: false,
       status: "",
@@ -270,11 +269,23 @@ export default {
   },
 
   mounted() {
-
     this.fetchProduct();
   },
   methods: {
-    ...authMethods,
+    getPriceApprovalValue(){
+      var selectedIds=[];
+      selectedIds =  this.selected;
+     var priceApprovalValue = [];
+      for(let i=0;i<selectedIds.length;i++){
+        this.productData.forEach(function (product) {
+          if(selectedIds[i]===product._id){
+            priceApprovalValue.push(product.priceApproval);
+          }
+        })
+      }
+    this.priceApprovalValue =priceApprovalValue;
+    },
+
     onChange(){
       console.log(event.target.value);
       this.fetchProduct();
@@ -325,9 +336,9 @@ export default {
         .then((response) => {
           this.productData = response.data;
           console.log(this.productData);
-          this.priceApprovalValue= _.map(this.productData, function(n) {return n.priceApproval;});
-          console.log(this.priceApprovalValue,'response');
-          console.log(this.priceApprovalValue.includes(false),'value');
+          //this.priceApprovalValue= _.map(this.productData, function(n) {return n.priceApproval;});
+         // console.log(this.priceApprovalValue,'response');
+         // console.log(this.priceApprovalValue.includes(false),'value');
 
           this.status = response.status;
           if (this.status == 200) {

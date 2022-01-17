@@ -1,10 +1,11 @@
 import Validations from "./Validations";
 
 export default class SignupValidations{
-  constructor(email,mobileNumber,passWord) {
+  constructor(email,mobileNumber,passWord,postal_Code='') {
     this.email=email;
     this.mobileNumber=mobileNumber;
     this.passWord=passWord;
+    this.postal_Code=postal_Code;
   }
 
   checkValidations(){
@@ -21,7 +22,10 @@ export default class SignupValidations{
     if(!Validations.checkMobileNumber(this.mobileNumber)){
       errors['mobileNumber'] = 'Invalid Mobile Number, Please enter valid Mobile number.'
     }
-
+    //postal code validation
+    if(!Validations.checkPostalNumber(this.postal_Code)){
+      errors['postal_Code'] = 'Invalid Postal Code, Please enter valid Postal Code.'
+    }
     return errors;
   }
 }

@@ -100,6 +100,7 @@
             placeholder="Postal Code"
             v-model="form.postal_Code"
           />
+          <p class="text-danger text-xs" >{{ errors['postal_Code'] }}</p>
         </div>
 
       </div>
@@ -154,7 +155,7 @@
             placeholder="Email"
             v-model="form.email"
           />
-          <p class="text-danger text-xs" v-if="errMessage.email">{{ errMessage.email }}</p>
+          <p class="text-danger text-xs">{{ errors['email'] ?errors.email:errMessage.email }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Mobile Number</label>
@@ -164,7 +165,7 @@
             placeholder="Mobile Number"
             v-model="form.mobileNumber"
           />
-          <p class="text-danger text-xs" v-if="errMessage.mobileNumber">{{ errMessage.mobileNumber }}</p>
+          <p class="text-danger text-xs">{{ errors['mobileNumber'] ?errors['mobileNumber']: errMessage.mobileNumber }}</p>
         </div>
         <div class="col-sm">
           <h4 class="form-control-label">Status</h4>
@@ -316,6 +317,7 @@
 import axios from "axios";
 //import {mapGetters} from "vuex";
 import { authMethods } from "../../state/helpers";
+import SignupValidations from "../../services/SignupValidations";
 
 
 export default {
@@ -327,6 +329,7 @@ export default {
       countries:[],
       states:[],
       status:'',
+      errors:[],
       errMessage:'',
       form: {
         firstName:'',
@@ -448,7 +451,14 @@ export default {
     },
 
     store(){
-      axios.post(`api/auth/createUser`,{
+      let validations =new SignupValidations(this.form.email,this.form.mobileNumber,this.passWord,this.form.postal_Code);
+      this.errors= validations.checkValidations();
+      console.log(this.errors);
+      if(this.errors.length){
+        return this.errors;
+      }
+      else{
+        axios.post(`api/auth/createUser`,{
           "firstName":this.form.firstName,
           "middleName":this.form.state,
           "lastName":this.form.lastName,
@@ -471,18 +481,20 @@ export default {
           "state": this.form.state,
           "city": this.form.city,
           "vendor_Code": this.form.vendor_Code,
-        /*"vatNo": "",
-        "cstNo": "",
-        "gstNo": ""*/
-      },)
-      .then(response=>{
-        console.log(response)
-        this.system_Vendor_id=response.data.data;
-        this.storeUser();
-      })
-       .catch(()=>{
-        this.storeUser();
-       })
+          /*"vatNo": "",
+          "cstNo": "",
+          "gstNo": ""*/
+        },)
+          .then(response=>{
+            console.log(response)
+            this.system_Vendor_id=response.data.data;
+            this.storeUser();
+          })
+          .catch(()=>{
+            this.storeUser();
+          })
+      }
+
     },
 
     storeUser(){
@@ -513,6 +525,7 @@ export default {
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
       formData.append('file',this.form.file);
+      formData.append('system_Vendor_id',this.system_Vendor_id);
      /* if(this.system_Vendor_id===null || this.system_Vendor_id==='')
       {
         return formData

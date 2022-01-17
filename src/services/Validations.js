@@ -15,7 +15,15 @@ export default class Validations{
   }
 
   static checkMobileNumber(mobileNumber){
-    if(mobileNumber.match(/^\d{10}$/))
+   //if(mobileNumber.match(/^\d{10}$/))
+   if(mobileNumber.match(/^[1-9][0-9]{9}$/))
+    {
+      return true;
+    }
+    return false;
+  }
+  static checkPostalNumber(postal_Code){
+    if(postal_Code.match(/^[1-9][0-9]{5}$/))
     {
       return true;
     }

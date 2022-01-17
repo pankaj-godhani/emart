@@ -44,7 +44,7 @@
                       placeholder="Mobile Number"
                       v-model="form.mobileNumber"
                     />
-                    <p class="text-danger text-xs">{{ errors.mobileNumber ?errors.mobileNumber: errMobileNumber }}</p>
+                    <p class="text-danger text-xs">{{ errors['mobileNumber'] ?errors['mobileNumber']: errMobileNumber }}</p>
                   </div>
                   <div class="pb-2">
                     <label class="form-control-label">E-mail</label>
@@ -152,7 +152,7 @@ export default {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
       } else  {
-        let validations =new SignupValidations(this.form.email,this.form.passWord,this.form.mobileNumber);
+        let validations =new SignupValidations(this.form.email,this.form.mobileNumber,this.form.passWord);
         this.errors= validations.checkValidations();
         if(this.errors.length){
           return this.errors;

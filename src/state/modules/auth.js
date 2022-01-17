@@ -74,7 +74,6 @@ export const actions = {
                 return response.data.token;
             })
             .catch((error)=>{
-
                   console.log(error,'inside logIn error')
                 });
     },
