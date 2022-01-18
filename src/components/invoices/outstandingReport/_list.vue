@@ -7,7 +7,7 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-      <div v-else>
+      <div v-else-if="visible">
         <Table>
           <template v-slot:thead>
             <tr>
@@ -27,37 +27,14 @@
               <td>{{data.invoiceTotal}}</td>
               <td>{{data.paymentTotal}}</td>
               <td>{{data.balanceTotal}}</td>
-              <!--              <td>
-                              <div class="d-flex">
-                                <div class="pr-2">
-                                  <router-link
-                                    :to="{ name: 'InvoiceEdit', params: { id: data._id } }"
-                                  >
-                                    <button
-                                      type="button"
-                                      class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
-                                    >
-                                      <i class="text-white ni ni-ruler-pencil"></i>
-                                    </button>
-                                  </router-link>
-                                </div>
-                                <div>
-                                  <button
-                                    type="button"
-                                    class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                                    data-toggle="modal"
-                                    data-target="#myModal"
-                                    @click.prevent="confirmDelete(data)"
-                                  >
-                                    <i class="text-white ni ni-fat-remove"></i>
-                                  </button>
-                                </div>
-                              </div>
-                            </td>-->
+
             </tr>
 
           </template>
         </Table>
+      </div>
+      <div v-else class="text-center mt-4">
+        Data not found
       </div>
     </card>
   </div>
@@ -71,6 +48,7 @@ export default {
     return{
       outstandingReportData: [],
       loading:false,
+      visible:false,
     }
   },
   mounted() {
@@ -83,7 +61,11 @@ export default {
         .then(response=>{
           this.outstandingReportData = response.data;
           console.log(response.data);
-          this.loading = false
+          this.visible = true;
+          this.loading = false;
+        })
+        .catch(()=>{
+          this.loading = false;
         });
     }
   }

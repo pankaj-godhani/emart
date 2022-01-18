@@ -103,12 +103,22 @@ export const actions = {
     },
 
     // Validates the current user's token and refreshes it  with new data from the API.
-    validate({ state,getters}) {
+    validate({ state,getters,dispatch}) {
         if (!state.token) {
             return Promise.resolve(null);
         }
-
-        return getters.getToken;
+        /*else{
+          axios.interceptors.response.use(response=>{
+            /!*if(response.status===500 || response.status===419){
+              return dispatch('logOut');
+            }
+            else{
+              return getters.getToken;
+            }*!/
+            console.log(response,'interceptors')
+          })
+        }*/
+      return getters.getToken;
     },
 
 };
