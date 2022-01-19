@@ -5,16 +5,24 @@ module.exports={
       UserData: [],
     }
   },
+  computed:{
+    isAdmin(){
+      return this.$store.getters['auth/getIsAdmin'];
+    }
+  },
   mounted() {
     this.fetchUser();
   },
   methods:{
     fetchUser(){
-      axios.get(`api/auth/getAllUser`)
-        .then(response=>{
-          this.UserData=response.data.userList;
-          console.log(this.userData);
-        });
+      if(this.isAdmin===true){
+        axios.get(`api/auth/getAllUser`)
+          .then(response=>{
+            this.UserData=response.data.userList;
+            console.log(this.userData);
+          });
+      }
+
     },
   }
 }

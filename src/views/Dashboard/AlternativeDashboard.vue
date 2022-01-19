@@ -40,7 +40,7 @@
                   <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.activeUser}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.activeUser ?userLen.activeUser:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Active Users
                   </h5>
@@ -62,11 +62,10 @@
                   <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.inActiveUser}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.inActiveUser?userLen.inActiveUser:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Inactive Users
                   </h5>
-
                 </div>
               </div>
             </div>

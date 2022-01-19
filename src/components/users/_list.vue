@@ -3,7 +3,8 @@
     class="no-border-card"
     body-classes="px-0 pb-1 py-3"
     footer-classes="pb-2"
-  > <div class="text-center mt-4" v-if="loading">
+  >
+    <div class="text-center mt-4" v-if="loading">
     <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
@@ -87,20 +88,6 @@ export default {
   },
 
   methods:{
-
-
-
-   /* fetch(){
-
-      let res = axios.get('https://api.trevy.ai/nichesuite-webservices/service/user/accounts/getChoiceListForCountry')
-      res.then(response => {
-        console.log('data:', response)
-      }).catch(e => {
-        console.log('error:', e)
-      });
-
-    }*/
-
     fetch(){
       this.loading = true;
       axios.get(`api/auth/getAllUser`)

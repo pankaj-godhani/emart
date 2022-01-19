@@ -193,7 +193,6 @@
 import BasePagination from "@/components/BasePagination";
 import Card from "../../Cards/Card";
 import axios from "axios";
-import {authMethods} from "../../../state/helpers";
 import UserData from "../../../mixins/UserData";
 import _ from "lodash";
 
