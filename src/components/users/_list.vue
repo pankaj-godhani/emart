@@ -103,3 +103,10 @@ export default {
 };
 
 </script>
+
+<style scoped>
+tr th{
+  font-size: 12px !important;
+  font-weight: bold;
+}
+</style>

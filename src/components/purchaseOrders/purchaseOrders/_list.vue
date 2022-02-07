@@ -269,6 +269,7 @@ export default {
   display: block; width: 100%; height: 100%;
 }
 tr th{
-  font-weight: bolder;
+  font-size: 12px !important;
+  font-weight: bold;
 }
 </style>

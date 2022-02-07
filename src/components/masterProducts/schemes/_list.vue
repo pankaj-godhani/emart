@@ -308,8 +308,9 @@ export default {
 .no-border-card .card-footer {
   border-top: 0;
 }
- tr th{
-  font-weight: bolder;
+tr th{
+  font-size: 12px !important;
+  font-weight: bold;
 }
 
 </style>

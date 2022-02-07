@@ -170,7 +170,7 @@
               <button
                 type="button"
                 class="btn base-button btn-default"
-                @click="update"
+                @click="store"
               >
                 Save
               </button>
@@ -193,19 +193,23 @@
 import axios from "axios";
 import _ from "lodash";
 import ManageScheme from "./_manageScheme"
+import store from "../../../state/store";
 //import {mapGetters} from "vuex";
 export default {
-  components: {ManageScheme},
+  components: { ManageScheme },
   data() {
     return {
       imageURL: null,
       EANCode: "",
-      visibleCard:false,
-      errMessage:'',
+      visibleCard: false,
+      errMessage: "",
       productDetails: {
+        id: "",
         schemes: "",
         margin: "",
         item_mrp: "",
+        item_selling_price: "",
+        remarks: "",
       },
       status: "",
       visibleProductDetails: false,
@@ -214,7 +218,14 @@ export default {
       percentage: "",
     };
   },
-
+  computed:{
+    userID(){
+      return store.getters['auth/getUserID'];
+    }
+  },
+  mounted(){
+    console.log(this.userID);
+  },
   methods: {
 
     calMargin(){
@@ -244,43 +255,34 @@ export default {
           this.visibleProductDetails = true;
         }
         console.log(response.data.length);
-
+        //this.fetchProductID();
         this.loading = false;
       });
     },
-    /*fetch() {
-      this.loading = true;
-      axios
-        .get(`api/product/getProductDetails?`, {
-          params: {
-            EANCode: this.EANCode,
-          },
-          headers:{
-            'Authorization' : this.$store.getters['auth/getToken'],
-          }
-        })
-        .then((response) => {
-          console.log(response);
-          this.productDetails = _.merge(this.productDetails, response.data[0]);
-          this.percentage=(this.productDetails.margin*100)/this.productDetails.MRP;
-          this.status = response.status;
-          if (this.status == 200) {
-            this.visibleProductDetails = true;
-          } else if (this.status == 201) {
-            this.visibleProductDetails = false;
-          }
 
-        })
-        .catch((error) => {
-          this.error = error;
-          this.visibleProductDetails = false;
-        })
-        .finally(() => (this.loading = false));
-    },*/
-
-    update() {
+    store() {
       axios
-        .put(`api/product/edit/${this.productDetails._id}`, this.productDetails)
+        .post(`api/product/create`,
+          {
+            'userID':this.userID,
+            'EANCode':this.EANCode,
+            'HSNCode':this.productDetails.HSNCode,
+            'brandName':this.productDetails.brandName,
+            'netPTR':this.productDetails.netPTR,
+            'priceApproval':this.productDetails.priceApproval,
+            'productName':this.productDetails.item_name,
+            'productCategory':this.productDetails.categoryName,
+            'quantity':this.productDetails.productCategory,
+            'shelfLifeDays':this.productDetails.productCategory,
+            'SKUCode':this.productDetails.item_code,
+            'UOM':this.productDetails.itemUomCode,
+            'UOMConversation':this.productDetails.itemUomDescription,
+                'MRP':this.productDetails.item_mrp,
+                'sellingPrice':this.productDetails.item_selling_price,
+                'margin':this.productDetails.margin,
+                'schemes':this.productDetails.schemes,
+                'remarks':this.productDetails.remarks,
+               })
         .then(() => {
           this.notification("Product Updated Successfully", "success");
           this.goBack();

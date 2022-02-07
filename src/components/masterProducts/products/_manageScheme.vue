@@ -35,7 +35,7 @@
                   <input
                     class="form-control"
                     placeholder="Enter Product Name"
-                    v-model="form.item_name"
+                    v-model="form.productName"
                   />
                 </div>
               </div>
@@ -125,6 +125,7 @@
                         type="checkbox"
                         class="custom-control-input pr-0"
                         id="customSwitch1"
+                        v-model="form.active"
                       />
                       <label class="custom-control-label" for="customSwitch1">Active</label>
                     </div>
@@ -161,7 +162,8 @@
 
 <script>
 import axios from "axios";
-import {mapGetters} from "vuex";
+//import {mapGetters} from "vuex";
+import store from "../../../state/store";
 
 export default {
   name: "_manageScheme",
@@ -188,10 +190,13 @@ export default {
   emits:['refresh'],
 
   computed:{
-    ...mapGetters('auth',{
+    userID(){
+      return store.getters['auth/getUserID']
+    },
+   /* ...mapGetters('auth',{
 
       userID:'getUserID',
-    }),
+    }),*/
   },
   mounted(){
     this.form.schemaNumber=Math.floor(Math.random() * 100000);
@@ -200,7 +205,7 @@ export default {
     storeScheme() {
 
       axios.post(`api/schema/create`, {
-          userID:this.form.userID,
+          userID:this.userID,
           schemaName: this.form.schemaName,
           date: this.form.date,
           productName: this.form.productName,

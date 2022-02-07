@@ -74,6 +74,7 @@ export default {
 
 <style scoped>
 tr th{
-  font-weight: bolder;
+  font-size: 12px !important;
+  font-weight: bold;
 }
 </style>

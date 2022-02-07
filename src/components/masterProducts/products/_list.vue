@@ -364,7 +364,7 @@ export default {
   border-top: 0;
 }
 tr th{
-  font-size: 80%;
+  font-size: 12px !important;
   font-weight: bold;
 }
 </style>
