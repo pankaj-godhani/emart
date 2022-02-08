@@ -11,7 +11,7 @@
                 class="form-control"
                 placeholder="Enter EAN Code"
                 v-model="EANCode"
-                @keyup="fetchEANCode"
+                @keyup="fetchByEANCode"
               />
             </div>
             <div class="col-sm">
@@ -207,25 +207,21 @@ export default {
       axios.get(`api/schema/get/${this.id}`).then((response) => {
         console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
-        this.EANCode= response.data[0].EANCode;
-        this.form.dateOfAvailability=response.data[0].validity;
-        this.schemaNumber=response.data[0].schemaNumber;
+        this.EANCode = response.data[0].EANCode;
+        this.form.dateOfAvailability = response.data[0].validity;
+        this.schemaNumber = response.data[0].schemaNumber;
       });
     },
     submit() {
       this.editing ? this.update() : this.store();
     },
 
-    fetchEANCode() {
-      axios.get(`api/product/getProductDetails`, {
-          params: {
-            EANCode: this.EANCode,
-          },
-        })
+    fetchByEANCode() {
+      axios.get(`api/product/getProductByEANCode/${this.EANCode}`)
         .then((response) => {
-          this.productData=response.data[0];
-            this.form = _.merge(this.form, response.data[0]);
-            this.form.schemaName=response.data[0].schemes;
+          this.form.productName = response.data[0].item_name;
+          this.form.quantity = response.data[0].quantity;
+          this.form.UOM = response.data[0].itemUomCode;
         })
         .catch((error) => {
           this.error = error;

@@ -135,8 +135,8 @@
                   class="form-control"
                   v-model="productDetails.schemes"
                 >
-                  <option  value="" selected disabled >select scheme</option>
-                  <option v-for="schemes in productDetails.schemaList" :key="schemes._id">
+                  <option disabled selected value>select scheme</option>
+                  <option v-for="schemes in schemaList" :key="schemes._id">
                     {{ schemes.schemaName }}
                   </option>
                 </select>
@@ -203,6 +203,7 @@ export default {
       EANCode: "",
       visibleCard: false,
       errMessage: "",
+      schemaList: [],
       productDetails: {
         id: "",
         schemes: "",
@@ -223,22 +224,24 @@ export default {
       return store.getters['auth/getUserID'];
     }
   },
-  mounted(){
-    console.log(this.userID);
-  },
   methods: {
-
     calMargin(){
       this.productDetails.margin = (this.productDetails.item_mrp * this.percentage) / 100;
     },
     calPercentage() {
       this.percentage=(this.productDetails.margin*100)/this.productDetails.item_mrp;
     },
+    fetchSchemes(){
+      axios.get(`api/schema/getByEan/${this.EANCode}`)
+      .then(response=>{
+        this.schemaList = response.data
+        console.log(response.data);
+      })
+    },
     fetch() {
       this.loading = true;
       axios.get(`api/product/getProductByEANCode/${this.EANCode}`)
       .then(response=>{
-        console.log(response.data[0]);
         if(response.data.length===0)
         {
           this.errMessage='No Match Found.';
@@ -254,9 +257,8 @@ export default {
           this.productDetails=response.data[0];
           this.visibleProductDetails = true;
         }
-        console.log(response.data.length);
-        //this.fetchProductID();
         this.loading = false;
+        this.fetchSchemes();
       });
     },
 
@@ -264,19 +266,19 @@ export default {
       axios
         .post(`api/product/create`,
           {
-            'userID':this.userID,
-            'EANCode':this.EANCode,
-            'HSNCode':this.productDetails.HSNCode,
-            'brandName':this.productDetails.brandName,
-            'netPTR':this.productDetails.netPTR,
-            'priceApproval':this.productDetails.priceApproval,
-            'productName':this.productDetails.item_name,
-            'productCategory':this.productDetails.categoryName,
-            'quantity':this.productDetails.productCategory,
-            'shelfLifeDays':this.productDetails.productCategory,
-            'SKUCode':this.productDetails.item_code,
-            'UOM':this.productDetails.itemUomCode,
-            'UOMConversation':this.productDetails.itemUomDescription,
+                'userID':this.userID,
+                'EANCode':this.EANCode,
+                'HSNCode':this.productDetails.HSNCode,
+                'brandName':this.productDetails.brandName,
+                'netPTR':this.productDetails.netPTR,
+                'priceApproval':this.productDetails.priceApproval,
+                'productName':this.productDetails.item_name,
+                'productCategory':this.productDetails.categoryName,
+                'quantity':this.productDetails.productCategory,
+                'shelfLifeDays':this.productDetails.productCategory,
+                'SKUCode':this.productDetails.item_code,
+                'UOM':this.productDetails.itemUomCode,
+                'UOMConversation':this.productDetails.itemUomDescription,
                 'MRP':this.productDetails.item_mrp,
                 'sellingPrice':this.productDetails.item_selling_price,
                 'margin':this.productDetails.margin,
