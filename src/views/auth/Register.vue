@@ -151,10 +151,13 @@ export default {
       if (!this.loginForm.recaptchaVerified) {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
-      } else  {
-        let validations =new SignupValidations(this.form.email,this.form.mobileNumber,this.form.passWord);
+      }
+      else  {
+        let validations =new SignupValidations(this.form.email,this.form.mobileNumber,'','');
         this.errors= validations.checkValidations();
-        if(this.errors.length){
+        console.log( this.errors);
+        console.log( Object.keys(this.errors).length);
+        if(this.errors['email']||this.errors['mobileNumber']){
           return this.errors;
         }
         else{

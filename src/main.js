@@ -14,6 +14,7 @@ import GlobalMixin from "./globalMixin";
 
 const token = store.getters['auth/getToken'];
 axios.defaults.headers.common['Authorization']=token;
+//axios.defaults.headers.common['Authorization']='dsfdsfsfsf';
 axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 
 //axios.defaults.baseURL = "http://localhost:9999/";

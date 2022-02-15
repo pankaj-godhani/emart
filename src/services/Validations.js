@@ -16,17 +16,30 @@ export default class Validations{
 
   static checkMobileNumber(mobileNumber){
    //if(mobileNumber.match(/^\d{10}$/))
-   if(mobileNumber.match(/^[1-9][0-9]{9}$/))
+   if(String(mobileNumber).match(/^[1-9][0-9]{9}$/))
+    {
+      //return console.log('true');
+      return true;
+    }
+    return false;
+  }
+
+  static checkPostalNumber(postal_Code){
+    if(String(postal_Code).match(/^[1-9][0-9]{5}$/))
     {
       return true;
     }
     return false;
   }
-  static checkPostalNumber(postal_Code){
-    if(postal_Code.match(/^[1-9][0-9]{5}$/))
+
+  static checkAccountNumber(accountNumber){
+    if(String(accountNumber).match(/^[0-9]+$/))
     {
       return true;
     }
-    return false;
+    else if(accountNumber===''||accountNumber===null){
+      return false;
+    }
+
   }
 }
