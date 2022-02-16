@@ -138,22 +138,22 @@
                     <td v-show="isAdmin">
                       <i :class="data.priceApproval?'fa fa-check fa-lg text-success':'fa fa-times fa-lg text-danger'" aria-hidden="true"></i>
                     </td>
-                    <td>{{ data.EANCode }}</td>
-                    <td>{{ data.HSNCode }}</td>
+                    <td>{{ data.EANCode}}</td>
+                    <td :class="data.HSNCode?'':'text-lg text-center'">{{ data.HSNCode?data.HSNCode:'-' }}</td>
                     <td :class="data.dateOfAvailability?'':'text-lg text-center'">{{ data.dateOfAvailability?changeDateFormat(data.dateOfAvailability):'-'}}</td>
-                    <td>{{ data.brandName }}</td>
-                    <td>{{ data.SKUCode }}</td>
-                    <td>{{ data.productCategory }}</td>
-                    <td>{{ data.productName }}</td>
-                    <td>{{ data.UOM }}</td>
-                    <td>{{ data.UOMConversation }}</td>
-                    <td>{{ data.shelfLifeDays }}</td>
-                    <td>{{ data.MRP }}</td>
-                    <td>{{ data.margin }}</td>
-                    <td>{{data.netPTR}}</td>
-                    <td>{{ data.schemes }}</td>
-                    <td>{{ data.remarks }}</td>
-                    <td>{{ data.sellingPrice }}</td>
+                    <td :class="data.brandName?'':'text-lg text-center'">{{ data.brandName?data.brandName:'-' }}</td>
+                    <td :class="data.SKUCode?'':'text-lg text-center'">{{ data.SKUCode ? data.SKUCode : '-'}}</td>
+                    <td :class="data.productCategory?'':'text-lg text-center'">{{ data.productCategory ? data.productCategory : '-' }}</td>
+                    <td :class="data.productName?'':'text-lg text-center'">{{ data.productName ? data.productName : '-' }}</td>
+                    <td :class="data.UOM?'':'text-lg text-center'">{{ data.UOM ? data.UOM : '-'}}</td>
+                    <td :class="data.UOMConversation?'':'text-lg text-center'">{{ data.UOMConversation ? data.UOMConversation : '-'}}</td>
+                    <td :class="data.shelfLifeDays?'':'text-lg text-center'">{{ data.shelfLifeDays?data.shelfLifeDays:'-' }}</td>
+                    <td :class="data.MRP?'':'text-lg text-center'">{{ data.MRP ? data.MRP : '-'}}</td>
+                    <td :class="data.margin?'':'text-lg text-center'">{{ data.margin ? data.margin : '-' }}</td>
+                    <td :class="data.netPTR?'':'text-lg text-center'">{{data.netPTR?data.netPTR:'-'}}</td>
+                    <td :class="data.schemes?'':'text-lg text-center'">{{ data.schemes ? data.schemes :'-'}}</td>
+                    <td :class="data.remarks?'':'text-lg text-center'">{{ data.remarks ? data.remarks : '-'}}</td>
+                    <td :class="data.sellingPrice?'':'text-lg text-center'">{{ data.sellingPrice ? data.sellingPrice : '-' }}</td>
 
                   </tr>
                 </template>
