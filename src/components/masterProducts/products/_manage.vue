@@ -284,6 +284,7 @@ export default {
                 'margin':this.productDetails.margin,
                 'schemes':this.productDetails.schemes,
                 'remarks':this.productDetails.remarks,
+                'dateOfAvailability':this.productDetails.dateOfAvailability,
                })
         .then(() => {
           this.notification("Product Updated Successfully", "success");
