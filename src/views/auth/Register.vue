@@ -130,6 +130,7 @@ export default {
         mobileNumber: '',
         email: '',
         passWord: '',
+        system_Vendor_id: '',
         isAdmin: false,
         isActive: false,
       },

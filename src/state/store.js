@@ -15,7 +15,7 @@ axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   //console.log(error.response)
-  if (error.response.status === 400 ||error.response.status === 401) {
+  if (error.response.status === 412 ||error.response.status === 401) {
     store.dispatch('auth/logOut')
     router.push('/login')
   }

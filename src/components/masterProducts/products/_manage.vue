@@ -79,7 +79,7 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Date of Availability</h4>
-                <label class="form-control-label">13-01-2022</label>
+                <label class="form-control-label " style="font-size: 25px;">-</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Active</h4>
