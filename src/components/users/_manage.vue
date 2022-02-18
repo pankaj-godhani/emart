@@ -34,6 +34,7 @@
             placeholder="Vendor Name"
             v-model="form.vendor_name"
           />
+          <p class="text-danger text-xs" >{{ errors['vendor_name'] }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">First Name</label>
@@ -43,6 +44,7 @@
             placeholder="First Name"
             v-model="form.firstName"
           />
+          <p class="text-danger text-xs" >{{ errors['firstName'] }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Middle Name</label>
@@ -52,6 +54,7 @@
             placeholder="Middle Name"
             v-model="form.middleName"
           />
+          <p class="text-danger text-xs" >{{ errors['middleName'] }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Last Name</label>
@@ -61,6 +64,7 @@
             placeholder="Last Name"
             v-model="form.lastName"
           />
+          <p class="text-danger text-xs" >{{ errors['lastName'] }}</p>
         </div>
 
       </div>
@@ -82,6 +86,7 @@
             placeholder="Address Line 1"
             v-model="form.address_Line1"
           />
+          <p class="text-danger text-xs" >{{ errors['address_Line1'] }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Address Line 2</label>
@@ -91,6 +96,7 @@
             placeholder="Address Line 2"
             v-model="form.address_Line2"
           />
+          <p class="text-danger text-xs" >{{ errors['address_Line2'] }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Postal Code</label>
@@ -113,6 +119,7 @@
             placeholder="Vendor Code"
             v-model="form.vendor_Code"
           />
+          <p class="text-danger text-xs" >{{ errors['vendor_Code'] }}</p>
         </div>
         <div class="col-sm ">
           <label class="form-control-label" >Country ID</label>
@@ -122,6 +129,7 @@
               {{ country.value }}
             </option>
           </select>
+          <p class="text-danger text-xs" >{{ errors['country_id'] }}</p>
         </div>
         <div class="col-sm ">
           <label class="form-control-label">State</label>
@@ -131,6 +139,7 @@
               {{ state.value }}
             </option>
           </select>
+          <p class="text-danger text-xs" >{{ errors['state'] }}</p>
         </div>
 
         <div class="col-sm ">
@@ -141,6 +150,7 @@
             placeholder="City"
             v-model="form.city"
           />
+          <p class="text-danger text-xs" >{{ errors['city'] }}</p>
         </div>
 
 
@@ -237,6 +247,7 @@
             <option value="Packaging house">Packaging house</option>
             <option value="Processors">Processors</option>
           </select>
+          <p class="text-danger text-xs" >{{ errors['vendorType'] }}</p>
         </div>
         <div class="col-sm-4">
           <label class="form-control-label">Password</label>
@@ -331,31 +342,31 @@ export default {
       states:[],
       status:'',
       errors:[],
-      errMessage:'',
+      errMessage:"",
       form: {
-        firstName:'',
-        middleName:'',
-        lastName:'',
-        mobileNumber:'',
-        email: '',
-        panNo: '',
-        bankName: '',
-        accountNumber: '',
-        IFSCCode: '',
-        paymentTerms: '',
-        shippingTerms: '',
-        GST: '',
-        vendorType: '',
-        vendor_name: '',
-        vendor_Address_code: '',
-        address_Line1: '',
-        address_Line2: '',
-        postal_Code: '',
-        country_id:'',
-        state: '',
-        city: '',
-        vendor_Code: '',
-        system_vendor_id: '',
+        firstName:"",
+        middleName:"",
+        lastName:"",
+        mobileNumber:"",
+        email: "",
+        panNo: "",
+        bankName: "",
+        accountNumber: "",
+        IFSCCode: "",
+        paymentTerms: "",
+        shippingTerms: "",
+        GST: "",
+        vendorType: "",
+        vendor_name: "",
+        vendor_Address_code: "",
+        address_Line1: "",
+        address_Line2: "",
+        postal_Code: "",
+        country_id:"",
+        state: "",
+        city: "",
+        vendor_Code: "",
+        system_vendor_id: "",
         isAdmin:false,
         isActive:false,
         file:null,
@@ -410,7 +421,23 @@ export default {
       })
     },
     checkValidation(){
-      let validations =new SignupValidations(this.form.email,this.form.mobileNumber,this.form.postal_Code,this.form.accountNumber);
+      let validations =new SignupValidations(
+                                    this.form.email,
+        this.form.mobileNumber,
+        this.form.postal_Code,
+        this.form.accountNumber,
+        this.form.vendor_name,
+        this.form.firstName,
+        this.form.middleName,
+        this.form.lastName,
+        this.form.address_Line1,
+        this.form.address_Line2,
+        this.form.vendor_Code,
+        this.form.country_id,
+        this.form.state,
+        this.form.city,
+        this.form.vendorType
+      );
       this.errors= validations.checkValidations();
       console.log(this.errors);
       console.log(Object.keys(this.errors).length);
@@ -422,34 +449,35 @@ export default {
       }
       else {
         const formData = new FormData();
-        formData.append('firstName',this.form.firstName);
-        formData.append('middleName',this.form.middleName);
-        formData.append('lastName',this.form.lastName);
+        formData.append('firstName',this.form.firstName?this.form.firstName:'');
+        formData.append('middleName',this.form.middleName?this.form.middleName:'');
+        formData.append('lastName',this.form.lastName?this.form.lastName:'');
         formData.append('mobileNumber',this.form.mobileNumber);
         formData.append('email',this.form.email);
-        formData.append('panNo',this.form.panNo);
-        formData.append('bankName',this.form.bankName);
+        formData.append('panNo',this.form.panNo?this.form.panNo:'');
+        formData.append('bankName',this.form.bankName?this.form.bankName:'');
         formData.append('accountNumber',this.form.accountNumber);
-        formData.append('IFSCCode',this.form.IFSCCode);
-        formData.append('paymentTerms',this.form.paymentTerms);
-        formData.append('shippingTerms',this.form.shippingTerms);
-        formData.append('GST',this.form.GST);
-        formData.append('vendorType',this.form.vendorType);
-        formData.append('vendor_name',this.form.vendor_name);
-        formData.append('vendor_Address_code',this.form.vendor_Address_code);
-        formData.append('address_Line1',this.form.address_Line1);
-        formData.append('address_Line2',this.form.address_Line2);
+        formData.append('IFSCCode',this.form.IFSCCode?this.form.IFSCCode:'');
+        formData.append('paymentTerms',this.form.paymentTerms?this.form.paymentTerms:'');
+        formData.append('shippingTerms',this.form.shippingTerms?this.form.shippingTerms:'');
+        formData.append('GST',this.form.GST?this.form.GST:'');
+        formData.append('vendorType',this.form.vendorType?this.form.vendorType:'');
+        formData.append('vendor_name',this.form.vendor_name?this.form.vendor_name:'');
+        formData.append('vendor_Address_code',this.form.vendor_Address_code?this.form.vendor_Address_code:'');
+        formData.append('address_Line1',this.form.address_Line1?this.form.address_Line1:'');
+        formData.append('address_Line2',this.form.address_Line2?this.form.address_Line2:'');
         formData.append('postal_Code',this.form.postal_Code);
-        formData.append('country_id',this.form.country_id);
-        formData.append('state',this.form.state);
-        formData.append('city',this.form.city);
-        formData.append('vendor_Code',this.form.vendor_Code);
+        formData.append('country_id',this.form.country_id?this.form.country_id:'');
+        formData.append('state',this.form.state?this.form.state:'');
+        formData.append('city',this.form.city?this.form.city:'');
+        formData.append('vendor_Code',this.form.vendor_Code?this.form.vendor_Code:'');
         if(this.passWord!==""){
           formData.append('passWord',this.passWord);
         }
         formData.append('isAdmin',this.form.isAdmin);
         formData.append('isActive',this.form.isActive);
         formData.append('file',this.form.file);
+        console.log(formData);
 
         axios.put(`api/auth/edit/${this.id}`,formData,{
           header: {
@@ -472,7 +500,7 @@ export default {
       else{
         axios.post(`api/auth/createUser`,{
           "firstName":this.form.firstName,
-          "middleName":this.form.state,
+          "middleName":this.form.middleName,
           "lastName":this.form.lastName,
           "mobileNumber":this.form.mobileNumber,
           "email": this.form.email,

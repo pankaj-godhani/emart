@@ -37,7 +37,7 @@
       <div class="row px-6 mt-4">
         <div class="col">
           <h4 class="text-dark">Address</h4>
-          <label class="form-control-label">{{ user.address }}</label>
+          <label class="form-control-label">{{ user.address_Line1 }} {{user.address_Line2}}</label>
         </div>
         <div class="col">
           <h4 class="text-dark">Email</h4>
@@ -68,28 +68,28 @@
       <div class="row px-6 mt-4">
         <div class="col">
           <h4 class="text-dark">PAN Number</h4>
-          <label class="form-control-label">{{ user.panNo }}</label>
+          <label :class="user.panNo?'form-control-label':'form-control-label text-xl'">{{ user.panNo? user.panNo:'-'}}</label>
         </div>
         <div class="col">
           <h4 class="text-dark">Payment Terms</h4>
-          <label class="form-control-label">{{ user.paymentTerms }}</label>
+          <label :class="user.paymentTerms?'form-control-label':'form-control-label text-xl'">{{ user.paymentTerms?user.paymentTerms:'-' }}</label>
         </div>
         <div class="col">
           <h4 class="text-dark">Shipping Terms</h4>
-          <label class="form-control-label">{{ user.shippingTerms }}</label>
+          <label :class="user.shippingTerms?'form-control-label':'form-control-label text-xl'">{{ user.shippingTerms?user.shippingTerms:'-' }}</label>
         </div>
       </div>
       <div class="row px-6 mt-4">
         <div class="col">
           <h4 class="text-dark">GST</h4>
-          <label class="form-control-label">{{ user.GST }}</label>
+          <label :class="user.GST?'form-control-label':'form-control-label text-xl'">{{ user.GST?user.GST:'-' }}</label>
         </div>
       </div>
       <h2 class="px-6 mt-4">Bank Details :</h2>
       <div class="row px-6 mt-4">
         <div class="col">
           <h4 class="text-dark">Bank Name</h4>
-          <label class="form-control-label">{{ user.bankName }}</label>
+          <label :class="user.bankName?'form-control-label':'form-control-label text-xl'">{{ user.bankName?user.bankName:'-' }}</label>
         </div>
         <div class="col">
           <h4 class="text-dark">Account Number</h4>
@@ -97,7 +97,7 @@
         </div>
         <div class="col">
           <h4 class="text-dark">IFSC Code</h4>
-          <label class="form-control-label">{{ user.IFSCCode }}</label>
+          <label :class="user.IFSCCode?'form-control-label':'form-control-label text-xl'">{{ user.IFSCCode?user.IFSCCode:'-' }}</label>
         </div>
       </div>
     </div>
@@ -116,11 +116,7 @@ export default {
       url:"https://vuecrud-etj2v.ondigitalocean.app",
     }
   },
-  /*computed:{
-    user(){
-      return this.$store.getters['auth/getUser'];
-    }
-  },*/
+
   mounted() {
     this.getUser();
   },

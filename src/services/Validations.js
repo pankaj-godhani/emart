@@ -40,6 +40,12 @@ export default class Validations{
     else if(accountNumber===''||accountNumber===null){
       return false;
     }
+  }
 
+  static checkRequiredField(name){
+    if(name!==''){
+      return true;
+    }
+    return false;
   }
 }

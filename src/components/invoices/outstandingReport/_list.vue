@@ -33,7 +33,7 @@
           </template>
         </Table>
       </div>
-      <div v-else class="text-center mt-4">
+      <div v-else class="text-center py-5">
         Data not found
       </div>
     </card>

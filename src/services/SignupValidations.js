@@ -1,12 +1,39 @@
 import Validations from "./Validations";
 
 export default class SignupValidations{
-  constructor(email, mobileNumber, postal_Code= '', accountNumber='') {
+  constructor(
+    email,
+    mobileNumber,
+    postal_Code= '',
+    accountNumber='',
+    vendor_name='',
+    firstName='',
+    middleName='',
+    lastName='',
+    address_Line1='',
+    address_Line2='',
+    vendor_Code='',
+    country_id='',
+    state='',
+    city='',
+    vendorType=''
+
+  ) {
     this.email=email;
     this.mobileNumber=mobileNumber;
-    //this.passWord=passWord;
     this.postal_Code=postal_Code;
     this.accountNumber=accountNumber;
+    this.vendor_name=vendor_name;
+    this.firstName=firstName;
+    this.middleName=middleName;
+    this.lastName=lastName;
+    this.address_Line1=address_Line1;
+    this.address_Line2=address_Line2;
+    this.vendor_Code=vendor_Code;
+    this.country_id=country_id;
+    this.state=state;
+    this.city=city;
+    this.vendorType=vendorType;
   }
 
   checkValidations(){
@@ -30,6 +57,50 @@ export default class SignupValidations{
 
     if(!Validations.checkAccountNumber(this.accountNumber)){
       errors['accountNumber'] = 'Invalid Account Number, Please enter valid Account Number.'
+    }
+
+    if(!Validations.checkRequiredField(this.vendor_name)){
+      errors['vendor_name'] = 'Vendor name is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.firstName)){
+      errors['firstName'] = 'First name is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.middleName)){
+      errors['middleName'] = 'Middle name is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.lastName)){
+      errors['lastName'] = 'Last name is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.address_Line1)){
+      errors['address_Line1'] = 'Address line 1 is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.address_Line2)){
+      errors['address_Line2'] = 'Address line 2 is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.vendor_Code)){
+      errors['vendor_Code'] = 'Vendor Code is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.country_id)){
+      errors['country_id'] = 'Country ID is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.state)){
+      errors['state'] = 'State is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.city)){
+      errors['city'] = 'City is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.vendorType)){
+      errors['vendorType'] = 'Vendor type is required.'
     }
     return errors;
   }

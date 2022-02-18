@@ -139,7 +139,7 @@
           </template>
         </Table>
       </div>
-      <div v-else-if="status === 201 || error" class="text-center mt-4 text-dark">
+      <div v-else-if="status === 201 || error" class="text-center py-5">
         Data not found
       </div>
       <template v-slot:footer>

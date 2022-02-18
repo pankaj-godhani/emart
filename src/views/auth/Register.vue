@@ -26,6 +26,7 @@
                       placeholder="First Name"
                       v-model="form.firstName"
                     />
+                    <p class="text-danger text-xs">{{ errors['firstName'] }}</p>
                   </div>
                   <div class="pb-2">
                     <label class="form-control-label">Last Name</label>
@@ -35,6 +36,7 @@
                       placeholder="Last Name"
                       v-model="form.lastName"
                     />
+                    <p class="text-danger text-xs">{{ errors['lastName'] }}</p>
                   </div>
                   <div class="pb-2">
                     <label class="form-control-label">Mobile Number</label>
@@ -154,11 +156,27 @@ export default {
         return true; // prevent form from submitting
       }
       else  {
-        let validations =new SignupValidations(this.form.email,this.form.mobileNumber,'','');
+        let validations =new SignupValidations(
+          this.form.email,
+          this.form.mobileNumber,
+          '',
+          '',
+          '',
+          this.form.firstName,
+          '',
+          this.form.lastName,
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+        );
         this.errors= validations.checkValidations();
         console.log( this.errors);
         console.log( Object.keys(this.errors).length);
-        if(this.errors['email']||this.errors['mobileNumber']){
+        if(this.errors['email']||this.errors['mobileNumber']||this.errors['firstName']||this.errors['lastName']){
           return this.errors;
         }
         else{
