@@ -34,7 +34,7 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">HSN Code</h4>
-                <label class="form-control-label">{{ productDetails.HSNCode}}</label>
+                <label :class="productDetails.HSNCode?'form-control-label':'form-control-label text-xl'">{{ productDetails.HSNCode?productDetails.HSNCode:'-'}}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Product Name</h4>
@@ -45,7 +45,7 @@
 
               <div class="col-md-4">
                 <h4 class="text-dark">Brand Name</h4>
-                <label class="form-control-label">{{ productDetails.brandName }}</label>
+                <label :class="productDetails.brandName?'form-control-label':'form-control-label text-xl'">{{ productDetails.brandName? productDetails.brandName:'-'}}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Product Category</h4>
@@ -60,7 +60,9 @@
 
               <div class="col-md-4">
                 <h4 class="text-dark">Self Life in Days</h4>
-                <label class="form-control-label">{{ productDetails.shelfLifeDays }}</label>
+                <label :class="productDetails.shelfLifeDays?'form-control-label':'form-control-label text-xl'">
+                  {{ productDetails.shelfLifeDays? productDetails.shelfLifeDays:'-'}}
+                </label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">UOM</h4>
