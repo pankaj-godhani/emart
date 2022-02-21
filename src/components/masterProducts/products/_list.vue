@@ -313,6 +313,10 @@ export default {
       .then(()=>{
         this.loaderApprove=false;
         this.$router.go();
+      })
+      .catch(()=>{
+        this.loaderApprove=false;
+        this.notification('Something went wrong, please try later.','error');
       });
     },
     disApproveProduct(){
@@ -325,7 +329,11 @@ export default {
         .then(()=>{
           this.loaderDisApprove=false;
           this.$router.go();
-        });
+        })
+        .catch(()=>{
+          this.loaderDisApprove=false;
+          this.notification('Something went wrong, please try later.','error');
+        });;
     },
     resetForm() {
       this.form = {};
