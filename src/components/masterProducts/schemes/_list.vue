@@ -64,9 +64,7 @@
           </div>
         </form>
         <div class="text-center mt-4" v-if="loading">
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
+          <div class="spinner-border" role="status"></div>
         </div>
         <div v-else-if="visibleScheme">
           <Table>

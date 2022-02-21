@@ -118,6 +118,7 @@
             class="form-control"
             placeholder="Vendor Code"
             v-model="form.vendor_Code"
+            disabled
           />
           <p class="text-danger text-xs" >{{ errors['vendor_Code'] }}</p>
         </div>
@@ -382,6 +383,7 @@ export default {
     },
   },
   mounted(){
+    this.form.vendor_Code=Math.floor(Math.random() * 100000);
     this.getCountries();
     if (this.editing) {
       this.fetch();

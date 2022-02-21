@@ -184,7 +184,7 @@ export default {
         .catch((error) => {
           this.error = error;
           //this.goBack();
-          this.notification("Something went wrong", "error");
+          this.notification("Invoice number should not be same or Something went wrong", "error");
         });
       this.form = {};
     },

@@ -59,12 +59,6 @@
               <div class="w-100 mt-4"></div>
 
               <div class="col-md-4">
-                <h4 class="text-dark">Self Life in Days</h4>
-                <label :class="productDetails.shelfLifeDays?'form-control-label':'form-control-label text-xl'">
-                  {{ productDetails.shelfLifeDays? productDetails.shelfLifeDays:'-'}}
-                </label>
-              </div>
-              <div class="col-md-4">
                 <h4 class="text-dark">UOM</h4>
                 <label class="form-control-label">{{ productDetails.itemUomCode }}</label>
               </div>
@@ -72,20 +66,40 @@
                 <h4 class="text-dark">UOM Conversion - PCS</h4>
                 <label class="form-control-label">{{ productDetails.itemUomDescription }}</label>
               </div>
-
-              <div class="w-100 mt-4"></div>
-
-              <div class="col-md-4">
-                <h4 class="text-dark">Quantity</h4>
-                <label class="form-control-label">{{ productDetails.quantity?productDetails.quantity:0 }}</label>
-              </div>
-              <div class="col-md-4">
-                <h4 class="text-dark">Date of Availability</h4>
-                <label class="form-control-label " style="font-size: 25px;">-</label>
-              </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Active</h4>
                 <label class="form-control-label">True</label>
+              </div>
+
+
+              <div class="w-100 mt-4"></div>
+              <div class="col-md-4">
+                <h4 class="text-dark">Self Life in Days</h4>
+                <input
+                  class="form-control"
+                  name="text"
+                  placeholder="Enter Self Life in Days of Product"
+                  v-model="productDetails.shelfLifeDays"
+                />
+              </div>
+              <div class="col-md-4">
+                <h4 class="text-dark">Quantity</h4>
+                <input
+                  class="form-control"
+                  name="text"
+                  placeholder="Enter Quantity of Product"
+                  v-model="productDetails.quantity"
+                />
+              </div>
+              <div class="col-md-4">
+                <h4 class="text-dark">Date of Availability</h4>
+                <input
+                  class="form-control"
+                  type="date"
+                  name="date"
+                  placeholder="Enter date of availability  of Product"
+                  v-model="productDetails.dateOfAvailability"
+                />
               </div>
 
               <div class="w-100"></div>
@@ -102,12 +116,12 @@
                 />
               </div>
               <div class="col-sm">
-                <h4 class="text-dark">Selling Price</h4>
+                <h4 class="text-dark">Transfer Price</h4>
                 <input
                   class="form-control"
                   name="text"
                   placeholder="Enter Selling Price of Product"
-                  v-model="productDetails.item_selling_price"
+                  v-model="productDetails.sellingPrice"
                 />
               </div>
               <div class="col-sm">
@@ -208,10 +222,13 @@ export default {
       schemaList: [],
       productDetails: {
         id: "",
+        shelfLifeDays: "",
+        quantity: "",
+        dateOfAvailability: "",
         schemes: "",
         margin: "",
         item_mrp: "",
-        item_selling_price: "",
+        sellingPrice: "",
         remarks: "",
       },
       status: "",
@@ -229,9 +246,11 @@ export default {
   methods: {
     calMargin(){
       this.productDetails.margin = (this.productDetails.item_mrp * this.percentage) / 100;
+      this.productDetails.sellingPrice=this.productDetails.item_mrp-this.productDetails.margin;
     },
     calPercentage() {
       this.percentage=(this.productDetails.margin*100)/this.productDetails.item_mrp;
+      this.productDetails.sellingPrice=this.productDetails.item_mrp-this.productDetails.margin;
     },
     fetchSchemes(){
       axios.get(`api/schema/getByEan/${this.EANCode}`)
@@ -276,17 +295,17 @@ export default {
                 'priceApproval':this.productDetails.priceApproval,
                 'productName':this.productDetails.item_name,
                 'productCategory':this.productDetails.categoryName,
-                'quantity':this.productDetails.productCategory,
-                'shelfLifeDays':this.productDetails.productCategory,
                 'SKUCode':this.productDetails.item_code,
                 'UOM':this.productDetails.itemUomCode,
                 'UOMConversation':this.productDetails.itemUomDescription,
+                'quantity':this.productDetails.quantity,
+                'shelfLifeDays':this.productDetails.shelfLifeDays,
+                'dateOfAvailability':this.productDetails.dateOfAvailability,
                 'MRP':this.productDetails.item_mrp,
-                'sellingPrice':this.productDetails.item_selling_price,
+                'sellingPrice':this.productDetails.sellingPrice,
                 'margin':this.productDetails.margin,
                 'schemes':this.productDetails.schemes,
                 'remarks':this.productDetails.remarks,
-                'dateOfAvailability':this.productDetails.dateOfAvailability,
                })
         .then(() => {
           this.notification("Product Updated Successfully", "success");

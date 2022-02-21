@@ -1,8 +1,17 @@
 <template>
   <div>
       <div  v-show="selectAll || select" class="px-2 mb-2">
-        <button class="btn btn-default" @click="approveProduct" v-if="priceApprovalValue.includes(false)">approve</button>
-        <button class="btn btn-default" @click="disApproveProduct" v-if="priceApprovalValue.includes(true)">Disapprove</button>
+        <button class="btn btn-default" @click="approveProduct" v-if="priceApprovalValue.includes(false)">
+          approve
+
+          <div v-if="loaderApprove" class=" spinner-border spinner-border-sm" role="status">
+          </div>
+        </button>
+        <button class="btn btn-default" @click="disApproveProduct" v-if="priceApprovalValue.includes(true)">
+          Disapprove
+          <div v-if="loaderDisApprove" class=" spinner-border spinner-border-sm" role="status">
+          </div>
+        </button>
       </div>
       <div>
         <card
@@ -90,9 +99,7 @@
               </div>
             </form>
             <div class="text-center mt-4" v-if="loading">
-              <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
+              <div class="spinner-border" role="status"></div>
             </div>
             <div v-else-if="visible">
               <Table>
@@ -128,7 +135,7 @@
                     </th>
                     <th>Product Scheme</th>
                     <th>Remarks</th>
-                    <th>Selling Price</th>
+                    <th>Transfer Price</th>
                   </tr>
                 </template>
                 <template v-slot:tbody>
@@ -262,6 +269,8 @@ export default {
       productData: [],
       visible: false,
       loading: false,
+      loaderApprove: false,
+      loaderDisApprove: false,
       status: "",
       error: "",
     };
@@ -295,22 +304,26 @@ export default {
       console.log(this.productData,'sort');
     },
     approveProduct(){
+      this.loaderApprove=true;
       axios.put(`api/product/changeStatusPriceApproval`,{
         "productIdList" : this.selected,
         "priceApproval" : true,
       },
       )
       .then(()=>{
+        this.loaderApprove=false;
         this.$router.go();
       });
     },
     disApproveProduct(){
+      this.loaderDisApprove=true;
       axios.put(`api/product/changeStatusPriceApproval`,{
           "productIdList" : this.selected,
           "priceApproval":false,
         },
       )
         .then(()=>{
+          this.loaderDisApprove=false;
           this.$router.go();
         });
     },

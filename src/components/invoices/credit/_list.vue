@@ -4,9 +4,7 @@
          footer-classes="pb-2"
   >
     <div class="text-center mt-4" v-if="loading">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
+      <div class="spinner-border" role="status"></div>
     </div>
     <div class="pl-0" v-else-if="visible">
       <Table>
