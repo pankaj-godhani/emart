@@ -311,6 +311,7 @@ export default {
       },
       )
       .then(()=>{
+        this.notification('Product approved successfully','success');
         this.loaderApprove=false;
         this.$router.go();
       })
@@ -327,6 +328,7 @@ export default {
         },
       )
         .then(()=>{
+          this.notification('Product disapproved successfully','success');
           this.loaderDisApprove=false;
           this.$router.go();
         })
