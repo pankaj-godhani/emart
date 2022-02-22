@@ -3,14 +3,11 @@
       <div  v-show="selectAll || select" class="px-2 mb-2">
         <button class="btn btn-default" @click="approveProduct" v-if="priceApprovalValue.includes(false)">
           approve
-
-          <div v-if="loaderApprove" class=" spinner-border spinner-border-sm" role="status">
-          </div>
+          <div v-if="loaderApprove" class=" spinner-border spinner-border-sm" role="status"></div>
         </button>
         <button class="btn btn-default" @click="disApproveProduct" v-if="priceApprovalValue.includes(true)">
           Disapprove
-          <div v-if="loaderDisApprove" class=" spinner-border spinner-border-sm" role="status">
-          </div>
+          <div v-if="loaderDisApprove" class=" spinner-border spinner-border-sm" role="status"></div>
         </button>
       </div>
       <div>
@@ -19,9 +16,7 @@
           body-classes="px-0 pb-1 py-3"
           footer-classes="pb-2"
         >
-
-          <div class="">
-            <form @submit.prevent="fetchProduct">
+          <form @submit.prevent="fetchProduct">
               <div class="d-flex flex-md-row mb-3 sm">
 
                 <div v-if="isAdmin===true" class="pl-1">
@@ -98,11 +93,13 @@
                 </div>
               </div>
             </form>
-            <div class="text-center mt-4" v-if="loading">
+
+          <div class="text-center mt-4" v-if="loading">
               <div class="spinner-border" role="status"></div>
             </div>
-            <div v-else-if="visible">
-              <Table>
+
+          <div v-else-if="visible">
+            <Table>
                 <template v-slot:thead>
                   <tr>
                     <th v-show="isAdmin"><input type="checkbox" v-model="selectAll" @change="getPriceApprovalValue"></th>
@@ -165,11 +162,10 @@
                   </tr>
                 </template>
               </Table>
-            </div>
-            <div v-else-if="status === 201||error" class="text-center py-5 ">
-              Data not found
-            </div>
+          </div>
 
+          <div v-else-if="status === 201||error" class="text-center py-5 ">
+              Data not found
           </div>
 
           <template v-slot:footer>
@@ -208,6 +204,32 @@ export default {
   components: {
     Card,
     BasePagination,
+  },
+  data() {
+    return {
+      form: {
+        productName: "",
+        EANCode: "",
+        SKUCode: "",
+        startDate: "",
+        endDate: "",
+        userID: "",
+      },
+      pagination: {
+        perPage: 7,
+        currentPage: 1,
+        total: 0,
+      },
+      selected:[],
+      priceApprovalValue : [],
+      productData: [],
+      visible: false,
+      loading: false,
+      loaderApprove: false,
+      loaderDisApprove: false,
+      status: "",
+      error: "",
+    };
   },
   computed: {
     isAdmin(){
@@ -249,33 +271,6 @@ export default {
       return this.visible ? this.productData.length : 0;
     },
   },
-  data() {
-    return {
-      form: {
-        productName: "",
-        EANCode: "",
-        SKUCode: "",
-        startDate: "",
-        endDate: "",
-        userID: "",
-      },
-      pagination: {
-        perPage: 7,
-        currentPage: 1,
-        total: 0,
-      },
-      selected:[],
-      priceApprovalValue : [],
-      productData: [],
-      visible: false,
-      loading: false,
-      loaderApprove: false,
-      loaderDisApprove: false,
-      status: "",
-      error: "",
-    };
-  },
-
   mounted() {
     this.fetchProduct();
   },
@@ -311,9 +306,9 @@ export default {
       },
       )
       .then(()=>{
-        this.notification('Product approved successfully','success');
         this.loaderApprove=false;
         this.$router.go();
+        this.notification('Product approved successfully','success');
       })
       .catch(()=>{
         this.loaderApprove=false;
@@ -328,9 +323,9 @@ export default {
         },
       )
         .then(()=>{
-          this.notification('Product disapproved successfully','success');
           this.loaderDisApprove=false;
           this.$router.go();
+          this.notification('Product disapproved successfully','success');
         })
         .catch(()=>{
           this.loaderDisApprove=false;
@@ -357,11 +352,6 @@ export default {
         })
         .then((response) => {
           this.productData = response.data;
-          console.log(this.productData);
-          //this.priceApprovalValue= _.map(this.productData, function(n) {return n.priceApproval;});
-         // console.log(this.priceApprovalValue,'response');
-         // console.log(this.priceApprovalValue.includes(false),'value');
-
           this.status = response.status;
           if (this.status == 200) {
             this.visible = true;

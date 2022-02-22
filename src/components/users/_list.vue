@@ -5,9 +5,9 @@
     footer-classes="pb-2"
   >
     <div class="text-center mt-4" v-if="loading">
-    <div class="spinner-border" role="status"></div>
-  </div>
-    <div v-else class="pl-0">
+     <div class="spinner-border" role="status"></div>
+    </div>
+    <div v-else-if="visible" class="pl-0">
       <Table>
         <template #thead>
           <tr>
@@ -21,7 +21,7 @@
           </tr>
         </template>
         <template #tbody>
-          <tr v-for="(data, index) in usersData" :key="data._id">
+          <tr v-for="(data, index) in pagedData" :key="data._id">
 
             <td>{{ index + 1 }}</td>
             <td>{{ data.firstName }}</td>
@@ -46,43 +46,76 @@
                     </button>
                   </router-link>
                 </div>
-<!--                <div>
-                  <button
-                    type="button"
-                    class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                    @click.prevent="destroy(data._id)"
-                  >
-                    <i class="text-white ni ni-fat-remove"></i>
-                  </button>
-                </div>-->
               </div>
             </td>
           </tr>
         </template>
       </Table>
     </div>
+    <div v-else-if="status!==200||error" class="text-center py-5">
+      Data not found
+    </div>
+    <template v-slot:footer>
+      <div
+        class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+      >
+        <div class="">
+          <p class="card-category">
+            Showing {{ from +1 }} to {{ to }} of {{ total }} entries
+          </p>
+        </div>
+        <base-pagination
+          class="pagination-no-border"
+          v-model="pagination.currentPage"
+          :per-page="pagination.perPage"
+          :total="total"
+        >
+        </base-pagination>
+      </div>
+    </template>
   </card>
 </template>
 
 <script>
 import axios from "axios";
-import {mapGetters} from "vuex";
 
 export default {
   data(){
     return{
-      usersData:[],
-      loading: false,
+      usersData : [],
+      loading : false,
+      visible : false,
+      status : "",
+      error : "",
+      pagination: {
+        perPage: 7,
+        currentPage: 1,
+        total: 0,
+      },
     }
-  },
-  computed: {
-    ...mapGetters('auth', {
-      token: 'getToken',
-    }),
   },
 
   mounted(){
     this.fetch();
+  },
+  computed: {
+    pagedData() {
+      return this.usersData.slice(this.from, this.to);
+    },
+
+    to() {
+      let highBound = this.from + this.pagination.perPage;
+      if (this.total < highBound) {
+        highBound = this.total;
+      }
+      return highBound;
+    },
+    from() {
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1);
+    },
+    total() {
+      return this.visible ? this.usersData.length : 0;
+    },
   },
 
   methods:{
@@ -90,11 +123,15 @@ export default {
       this.loading = true;
       axios.get(`api/auth/getAllUser`)
       .then(response=>{
-        this.usersData=response.data.userList;
+        this.status = response.status;
+        this.usersData = response.data.userList;
         this.loading = false;
+        this.visible=true;
       })
-      .catch(()=>{
+      .catch((error)=>{
+        this.error = error;
         this.loading = false;
+        this.visible=false;
       });
     }
   }

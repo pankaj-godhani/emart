@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <UsersList ref="children"></UsersList>
+        <UsersList></UsersList>
       </div>
     </div>
   </div>
@@ -35,14 +35,10 @@ export default {
       system_vendor_ids:[],
     }
   },
-  mounted() {
-    this.fetch();
-  },
   methods:{
     fetch(){
       axios.get(`api/auth/user`)
       .then(response=>{
-        console.log(response.data);
         this.userData=response.data;
         var system_vendor_ids=[];
         this.userData.forEach(function (user) {
