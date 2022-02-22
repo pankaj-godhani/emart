@@ -6,7 +6,9 @@
           <div class="d-flex col-lg-6 col-7">
             <h3 class="mt-2 pr-1">Users  </h3>
 
-            <button class="btn" v-if="system_vendor_ids.includes(null)||system_vendor_ids.includes('')" @click.prevent="syncAll"><i class="fas fa-sync"></i></button>
+            <button class="btn" v-if="system_vendor_ids.includes(null)||system_vendor_ids.includes('')" @click.prevent="syncAll">
+              <i class="fas fa-sync"></i>
+            </button>
           </div>
           <div class="col-lg-6 col-5 text-right">
             <router-link :to="{ name: 'UserCreate' }">
@@ -34,6 +36,9 @@ export default {
       userData:[],
       system_vendor_ids:[],
     }
+  },
+  mounted() {
+    this.fetch();
   },
   methods:{
     fetch(){
