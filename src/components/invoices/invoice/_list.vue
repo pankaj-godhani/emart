@@ -84,9 +84,9 @@
             <tr v-for="(data,index) in pagedData" :key="data._id">
               <td>{{index+1}}</td>
               <td>{{data.PONumber}}</td>
-              <td>{{changeDateFormat(data.PODate)}}</td>
+              <td :class="data.PODate?'':'text-xl'">{{data.PODate?changeDateFormat(data.PODate):'-'}}</td>
               <td>{{data.invoiceNumber}}</td>
-              <td>{{changeDateFormat(data.invoiceDate)}}</td>
+              <td :class="data.invoiceDate?'':'text-xl'">{{data.invoiceDate?changeDateFormat(data.invoiceDate):'-'}}</td>
               <td>{{data.invoiceValue}}</td>
               <td>{{data.CGSTValue}}</td>
               <td>{{data.SGSTValue}}</td>
@@ -245,7 +245,7 @@ export default {
       this.fetch();
     },
     onChange(){
-      console.log(event.target.value);
+      //console.log(event.target.value);
       this.fetch();
     },
     fetch(){

@@ -150,7 +150,7 @@ export default {
       this.loginForm.recaptchaVerified = false;
     },
     submit() {
-      console.log(this.form);
+      //console.log(this.form);
       if (!this.loginForm.recaptchaVerified) {
         this.loginForm.pleaseTickRecaptchaMessage = 'Please verify that you are not a robot.';
         return true; // prevent form from submitting
@@ -174,8 +174,8 @@ export default {
           '',
         );
         this.errors= validations.checkValidations();
-        console.log( this.errors);
-        console.log( Object.keys(this.errors).length);
+        //console.log( this.errors);
+        //console.log( Object.keys(this.errors).length);
         if(this.errors['email']||this.errors['mobileNumber']||this.errors['firstName']||this.errors['lastName']){
           return this.errors;
         }
@@ -183,7 +183,7 @@ export default {
           axios.post(`api/auth/create`,this.form)
             .then((response)=>{
               this.status = response.status;
-              console.log(response);
+              //console.log(response);
               if(this.status===201){
                 this.errMobileNumber = response.data.message.mobileNumber;
                 this.errEmail = response.data.message.email;
@@ -193,7 +193,7 @@ export default {
               }
             })
             .catch(error=>{
-              console.log(error,'error from Register component');
+             // console.log(error,'error from Register component');
             });
         }
 

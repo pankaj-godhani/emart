@@ -82,7 +82,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.id,'id');
+    //console.log(this.id,'id');
   },
 
   methods: {
@@ -93,7 +93,7 @@ export default {
           .then(response => {
             this.$router.push({ name :"Login"});
             this.notification("Password changed successfully", "success");
-            console.log(response);
+           // console.log(response);
           });
       }
       else{

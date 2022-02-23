@@ -51,14 +51,14 @@ export default {
 
         })
         this.system_vendor_ids=system_vendor_ids
-        console.log(this.system_vendor_ids.includes(null));
+       // console.log(this.system_vendor_ids.includes(null));
 
       })
     },
     syncAll(){
       axios.get(`api/auth/syncCall`)
       .then(response=>{
-        console.log(response);
+       // console.log(response);
       })
     }
 

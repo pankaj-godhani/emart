@@ -157,14 +157,14 @@ export default {
       this.fetch();
     },
     onChange(){
-      console.log(event.target.value);
+      //console.log(event.target.value);
       this.fetch();
     },
     fetch(){
       this.loading = true;
       axios.get(`api/vendorPaymentReport/getPaymentList`)
         .then((response)=>{
-          console.log(response);
+          //console.log(response);
           this.paymentReportData=response.data;
           this.status = response.status;
           if(this.status===200){

@@ -224,7 +224,7 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response)
+          //console.log(response)
           this.purchaseOrdersData = _.merge( this.purchaseOrdersData, response.data[0]);
           this.itemList = this.purchaseOrdersData.itemList;
           this.generateBarCode({id:"#barcodePri",value:this.purchaseOrdersData.PrimaryBarCode});
@@ -236,20 +236,6 @@ export default {
         });
 
     },
-
-    update() {
-      axios
-        .put(`api/product/edit/${this.productDetails._id}`, this.productDetails,{
-          headers: {
-            'Authorization': this.token
-          },
-        })
-        .then(() => {
-          this.notification("Product Updated Successfully", "success");
-          this.goBack();
-        });
-    },
-
   },
 };
 </script>

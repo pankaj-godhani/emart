@@ -3,7 +3,6 @@
     <div class="container ct-example-row">
       <form @submit="submit" >
         <div>
-<!--          <h3><b>Group Heading 1</b></h3>-->
           <div class="row mt-3">
             <div class="col-sm form-group">
               <label class="form-control-label">Product Name</label>
@@ -49,6 +48,7 @@
                 placeholder="Item Quantity"
                 v-model="form.itemQuantity"
               />
+              <p class="text-danger text-xs" >{{ errors['itemQuantity'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">HSN Code</label>
@@ -58,11 +58,11 @@
                 placeholder="HSN Code"
                 v-model="form.HSNCode"
               />
+              <p class="text-danger text-xs" >{{ errors['HSNCode'] }}</p>
             </div>
           </div>
         </div>
         <div class="mt-4">
-<!--          <h3><b>Group Heading 2</b></h3>-->
           <div class="row mt-3">
             <div class="col-sm">
               <label class="form-control-label">Unit Price</label>
@@ -72,6 +72,7 @@
                 placeholder="Unit Price"
                 v-model="form.unitPrice"
               />
+              <p class="text-danger text-xs" >{{ errors['unitPrice'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label"> Price Difference</label>
@@ -81,6 +82,7 @@
                 placeholder="Price Difference"
                 v-model="form.priceDifference"
               />
+              <p class="text-danger text-xs" >{{ errors['priceDifference'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Tax Rate</label>
@@ -90,6 +92,7 @@
                 placeholder="Tax Rate"
                 v-model="form.taxRate"
               />
+              <p class="text-danger text-xs" >{{ errors['taxRate'] }}</p>
             </div>
 
           </div>
@@ -102,6 +105,7 @@
                 placeholder="CGST"
                 v-model="form.CGST"
               />
+              <p class="text-danger text-xs" >{{ errors['CGST'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">SGST</label>
@@ -111,6 +115,7 @@
                 placeholder="SGST"
                 v-model="form.SGST"
               />
+              <p class="text-danger text-xs" >{{ errors['SGST'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">IGST</label>
@@ -120,6 +125,7 @@
                 placeholder="IGST"
                 v-model="form.IGST"
               />
+              <p class="text-danger text-xs" >{{ errors['IGST'] }}</p>
             </div>
 
           </div>
@@ -132,6 +138,7 @@
                 placeholder="Amount"
                 v-model="form.amount"
               />
+              <p class="text-danger text-xs" >{{ errors['amount'] }}</p>
             </div>
 
           </div>
@@ -168,15 +175,32 @@
 </template>
 <script>
 
-import {mapGetters} from "vuex";
 import axios from "axios";
 import _ from "lodash";
+import store from "../../../state/store";
+import CreditDebitValidations from "../../../services/CreditDebitValidations";
 
 export default {
   props:['id'],
   data(){
     return{
-      form:{},
+      form:{
+        userID : "",
+        productName: "",
+        vendorInvoiceRef_Date: "",
+        eMetroPoRef_Date: "",
+        description: "",
+        itemQuantity: "",
+        HSNCode: "",
+        unitPrice: "",
+        priceDifference: "",
+        taxRate: "",
+        CGST: "",
+        SGST: "",
+        IGST: "",
+        amount: "",
+      },
+      errors:[],
     }
   },
   mounted() {
@@ -185,9 +209,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth',{
-      userID:'getUserID',
-    }),
+    userID(){
+      return store.getters['auth/getUserID'];
+    },
     editing() {
       return !!this.id;
     },
@@ -198,23 +222,66 @@ export default {
     },
     fetch() {
       axios.get(`api/creditMemo/getAllUserCreditMemo/${this.id}`).then((response) => {
-        console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
       });
     },
+    checkValidation(){
+      let validations = new CreditDebitValidations(
+                                          this.form.itemQuantity,
+                                          this.form.HSNCode,
+                                          this.form.unitPrice,
+                                          this.form.priceDifference,
+                                          this.form.taxRate,
+                                          this.form.CGST,
+                                          this.form.SGST,
+                                          this.form.IGST,
+                                          this.form.amount
+                                        );
+      this.errors= validations.checkValidations();
+      console.log(this.errors);
+      console.log(Object.keys(this.errors).length);
+    },
     store(){
-      axios.post(`api/creditMemo/AddUserCreditMemo`,this.form)
-        .then(()=>{
-          this.goBack();
-          this.notification('Credit Memo created successfully.','success');
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.post(`api/creditMemo/AddUserCreditMemo`,{
+          'userID' : this.userID,
+          'productName': this.form.productName,
+          'vendorInvoiceRef_Date': this.form.vendorInvoiceRef_Date,
+          'eMetroPoRef_Date': this.form.eMetroPoRef_Date,
+          'description': this.form.description,
+          'itemQuantity': this.form.itemQuantity,
+          'HSNCode': this.form.HSNCode,
+          'unitPrice': this.form.unitPrice,
+          'priceDifference': this.form.priceDifference,
+          'taxRate': this.form.taxRate,
+          'CGST': this.form.CGST,
+          'SGST': this.form.SGST,
+          'IGST': this.form.IGST,
+          'amount': this.form.amount
         })
+          .then(()=>{
+            this.goBack();
+            this.notification('Credit Memo created successfully.','success');
+          });
+      }
     },
     update(){
-      axios.put(`api/creditMemo/ChangeUserCreditMemo/${this.id}`,this.form)
-        .then(()=>{
-          this.goBack();
-          this.notification('Credit Memo updated successfully.','success');
-        })
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.put(`api/creditMemo/ChangeUserCreditMemo/${this.id}`,this.form)
+          .then(()=>{
+            this.goBack();
+            this.notification('Credit Memo updated successfully.','success');
+          });
+      }
+
     }
   }
 }

@@ -48,4 +48,28 @@ export default class Validations{
     }
     return false;
   }
+
+  static checkRequiredNumber(name){
+    if(String(name).match(/^[0-9]+$/)){
+      return true;
+    }
+    else if(name===''||name===null){
+      return false;
+    }
+
+  }
+
+  static checkForNumbers(name){
+    if(String(name).match(/^[0-9]+$/)||String(name).length === 0||name===null)
+    {
+      return true;
+    }
+    /*else  if(String(name).length === 0)
+    {
+      return true
+    }*/
+    return false;
+
+
+  }
 }

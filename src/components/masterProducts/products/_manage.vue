@@ -207,10 +207,8 @@
 <script>
 
 import axios from "axios";
-import _ from "lodash";
 import ManageScheme from "./_manageScheme"
 import store from "../../../state/store";
-//import {mapGetters} from "vuex";
 export default {
   components: { ManageScheme },
   data() {
@@ -256,7 +254,6 @@ export default {
       axios.get(`api/schema/getByEan/${this.EANCode}`)
       .then(response=>{
         this.schemaList = response.data
-        console.log(response.data);
       })
     },
     fetch() {

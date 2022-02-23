@@ -79,14 +79,14 @@ export default {
       axios.get(`api/invoice/getInvoiceValue/${value}`)
         .then(response=>{
           this.invoiceValue = response.data.invoiceValue;
-          console.log(this.invoiceValue);
+          //console.log(this.invoiceValue);
         })
     },
     getInvoiceNumber(){
       axios.get(`api/invoice/getInvoiceNumList`)
         .then(response=>{
           this.invoiceNumbers = response.data;
-          console.log(response);
+          //console.log(response);
         })
     },
     onSubmit(){
@@ -99,7 +99,7 @@ export default {
       else if(this.form.amount<=this.invoiceValue ){
         axios.post(`api/vendorPaymentReport/create`,this.form)
           .then(response=>{
-            console.log(response);
+            //console.log(response);
             this.goBack();
           });
       }

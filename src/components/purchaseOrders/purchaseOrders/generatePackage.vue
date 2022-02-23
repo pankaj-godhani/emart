@@ -42,10 +42,6 @@
         <label class="form-control-label" >{{purchaseOrdersData.EANCode }}</label>
       </div>
       <div class="w-100 mt-4"></div>
-<!--      <div class="col-md-4">
-        <h4 class="text-dark">Number of pieces in one Carton</h4>
-        <label class="form-control-label">sdasd</label>
-      </div>-->
       <div class="col-md-4">
         <h4 class="text-dark">Primary Barcode</h4>
         <label class="form-control-label" >{{purchaseOrdersData.PrimaryBarCode }}</label>
@@ -115,9 +111,6 @@
         <h4 class="text-dark">Document Upload (Invoice/Packing Label/etc.)</h4>
         <label class="form-control-label">{{purchaseOrdersData.documentUpload }}</label>
       </div>
-
-
-
     </div>
   </div>
 </template>

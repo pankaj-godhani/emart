@@ -478,7 +478,7 @@ export default {
     fetchCount(){
       axios.get(`api/auth/getCountDetail`)
         .then(response=>{
-          console.log(response.data);
+          //console.log(response.data);
           if(this.isAdmin)
           {
             this.userLen = response.data.countList[0];

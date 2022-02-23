@@ -12,6 +12,7 @@
                 placeholder="Enter PO Number"
                 v-model="form.PONumber"
               />
+              <p class="text-danger text-xs" >{{ errors['PONumber'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">PO Date</label>
@@ -29,7 +30,7 @@
                 type="text"
                 placeholder="Enter Invoice Number"
               />
-
+              <p class="text-danger text-xs" >{{ errors['invoiceNumber'] }}</p>
             </div>
           </div>
           <div class="row">
@@ -49,6 +50,7 @@
                 v-model="form.invoiceValue"
                 placeholder="Enter Invoice Value"
               />
+              <p class="text-danger text-xs" >{{ errors['invoiceValue'] }}</p>
             </div>
           </div>
         </div>
@@ -62,6 +64,7 @@
                 placeholder="Enter CGST Value"
                 v-model="form.CGSTValue"
               />
+              <p class="text-danger text-xs" >{{ errors['CGSTValue'] }}</p>
             </div>
             <div class="col-4">
               <label class="form-control-label">SGST Value</label>
@@ -70,6 +73,7 @@
                 placeholder="Enter SGST Value"
                 v-model="form.SGSTValue"
               />
+              <p class="text-danger text-xs" >{{ errors['SGSTValue'] }}</p>
             </div>
             <div class="col-4">
               <label class="form-control-label">IGST Value</label>
@@ -78,6 +82,7 @@
                 placeholder="Enter IGST Value"
                 v-model="form.IGSTValue"
               />
+              <p class="text-danger text-xs" >{{ errors['IGSTValue'] }}</p>
             </div>
           </div>
         </div>
@@ -118,6 +123,7 @@
 import axios from "axios";
 import _ from "lodash";
 import {mapGetters} from "vuex";
+import InvoiceValidations from "../../../services/InvoiceValidations";
 
 export default {
   components: {},
@@ -137,6 +143,7 @@ export default {
         IGSTValue: "",
         paymentReceived: "",
       },
+      errors:[],
     };
   },
   mounted() {
@@ -155,45 +162,69 @@ export default {
   methods: {
     fetch() {
       axios.get(`api/invoice/get/${this.id}`,).then((response) => {
-        console.log(response.data[0]);
+        //console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
       });
     },
     submit() {
       this.editing ? this.update() : this.store();
     },
+    checkValidation(){
+      let validation = new InvoiceValidations(
+                                                this.form.PONumber,
+                                                this.form.invoiceNumber,
+                                                this.form.invoiceValue,
+                                                this.form.CGSTValue,
+                                                this.form.SGSTValue,
+                                                this.form.IGSTValue
+                                              );
+      this.errors = validation.checkValidations();
+      console.log(this.errors);
+      console.log(Object.keys(this.errors).length);
 
+    },
     store() {
-      axios.post(`api/invoice/create`, {
-        userID:this.userID,
-        PONumber: this.form.PONumber,
-        PODate: this.form.PODate,
-        invoiceNumber: this.form.invoiceNumber,
-        invoiceDate: this.form.invoiceDate,
-        invoiceValue: this.form.invoiceValue,
-        CGSTValue: this.form.CGSTValue,
-        SGSTValue: this.form.SGSTValue,
-        IGSTValue: this.form.IGSTValue,
-        paymentReceived: this.form.paymentReceived,
-      })
-        .then((response) => {
-          console.log(response);
-          this.goBack();
-          this.notification("Invoice added successfully", "success");
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.post(`api/invoice/create`, {
+          userID:this.userID,
+          PONumber: this.form.PONumber,
+          PODate: this.form.PODate,
+          invoiceNumber: this.form.invoiceNumber,
+          invoiceDate: this.form.invoiceDate,
+          invoiceValue: this.form.invoiceValue,
+          CGSTValue: this.form.CGSTValue,
+          SGSTValue: this.form.SGSTValue,
+          IGSTValue: this.form.IGSTValue,
+          paymentReceived: this.form.paymentReceived,
         })
-        .catch((error) => {
-          this.error = error;
-          //this.goBack();
-          this.notification("Invoice number should not be same or Something went wrong", "error");
-        });
-      this.form = {};
+          .then(() => {
+            this.goBack();
+            this.notification("Invoice added successfully", "success");
+          })
+          .catch((error) => {
+            this.error = error;
+            //this.goBack();
+            this.notification("Invoice number should not be same or Something went wrong", "error");
+          });
+        this.form = {};
+      }
     },
 
     update() {
-      axios.put(`api/invoice/edit/${this.id}`, this.form).then(() => {
-        this.notification("Invoice updated successfully", "success");
-        this.goBack();
-      });
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.put(`api/invoice/edit/${this.id}`, this.form).then(() => {
+          this.notification("Invoice updated successfully", "success");
+          this.goBack();
+        });
+      }
     },
   },
 };

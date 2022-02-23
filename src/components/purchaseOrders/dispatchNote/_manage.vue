@@ -34,6 +34,7 @@
                 class="form-control"
                 placeholder="e-Way Bill Number"
               />
+              <p class="text-danger text-xs" >{{ errors['eWayBillNumber'] }}</p>
             </div>
           </div>
           <div class="row mt-2">
@@ -45,6 +46,7 @@
                 class="form-control"
                 placeholder="PO Number"
               />
+              <p class="text-danger text-xs" >{{ errors['PONumber'] }}</p>
             </div>
             <div class="col-4">
               <label class="form-control-label">PO Date</label>
@@ -53,6 +55,7 @@
                 type="date"
                 class="form-control"
               />
+              <p class="text-danger text-xs" >{{ errors['PODate'] }}</p>
             </div>
           </div>
         </div>
@@ -67,6 +70,7 @@
                 class="form-control"
                 placeholder="Enter No of Carton Loaded"
               />
+              <p class="text-danger text-xs" >{{ errors['NumberOfCarton'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Transporter Details</label>
@@ -96,6 +100,7 @@
                 class="form-control"
                 placeholder="Enter Driver Contact"
               />
+              <p class="text-danger text-xs" >{{ errors['DriverContact'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Vehicle Number</label>
@@ -124,6 +129,7 @@
                 placeholder="Enter Total No. of Packages"
                 v-model="form.totalNoOfPackages"
               />
+              <p class="text-danger text-xs" >{{ errors['totalNoOfPackages'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Net Weight in Kgs</label>
@@ -132,6 +138,7 @@
                 placeholder="Enter Net Weight"
                 v-model="form.netWeightInKgs"
               />
+              <p class="text-danger text-xs" >{{ errors['netWeightInKgs'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Gross Weight in Kgs</label>
@@ -140,6 +147,7 @@
                 placeholder="Enter Gross Weight"
                 v-model="form.grossWeightInKgs"
               />
+              <p class="text-danger text-xs" >{{ errors['grossWeightInKgs'] }}</p>
             </div>
           </div>
           <div class="row mt-2">
@@ -194,6 +202,7 @@
 import axios from "axios";
 import _ from 'lodash';
 import {mapGetters} from "vuex";
+import DispatchNoteValidations from "../../../services/DispatchNoteValidations";
 
 export default {
   components: {},
@@ -218,6 +227,7 @@ export default {
         deliveryLocation: "",
         eMetroRepresentativeID: "",
       },
+      errors:[],
     };
   },
   mounted() {
@@ -243,9 +253,27 @@ export default {
     submit() {
       this.editing ? this.update() : this.store();
     },
+    checkValidation(){
+      let validations = new DispatchNoteValidations(
+                                                      this.form.PONumber,
+                                                      this.form.NumberOfCarton,
+                                                      this.form.DriverContact,
+                                                      this.form.eWayBillNumber,
+                                                      this.form.totalNoOfPackages,
+                                                      this.form.netWeightInKgs,
+                                                      this.form.grossWeightInKgs
+                                                    );
+      this.errors= validations.checkValidations();
+       console.log(this.errors);
+       console.log(Object.keys(this.errors).length);
+    },
     store() {
-      axios
-        .post(`api/desPatchNote/create`, {
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.post(`api/desPatchNote/create`, {
           userID:this.userID,
           DCNumber: this.form.DCNumber,
           DateOfDeliverChallan: this.form.DateOfDeliverChallan,
@@ -263,23 +291,30 @@ export default {
           deliveryLocation: this.form.deliveryLocation,
           eMetroRepresentativeID: this.form.eMetroRepresentativeID,
         })
-        .then(() => {
-          this.goBack();
-          this.notification("Dispatch Note added Successfully","success");
-        })
-        .catch((error) => {
-          this.error = error;
-          this.notification("Something went Wrong","error");
-        });
-      this.form = {};
+          .then(() => {
+            this.goBack();
+            this.notification("Dispatch Note added Successfully","success");
+          })
+          .catch((error) => {
+            this.error = error;
+            this.notification("Something went Wrong","error");
+          });
+        this.form = {};
+      }
     },
 
     update() {
-      axios.put(`api/desPatchNote/edit/${this.id}`, this.form)
-        .then(() => {
-        this.goBack();
-        this.notification("Dispatch Note updated Successfully","success");
-      });
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.put(`api/desPatchNote/edit/${this.id}`, this.form)
+          .then(() => {
+            this.goBack();
+            this.notification("Dispatch Note updated Successfully","success");
+          });
+      }
     },
   },
 };

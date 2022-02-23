@@ -93,12 +93,12 @@ export default {
         {
          // this.$router.push( this.$route.query.redirectFrom || {name: 'Dashboard'} );
           this.$router.go({path:this.$route.query.redirectFrom} || {path: '/'});
-          console.log('success');
+          //console.log('success');
         }
         else if(!response)
         {
           this.errorMsg = "These credentials do not match our records.";
-          console.log('error');
+          //console.log('error');
         }
       })
     }

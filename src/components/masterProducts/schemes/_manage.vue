@@ -102,7 +102,6 @@
               />
             </div>
             <div class="col-sm">
-              <!--              <label class=" form-control-label">Active</label>-->
               <div class="mt-5 pl-5">
                 <div class="custom-control custom-switch">
                   <input
@@ -122,9 +121,11 @@
             <div class="col-4">
               <label class="form-control-label">Scheme Number</label>
               <input
+                type="text"
                 class="form-control"
                 placeholder="Scheme Number-Auto Generated"
                 v-model="schemaNumber"
+                disabled
               />
             </div>
           </div>
@@ -205,7 +206,7 @@ export default {
   methods: {
     fetch() {
       axios.get(`api/schema/get/${this.id}`).then((response) => {
-        console.log(response.data[0]);
+        //console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
         this.EANCode = response.data[0].EANCode;
         this.form.dateOfAvailability = response.data[0].validity;
@@ -247,7 +248,7 @@ export default {
           schemaNumber: this.schemaNumber,
         })
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           this.status=response.status;
           if(this.status==200){
             this.notification("Scheme Uploaded Successfully", "success");

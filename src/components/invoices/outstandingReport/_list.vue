@@ -58,7 +58,7 @@ export default {
       axios.get(`api/vendorPaymentReport/getOutStandingReport`)
         .then(response=>{
           this.outstandingReportData = response.data;
-          console.log(response.data);
+          //console.log(response.data);
           this.visible = true;
           this.loading = false;
         })

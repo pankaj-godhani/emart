@@ -130,7 +130,7 @@ export default {
       axios.get(`api/invoice/get`)
       .then(response=>{
         this.invoiceData= response.data;
-        console.log(this.invoiceData);
+        //console.log(this.invoiceData);
       })
     },
     uploadExcel() {
@@ -143,7 +143,7 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           this.status = response.status;
           if (this.status == 200) {
             this.notification("File Uploaded Successfully", "success");
@@ -165,10 +165,10 @@ export default {
       })
         .then((response) => {
           FileSaver.saveAs(response.data, 'sampleInvoiceSheet.xlsx');
-          console.log(response);
+         // console.log(response);
         })
         .catch((error) => {
-          console.log(error);
+         // console.log(error);
         })
     }
   }

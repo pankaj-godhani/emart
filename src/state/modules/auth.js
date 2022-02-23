@@ -20,10 +20,6 @@ export const mutations = {
     saveState('auth.user', payLoad.user);
     saveState('auth.isAdmin', payLoad.isAdmin);
     saveState('auth.isActive', payLoad.isActive);
-
-    /*if (user) {
-      window.moment.locale(user.locale ? user.locale : 'de');
-    }*/
   },
 };
 
@@ -72,10 +68,8 @@ export const actions = {
                   isActive: response.data.detail.isActive,
                 });
                 return response.data.token;
-            })
-            .catch((error)=>{
-                  console.log(error,'inside logIn error')
-                });
+            });
+
     },
 
     // Logs out the current user.
@@ -93,31 +87,16 @@ export const actions = {
           }
         })
             .then(response => {
-              //commit('SET_TOKEN', {token:response.data.token,userID:response.data.detail._id,user:response.data.detail});
               return response.data;
-            })
-          .catch((error)=>{
-            console.log(error,'register error');
-          });
+            });
 
     },
 
     // Validates the current user's token and refreshes it  with new data from the API.
-    validate({ state,getters,dispatch}) {
+    validate({ state,getters}) {
         if (!state.token) {
             return Promise.resolve(null);
         }
-        /*else{
-          axios.interceptors.response.use(response=>{
-            /!*if(response.status===500 || response.status===419){
-              return dispatch('logOut');
-            }
-            else{
-              return getters.getToken;
-            }*!/
-            console.log(response,'interceptors')
-          })
-        }*/
       return getters.getToken;
     },
 

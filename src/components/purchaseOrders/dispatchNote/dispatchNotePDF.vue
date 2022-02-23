@@ -14,6 +14,17 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-5"><h4 class="px-4 text-dark"> Date of Deliver Challan No </h4></div>
+        <div class="col-2">
+          <h4>:</h4>
+        </div>
+        <div class="col-5">
+                  <span class="px-2 font-weight-400">
+                    {{data.DateOfDeliverChallan?changeDateFormat(data.DateOfDeliverChallan):''}}
+                  </span>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-5"><h4 class="px-4 text-dark"> PO Number </h4></div>
         <div class="col-2">
           <h4>:</h4>
@@ -24,6 +35,7 @@
                   </span>
         </div>
       </div>
+
       <div class="row">
         <div class="col-5"><h4 class="px-4 text-dark"> PO Date </h4></div>
         <div class="col-2">
@@ -31,7 +43,7 @@
         </div>
         <div class="col-5">
                   <span class="px-2 font-weight-400">
-                    {{changeDateFormat(data.PODate)}}
+                    {{data.PODate?changeDateFormat(data.PODate):''}}
                   </span>
         </div>
       </div>

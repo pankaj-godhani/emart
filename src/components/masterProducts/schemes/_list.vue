@@ -66,7 +66,7 @@
         <div class="text-center mt-4" v-if="loading">
           <div class="spinner-border" role="status"></div>
         </div>
-        <div v-else-if="visibleScheme">
+        <div v-else-if="visible">
           <Table>
             <template v-slot:thead>
               <tr>
@@ -215,16 +215,16 @@ export default {
       return highBound;
     },
     from() {
-      return this.visibleScheme ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1);
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1);
     },
     total() {
-      return this.visibleScheme ? this.schemeData.length : 0;
+      return this.visible ? this.schemeData.length : 0;
     },
   },
   data() {
     return {
       currentPage:1,
-      visibleScheme: false,
+      visible: false,
       error: "",
       status: "",
       form: {
@@ -254,7 +254,7 @@ export default {
       this.deleting = type;
     },
     onChange(){
-      console.log(event.target.value);
+      //console.log(event.target.value);
       this.fetchSchemes();
     },
     fetchSchemes() {
@@ -272,16 +272,16 @@ export default {
           this.schemeData = response.data;
           this.status = response.status;
           if(this.status===200){
-            this.visibleScheme = true;
+            this.visible = true;
           }
           else{
-            this.visibleScheme = false;
+            this.visible = false;
           }
           this.loading = false;
         })
         .catch((error) => {
           this.error=error;
-          this.visibleScheme = false;
+          this.visible = false;
           this.loading = false;
         });
     },

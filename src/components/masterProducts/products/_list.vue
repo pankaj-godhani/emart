@@ -275,6 +275,13 @@ export default {
     this.fetchProduct();
   },
   methods: {
+    onChange(){
+      console.log(event.target.value);
+      this.fetchProduct();
+    },
+    orderTableData(name,type){
+      this.productData = _.orderBy( this.productData,[name],[type]);
+    },
     getPriceApprovalValue(){
       var selectedIds=[];
       selectedIds =  this.selected;
@@ -288,23 +295,12 @@ export default {
       }
     this.priceApprovalValue =priceApprovalValue;
     },
-
-    onChange(){
-      console.log(event.target.value);
-      this.fetchProduct();
-    },
-
-    orderTableData(name,type){
-     this.productData = _.orderBy( this.productData,[name],[type]);
-      console.log(this.productData,'sort');
-    },
     approveProduct(){
       this.loaderApprove=true;
       axios.put(`api/product/changeStatusPriceApproval`,{
         "productIdList" : this.selected,
         "priceApproval" : true,
-      },
-      )
+      })
       .then(()=>{
         this.loaderApprove=false;
         this.$router.go();
@@ -335,7 +331,6 @@ export default {
     resetForm() {
       this.form = {};
       this.fetchProduct();
-      //this.$router.go();
     },
     fetchProduct() {
       this.loading = true;

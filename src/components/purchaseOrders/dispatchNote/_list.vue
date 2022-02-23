@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <card
       class="no-border-card"
       body-classes="px-0 pb-1 py-3"
@@ -93,9 +92,9 @@
               <tr v-for="(data, index) in pagedData" :key="data._id">
                 <td>{{ index + 1 }}</td>
                 <td>{{ data.DCNumber }}</td>
-                <td>{{ changeDateFormat(data.DateOfDeliverChallan) }}</td>
+                <td :class="data.DateOfDeliverChallan?'':'text-xl'">{{ data.DateOfDeliverChallan?changeDateFormat(data.DateOfDeliverChallan) :'-'}}</td>
                 <td>{{ data.PONumber }}</td>
-                <td>{{ changeDateFormat(data.PODate) }}</td>
+                <td :class="data.PODate?'':'text-xl'">{{ data.PODate?changeDateFormat(data.PODate):'-' }}</td>
                 <td>{{ data.NumberOfCarton }}</td>
                 <td>{{ data.TransporterDetails }}</td>
                 <td>{{ data.DriverName }}</td>
@@ -276,7 +275,7 @@ export default {
       this.deleting = type;
     },
     onChange(){
-      console.log(event.target.value);
+      //console.log(event.target.value);
       this.fetchDispatchNote();
     },
     downloadLabel(id){
@@ -297,13 +296,10 @@ export default {
         this.status=response.status;
         if(this.status===200){
           this.visible=true;
-          console.log('status is 200');
         }
         else if(this.status===201){
           this.visible=false;
-          console.log('status is 201');
         }
-        console.log('outside');
         this.loading = false;
       })
       .catch((error)=>{

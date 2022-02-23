@@ -13,12 +13,12 @@
                     class="form-control"
                     type="text"
                     placeholder="Scheme Name"
-                    v-model="form.schemaName"
+                    v-model="form_new.schemaName"
                   />
                 </div>
                 <div class="col-sm">
                   <label class="form-control-label">Date</label>
-                  <input class="form-control" type="date" v-model="form.date"/>
+                  <input class="form-control" type="date" v-model="form_new.date"/>
                 </div>
               </div>
               <div class="row">
@@ -35,7 +35,7 @@
                   <input
                     class="form-control"
                     placeholder="Enter Product Name"
-                    v-model="form.productName"
+                    v-model="form_new.productName"
                   />
                 </div>
               </div>
@@ -45,7 +45,7 @@
                   <input
                     class="form-control"
                     placeholder="Enter Quantity"
-                    v-model="form.quantity"
+                    v-model="form_new.quantity"
                   />
                 </div>
                 <div class="col-sm">
@@ -53,7 +53,7 @@
                   <input
                     class="form-control"
                     placeholder="Enter Free Quantity"
-                    v-model="form.freeQuantity"
+                    v-model="form_new.freeQuantity"
                   />
                 </div>
               </div>
@@ -66,7 +66,7 @@
                   <input
                     class="form-control"
                     placeholder="Enter Net PTR"
-                    v-model="form.netPTR"
+                    v-model="form_new.netPTR"
                   />
                 </div>
                 <div class="col-sm">
@@ -74,7 +74,7 @@
                   <input
                     class="form-control"
                     placeholder="Enter UOM"
-                    v-model="form.UOM"
+                    v-model="form_new.UOM"
                   />
                 </div>
 
@@ -85,7 +85,7 @@
                   <input
                     class="form-control"
                     placeholder="Enter Discount"
-                    v-model="form.discount"
+                    v-model="form_new.discount"
                   />
                 </div>
                 <div class="col-sm">
@@ -93,7 +93,7 @@
                   <input
                     class="form-control"
                     type="date"
-                    v-model="form.dateOfAvailability"
+                    v-model="form_new.dateOfAvailability"
                   />
                 </div>
 
@@ -104,15 +104,17 @@
                   <input
                     class="form-control"
                     placeholder="Enter Narration"
-                    v-model="form.nararation"
+                    v-model="form_new.nararation"
                   />
                 </div>
                 <div class="col-sm">
                   <label class="form-control-label">Scheme Number</label>
                   <input
+                    type="text"
                     class="form-control"
                     placeholder="Scheme Number-Auto Generated"
-                    v-model="form.schemaNumber"
+                    v-model="form_new.schemaNumber"
+                    disabled
                   />
                 </div>
 
@@ -125,7 +127,7 @@
                         type="checkbox"
                         class="custom-control-input pr-0"
                         id="customSwitch1"
-                        v-model="form.active"
+                        v-model="form_new.active"
                       />
                       <label class="custom-control-label" for="customSwitch1">Active</label>
                     </div>
@@ -171,20 +173,8 @@ export default {
   data(){
     return{
       status:"",
-      /*form:{
-        schemaName: "",
-        date: "",
-        productName: "",
-        quantity: "",
-        freeQuantity: "",
-        netPTR: "",
-        UOM: "",
-        discount: "",
-        dateOfAvailability: "",
-        nararation: "",
-        active: true,
-        schemaNumber: Math.floor(Math.random() * 100000),
-      },*/
+      EANCode_new:this.EANCode,
+      form_new:this.form,
     }
   },
   emits:['refresh'],
@@ -193,32 +183,28 @@ export default {
     userID(){
       return store.getters['auth/getUserID']
     },
-   /* ...mapGetters('auth',{
-
-      userID:'getUserID',
-    }),*/
   },
   mounted(){
-    this.form.schemaNumber=Math.floor(Math.random() * 100000);
+    this.form_new.schemaNumber=Math.floor(Math.random() * 100000);
   },
   methods:{
     storeScheme() {
 
       axios.post(`api/schema/create`, {
           userID:this.userID,
-          schemaName: this.form.schemaName,
-          date: this.form.date,
-          productName: this.form.productName,
-          EANCode: this.EANCode,
-          quantity: this.form.quantity,
-          freeQuantity: this.form.freeQuantity,
-          netPTR: this.form.netPTR,
-          UOM: this.form.UOM,
-          discount: this.form.discount,
-          validity: this.form.dateOfAvailability,
-          nararation: this.form.nararation,
-          active: this.form.active,
-          schemaNumber: this.form.schemaNumber,
+          schemaName: this.form_new.schemaName,
+          date: this.form_new.date,
+          productName: this.form_new.productName,
+          EANCode: this.EANCode_new,
+          quantity: this.form_new.quantity,
+          freeQuantity: this.form_new.freeQuantity,
+          netPTR: this.form_new.netPTR,
+          UOM: this.form_new.UOM,
+          discount: this.form_new.discount,
+          validity: this.form_new.dateOfAvailability,
+          nararation: this.form_new.nararation,
+          active: this.form_new.active,
+          schemaNumber: this.form_new.schemaNumber,
         })
         .then((response) => {
           this.status=response.status;
@@ -237,7 +223,6 @@ export default {
           this.$emit('refresh');
           this.$emit('close');
         });
-      //  this.form = {};
     },
   }
 }

@@ -31,8 +31,8 @@
           <tr v-for="(data,index) in creditData" :key="data._id">
             <td>{{ index+1 }}</td>
             <td>{{ data.productName }}</td>
-            <td>{{ data.vendorInvoiceRef_Date }}</td>
-            <td>{{ data.eMetroPoRef_Date }}</td>
+            <td :class="data.vendorInvoiceRef_Date?'':'text-xl'">{{data.vendorInvoiceRef_Date? changeDateFormat(data.vendorInvoiceRef_Date):'-'}}</td>
+            <td :class="data.eMetroPoRef_Date?'':'text-xl'">{{data.eMetroPoRef_Date?changeDateFormat(data.eMetroPoRef_Date):'-' }}</td>
             <td>{{ data.description }}</td>
             <td>{{ data.itemQuantity }}</td>
             <td>{{ data.HSNCode }}</td>
@@ -178,9 +178,7 @@ export default {
       axios.get(`api/creditMemo/getAllUserCreditMemo`)
         .then(response=>{
           this.creditData = response.data;
-          console.log(response.data);
           this.status = response.status;
-          console.log(this.status);
           if(this.status===200){
             this.visible=true;
           }

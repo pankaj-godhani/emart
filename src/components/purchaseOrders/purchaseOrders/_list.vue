@@ -1,13 +1,11 @@
 <template>
   <div>
-
     <card
       class="no-border-card"
       body-classes="px-0 pb-1 py-3"
       footer-classes="pb-2"
     >
       <form>
-
         <div class="d-flex flex-row mb-3">
           <div class="pl-1" v-if="isAdmin===true">
             <select class="form-control" @change="onChange($event)" v-model="form.userID" style="width:150px;">
@@ -72,7 +70,6 @@
           <template #thead>
             <tr>
               <th>Sr No</th>
-              <!--                  <th>ID</th>-->
               <th>Date</th>
               <th>PO Number</th>
               <th>No. of Items</th>
@@ -105,7 +102,7 @@
           <template #tbody>
             <tr  v-for="(data, index) in purchaseOrdersData" @click="goToData(data._id)" :key="data._id">
               <td>{{ index + 1 }}</td>
-              <td>{{ changeDateFormat(data.PODate)  }}</td>
+              <td :class="data.PODate?'':'text-xl'">{{ data.PODate?changeDateFormat(data.PODate):'-'}}</td>
               <td>{{ data.PONumber }}</td>
               <td>{{ data.NoOfItems }}</td>
               <td>{{ data.value }}</td>
@@ -133,7 +130,6 @@
               <td>{{ data.documentUpload }}</td>
               <td>{{ data.deliveryLocation }}</td>
             </tr>
-
           </template>
         </Table>
       </div>
@@ -166,7 +162,6 @@
 import BasePagination from "@/components/BasePagination";
 import axios from "axios";
 import UserData from "../../../mixins/UserData";
-//import {mapGetters} from "vuex";
 
 export default {
   mixins: [UserData],

@@ -2,7 +2,6 @@
   <card>
     <form>
       <div class="text-center mb-4">
-
         <div v-if="imageURL!=null">
           <img :src="imageURL" class="rounded" style="height: 125px; width: 125px" alt="100x100">
         </div>
@@ -12,16 +11,17 @@
             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
           </svg>
         </div>
-
       </div>
 
       <div class="form-row justify-content-center">
         <div class="form-group col-md-5">
-          <input  class="form-control"
+          <input
+            class="form-control"
                   type="file"
                   ref="file1"
                   @change="getImage"
-                  accept="image/*"/>
+                  accept="image/*"
+          />
         </div>
       </div>
 
@@ -234,7 +234,6 @@
         </div>
 
       </div>
-
       <div class="row pb-3">
         <div class="col-sm-4">
           <label class="form-control-label">Vendor Type</label>
@@ -261,7 +260,9 @@
         </div>
 
       </div>
+
       <h3 class="mt-3"><b>Bank Details</b></h3>
+
       <div class="row pb-3">
         <div class="col-sm">
           <label class="form-control-label">Bank Name</label>
@@ -291,15 +292,10 @@
             v-model="form.IFSCCode"
           />
         </div>
-
-
       </div>
 
       <div class="d-flex float-right">
         <div class="pr-2">
-<!--          <router-link :to="{ name: 'Profile' }">
-            <base-button outline type="default" @click="goBack">Cancel</base-button>
-          </router-link>-->
           <button class="btn btn-outline-default" @click.prevent="$router.go(-1)">Cancel</button>
         </div>
         <div>
@@ -320,7 +316,6 @@
             Submit
           </button>
         </div>
-
       </div>
     </form>
   </card>
@@ -328,7 +323,6 @@
 
 <script>
 import axios from "axios";
-//import {mapGetters} from "vuex";
 import { authMethods } from "../../state/helpers";
 import SignupValidations from "../../services/SignupValidations";
 
@@ -337,7 +331,6 @@ export default {
   props:['id'],
   data(){
     return{
-      //userData:[],
       imageURL: null,
       countries:[],
       states:[],
@@ -367,7 +360,6 @@ export default {
         state: "",
         city: "",
         vendor_Code: "",
-        system_vendor_id: "",
         isAdmin:false,
         isActive:false,
         file:null,
@@ -376,7 +368,6 @@ export default {
       system_Vendor_id:'',
     }
   },
-
   computed:{
     editing() {
       return !!this.id;
@@ -402,7 +393,6 @@ export default {
     fetch(){
       axios.get(`api/auth/user/${this.id}`)
       .then(response=>{
-        console.log(response);
         this.form=response.data[0];
         this.form.state=this.getStates();
       });
@@ -424,25 +414,25 @@ export default {
     },
     checkValidation(){
       let validations =new SignupValidations(
-                                    this.form.email,
-        this.form.mobileNumber,
-        this.form.postal_Code,
-        this.form.accountNumber,
-        this.form.vendor_name,
-        this.form.firstName,
-        this.form.middleName,
-        this.form.lastName,
-        this.form.address_Line1,
-        this.form.address_Line2,
-        this.form.vendor_Code,
-        this.form.country_id,
-        this.form.state,
-        this.form.city,
-        this.form.vendorType
-      );
+                                  this.form.email,
+                                  this.form.mobileNumber,
+                                  this.form.postal_Code,
+                                  this.form.accountNumber,
+                                  this.form.vendor_name,
+                                  this.form.firstName,
+                                  this.form.middleName,
+                                  this.form.lastName,
+                                  this.form.address_Line1,
+                                  this.form.address_Line2,
+                                  this.form.vendor_Code,
+                                  this.form.country_id,
+                                  this.form.state,
+                                  this.form.city,
+                                  this.form.vendorType
+                                );
       this.errors= validations.checkValidations();
-      console.log(this.errors);
-      console.log(Object.keys(this.errors).length);
+     // console.log(this.errors);
+     // console.log(Object.keys(this.errors).length);
     },
     onUpdate(){
       this.checkValidation();
@@ -479,8 +469,6 @@ export default {
         formData.append('isAdmin',this.form.isAdmin);
         formData.append('isActive',this.form.isActive);
         formData.append('file',this.form.file);
-        console.log(formData);
-
         axios.put(`api/auth/edit/${this.id}`,formData,{
           header: {
             'Content-Type': 'multipart/form-data'
@@ -528,7 +516,6 @@ export default {
           "gstNo": ""*/
         },)
           .then(response=>{
-            console.log(response)
             this.system_Vendor_id=response.data.data;
             this.store();
           })
@@ -567,22 +554,13 @@ export default {
       formData.append('isActive',this.form.isActive);
       formData.append('file',this.form.file);
       formData.append('system_Vendor_id',this.system_Vendor_id);
-     /* if(this.system_Vendor_id===null || this.system_Vendor_id==='')
-      {
-        return formData
-      }
-      else {
-        return formData.append('system_Vendor_id',this.system_Vendor_id);
-      }*/
       axios.post(`api/auth/create`,formData,{
           header: {
             'Content-Type': 'multipart/form-data'
           }
         })
         .then((response)=>{
-          console.log(response);
           this.status = response.status;
-          console.log(this.status)
           if(this.status===200)
           {
             this.notification('User created successfully','success');
@@ -592,8 +570,6 @@ export default {
           {
             this.errMessage = response.data.message;
           }
-        //this.notification('User created successfully','success');
-
       })
         .catch(()=>{
           this.notification('Something went wrong','error');

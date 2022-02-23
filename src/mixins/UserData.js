@@ -19,7 +19,7 @@ module.exports={
         axios.get(`api/auth/getAllUser`)
           .then(response=>{
             this.UserData=response.data.userList;
-            console.log(this.userData);
+            //console.log(this.userData);
           });
       }
 

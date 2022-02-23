@@ -30,8 +30,8 @@
           <tr v-for="(data,index) in debitData" :key="data._id">
             <td>{{ index+1 }}</td>
             <td>{{ data.productName }}</td>
-            <td>{{changeDateFormat(data.vendorInvoiceRef_Date) }}</td>
-            <td>{{ changeDateFormat(data.eMetroPoRef_Date) }}</td>
+            <td :class="data.vendorInvoiceRef_Date?'':'text-xl'">{{data.vendorInvoiceRef_Date?changeDateFormat(data.vendorInvoiceRef_Date):'-' }}</td>
+            <td :class="data.eMetroPoRef_Date?'':'text-xl'">{{ data.eMetroPoRef_Date?changeDateFormat(data.eMetroPoRef_Date):'-' }}</td>
             <td>{{ data.description }}</td>
             <td>{{ data.itemQuantity }}</td>
             <td>{{ data.HSNCode }}</td>
@@ -177,10 +177,10 @@ export default {
       this.loading = true;
       axios.get(`api/debitMemo/getAllUserDebitMemo`)
         .then(response=>{
-          console.log(response);
+          //console.log(response);
           this.debitData = response.data;
           this.status = response.status;
-          console.log(this.status);
+          //console.log(this.status);
           if(this.status===200){
             this.visible=true;
           }
