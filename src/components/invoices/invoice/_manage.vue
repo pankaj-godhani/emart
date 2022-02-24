@@ -162,7 +162,6 @@ export default {
   methods: {
     fetch() {
       axios.get(`api/invoice/get/${this.id}`,).then((response) => {
-        //console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
       });
     },
@@ -179,9 +178,6 @@ export default {
                                                 this.form.IGSTValue
                                               );
       this.errors = validation.checkValidations();
-      console.log(this.errors);
-      console.log(Object.keys(this.errors).length);
-
     },
     store() {
       this.checkValidation();
@@ -207,7 +203,6 @@ export default {
           })
           .catch((error) => {
             this.error = error;
-            //this.goBack();
             this.notification("Invoice number should not be same or Something went wrong", "error");
           });
         this.form = {};

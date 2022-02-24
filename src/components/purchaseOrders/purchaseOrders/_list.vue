@@ -31,7 +31,6 @@
               class="form-control"
               placeholder="to"
               v-model="form.endDate"
-              @mouseout="fetchPurchaseOrders"
             />
           </div>
           <div class="px-2">

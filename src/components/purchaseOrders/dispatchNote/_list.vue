@@ -32,7 +32,6 @@
                 class="form-control"
                 placeholder="to"
                 v-model="form.endDate"
-                @mouseout="fetchDispatchNote"
               />
             </div>
             <div class="px-2">

@@ -27,8 +27,9 @@
                   <input
                     class="form-control"
                     placeholder="Enter EAN Code"
-                    v-model="EANCode"
+                    v-model="EANCode_new"
                   />
+                  <p class="text-danger text-xs" >It should be number.</p>
                 </div>
                 <div class="col-sm">
                   <label class="form-control-label">Product Name</label>
@@ -47,6 +48,7 @@
                     placeholder="Enter Quantity"
                     v-model="form_new.quantity"
                   />
+                  <p class="text-danger text-xs" >It should be number.</p>
                 </div>
                 <div class="col-sm">
                   <label class="form-control-label">Free Quantity</label>
@@ -55,6 +57,7 @@
                     placeholder="Enter Free Quantity"
                     v-model="form_new.freeQuantity"
                   />
+                  <p class="text-danger text-xs" >It should be number.</p>
                 </div>
               </div>
             </div>
@@ -87,6 +90,7 @@
                     placeholder="Enter Discount"
                     v-model="form_new.discount"
                   />
+                  <p class="text-danger text-xs" >It should be number.</p>
                 </div>
                 <div class="col-sm">
                   <label class="form-control-label">Validity</label>
@@ -164,7 +168,6 @@
 
 <script>
 import axios from "axios";
-//import {mapGetters} from "vuex";
 import store from "../../../state/store";
 
 export default {
@@ -189,7 +192,6 @@ export default {
   },
   methods:{
     storeScheme() {
-
       axios.post(`api/schema/create`, {
           userID:this.userID,
           schemaName: this.form_new.schemaName,

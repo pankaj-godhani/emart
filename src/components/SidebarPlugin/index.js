@@ -32,10 +32,13 @@ const SidebarStore = reactive({
       docClasses.add("g-sidenav-hidden");
       docClasses.remove("g-sidenav-pinned");
       docClasses.remove("g-sidenav-show");
+
     } else {
       docClasses.add("g-sidenav-pinned");
       docClasses.add("g-sidenav-show");
       docClasses.remove("g-sidenav-hidden");
+      docClasses.add("d-block");
+      docClasses.remove("d-none");
     }
     if (this.hovered) {
       docClasses.add("g-sidenav-show");
@@ -45,7 +48,9 @@ const SidebarStore = reactive({
     this.hovered = true;
     if (this.isMinimized) {
       document.body.classList.add("g-sidenav-show");
+      document.body.classList.add("d-block");
       document.body.classList.remove("g-sidenav-hidden");
+      document.body.classList.remove("d-none");
     }
   },
   onMouseLeave() {

@@ -13,6 +13,7 @@
                 v-model="EANCode"
                 @keyup="fetchByEANCode"
               />
+              <p class="text-danger text-xs" >{{ errors['EANCode'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Date</label>
@@ -45,6 +46,7 @@
                 placeholder="Enter Quantity"
                 v-model="form.quantity"
               />
+              <p class="text-danger text-xs" >{{ errors['quantity'] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Free Quantity</label>
@@ -53,6 +55,7 @@
                 placeholder="Enter Free Quantity"
                 v-model="form.freeQuantity"
               />
+              <p class="text-danger text-xs" >{{ errors['freeQuantity'] }}</p>
             </div>
           </div>
         </div>
@@ -82,6 +85,7 @@
                 placeholder="Enter Discount"
                 v-model="form.discount"
               />
+              <p class="text-danger text-xs" >{{ errors['discount'] }}</p>
             </div>
           </div>
           <div class="row mt-4">
@@ -165,6 +169,7 @@
 import axios from "axios";
 import _ from "lodash";
 import {mapGetters} from "vuex";
+import SchemeValidations from "../../../services/SchemeValidations";
 export default {
   components: {},
   props: ["id"],
@@ -172,6 +177,7 @@ export default {
     return {
       status:"",
       error: "",
+      errors: "",
       EANCode: "",
       productData:[],
       schemaNumber: Math.floor(Math.random() * 100000),
@@ -206,7 +212,6 @@ export default {
   methods: {
     fetch() {
       axios.get(`api/schema/get/${this.id}`).then((response) => {
-        //console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
         this.EANCode = response.data[0].EANCode;
         this.form.dateOfAvailability = response.data[0].validity;
@@ -229,9 +234,24 @@ export default {
           this.form={}
         });
     },
-
+    checkValidation(){
+      let validations = new SchemeValidations(
+                                                this.EANCode,
+                                                this.form.quantity,
+                                                this.form.freeQuantity,
+                                                this.form.discount
+                                              );
+      this.errors = validations.checkValidations();
+      console.log(this.errors);
+      console.log(Object.keys(this.errors).length);
+    },
     store() {
-      axios.post(`api/schema/create`, {
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.post(`api/schema/create`, {
           userID :this.userID,
           schemaName: this.form.schemaName,
           date: this.form.date,
@@ -247,34 +267,39 @@ export default {
           active: this.form.active,
           schemaNumber: this.schemaNumber,
         })
-        .then((response) => {
-          //console.log(response);
-          this.status=response.status;
-          if(this.status==200){
-            this.notification("Scheme Uploaded Successfully", "success");
-            this.goBack();
-          }
-          else if(this.status==201){
-            this.notification(""+response.data.message, "error");
-          }
-        })
-        .catch((error) => {
-          this.error = error;
-          //this.goBack();
-          this.notification("Something went wrong", "error");
-        });
-      this.form = {};
+          .then((response) => {
+            this.status=response.status;
+            if(this.status==200){
+              this.notification("Scheme Uploaded Successfully", "success");
+              this.goBack();
+            }
+            else if(this.status==201){
+              this.notification(""+response.data.message, "error");
+            }
+          })
+          .catch((error) => {
+            this.error = error;
+            this.notification("Something went wrong", "error");
+          });
+        this.form = {};
+      }
     },
 
     update() {
-      axios.put(`api/schema/edit/${this.id}`, this.form)
-        .then(() => {
-        this.notification("Scheme updated successfully", "success");
-        this.goBack();
-      })
-      .catch(()=>{
-        this.notification("Something went wrong", "error");
-      });
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.put(`api/schema/edit/${this.id}`, this.form)
+          .then(() => {
+            this.notification("Scheme updated successfully", "success");
+            this.goBack();
+          })
+          .catch(()=>{
+            this.notification("Something went wrong", "error");
+          });
+      }
     },
   },
 };

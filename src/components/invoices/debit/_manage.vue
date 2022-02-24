@@ -3,7 +3,6 @@
     <div class="container ct-example-row">
       <form @submit="submit" >
         <div>
-<!--          <h3><b>Group Heading 1</b></h3>-->
           <div class="row mt-3">
             <div class="col-sm form-group">
               <label class="form-control-label">Product Name</label>
@@ -207,7 +206,6 @@ export default {
     },
     fetch() {
       axios.get(`api/debitMemo/getAllUserDebitMemo/${this.id}`).then((response) => {
-        //console.log(response.data[0]);
         this.form = _.merge(this.form, response.data[0]);
       });
     },
@@ -224,8 +222,6 @@ export default {
         this.form.amount
       );
       this.errors= validations.checkValidations();
-      console.log(this.errors);
-      console.log(Object.keys(this.errors).length);
     },
     store(){
       this.checkValidation();

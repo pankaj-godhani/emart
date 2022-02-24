@@ -224,7 +224,6 @@ export default {
           },
         })
         .then((response) => {
-          //console.log(response)
           this.purchaseOrdersData = _.merge( this.purchaseOrdersData, response.data[0]);
           this.itemList = this.purchaseOrdersData.itemList;
           this.generateBarCode({id:"#barcodePri",value:this.purchaseOrdersData.PrimaryBarCode});

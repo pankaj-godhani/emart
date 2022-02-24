@@ -30,33 +30,6 @@
               <td>{{data.paymentMode}}</td>
               <td>{{data.amount}}</td>
               <td>{{data.Remarks}}</td>
-<!--              <td>
-                <div class="d-flex">
-                  <div class="pr-2">
-                    <router-link
-                      :to="{ name: 'InvoiceEdit', params: { id: data._id } }"
-                    >
-                      <button
-                        type="button"
-                        class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
-                      >
-                        <i class="text-white ni ni-ruler-pencil"></i>
-                      </button>
-                    </router-link>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                      data-toggle="modal"
-                      data-target="#myModal"
-                      @click.prevent="confirmDelete(data)"
-                    >
-                      <i class="text-white ni ni-fat-remove"></i>
-                    </button>
-                  </div>
-                </div>
-              </td>-->
             </tr>
 
           </template>
@@ -105,7 +78,6 @@ export default {
         invoiceNumber: "",
         userID: "",
       },
-
       visible: false,
       loading: false,
       confirmModal: false,
@@ -157,14 +129,13 @@ export default {
       this.fetch();
     },
     onChange(){
-      //console.log(event.target.value);
+      console.log(event.target.value);
       this.fetch();
     },
     fetch(){
       this.loading = true;
       axios.get(`api/vendorPaymentReport/getPaymentList`)
         .then((response)=>{
-          //console.log(response);
           this.paymentReportData=response.data;
           this.status = response.status;
           if(this.status===200){

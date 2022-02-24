@@ -167,10 +167,9 @@ export default {
       })
         .then((response) => {
           FileSaver.saveAs(response.data, 'sampleProductSheet.xlsx');
-         // console.log(response);
         })
-        .catch((error) => {
-          //console.log(error);
+        .catch(() => {
+          this.notification("Something went wrong. Please try later.","error")
         })
     }
 

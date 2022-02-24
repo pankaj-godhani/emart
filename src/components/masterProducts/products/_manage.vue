@@ -81,6 +81,7 @@
                   placeholder="Enter Self Life in Days of Product"
                   v-model="productDetails.shelfLifeDays"
                 />
+                <p class="text-danger text-xs" >{{ errors['shelfLifeDays'] }}</p>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Quantity</h4>
@@ -90,6 +91,7 @@
                   placeholder="Enter Quantity of Product"
                   v-model="productDetails.quantity"
                 />
+                <p class="text-danger text-xs" >{{ errors['quantity'] }}</p>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Date of Availability</h4>
@@ -114,6 +116,7 @@
                   v-model="productDetails.item_mrp"
                   @keyup="calMargin"
                 />
+                <p class="text-danger text-xs" >{{ errors['item_mrp'] }}</p>
               </div>
               <div class="col-sm">
                 <h4 class="text-dark">Transfer Price</h4>
@@ -123,6 +126,7 @@
                   placeholder="Enter Selling Price of Product"
                   v-model="productDetails.sellingPrice"
                 />
+                <p class="text-danger text-xs" >{{ errors['sellingPrice'] }}</p>
               </div>
               <div class="col-sm">
                 <h4 class="text-dark">Remarks</h4>
@@ -166,6 +170,7 @@
                   v-model="percentage"
                   @keyup="calMargin"
                 />
+                <p class="text-danger text-xs" >{{ errors['percentage'] }}</p>
               </div>
               <div class="col-sm-4">
                 <h4 class="text-dark">Margin</h4>
@@ -176,6 +181,7 @@
                   v-model="productDetails.margin"
                   @keyup="calPercentage"
                 />
+                <p class="text-danger text-xs" >{{ errors['margin'] }}</p>
               </div>
             </div>
             <div v-if="visibleCard">
@@ -209,6 +215,7 @@
 import axios from "axios";
 import ManageScheme from "./_manageScheme"
 import store from "../../../state/store";
+import ProductValidations from "../../../services/ProductValidations";
 export default {
   components: { ManageScheme },
   data() {
@@ -232,6 +239,7 @@ export default {
       status: "",
       visibleProductDetails: false,
       error: "",
+      errors: [],
       loading: false,
       percentage: "",
     };
@@ -279,35 +287,52 @@ export default {
         this.fetchSchemes();
       });
     },
-
+    checkValidation(){
+      let validations = new ProductValidations(
+                                                this.productDetails.shelfLifeDays,
+                                                this.productDetails.quantity,
+                                                this.productDetails.item_mrp,
+                                                this.productDetails.sellingPrice,
+                                                this.productDetails.margin,
+                                                this.percentage
+                                              );
+      this.errors=validations.checkValidations();
+      console.log(this.errors);
+      console.log(Object.keys(this.errors).length);
+    },
     store() {
-      axios
-        .post(`api/product/create`,
+      this.checkValidation();
+      if( Object.keys(this.errors).length){
+        return this.errors;
+      }
+      else{
+        axios.post(`api/product/create`,
           {
-                'userID':this.userID,
-                'EANCode':this.EANCode,
-                'HSNCode':this.productDetails.HSNCode,
-                'brandName':this.productDetails.brandName,
-                'netPTR':this.productDetails.netPTR,
-                'priceApproval':this.productDetails.priceApproval,
-                'productName':this.productDetails.item_name,
-                'productCategory':this.productDetails.categoryName,
-                'SKUCode':this.productDetails.item_code,
-                'UOM':this.productDetails.itemUomCode,
-                'UOMConversation':this.productDetails.itemUomDescription,
-                'quantity':this.productDetails.quantity,
-                'shelfLifeDays':this.productDetails.shelfLifeDays,
-                'dateOfAvailability':this.productDetails.dateOfAvailability,
-                'MRP':this.productDetails.item_mrp,
-                'sellingPrice':this.productDetails.sellingPrice,
-                'margin':this.productDetails.margin,
-                'schemes':this.productDetails.schemes,
-                'remarks':this.productDetails.remarks,
-               })
-        .then(() => {
-          this.notification("Product Updated Successfully", "success");
-          this.goBack();
-        });
+            'userID':this.userID,
+            'EANCode':this.EANCode,
+            'HSNCode':this.productDetails.HSNCode,
+            'brandName':this.productDetails.brandName,
+            'netPTR':this.productDetails.netPTR,
+            'priceApproval':this.productDetails.priceApproval,
+            'productName':this.productDetails.item_name,
+            'productCategory':this.productDetails.categoryName,
+            'SKUCode':this.productDetails.item_code,
+            'UOM':this.productDetails.itemUomCode,
+            'UOMConversation':this.productDetails.itemUomDescription,
+            'quantity':this.productDetails.quantity,
+            'shelfLifeDays':this.productDetails.shelfLifeDays,
+            'dateOfAvailability':this.productDetails.dateOfAvailability,
+            'MRP':this.productDetails.item_mrp,
+            'sellingPrice':this.productDetails.sellingPrice,
+            'margin':this.productDetails.margin,
+            'schemes':this.productDetails.schemes,
+            'remarks':this.productDetails.remarks,
+          })
+          .then(() => {
+            this.notification("Product Updated Successfully", "success");
+            this.goBack();
+          });
+      }
     },
 
   },

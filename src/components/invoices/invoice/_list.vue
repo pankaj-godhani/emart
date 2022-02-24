@@ -29,7 +29,6 @@
               class="form-control"
               placeholder="to"
               v-model="form.endDate"
-              @mouseout="fetch"
             />
           </div>
           <div class="px-2">
@@ -245,7 +244,7 @@ export default {
       this.fetch();
     },
     onChange(){
-      //console.log(event.target.value);
+      console.log(event.target.value);
       this.fetch();
     },
     fetch(){

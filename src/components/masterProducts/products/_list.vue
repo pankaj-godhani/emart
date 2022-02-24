@@ -17,7 +17,7 @@
           footer-classes="pb-2"
         >
           <form @submit.prevent="fetchProduct">
-              <div class="d-flex flex-md-row mb-3 sm">
+              <div class="d-flex flex-md-row mb-3">
 
                 <div v-if="isAdmin===true" class="pl-1">
                   <select class="form-control " @change="onChange($event)" v-model="form.userID" style="width:150px;">
@@ -48,7 +48,7 @@
                     style="width:155px;"
                     placeholder="to"
                     v-model="form.endDate"
-                    @mouseout="fetchProduct"
+
                   />
                 </div>
                 <div class="pl-1">
@@ -93,6 +93,93 @@
                 </div>
               </div>
             </form>
+<!--          <form @submit.prevent="fetchProduct">
+            <div class="container">
+              <div class="row pb-2">
+                <div class="col-md">
+                  <div class="row">
+                    <div v-if="isAdmin===true" class="col-md-1" >
+                      <select class="form-control" @change="onChange($event)" v-model="form.userID" style="width: 120px">
+                        <option disabled selected value>Select User</option>
+                        <option v-for="data in UserData" :key="data._id" :value="data._id">
+                          {{data.firstName}} {{data.lastName}}
+                        </option>
+                      </select>
+
+                    </div>
+                    <div class="col-md-2">
+                      <div class="d-flex ">
+                        <label class="mt-2 px-1">From:</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          style="width: 150px"
+                          placeholder="from"
+                          v-model="form.startDate"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="d-flex pl-1">
+                        <label class="mt-2 pr-1">To:</label>
+                        <input
+                          type="date"
+                          style="width: 150px"
+                          class="form-control "
+                          placeholder="to"
+                          v-model="form.endDate"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <input
+                        style="width: 120px"
+                        type="text"
+                        class="form-control"
+                        placeholder="Product Name"
+                        v-model="form.productName"
+                        @keyup="fetchProduct"
+                      />
+                    </div>
+                    <div class="col-md-1">
+                      <input
+                        class="form-control"
+                        style="width: 120px"
+                        placeholder="EAN Code"
+                        v-model="form.EANCode"
+                      />
+                    </div>
+                    <div class="col-md-1">
+                      <input
+                        class="form-control"
+                        style="width: 120px"
+                        placeholder="SKU Code"
+                        v-model="form.SKUCode"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-flex float-right">
+                    <div class="pl-2">
+                      <base-button type="default" native-type="submit">Search</base-button>
+                    </div>
+                    <div class="pl-1">
+                      <button
+                        type="button"
+                        class="btn base-button btn-default"
+                        @click="resetForm"
+                      >
+                        Reset
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </form>-->
 
           <div class="text-center mt-4" v-if="loading">
               <div class="spinner-border" role="status"></div>
@@ -238,7 +325,6 @@ export default {
     select(){
       return this.selected.length ? true: false;
     },
-
     selectAll: {
       get: function () {
         return this.productData ? this.selected.length == this.productData.length  : false;
@@ -285,9 +371,9 @@ export default {
     getPriceApprovalValue(){
       var selectedIds=[];
       selectedIds =  this.selected;
-     var priceApprovalValue = [];
-      for(let i=0;i<selectedIds.length;i++){
-        this.productData.forEach(function (product) {
+      var priceApprovalValue = [];
+        for(let i=0;i<selectedIds.length;i++){
+         this.productData.forEach(function (product) {
           if(selectedIds[i]===product._id){
             priceApprovalValue.push(product.priceApproval);
           }

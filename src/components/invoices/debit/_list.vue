@@ -177,10 +177,8 @@ export default {
       this.loading = true;
       axios.get(`api/debitMemo/getAllUserDebitMemo`)
         .then(response=>{
-          //console.log(response);
           this.debitData = response.data;
           this.status = response.status;
-          //console.log(this.status);
           if(this.status===200){
             this.visible=true;
           }
