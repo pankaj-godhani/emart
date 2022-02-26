@@ -7,7 +7,7 @@
     >
       <form>
         <div class="d-flex flex-row mb-3">
-          <div class="pl-1" v-if="isAdmin===true">
+<!--          <div class="pl-1" v-if="isAdmin===true">
             <select class="form-control" @change="onChange($event)" v-model="form.userID" style="width:150px;">
               <option disabled selected value>Select User</option>
               <option v-for="data in UserData" :key="data._id" :value="data._id">
@@ -32,13 +32,13 @@
               placeholder="to"
               v-model="form.endDate"
             />
-          </div>
+          </div>-->
           <div class="px-2">
             <input
               type="text"
               placeholder="PO Number"
               class="form-control"
-              v-model="form.PONumber"
+              v-model="form.code"
             />
           </div>
           <div class="pl-2">
@@ -99,11 +99,11 @@
             </tr>
           </template>
           <template #tbody>
-            <tr  v-for="(data, index) in purchaseOrdersData" @click="goToData(data._id)" :key="data._id">
+            <tr  v-for="(data, index) in purchaseOrdersData" @click="goToData(data.poNumber)" :key="data.poNumber">
               <td>{{ index + 1 }}</td>
-              <td :class="data.PODate?'':'text-xl'">{{ data.PODate?changeDateFormat(data.PODate):'-'}}</td>
-              <td>{{ data.PONumber }}</td>
-              <td>{{ data.NoOfItems }}</td>
+              <td :class="data.poDate?'':'text-xl'">{{ data.poDate?changeDateFormat(data.poDate):'-'}}</td>
+              <td>{{ data.poNumber }}</td>
+              <td>{{ data.totalPurchaseItems }}</td>
               <td>{{ data.value }}</td>
               <td>{{ data.status }}</td>
               <td>{{ data.paymentStatus  }}</td>
@@ -174,6 +174,7 @@ export default {
         endDate: "",
         PONumber: "",
         userID: "",
+        code: "",
       },
       purchaseOrdersData: [],
       visible: false,
@@ -220,7 +221,25 @@ export default {
       console.log(event.target.value);
       this.fetchPurchaseOrders();
     },
-    fetchPurchaseOrders() {
+
+    fetchPurchaseOrders(){
+      this.loading=true;
+      axios.post(`api/purChaseOrder/serviceOrder`,{
+        'code':this.form.code
+      })
+      .then((response)=>{
+        console.log(response);
+        this.purchaseOrdersData = response.data.result;
+        this.loading=false;
+        this.visible=true;
+      })
+      .catch((error)=>{
+        this.error = error;
+        this.loading = false;
+        this.visible = false;
+      })
+    },
+    /*fetchPurchaseOrders() {
       this.loading = true;
       axios.get(`api/purChaseOrder/get`, {
           params: {
@@ -245,7 +264,7 @@ export default {
           this.visible=false;
           this.loading = false;
         });
-    },
+    },*/
     resetForm() {
       this.form = {};
       this.fetchPurchaseOrders();

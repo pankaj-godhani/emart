@@ -22,11 +22,11 @@
             <div class="row mt-4">
               <div class="col-md-4">
                 <h4 class="text-dark">PO Number</h4>
-                <label class="form-control-label">{{purchaseOrdersData.PONumber}}</label>
+                <label class="form-control-label">{{purchaseOrdersData.poNumber}}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">PO Date</h4>
-                <label class="form-control-label">{{changeDateFormat(purchaseOrdersData.PODate) }}</label>
+                <label class="form-control-label">{{changeDateFormat(purchaseOrdersData.poDate) }}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Manufacturing SKU Number </h4>
@@ -73,7 +73,7 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Delivery Location </h4>
-                <label class="form-control-label">{{purchaseOrdersData.deliveryLocation }}</label>
+                <label class="form-control-label">{{purchaseOrdersData.vendorAddress }}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Document Upload (Invoice/Packing Label/etc.)</h4>
@@ -115,10 +115,10 @@
           <tr v-for="item in itemList" :key="item.itemCode">
             <td>{{ item.itemCode }}</td>
             <td>{{ item.itemName }}</td>
-            <td>{{ item.HSNCode }}</td>
-            <td>{{ item.qty }}</td>
-            <td>{{ item.sellingPrice }}</td>
-            <td>{{ item.price }}</td>
+            <td>{{ item.hsnCode }}</td>
+            <td>{{ item.itemQuantityInCart }}</td>
+            <td>{{ item.itemSellingPrice }}</td>
+            <td>{{ item.itemPrice }}</td>
             <td>{{ item.totalCost }}</td>
             <td>{{ item.GSTCode }}</td>
             <td>{{ item.GSTInPer }}</td>
@@ -215,8 +215,26 @@ export default {
       var element = document.getElementById(id);
       html2pdf(element);
     },
-
     fetch() {
+      axios
+        .post(`api/purChaseOrder/serviceOrder`,{
+          "code":this.id
+        })
+        .then((response) => {
+          //console.log(response.data.result[0]);
+          this.purchaseOrdersData = _.merge( this.purchaseOrdersData, response.data.result[0]);
+          this.itemList = this.purchaseOrdersData.listOfItems;
+          console.log(this.itemList);
+          this.generateBarCode({id:"#barcodePri",value:this.purchaseOrdersData.PrimaryBarCode});
+          this.generateBarCode({id:"#barcodeSec",value:this.purchaseOrdersData.secondaryBarcode});
+
+        })
+        .catch((error) => {
+          this.error = error;
+        });
+
+    },
+    /*fetch() {
       axios
         .get(`api/purChaseOrder/get/${this.id}`,{
           headers: {
@@ -234,7 +252,7 @@ export default {
           this.error = error;
         });
 
-    },
+    },*/
   },
 };
 </script>
