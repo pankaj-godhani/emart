@@ -7,10 +7,10 @@
           <h4 class="px-4 text-dark">Primary Barcode : <svg id="barcodePri"></svg></h4>
         </div>
         <div>
-          <h4 class="px-4 text-dark">PO Number : <span class="px-2 font-weight-400">{{ purchaseOrdersData.PONumber }}</span></h4>
+          <h4 class="px-4 text-dark">PO Number : <span class="px-2 font-weight-400">{{ purchaseOrdersData.poNumber }}</span></h4>
         </div>
         <div>
-          <h4 class="px-4 text-dark">PO Date :<span class="px-2 font-weight-400">{{ changeDateFormat(purchaseOrdersData.PODate) }}</span> </h4>
+          <h4 class="px-4 text-dark">PO Date :<span class="px-2 font-weight-400">{{purchaseOrdersData.c?changeDateFormat(purchaseOrdersData.poDate):'-' }}</span> </h4>
 
         </div>
         <div >
@@ -27,7 +27,8 @@
         <div>
           <h4 class="px-4 text-dark">Bill to Address :
             <span class="px-2 font-weight-400">
-                47,Bhaktinandan Society 47,Bhaktinandan Society 47,Bhaktinandan Society 47,Bhaktinandan Society
+              {{ purchaseOrdersData.vendorAddress }}
+<!--                47,Bhaktinandan Society 47,Bhaktinandan Society 47,Bhaktinandan Society 47,Bhaktinandan Society-->
               </span>
           </h4>
         </div>

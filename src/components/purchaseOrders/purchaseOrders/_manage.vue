@@ -26,7 +26,9 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">PO Date</h4>
-                <label class="form-control-label">{{changeDateFormat(purchaseOrdersData.poDate) }}</label>
+                <label :class="purchaseOrdersData.poDate?'form-control-label':'form-control-label text-lg'">
+                  {{purchaseOrdersData.c?changeDateFormat(purchaseOrdersData.poDate):'-' }}
+                </label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Manufacturing SKU Number </h4>
@@ -41,13 +43,11 @@
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Primary Barcode</h4>
-                <label class="form-control-label" id="primaryBar">{{purchaseOrdersData.PrimaryBarCode }}</label>
-<!--                <svg id="barcodePri"></svg>-->
+                <label class="form-control-label" id="primaryBar">{{purchaseOrdersData.poNumber }}</label>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Secondary Barcode </h4>
                 <label class="form-control-label" id="secondaryBar">{{purchaseOrdersData.secondaryBarcode }}</label>
-<!--                <svg id="barcodeSec"></svg>-->
               </div>
 
               <div class="w-100 mt-4"></div>
@@ -122,18 +122,18 @@
             <td>{{ item.totalCost }}</td>
             <td>{{ item.GSTCode }}</td>
             <td>{{ item.GSTInPer }}</td>
-            <td>{{ item.taxableAMT }}</td>
-            <td>{{ item.taxAMT }}</td>
+            <td>{{ item.salesOrderTaxModel.taxableAmount }}</td>
+            <td>{{ item.salesOrderTaxModel.taxAmount }}</td>
             <td>{{ item.discInPer }}</td>
             <td>{{ item.discAMt }}</td>
             <td>{{ item.CGSTInPer }}</td>
-            <td>{{ item.CGSTAMT }}</td>
-            <td>{{ item.SGSTInPer }}</td>
-            <td>{{ item.SGSTAMT }}</td>
-            <td>{{ item.IGSTInPer }}</td>
-            <td>{{ item.IGSTAMT }}</td>
-            <td>{{ item.GSTCess }}</td>
-            <td>{{ item.GstCessAmount }}</td>
+            <td>{{ item.salesOrderTaxModel.cgstTaxAmt }}</td>
+            <td>{{ item.salesOrderTaxModel.tax.sgstPercent }}</td>
+            <td>{{ item.salesOrderTaxModel.sgstTaxAmt }}</td>
+            <td>{{ item.salesOrderTaxModel.tax.igstPercent }}</td>
+            <td>{{ item.salesOrderTaxModel.igstTaxAmt }}</td>
+            <td>{{ item.salesOrderTaxModel.gstCess }}</td>
+            <td>{{ item.salesOrderTaxModel.gstCessAmount }}</td>
             <td>{{ item.taxAMT }}</td>
 
           </tr>
@@ -183,6 +183,7 @@ export default {
       barcodeValue: "test",
       imageURL: null,
       purchaseOrdersData: {
+        poNumber:"",
         PrimaryBarCode: "",
         secondaryBarcode: "",
       },
@@ -221,11 +222,9 @@ export default {
           "code":this.id
         })
         .then((response) => {
-          //console.log(response.data.result[0]);
           this.purchaseOrdersData = _.merge( this.purchaseOrdersData, response.data.result[0]);
           this.itemList = this.purchaseOrdersData.listOfItems;
-          console.log(this.itemList);
-          this.generateBarCode({id:"#barcodePri",value:this.purchaseOrdersData.PrimaryBarCode});
+          this.generateBarCode({id:"#barcodePri",value:this.purchaseOrdersData.poNumber});
           this.generateBarCode({id:"#barcodeSec",value:this.purchaseOrdersData.secondaryBarcode});
 
         })
