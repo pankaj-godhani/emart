@@ -120,7 +120,7 @@
             v-model="form.vendor_Code"
             disabled
           />
-          <p class="text-danger text-xs" >{{ errors['vendor_Code'] }}</p>
+<!--          <p class="text-danger text-xs" >{{ errors['vendor_Code'] }}</p>-->
         </div>
         <div class="col-sm ">
           <label class="form-control-label" >Country ID</label>
@@ -424,7 +424,6 @@ export default {
                                   this.form.lastName,
                                   this.form.address_Line1,
                                   this.form.address_Line2,
-                                  this.form.vendor_Code,
                                   this.form.country_id,
                                   this.form.state,
                                   this.form.city,

@@ -12,7 +12,7 @@ export default class SignupValidations{
     lastName='',
     address_Line1='',
     address_Line2='',
-    vendor_Code='',
+   /* vendor_Code='',*/
     country_id='',
     state='',
     city='',
@@ -29,7 +29,7 @@ export default class SignupValidations{
     this.lastName=lastName;
     this.address_Line1=address_Line1;
     this.address_Line2=address_Line2;
-    this.vendor_Code=vendor_Code;
+   // this.vendor_Code=vendor_Code;
     this.country_id=country_id;
     this.state=state;
     this.city=city;
@@ -83,9 +83,9 @@ export default class SignupValidations{
       errors['address_Line2'] = 'Address line 2 is required.'
     }
 
-    if(!Validations.checkRequiredField(this.vendor_Code)){
+   /* if(!Validations.checkRequiredField(this.vendor_Code)){
       errors['vendor_Code'] = 'Vendor Code is required.'
-    }
+    }*/
 
     if(!Validations.checkRequiredField(this.country_id)){
       errors['country_id'] = 'Country ID is required.'
