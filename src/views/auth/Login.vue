@@ -89,17 +89,14 @@ export default {
       //console.log(this.form);
       this.logIn(this.form)
       .then((response)=>{
-        if(response)
-        {
+        console.log(response);
          // this.$router.push( this.$route.query.redirectFrom || {name: 'Dashboard'} );
           this.$router.go({path:this.$route.query.redirectFrom} || {path: '/'});
           //console.log('success');
-        }
-        else if(!response)
-        {
-          this.errorMsg = "These credentials do not match our records.";
-          //console.log('error');
-        }
+      })
+      .catch((error)=>{
+        this.errorMsg = "These credentials do not match our records.";
+        console.log(error);
       })
     }
   }

@@ -59,7 +59,7 @@ export const actions = {
         }
         return axios.post('api/auth/login', form)
             .then(response => {
-              //console.log(response)
+              //console.log(response);
                 commit('SET_TOKEN', {
                   token:response.data.token,
                   userID:response.data.detail._id,
@@ -67,8 +67,9 @@ export const actions = {
                   isAdmin:response.data.detail.isAdmin,
                   isActive: response.data.detail.isActive,
                 });
-                return response.data.token;
+                return response;
             });
+
 
     },
 

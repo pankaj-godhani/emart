@@ -364,7 +364,7 @@ export default {
       formData.append('state',this.form.state);
       formData.append('city',this.form.city);
       formData.append('vendor_Code',this.form.vendor_Code);
-      formData.append('passWord',this.passWord);
+      formData.append('passWord',this.form.passWord);
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
       formData.append('system_Vendor_id',this.system_Vendor_id);
