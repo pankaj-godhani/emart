@@ -334,7 +334,7 @@ export default {
       imageURL: null,
       countries:[],
       states:[],
-      status:'',
+      status:"",
       errors:[],
       errMessage:"",
       form: {
@@ -430,8 +430,8 @@ export default {
                                   this.form.vendorType
                                 );
       this.errors= validations.checkValidations();
-     // console.log(this.errors);
-     // console.log(Object.keys(this.errors).length);
+      console.log(this.errors);
+      console.log(Object.keys(this.errors).length);
     },
     onUpdate(){
       this.checkValidation();
@@ -567,6 +567,7 @@ export default {
           }
           else if(this.status===201)
           {
+            this.form.vendor_Code=Math.floor(Math.random() * 100000);
             this.errMessage = response.data.message;
           }
       })

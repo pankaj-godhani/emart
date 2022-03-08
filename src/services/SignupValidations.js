@@ -8,7 +8,7 @@ export default class SignupValidations{
     accountNumber='',
     vendor_name='',
     firstName='',
-    middleName='',
+    /*middleName='',*/
     lastName='',
     address_Line1='',
     address_Line2='',
@@ -25,11 +25,9 @@ export default class SignupValidations{
     this.accountNumber=accountNumber;
     this.vendor_name=vendor_name;
     this.firstName=firstName;
-    this.middleName=middleName;
     this.lastName=lastName;
     this.address_Line1=address_Line1;
     this.address_Line2=address_Line2;
-   // this.vendor_Code=vendor_Code;
     this.country_id=country_id;
     this.state=state;
     this.city=city;
@@ -55,7 +53,7 @@ export default class SignupValidations{
       errors['postal_Code'] = 'Invalid Postal Code, Please enter valid Postal Code.'
     }
 
-    if(!Validations.checkAccountNumber(this.accountNumber)){
+    if(!Validations.checkForNumbers(this.accountNumber)){
       errors['accountNumber'] = 'Invalid Account Number, Please enter valid Account Number.'
     }
 
@@ -67,9 +65,9 @@ export default class SignupValidations{
       errors['firstName'] = 'First name is required.'
     }
 
-    if(!Validations.checkRequiredField(this.middleName)){
+    /*if(!Validations.checkRequiredField(this.middleName)){
       errors['middleName'] = 'Middle name is required.'
-    }
+    }*/
 
     if(!Validations.checkRequiredField(this.lastName)){
       errors['lastName'] = 'Last name is required.'
