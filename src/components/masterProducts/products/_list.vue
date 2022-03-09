@@ -96,10 +96,10 @@
 <!--          <form @submit.prevent="fetchProduct">
             <div class="container">
               <div class="row pb-2">
-                <div class="col-md">
-                  <div class="row">
-                    <div v-if="isAdmin===true" class="col-md-1" >
-                      <select class="form-control" @change="onChange($event)" v-model="form.userID" style="width: 120px">
+
+
+                    <div v-if="isAdmin===true" class="col-md" >
+                      <select class="form-control" @change="onChange($event)" v-model="form.userID" >
                         <option disabled selected value>Select User</option>
                         <option v-for="data in UserData" :key="data._id" :value="data._id">
                           {{data.firstName}} {{data.lastName}}
@@ -107,33 +107,37 @@
                       </select>
 
                     </div>
-                    <div class="col-md-2">
-                      <div class="d-flex ">
-                        <label class="mt-2 px-1">From:</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          style="width: 150px"
-                          placeholder="from"
-                          v-model="form.startDate"
-                        />
+                    <div class="col-md">
+                      <div class="d-flex">
+                        <div class="d-flex ">
+                          <label class="mt-2 px-1">From:</label>
+                          <input
+                            type="date"
+                            class="form-control"
+
+                            placeholder="from"
+                            v-model="form.startDate"
+                          />
+                        </div>
+                        <div class="d-flex pl-1">
+                          <label class="mt-2 pr-1">To:</label>
+                          <input
+                            type="date"
+
+                            class="form-control "
+                            placeholder="to"
+                            v-model="form.endDate"
+                          />
+                        </div>
                       </div>
+
                     </div>
-                    <div class="col-md-2">
-                      <div class="d-flex pl-1">
-                        <label class="mt-2 pr-1">To:</label>
-                        <input
-                          type="date"
-                          style="width: 150px"
-                          class="form-control "
-                          placeholder="to"
-                          v-model="form.endDate"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-1">
+&lt;!&ndash;                    <div class="col-md-2">
+
+                    </div>&ndash;&gt;
+                    <div class="col-md">
                       <input
-                        style="width: 120px"
+
                         type="text"
                         class="form-control"
                         placeholder="Product Name"
@@ -141,25 +145,23 @@
                         @keyup="fetchProduct"
                       />
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md">
                       <input
                         class="form-control"
-                        style="width: 120px"
+
                         placeholder="EAN Code"
                         v-model="form.EANCode"
                       />
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md">
                       <input
                         class="form-control"
-                        style="width: 120px"
+
                         placeholder="SKU Code"
                         v-model="form.SKUCode"
                       />
                     </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                   <div class="d-flex float-right">
                     <div class="pl-2">
                       <base-button type="default" native-type="submit">Search</base-button>
@@ -201,6 +203,7 @@
                       <i class="fa fa-caret-up fa-lg" aria-hidden="true" @click="orderTableData('dateOfAvailability','asc')"></i>
                       <i class="fa fa-caret-down fa-lg" aria-hidden="true" @click="orderTableData('dateOfAvailability','desc')"></i>
                     </th>
+                    <th>Created Date</th>
                     <th>Brand Name</th>
                     <th>Mftr Article No/SKU Code</th>
                     <th>Product Category</th>
@@ -232,6 +235,7 @@
                     <td>{{ data.EANCode}}</td>
                     <td :class="data.HSNCode?'':'text-lg text-center'">{{ data.HSNCode?data.HSNCode:'-' }}</td>
                     <td :class="data.dateOfAvailability?'':'text-lg text-center'">{{ data.dateOfAvailability?changeDateFormat(data.dateOfAvailability):'-'}}</td>
+                    <td :class="data.createdAt?'':'text-lg text-center'">{{ data.createdAt?changeDateFormat(data.createdAt):'-'}}</td>
                     <td :class="data.brandName?'':'text-lg text-center'">{{ data.brandName?data.brandName:'-' }}</td>
                     <td :class="data.SKUCode?'':'text-lg text-center'">{{ data.SKUCode ? data.SKUCode : '-'}}</td>
                     <td :class="data.productCategory?'':'text-lg text-center'">{{ data.productCategory ? data.productCategory : '-' }}</td>
@@ -451,6 +455,14 @@ export default {
 };
 </script>
 <style scoped>
+  /*.col-md {
+    padding: 0px 4px;
+  }
+  .col-md-2{
+    padding: 0px 4px;
+  }*/
+
+
 [v-cloak] {
   display: none;
 }

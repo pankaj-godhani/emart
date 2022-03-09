@@ -1,3 +1,4 @@
+
 export default class Validations{
   static checkEmail(email){
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
@@ -50,24 +51,23 @@ export default class Validations{
   }
 
   static checkRequiredNumber(name){
-    if(String(name).match(/^[0-9]+$/)){
+
+    if(String(name).match(/^(?!0\d)\d*(\.\d+)?$/)){
       return true;
     }
-    else if(name===''||name===null){
+    else if(name !== null && name !== ''){
+      return true;
+    }
+    else if(String(name)==="" || String(name) ==="null" || name.val() === ""){
       return false;
     }
-
   }
 
   static checkForNumbers(name){
-    if(String(name).match(/^[0-9]+$/)||String(name).length === 0||name===null)
+    if(String(name).match(/^(?!0\d)\d*(\.\d+)?$/)||String(name).length === 0||name===null)
     {
       return true;
     }
-    /*else  if(String(name).length === 0)
-    {
-      return true
-    }*/
     return false;
 
 

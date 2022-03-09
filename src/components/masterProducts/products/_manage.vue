@@ -81,6 +81,7 @@
                   placeholder="Enter Self Life in Days of Product"
                   v-model="productDetails.shelfLifeDays"
                 />
+<!--                <p v-if="!productDetails.shelfLifeDays" class="text-danger text-xs" >Self life is required.</p>-->
                 <p class="text-danger text-xs" >{{ errors['shelfLifeDays'] }}</p>
               </div>
               <div class="col-md-4">
@@ -213,6 +214,7 @@
 <script>
 
 import axios from "axios";
+import _ from "lodash";
 import ManageScheme from "./_manageScheme"
 import store from "../../../state/store";
 import ProductValidations from "../../../services/ProductValidations";
@@ -280,7 +282,7 @@ export default {
         }
         else if(response.data.length===1)
         {
-          this.productDetails=response.data[0];
+          this.productDetails=_.merge(this.productDetails, response.data[0])
           this.visibleProductDetails = true;
         }
         this.loading = false;
@@ -302,6 +304,21 @@ export default {
     },
     store() {
       this.checkValidation();
+      console.log(this.productDetails);
+      console.log(this.productDetails.shelfLifeDays,'shelfLifeDays');
+      console.log('here');
+      console.log(this.productDetails.quantity,'quantity');
+      console.log(this.productDetails.item_mrp,'item_mrp');
+      console.log(this.productDetails.sellingPrice,'sellingPrice');
+      console.log(this.percentage,'percentage');
+      console.log(this.productDetails.margin,'margin');
+      /*console.log(typeof(this.productDetails.shelfLifeDays),'shelfLifeDays');
+      console.log(typeof(this.productDetails.quantity),'quantity');
+      console.log(typeof(this.productDetails.item_mrp),'item_mrp');
+      console.log(typeof(this.productDetails.sellingPrice),'sellingPrice');
+      console.log(typeof(this.percentage),'percentage');
+      console.log(typeof(this.productDetails.margin),'margin');*/
+      if(this.productDetails.shelfLifeDays==="")
       if( Object.keys(this.errors).length){
         return this.errors;
       }
