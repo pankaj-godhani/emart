@@ -420,7 +420,6 @@ export default {
                                   this.form.accountNumber,
                                   this.form.vendor_name,
                                   this.form.firstName,
-                                  this.form.middleName,
                                   this.form.lastName,
                                   this.form.address_Line1,
                                   this.form.address_Line2,
