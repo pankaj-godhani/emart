@@ -21,21 +21,19 @@ export default class ProductValidations{
     let errors=[];
 
     if(!Validations.checkRequiredNumber(this.shelfLifeDays)){
-      errors['shelfLifeDays'] = "Self Life is required. It should be number."
+      errors['shelfLifeDays'] = "Invalid Self Life. It should be number."
     }
 
     if(!Validations.checkRequiredNumber(this.quantity)){
-      errors['quantity'] = "Quantity is required. It should be number."
+      errors['quantity'] = "Invalid Quantity. It should be number."
     }
-    /*else if(!Validations.checkRequiredField(this.quantity)){
-      errors['quantity'] = "Quantity is required."
-    }*/
+
     if(!Validations.checkRequiredNumber(this.item_mrp)){
       errors['item_mrp'] = "Invalid MRP. It should be number."
     }
 
     if(!Validations.checkRequiredNumber(this.sellingPrice)){
-      errors['sellingPrice'] = "Transfer Price is required. It should be number."
+      errors['sellingPrice'] = "Invalid Transfer Price. It should be number."
     }
 
     if(!Validations.checkRequiredNumber(this.margin)){
@@ -46,5 +44,34 @@ export default class ProductValidations{
       errors['percentage'] = "Invalid percentage. It should be number."
     }
     return errors;
+  }
+  checkEmptyValidations(){
+    let emptyErrors=[];
+
+    if(!Validations.checkRequiredField(this.shelfLifeDays)){
+      emptyErrors['shelfLifeDays'] = "Self Life is required."
+    }
+
+    if(!Validations.checkRequiredField(this.quantity)){
+      emptyErrors['quantity'] = "Quantity is required."
+    }
+
+    if(!Validations.checkRequiredField(this.item_mrp)){
+      emptyErrors['item_mrp'] = "MRP is required."
+    }
+
+    if(!Validations.checkRequiredField(this.sellingPrice)){
+      emptyErrors['sellingPrice'] = "Transfer Price is required."
+    }
+
+    if(!Validations.checkRequiredField(this.margin)){
+      emptyErrors['margin'] = "margin is required."
+    }
+
+    if(!Validations.checkRequiredField(this.percentage)){
+      emptyErrors['percentage'] = "Percentage is required."
+    }
+
+    return emptyErrors;
   }
 }

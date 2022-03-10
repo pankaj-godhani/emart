@@ -55,12 +55,8 @@ export default class Validations{
     if(String(name).match(/^(?!0\d)\d*(\.\d+)?$/)){
       return true;
     }
-    else if(name !== null && name !== ''){
-      return true;
-    }
-    else if(String(name)==="" || String(name) ==="null" || name.val() === ""){
       return false;
-    }
+
   }
 
   static checkForNumbers(name){

@@ -82,7 +82,7 @@
                   v-model="productDetails.shelfLifeDays"
                 />
 <!--                <p v-if="!productDetails.shelfLifeDays" class="text-danger text-xs" >Self life is required.</p>-->
-                <p class="text-danger text-xs" >{{ errors['shelfLifeDays'] }}</p>
+                <p class="text-danger text-xs" >{{ errors['shelfLifeDays'] }} {{emptyErrors['shelfLifeDays']}}</p>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Quantity</h4>
@@ -92,7 +92,7 @@
                   placeholder="Enter Quantity of Product"
                   v-model="productDetails.quantity"
                 />
-                <p class="text-danger text-xs" >{{ errors['quantity'] }}</p>
+                <p class="text-danger text-xs" >{{ errors['quantity'] }} {{emptyErrors['quantity']}}</p>
               </div>
               <div class="col-md-4">
                 <h4 class="text-dark">Date of Availability</h4>
@@ -117,7 +117,7 @@
                   v-model="productDetails.item_mrp"
                   @keyup="calMargin"
                 />
-                <p class="text-danger text-xs" >{{ errors['item_mrp'] }}</p>
+                <p class="text-danger text-xs" >{{ errors['item_mrp'] }} {{emptyErrors['item_mrp']}}</p>
               </div>
               <div class="col-sm">
                 <h4 class="text-dark">Transfer Price</h4>
@@ -127,7 +127,7 @@
                   placeholder="Enter Selling Price of Product"
                   v-model="productDetails.sellingPrice"
                 />
-                <p class="text-danger text-xs" >{{ errors['sellingPrice'] }}</p>
+                <p class="text-danger text-xs" >{{ errors['sellingPrice'] }} {{emptyErrors['sellingPrice']}}</p>
               </div>
               <div class="col-sm">
                 <h4 class="text-dark">Remarks</h4>
@@ -171,7 +171,7 @@
                   v-model="percentage"
                   @keyup="calMargin"
                 />
-                <p class="text-danger text-xs" >{{ errors['percentage'] }}</p>
+                <p class="text-danger text-xs" >{{ errors['percentage'] }} {{emptyErrors['percentage']}}</p>
               </div>
               <div class="col-sm-4">
                 <h4 class="text-dark">Margin</h4>
@@ -182,7 +182,7 @@
                   v-model="productDetails.margin"
                   @keyup="calPercentage"
                 />
-                <p class="text-danger text-xs" >{{ errors['margin'] }}</p>
+                <p class="text-danger text-xs" >{{ errors['margin'] }} {{emptyErrors['margin']}}</p>
               </div>
             </div>
             <div v-if="visibleCard">
@@ -242,6 +242,7 @@ export default {
       visibleProductDetails: false,
       error: "",
       errors: [],
+      emptyErrors:[],
       loading: false,
       percentage: "",
     };
@@ -299,27 +300,18 @@ export default {
                                                 this.percentage
                                               );
       this.errors=validations.checkValidations();
-      console.log(this.errors);
-      console.log(Object.keys(this.errors).length);
+      this.emptyErrors=validations.checkEmptyValidations();
+      console.log(this.errors,'errors');
+      console.log(this.emptyErrors,'emptyErrors');
+      console.log(Object.keys(this.errors).length,'errorslength');
+      console.log(Object.keys(this.emptyErrors).length,'emptyErrorslength');
     },
     store() {
       this.checkValidation();
-      console.log(this.productDetails);
-      console.log(this.productDetails.shelfLifeDays,'shelfLifeDays');
-      console.log('here');
-      console.log(this.productDetails.quantity,'quantity');
-      console.log(this.productDetails.item_mrp,'item_mrp');
-      console.log(this.productDetails.sellingPrice,'sellingPrice');
-      console.log(this.percentage,'percentage');
-      console.log(this.productDetails.margin,'margin');
-      /*console.log(typeof(this.productDetails.shelfLifeDays),'shelfLifeDays');
-      console.log(typeof(this.productDetails.quantity),'quantity');
-      console.log(typeof(this.productDetails.item_mrp),'item_mrp');
-      console.log(typeof(this.productDetails.sellingPrice),'sellingPrice');
-      console.log(typeof(this.percentage),'percentage');
-      console.log(typeof(this.productDetails.margin),'margin');*/
-      if(this.productDetails.shelfLifeDays==="")
-      if( Object.keys(this.errors).length){
+      if(Object.keys(this.emptyErrors).length){
+        return this.emptyErrors;
+      }
+      else if( Object.keys(this.errors).length){
         return this.errors;
       }
       else{
