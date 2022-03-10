@@ -22,9 +22,9 @@
             <tr v-for="data in outstandingReportData" :key="data._id">
               <td>{{data.vendorCode}}</td>
               <td>{{data.vendorName}}</td>
-              <td>{{data.invoiceTotal}}</td>
-              <td>{{data.paymentTotal}}</td>
-              <td>{{data.balanceTotal}}</td>
+              <td>{{data.invoice}}</td>
+              <td>{{data.amount}}</td>
+              <td>{{data.balance}}</td>
 
             </tr>
 
@@ -55,9 +55,12 @@ export default {
   methods:{
     fetch(){
       this.loading = true;
-      axios.get(`api/vendorPaymentReport/getOutStandingReport`)
+      axios.post(`api/purChaseOrder/purchase_payment`,{
+        "status":"OS"
+      })
         .then(response=>{
-          this.outstandingReportData = response.data;
+          console.log(response.data.result);
+          this.outstandingReportData = response.data.result;
           this.visible = true;
           this.loading = false;
         })

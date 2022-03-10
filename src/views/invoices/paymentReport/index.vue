@@ -6,11 +6,11 @@
           <div class="col-lg-6 col-7">
             <h3 class="mb-0">Vendor Payment Report</h3>
           </div>
-          <div class="col-lg-6 col-5 text-right">
+<!--          <div class="col-lg-6 col-5 text-right">
             <router-link :to="{ name: 'PaymentCreate' }">
               <base-button type="default">Add Payment</base-button>
             </router-link>
-          </div>
+          </div>-->
         </div>
         <PaymentReportList></PaymentReportList>
       </div>

@@ -21,22 +21,20 @@
           </template>
 
           <template v-slot:tbody>
-            <tr v-for="data in pagedData" :key="data._id">
-              <td>{{data.userId._id}}</td>
-              <td>{{data.invoiceNumber}}</td>
-              <td>{{data.userId.GST}}</td>
-              <td>{{data.userId.firstName}} {{data.userId.lastName}}</td>
+            <tr v-for="data in pagedData" :key="data.vendorId">
+              <td>{{data.vendorCode}}</td>
+              <td>{{data.invoice}}</td>
+              <td>{{data.gst}}</td>
+              <td>{{data.vendorName}}</td>
               <td>{{changeDateFormat(data.paymentDate)}}</td>
               <td>{{data.paymentMode}}</td>
               <td>{{data.amount}}</td>
-              <td>{{data.Remarks}}</td>
+              <td>{{data.remarks}}</td>
             </tr>
-
           </template>
         </Table>
-
       </div>
-      <div v-else-if="status!==200 || error" class="text-center py-5">
+      <div v-else-if=" error" class="text-center py-5">
         Data not found
       </div>
       <template v-slot:footer>
@@ -80,8 +78,6 @@ export default {
       },
       visible: false,
       loading: false,
-      confirmModal: false,
-      deleting: null,
       status: "",
       error: "",
       paymentReportData:[],
@@ -94,9 +90,6 @@ export default {
     };
   },
   computed: {
-    isAdmin(){
-      return this.$store.getters['auth/getIsAdmin'];
-    },
     pagedData() {
       return this.paymentReportData.slice(this.from, this.to);
     },
@@ -120,30 +113,16 @@ export default {
   },
 
   methods: {
-    confirmDelete(type) {
-      this.confirmModal = true;
-      this.deleting = type;
-    },
-    resetForm() {
-      this.form = {};
-      this.fetch();
-    },
-    onChange(){
-      console.log(event.target.value);
-      this.fetch();
-    },
     fetch(){
       this.loading = true;
-      axios.get(`api/vendorPaymentReport/getPaymentList`)
+      axios.post(`api/purChaseOrder/purchase_payment`,{
+        "status":""
+      })
         .then((response)=>{
-          this.paymentReportData=response.data;
+          console.log(response);
+          this.paymentReportData=response.data.result;
           this.status = response.status;
-          if(this.status===200){
-            this.visible=true;
-          }
-          else if(this.status===201){
-            this.visible=false;
-          }
+          this.visible=true;
           this.loading = false;
         })
         .catch((error)=>{
@@ -151,14 +130,6 @@ export default {
           this.visible=false;
           this.loading = false;
         });
-    },
-    destroy(){
-      axios.delete(`api/invoice/delete/${this.deleting._id}`)
-        .then(()=>{
-          this.fetch();
-          this.deleting = null;
-          this.confirmModal = false;
-        })
     },
   },
 };
