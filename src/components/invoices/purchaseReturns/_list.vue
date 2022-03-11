@@ -2,7 +2,10 @@
   <card class="no-border-card"
         body-classes="px-0 pb-1 py-3"
         footer-classes="pb-2">
-    <div class="pl-0">
+    <div class="text-center mt-4" v-if="loading">
+      <div class="spinner-border" role="status"></div>
+    </div>
+    <div class="pl-0" v-else-if="visible">
       <Table>
         <template #thead>
           <tr>
@@ -21,48 +24,26 @@
           </tr>
         </template>
         <template #tbody>
-          <tr>
+          <tr v-for="(data,index) in pagedData" :key="index">
+            <td>{{index+1}}</td>
+            <td></td>
+            <td>{{ changeDateFormat(data.prDate) }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ data.remarks }}</td>
 
-            <td>1</td>
-            <td>rere</td>
-            <td>ertr</td>
-            <td>ertr</td>
-            <td>retr</td>
-            <td>etr</td>
-            <td>erte</td>
-            <td>reet</td>
-            <td>rret</td>
-            <td>rtry</td>
-            <td>yghgj</td>
-            <td>yhyt</td>
-<!--            <td>
-              <div class="d-flex">
-                <div class="pr-2">
-                  <router-link
-                    :to="{ name: 'UserEdit', params: { id: data._id } }"
-                  >
-                    <button
-                      type="button"
-                      class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
-                    >
-                      <i class="text-white ni ni-ruler-pencil"></i>
-                    </button>
-                  </router-link>
-                </div>
-                &lt;!&ndash;                <div>
-                                  <button
-                                    type="button"
-                                    class="btn base-button btn-icon btn-fab btn-danger btn-sm remove btn-link"
-                                    @click.prevent="destroy(data._id)"
-                                  >
-                                    <i class="text-white ni ni-fat-remove"></i>
-                                  </button>
-                                </div>&ndash;&gt;
-              </div>
-            </td>-->
           </tr>
         </template>
       </Table>
+    </div>
+    <div v-else-if="error" class="text-center py-5">
+      Data not found
     </div>
     <template v-slot:footer>
       <div
@@ -88,31 +69,11 @@
 
 import BasePagination from "@/components/BasePagination";
 import users from "../../../views/Tables/users2";
+import axios from "axios";
 
 export default {
   components: {
     BasePagination,
-
-  },
-  computed: {
-    pagedData() {
-      return this.tableData.slice(this.from, this.to);
-    },
-    to() {
-      let highBound = this.from + this.pagination.perPage;
-      if (this.total < highBound) {
-        highBound = this.total;
-      }
-      return highBound;
-    },
-    from() {
-      return this.pagination.perPage * (this.pagination.currentPage - 1);
-    },
-    total() {
-      return this.searchedData.length > 0
-        ? this.searchedData.length
-        : this.tableData.length;
-    },
   },
   data() {
     return {
@@ -127,10 +88,46 @@ export default {
       tableData: users,
       fuseSearch: null,
       searchedData: [],
+      purchaseReturnData:[],
+      loading:false,
+      visible:false,
+      error:'',
     };
   },
+  computed: {
+    pagedData() {
+      return this.purchaseReturnData.slice(this.from, this.to);
+    },
+    to() {
+      let highBound = this.from + this.pagination.perPage;
+      if (this.total < highBound) {
+        highBound = this.total;
+      }
+      return highBound;
+    },
+    from() {
+      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1)
+    },
+    total() {
+      return this.visible ? this.purchaseReturnData.length : 0;
+    },
+  },
+  mounted() {
+    this.fetch();
+  },
   methods: {
-
+    fetch(){
+      this.loading = true;
+      axios.get(`api/purChaseOrder/purchase_return`)
+      .then(response=>{
+        this.purchaseReturnData = response.data.result;
+        this.loading = false;
+        this.visible = true;
+      })
+      .catch(error=>{
+        this.error=error;
+      })
+    }
 
   },
 };
