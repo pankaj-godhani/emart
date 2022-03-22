@@ -3,7 +3,7 @@
     <div class="container ct-example-row">
       <form @submit="submit" >
         <div>
-          <h3><b>Group Heading 1</b></h3>
+          <h3><b>Discount Scheme 1</b></h3>
           <div class="row mt-3">
             <div class="col-sm form-group">
               <label class="form-control-label">EAN Code</label>
@@ -60,7 +60,7 @@
           </div>
         </div>
         <div class="mt-4">
-          <h3><b>Group Heading 2</b></h3>
+          <h3><b>Discount Scheme 2</b></h3>
           <div class="row mt-3">
             <div class="col-sm">
               <label class="form-control-label">Net PTR</label>

@@ -230,7 +230,10 @@
                     <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected" @change="getPriceApprovalValue"></td>
                     <td>{{ index + 1 }}</td>
                     <td v-show="isAdmin">
-                      <i :class="data.priceApproval?'fa fa-check fa-lg text-success':'fa fa-times fa-lg text-danger'" aria-hidden="true"></i>
+<!--                      <i :class="data.priceApproval?'fa fa-check fa-lg text-success':'fa fa-times fa-lg text-danger'" aria-hidden="true"></i>-->
+                      <span :class="data.priceApproval?'px-3 p-1 rounded bg-success text-white':'px-3 p-1 rounded bg-danger text-white'">
+                        {{ data.priceApproval?'Approved':'Not approved' }}
+                      </span>
                     </td>
                     <td>{{ data.EANCode}}</td>
                     <td :class="data.HSNCode?'':'text-lg text-center'">{{ data.HSNCode?data.HSNCode:'-' }}</td>

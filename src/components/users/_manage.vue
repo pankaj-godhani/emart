@@ -27,11 +27,11 @@
 
       <div class="row pb-3">
         <div class="col-sm">
-          <label class="form-control-label">Vendor Name</label>
+          <label class="form-control-label">Company Name</label>
           <input
             type="text"
             class="form-control"
-            placeholder="Vendor Name"
+            placeholder="Company Name"
             v-model="form.vendor_name"
           />
           <p class="text-danger text-xs" >{{ errors['vendor_name'] }}</p>
@@ -70,13 +70,18 @@
       </div>
       <div class="row pb-3">
         <div class="col-sm">
-          <label class="form-control-label">Vendor Address Code</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Vendor Address Code"
-            v-model="form.vendor_Address_code"
-          />
+          <label class="form-control-label">Vendor Type</label>
+          <select class="form-control" v-model="form.vendorType">
+            <option disabled selected value>Select Vendor Type</option>
+            <option value="Farmer">Farmer</option>
+            <option value="Manufacturer">Manufacturer</option>
+            <option value="Traders">Traders</option>
+            <option value="Packhouse">Packhouse</option>
+            <option value="Millers">Millers</option>
+            <option value="Packaging house">Packaging house</option>
+            <option value="Processors">Processors</option>
+          </select>
+          <p class="text-danger text-xs" >{{ errors['vendorType'] }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Address Line 1</label>
@@ -111,7 +116,7 @@
 
       </div>
       <div class="row pb-3">
-        <div class="col-sm ">
+        <div class="col-sm " v-show="false">
           <label class="form-control-label">Vendor Code</label>
           <input
             type="text"
@@ -153,11 +158,6 @@
           />
           <p class="text-danger text-xs" >{{ errors['city'] }}</p>
         </div>
-
-
-      </div>
-      <div class="row pb-3">
-
         <div class="col-sm">
           <label class="form-control-label">E-mail</label>
           <input
@@ -168,6 +168,9 @@
           />
           <p class="text-danger text-xs">{{ errors['email'] ?errors.email:errMessage.email }}</p>
         </div>
+
+      </div>
+      <div class="row pb-3">
         <div class="col-sm">
           <label class="form-control-label">Mobile Number</label>
           <input
@@ -179,13 +182,6 @@
           <p class="text-danger text-xs">{{ errors['mobileNumber'] ?errors['mobileNumber']: errMessage.mobileNumber }}</p>
         </div>
         <div class="col-sm">
-          <h4 class="form-control-label">Status</h4>
-          <select class="form-control" v-model="form.isActive">
-            <option :value="true">Active</option>
-            <option :value="false">Inactive</option>
-          </select>
-        </div>
-        <div class="col-sm">
           <label class="form-control-label">Admin</label>
           <select class="form-control" v-model="form.isAdmin">
             <option disabled selected>Select Permission</option>
@@ -193,9 +189,15 @@
             <option :value="false">User</option>
           </select>
         </div>
-
-      </div>
-      <div class="row pb-3">
+        <div class="col-sm">
+          <label class="form-control-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            v-model="passWord"
+          />
+        </div>
         <div class="col-sm">
           <label class="form-control-label">PAN Number</label>
           <input
@@ -205,7 +207,10 @@
             v-model="form.panNo"
           />
         </div>
-        <div class="col-sm">
+      </div>
+      <div class="row pb-3">
+
+        <div class="col-sm-3">
           <label class="form-control-label">GST</label>
           <input
             type="text"
@@ -214,7 +219,7 @@
             v-model="form.GST"
           />
         </div>
-        <div class="col-sm ">
+        <div class="col-sm-3 ">
           <label class="form-control-label">Payment Terms</label>
           <input
             type="text"
@@ -223,7 +228,7 @@
             v-model="form.paymentTerms"
           />
         </div>
-        <div class="col-sm">
+        <div class="col-sm-3">
           <label class="form-control-label">Shipping Terms</label>
           <input
             type="text"
@@ -235,29 +240,8 @@
 
       </div>
       <div class="row pb-3">
-        <div class="col-sm-4">
-          <label class="form-control-label">Vendor Type</label>
-          <select class="form-control" v-model="form.vendorType">
-            <option disabled selected value>Select Vendor Type</option>
-            <option value="Farmer">Farmer</option>
-            <option value="Manufacturer">Manufacturer</option>
-            <option value="Traders">Traders</option>
-            <option value="Packhouse">Packhouse</option>
-            <option value="Millers">Millers</option>
-            <option value="Packaging house">Packaging house</option>
-            <option value="Processors">Processors</option>
-          </select>
-          <p class="text-danger text-xs" >{{ errors['vendorType'] }}</p>
-        </div>
-        <div class="col-sm-4">
-          <label class="form-control-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            placeholder="Password"
-            v-model="passWord"
-          />
-        </div>
+
+
 
       </div>
 
@@ -291,6 +275,25 @@
             placeholder="IFSC Code"
             v-model="form.IFSCCode"
           />
+        </div>
+      </div>
+      <div class="row pb-3">
+        <div class="col-sm-4  ">
+          <div class="custom-control custom-switch pl-5 ml-2">
+            <input
+              type="checkbox"
+              class="custom-control-input pr-0"
+              id="customSwitch1"
+              v-model="form.isActive"
+            />
+            <label class="custom-control-label" for="customSwitch1"
+            >Status</label>
+          </div>
+          <!--          <h4 class="form-control-label">Status</h4>
+                    <select class="form-control" v-model="form.isActive">
+                      <option :value="true">Active</option>
+                      <option :value="false">Inactive</option>
+                    </select>-->
         </div>
       </div>
 

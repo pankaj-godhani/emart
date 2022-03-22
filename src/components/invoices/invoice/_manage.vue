@@ -3,7 +3,7 @@
     <div class="container ct-example-row">
       <form @submit="submit">
         <div>
-          <h3><b>Group Heading 1</b></h3>
+          <h3><b>Discount Scheme  1</b></h3>
           <div class="row mt-3">
             <div class="col-sm form-group">
               <label class="form-control-label">PO Number</label>
@@ -55,7 +55,7 @@
           </div>
         </div>
         <div class="mt-4">
-          <h3><b>Group Heading 3</b></h3>
+          <h3><b>Discount Scheme 3</b></h3>
           <div class="row mt-3">
             <div class="col-4">
               <label class="form-control-label">CGST Value</label>

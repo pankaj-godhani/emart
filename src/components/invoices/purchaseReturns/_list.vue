@@ -27,7 +27,7 @@
           <tr v-for="(data,index) in pagedData" :key="index">
             <td>{{index+1}}</td>
             <td></td>
-            <td>{{ changeDateFormat(data.prDate) }}</td>
+            <td>{{ changeDateFormat(data.poDate) }}</td>
             <td></td>
             <td></td>
             <td></td>

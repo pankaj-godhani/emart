@@ -36,7 +36,7 @@
               </button>
 
               <button type="button" class="dropdown-item">
-                <export-excel :data="productData"> Download </export-excel>
+                <export-excel :data="productData"> Download Products in excel </export-excel>
               </button>
 
               <button

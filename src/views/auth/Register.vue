@@ -20,7 +20,7 @@
                 <form @submit.prevent="submit" >
                   <div class="row pb-3">
                     <div class="col-sm">
-                      <label class="form-control-label">Vendor Name</label>
+                      <label class="form-control-label">Company Name</label>
                       <input
                         type="text"
                         class="form-control"
@@ -121,7 +121,7 @@
 
                   </div>
                   <div class="row pb-3">
-                    <div class="col-sm ">
+                    <div class="col-sm" v-show="false">
                       <label class="form-control-label">Vendor Code</label>
                       <input
                         type="text"
@@ -143,17 +143,6 @@
                       <p class="text-danger text-xs">{{ errors['email'] ?errors['email']: errMessage.email }}</p>
                     </div>
                     <div class="col-sm">
-                      <label class="form-control-label">Password</label>
-                      <input
-                        type="password"
-                        class="form-control"
-                        placeholder="Password"
-                        v-model="form.passWord"
-                      />
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-4">
                       <label class="form-control-label">Mobile Number</label>
                       <input
                         type="text"
@@ -163,7 +152,7 @@
                       />
                       <p class="text-danger text-xs">{{ errors['mobileNumber'] ?errors['mobileNumber']: errMessage.mobileNumber }}</p>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm">
                       <label class="form-control-label">Vendor Type</label>
                       <select class="form-control" v-model="form.vendorType">
                         <option disabled selected value>Select Vendor Type</option>
@@ -177,14 +166,21 @@
                       </select>
                       <p class="text-danger text-xs" >{{ errors['vendorType'] }}</p>
                     </div>
-                  </div>
-
-
-
-                  <div>
 
                   </div>
-                  <vue-recaptcha sitekey="6Lc5XY0dAAAAAHH5yvVqDjP4aPVPXFRjeW0APlSt" @verify="mxVerify" @expired="mxExpire"></vue-recaptcha>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label class="form-control-label">Password</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Password"
+                        v-model="form.passWord"
+                      />
+                    </div>
+                  </div>
+
+                  <vue-recaptcha class="mt-4" sitekey="6Lc5XY0dAAAAAHH5yvVqDjP4aPVPXFRjeW0APlSt" @verify="mxVerify" @expired="mxExpire"></vue-recaptcha>
                   <div><p class="text-danger">{{ loginForm.pleaseTickRecaptchaMessage }}</p></div>
                   <div class="d-flex float-right">
                     <div class="text-center mt-4 px-2">
