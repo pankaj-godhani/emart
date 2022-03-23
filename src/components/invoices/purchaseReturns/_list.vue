@@ -31,12 +31,12 @@
             <td></td>
             <td></td>
             <td></td>
+            <td>{{data.itemName}}</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td>{{ data.remarks }}</td>
+            <td :class="data.remarks?'':'text-center text-lg'">{{ data.remarks?data.remarks:'-' }}</td>
 
           </tr>
         </template>

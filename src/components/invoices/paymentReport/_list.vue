@@ -22,12 +22,12 @@
 
           <template v-slot:tbody>
             <tr v-for="data in pagedData" :key="data.vendorId">
-              <td>{{data.vendorCode}}</td>
-              <td>{{data.invoice}}</td>
-              <td>{{data.gst}}</td>
+              <td class="text-center">{{data.vendorCode}}</td>
+              <td :class="data.invoice?'':'text-center text-lg'">{{data.invoice? data.invoice:'-'}}</td>
+              <td :class="data.gst?'':'text-center text-lg'">{{data.gst?data.gst:'-'}}</td>
               <td>{{data.vendorName}}</td>
               <td>{{changeDateFormat(data.paymentDate)}}</td>
-              <td>{{data.paymentMode}}</td>
+              <td :class="data.paymentMode?'':'text-center text-lg'">{{data.paymentMode ? data.paymentMode : '-'}}</td>
               <td>{{data.amount}}</td>
               <td>{{data.remarks}}</td>
             </tr>
