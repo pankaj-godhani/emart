@@ -201,25 +201,47 @@
         <div class="col-sm">
           <label class="form-control-label">PAN Number</label>
           <input
-            type="text"
             class="form-control"
-            placeholder="PAN Number"
-            v-model="form.panNo"
+            type="file"
+            ref="panFile"
+            @change="getImage"
+            accept="image/*"
           />
         </div>
       </div>
       <div class="row pb-3">
 
-        <div class="col-sm-3">
-          <label class="form-control-label">GST</label>
+        <div class="col-sm">
+          <label class="form-control-label">Cancelled Cheque</label>
           <input
-            type="text"
             class="form-control"
-            placeholder="GST"
-            v-model="form.GST"
+            type="file"
+            ref="chequeFile"
+            @change="getImage"
+            accept="image/*"
           />
         </div>
-        <div class="col-sm-3 ">
+        <div class="col-sm">
+          <label class="form-control-label">Certificate of Incorporation</label>
+          <input
+            class="form-control"
+            type="file"
+            ref="certificateFile"
+            @change="getImage"
+            accept="image/*"
+          />
+        </div>
+        <div class="col-sm">
+          <label class="form-control-label">GST</label>
+          <input
+            class="form-control"
+            type="file"
+            ref="gstFile"
+            @change="getImage"
+            accept="image/*"
+          />
+        </div>
+        <div class="col-sm">
           <label class="form-control-label">Payment Terms</label>
           <input
             type="text"
@@ -228,6 +250,10 @@
             v-model="form.paymentTerms"
           />
         </div>
+
+
+      </div>
+      <div class="row pb-3">
         <div class="col-sm-3">
           <label class="form-control-label">Shipping Terms</label>
           <input
@@ -237,12 +263,6 @@
             v-model="form.shippingTerms"
           />
         </div>
-
-      </div>
-      <div class="row pb-3">
-
-
-
       </div>
 
       <h3 class="mt-3"><b>Bank Details</b></h3>
@@ -388,6 +408,10 @@ export default {
     ...authMethods,
     getImage() {
       this.form.file = this.$refs.file1.files.item(0);
+      this.form.GST = this.$refs.gstFile.files.item(0);
+      this.form.panNo = this.$refs.panFile.files.item(0);
+      //this.form.file = this.$refs.certificateFile.files.item(0);
+      //this.form.file = this.$refs.chequeFile.files.item(0);
       this.imageURL = URL.createObjectURL(this.form.file);
     },
     submit() {
@@ -398,6 +422,9 @@ export default {
       .then(response=>{
         this.form=response.data[0];
         this.form.state=this.getStates();
+        if(response.data[0].accountNumber===null ||response.data[0].accountNumber===undefined){
+          this.form.accountNumber='';
+        }
       });
     },
     getCountries(){

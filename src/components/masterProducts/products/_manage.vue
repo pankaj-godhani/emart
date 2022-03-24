@@ -157,8 +157,8 @@
                   v-model="productDetails.schemes"
                 >
                   <option disabled selected value>select scheme</option>
-                  <option v-for="schemes in schemaList" :key="schemes._id">
-                    {{ schemes.schemaName }}
+                  <option v-for="schemes in schemaList" :value="schemes" :key="schemes._id">
+                    {{ schemes }}
                   </option>
                 </select>
               </div>
@@ -232,7 +232,7 @@ export default {
         shelfLifeDays: "",
         quantity: "",
         dateOfAvailability: "",
-        schemes: "",
+        schemes: {},
         margin: "",
         item_mrp: "",
         sellingPrice: "",
