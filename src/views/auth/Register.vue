@@ -529,15 +529,15 @@ export default {
         mobileNumber:"",
         email: "",
         password: "",
-        panNo: null,
         bankName: "",
         accountNumber: "",
         IFSCCode: "",
         paymentTerms: "",
         shippingTerms: "",
-        GST: null,
-        cancelledCheque:null,
-        certiOfIncorporation:null,
+        panpicture: null,
+        gstpicture: null,
+        cancelledchequepic:null,
+        coincorporation:null,
         vendorType: "",
         vendor_name: "",
         vendor_Address_code: "",
@@ -550,7 +550,7 @@ export default {
         vendor_Code: "",
         isAdmin:false,
         isActive:false,
-        file:null,
+        avatar:null,
       },
 
     }
@@ -664,10 +664,10 @@ export default {
       formData.append('lastName',this.form.lastName);
       formData.append('mobileNumber',this.form.mobileNumber);
       formData.append('email',this.form.email);
-      formData.append('panNo',this.form.panNo);
-      formData.append('GST',this.form.GST);
-      formData.append('cancelledCheque',this.form.cancelledCheque);
-      formData.append('certiOfIncorporation',this.form.certiOfIncorporation);
+      formData.append('panpicture',this.form.panpicture);
+      formData.append('gstpicture',this.form.gstpicture);
+      formData.append('cancelledchequepic',this.form.cancelledchequepic);
+      formData.append('coincorporation',this.form.coincorporation);
       formData.append('bankName',this.form.bankName);
       formData.append('accountNumber',this.form.accountNumber);
       formData.append('IFSCCode',this.form.IFSCCode);
@@ -686,7 +686,7 @@ export default {
       formData.append('passWord',this.form.passWord);
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
-      formData.append('file',this.form.file);
+      formData.append('avatar',this.form.avatar);
       formData.append('system_Vendor_id',this.system_Vendor_id);
       axios.post(`api/auth/create`,formData,{
         header: {

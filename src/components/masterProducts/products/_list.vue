@@ -187,7 +187,7 @@
               <div class="spinner-border" role="status"></div>
             </div>
 
-          <div v-else-if="visible">
+          <div v-else-if="visible || pagedData">
             <Table>
                 <template v-slot:thead>
                   <tr>
@@ -235,7 +235,7 @@
                         {{ data.priceApproval?'Approved':'Not approved' }}
                       </span>
                     </td>
-                    <td>{{ data.EANCode}}</td>
+                    <td>{{ data.EANCode}} </td>
                     <td :class="data.HSNCode?'':'text-lg text-center'">{{ data.HSNCode?data.HSNCode:'-' }}</td>
                     <td :class="data.dateOfAvailability?'':'text-lg text-center'">{{ data.dateOfAvailability?changeDateFormat(data.dateOfAvailability):'-'}}</td>
                     <td :class="data.createdAt?'':'text-lg text-center'">{{ data.createdAt?changeDateFormat(data.createdAt):'-'}}</td>
@@ -249,7 +249,7 @@
                     <td :class="data.MRP?'':'text-lg text-center'">{{ data.MRP ? data.MRP : '-'}}</td>
                     <td :class="data.margin?'':'text-lg text-center'">{{ data.margin ? data.margin : '-' }}</td>
                     <td :class="data.netPTR?'':'text-lg text-center'">{{data.netPTR?data.netPTR:'-'}}</td>
-                    <td :class="data.schemes?'':'text-lg text-center'"> <router-link :to="{name: 'SchemesEdit', params: { id: data.schemes._id }}"><span>{{ data.schemes.schemaName ? data.schemes.schemaName :'-'}}</span></router-link></td>
+                    <td :class="data.schemes?'':'text-lg text-center'"> <router-link :to="{name: 'SchemesEdit', params: { id: data.schemes._id }}"><span>{{ data.schemes ? data.schemes.schemaName :'-'}}</span></router-link></td>
                     <td :class="data.remarks?'':'text-lg text-center'">{{ data.remarks ? data.remarks : '-'}}</td>
                     <td :class="data.sellingPrice?'':'text-lg text-center'">{{ data.sellingPrice ? data.sellingPrice : '-'}}</td>
 

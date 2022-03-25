@@ -205,7 +205,7 @@
             type="file"
             ref="panFile"
             @change="getImage"
-            accept="image/*"
+
           />
         </div>
       </div>
@@ -218,7 +218,6 @@
             type="file"
             ref="chequeFile"
             @change="getImage"
-            accept="image/*"
           />
         </div>
         <div class="col-sm">
@@ -228,7 +227,7 @@
             type="file"
             ref="certificateFile"
             @change="getImage"
-            accept="image/*"
+
           />
         </div>
         <div class="col-sm">
@@ -238,7 +237,7 @@
             type="file"
             ref="gstFile"
             @change="getImage"
-            accept="image/*"
+
           />
         </div>
         <div class="col-sm">
@@ -366,15 +365,15 @@ export default {
         lastName:"",
         mobileNumber:"",
         email: "",
-        panNo: null,
         bankName: "",
         accountNumber: "",
         IFSCCode: "",
         paymentTerms: "",
         shippingTerms: "",
-        GST: null,
-        cancelledCheque:null,
-        certiOfIncorporation:null,
+        panpicture: null,
+        gstpicture: null,
+        cancelledchequepic:null,
+        coincorporation:null,
         vendorType: "",
         vendor_name: "",
         vendor_Address_code: "",
@@ -387,7 +386,7 @@ export default {
         vendor_Code: "",
         isAdmin:false,
         isActive:false,
-        file:null,
+        avatar:null,
       },
       passWord: '',
       system_Vendor_id:'',
@@ -409,12 +408,12 @@ export default {
   methods:{
     ...authMethods,
     getImage() {
-      this.form.file = this.$refs.file1.files.item(0);
-      this.form.GST = this.$refs.gstFile.files.item(0);
-      this.form.panNo = this.$refs.panFile.files.item(0);
-      this.form.certiOfIncorporation = this.$refs.certificateFile.files.item(0);
-      this.form.cancelledCheque = this.$refs.chequeFile.files.item(0);
-      this.imageURL = URL.createObjectURL(this.form.file);
+      this.form.avatar = this.$refs.file1.files.item(0);
+      this.form.gstpicture = this.$refs.gstFile.files.item(0);
+      this.form.panpicture = this.$refs.panFile.files.item(0);
+      this.form.coincorporation = this.$refs.certificateFile.files.item(0);
+      this.form.cancelledchequepic = this.$refs.chequeFile.files.item(0);
+      this.imageURL = URL.createObjectURL(this.form.avatar);
     },
     submit() {
       this.editing ? this.onUpdate() : this.storeUser();
@@ -476,10 +475,10 @@ export default {
         formData.append('lastName',this.form.lastName?this.form.lastName:'');
         formData.append('mobileNumber',this.form.mobileNumber);
         formData.append('email',this.form.email);
-        formData.append('panNo',this.form.panNo);
-        formData.append('GST',this.form.GST);
-        formData.append('cancelledCheque',this.form.cancelledCheque);
-        formData.append('certiOfIncorporation',this.form.certiOfIncorporation);
+        formData.append('panpicture',this.form.panpicture);
+        formData.append('gstpicture',this.form.gstpicture);
+        formData.append('cancelledchequepic',this.form.cancelledchequepic);
+        formData.append('coincorporation',this.form.coincorporation);
         formData.append('bankName',this.form.bankName?this.form.bankName:'');
         formData.append('accountNumber',this.form.accountNumber);
         formData.append('IFSCCode',this.form.IFSCCode?this.form.IFSCCode:'');
@@ -500,7 +499,7 @@ export default {
         }
         formData.append('isAdmin',this.form.isAdmin);
         formData.append('isActive',this.form.isActive);
-        formData.append('file',this.form.file);
+        formData.append('avatar',this.form.file);
         axios.put(`api/auth/edit/${this.id}`,formData,{
           header: {
             'Content-Type': 'multipart/form-data'
@@ -564,13 +563,15 @@ export default {
       formData.append('lastName',this.form.lastName);
       formData.append('mobileNumber',this.form.mobileNumber);
       formData.append('email',this.form.email);
-      formData.append('panNo',this.form.panNo);
       formData.append('bankName',this.form.bankName);
       formData.append('accountNumber',this.form.accountNumber);
       formData.append('IFSCCode',this.form.IFSCCode);
       formData.append('paymentTerms',this.form.paymentTerms);
       formData.append('shippingTerms',this.form.shippingTerms);
-      formData.append('GST',this.form.GST);
+      formData.append('panpicture',this.form.panpicture);
+      formData.append('gstpicture',this.form.gstpicture);
+      formData.append('cancelledchequepic',this.form.cancelledchequepic);
+      formData.append('coincorporation',this.form.coincorporation);
       formData.append('vendorType',this.form.vendorType);
       formData.append('vendor_name',this.form.vendor_name);
       formData.append('vendor_Address_code',this.form.vendor_Address_code);
@@ -584,7 +585,7 @@ export default {
       formData.append('passWord',this.passWord);
       formData.append('isAdmin',this.form.isAdmin);
       formData.append('isActive',this.form.isActive);
-      formData.append('file',this.form.file);
+      formData.append('avatar',this.form.avatar);
       formData.append('system_Vendor_id',this.system_Vendor_id);
       axios.post(`api/auth/create`,formData,{
           header: {

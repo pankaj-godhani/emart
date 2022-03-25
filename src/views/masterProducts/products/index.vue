@@ -118,7 +118,7 @@ export default {
       visibleCard: false,
       productData: {
         priceApproval:'',
-        schemes:'',
+        schemes: ''
       }
     }
   },
@@ -140,7 +140,7 @@ export default {
         this.productData=response.data;
         for (const i in response.data) {
           this.productData[i].priceApproval=response.data[i].priceApproval?'Approved':'Not approved';
-          this.productData[i].schemes=response.data[i].schemes.schemaName;
+          this.productData[i].schemes=response.data[i].schemes.schemaName?response.data[i].schemes.schemaName:'';
         }
       });
     },
