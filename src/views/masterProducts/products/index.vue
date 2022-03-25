@@ -100,6 +100,7 @@ import ProductList from "../../../components/masterProducts/products/_list";
 import axios from "axios";
 import FileSaver from "file-saver";
 import { mapGetters } from "vuex";
+import _ from "lodash";
 
 export default {
   components: {
@@ -115,10 +116,14 @@ export default {
         endDate: "",
       },
       visibleCard: false,
-      productData: [],
+      productData: {
+        priceApproval:'',
+        schemes:'',
+      }
     }
   },
   mounted() {
+    //this.productData.priceApproval = this.productData.priceApproval?'Approved':'Not approved';
     this.fetchProduct();
   },
   computed:{
@@ -132,7 +137,11 @@ export default {
     },
     fetchProduct() {
       axios.get(`/api/product/get`,).then((response) => {
-        this.productData = response.data;
+        this.productData=response.data;
+        for (const i in response.data) {
+          this.productData[i].priceApproval=response.data[i].priceApproval?'Approved':'Not approved';
+          this.productData[i].schemes=response.data[i].schemes.schemaName;
+        }
       });
     },
     uploadExcel() {

@@ -158,7 +158,7 @@
                 >
                   <option disabled selected value>select scheme</option>
                   <option v-for="schemes in schemaList" :value="schemes" :key="schemes._id">
-                    {{ schemes }}
+                    {{ schemes.schemaName }}
                   </option>
                 </select>
               </div>

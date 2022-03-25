@@ -366,13 +366,15 @@ export default {
         lastName:"",
         mobileNumber:"",
         email: "",
-        panNo: "",
+        panNo: null,
         bankName: "",
         accountNumber: "",
         IFSCCode: "",
         paymentTerms: "",
         shippingTerms: "",
-        GST: "",
+        GST: null,
+        cancelledCheque:null,
+        certiOfIncorporation:null,
         vendorType: "",
         vendor_name: "",
         vendor_Address_code: "",
@@ -410,8 +412,8 @@ export default {
       this.form.file = this.$refs.file1.files.item(0);
       this.form.GST = this.$refs.gstFile.files.item(0);
       this.form.panNo = this.$refs.panFile.files.item(0);
-      //this.form.file = this.$refs.certificateFile.files.item(0);
-      //this.form.file = this.$refs.chequeFile.files.item(0);
+      this.form.certiOfIncorporation = this.$refs.certificateFile.files.item(0);
+      this.form.cancelledCheque = this.$refs.chequeFile.files.item(0);
       this.imageURL = URL.createObjectURL(this.form.file);
     },
     submit() {
@@ -474,13 +476,15 @@ export default {
         formData.append('lastName',this.form.lastName?this.form.lastName:'');
         formData.append('mobileNumber',this.form.mobileNumber);
         formData.append('email',this.form.email);
-        formData.append('panNo',this.form.panNo?this.form.panNo:'');
+        formData.append('panNo',this.form.panNo);
+        formData.append('GST',this.form.GST);
+        formData.append('cancelledCheque',this.form.cancelledCheque);
+        formData.append('certiOfIncorporation',this.form.certiOfIncorporation);
         formData.append('bankName',this.form.bankName?this.form.bankName:'');
         formData.append('accountNumber',this.form.accountNumber);
         formData.append('IFSCCode',this.form.IFSCCode?this.form.IFSCCode:'');
         formData.append('paymentTerms',this.form.paymentTerms?this.form.paymentTerms:'');
         formData.append('shippingTerms',this.form.shippingTerms?this.form.shippingTerms:'');
-        formData.append('GST',this.form.GST?this.form.GST:'');
         formData.append('vendorType',this.form.vendorType?this.form.vendorType:'');
         formData.append('vendor_name',this.form.vendor_name?this.form.vendor_name:'');
         formData.append('vendor_Address_code',this.form.vendor_Address_code?this.form.vendor_Address_code:'');

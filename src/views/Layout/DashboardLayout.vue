@@ -70,12 +70,12 @@
                   path: '/invoices/credit',
                 }"
                  />
-                 <sidebar-item
+<!--                 <sidebar-item
                    :link="{
                   name: 'Outstanding Report',
                   path: '/invoices/vendorwise-outstanding-report',
                 }"
-                 />
+                 />-->
            </sidebar-item>
            <sidebar-item
              v-if="isActive===true"
