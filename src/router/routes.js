@@ -8,6 +8,7 @@ import Users from "../views/users/index";
 import UserCreate from "../views/users/create";
 import UserEdit from "../views/users/edit";
 import Profile from "../views/users/profileIndex";
+import UserProfile from "../views/users/userProfileIndex";
 import Products from "../views/masterProducts/products/index";
 import ProductCreate from "../views/masterProducts/products/create";
 import Schemes from "../views/masterProducts/schemes/index";
@@ -92,6 +93,15 @@ export default [
         path: "/profile/:id",
         name: "Profile",
         components: { default: Profile },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+      {
+        path: "/user-profile/:id",
+        name: "UserProfile",
+        components: { default: UserProfile },
         meta: {
           middleware: [auth],
           navbarType: "light",

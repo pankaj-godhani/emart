@@ -46,6 +46,18 @@
                     </button>
                   </router-link>
                 </div>
+                <div class="pr-2">
+                  <router-link
+                    :to="{ name: 'UserProfile', params: { id: data._id } }"
+                  >
+                    <button
+                      type="button"
+                      class="btn base-button btn-icon btn-fab btn btn-default btn-sm edit"
+                    >
+                      <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+                    </button>
+                  </router-link>
+                </div>
               </div>
             </td>
           </tr>
@@ -119,6 +131,9 @@ export default {
   },
 
   methods:{
+    goToData(id) {
+      this.$router.push({ name: 'Profile', params: { id: id } });
+    },
     fetch(){
       this.loading = true;
       axios.get(`api/auth/getAllUser`)

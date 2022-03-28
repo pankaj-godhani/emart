@@ -83,7 +83,7 @@
       <div class="row px-6 mt-4">
         <div class="col">
           <h4 class="text-dark">GST</h4>
-<!--          <label :class="user.GST?'form-control-label':'form-control-label text-xl'">{{ user.GST?user.GST:'-' }}</label>-->
+          <!--          <label :class="user.GST?'form-control-label':'form-control-label text-xl'">{{ user.GST?user.GST:'-' }}</label>-->
           <label :class="user.GST?'form-control-label':'form-control-label text-xl'">
             <a v-if="user.GST" :href="url+user.GST" download>GST File</a>
             <span v-else class="text-sm">GST certificate not available</span>

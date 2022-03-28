@@ -407,6 +407,7 @@ export default {
 
   methods:{
     ...authMethods,
+
     getImage() {
       this.form.avatar = this.$refs.file1.files.item(0);
       this.form.gstpicture = this.$refs.gstFile.files.item(0);
@@ -499,7 +500,7 @@ export default {
         }
         formData.append('isAdmin',this.form.isAdmin);
         formData.append('isActive',this.form.isActive);
-        formData.append('avatar',this.form.file);
+        formData.append('avatar',this.form.avatar);
         axios.put(`api/auth/edit/${this.id}`,formData,{
           header: {
             'Content-Type': 'multipart/form-data'

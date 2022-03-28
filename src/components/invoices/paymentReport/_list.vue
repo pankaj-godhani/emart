@@ -38,26 +38,26 @@
           <template v-slot:thead>
             <tr>
               <th>Vendor Code</th>
-              <th>Invoice Number</th>
               <th>Vendor GSTIN</th>
               <th>Vendor Name</th>
               <th>Payment Date</th>
               <th>Payment Mode</th>
               <th>Amount</th>
               <th>Remarks</th>
+              <th>Invoice Reference</th>
             </tr>
           </template>
 
           <template v-slot:tbody>
             <tr v-for="data in pagedData" :key="data.vendorId">
               <td class="text-center">{{data.vendorCode}}</td>
-              <td :class="data.invoice?'':'text-center text-lg'">{{data.invoice? data.invoice:'-'}}</td>
               <td :class="data.gst?'':'text-center text-lg'">{{data.gst?data.gst:'-'}}</td>
               <td>{{data.vendorName}}</td>
               <td>{{changeDateFormat(data.paymentDate)}}</td>
-              <td :class="data.paymentMode?'':'text-center text-lg'">{{data.paymentMode ? data.paymentMode : '-'}}</td>
+              <td :class="data.tenderType?'':'text-center text-lg'">{{data.tenderType ? data.tenderType : '-'}}</td>
               <td>{{data.amount}}</td>
               <td>{{data.remarks}}</td>
+              <td :class="data.invoice?'':'text-center text-lg'">{{data.invoice? data.invoice:'-'}}</td>
             </tr>
           </template>
         </Table>
