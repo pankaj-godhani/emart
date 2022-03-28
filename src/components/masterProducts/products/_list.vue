@@ -185,9 +185,9 @@
 
           <div class="text-center mt-4" v-if="loading">
               <div class="spinner-border" role="status"></div>
-            </div>
+          </div>
 
-          <div v-else-if="visible || pagedData">
+          <div v-else-if="visible">
             <Table>
                 <template v-slot:thead>
                   <tr>
@@ -265,7 +265,7 @@
               </Table>
           </div>
 
-          <div v-else-if="status === 201||error" class="text-center py-5 ">
+          <div v-else-if="status !== 200||error ||loading" class="text-center py-5 ">
               Data not found
           </div>
 
@@ -448,12 +448,15 @@ export default {
         .then((response) => {
           this.productData = response.data;
           this.status = response.status;
-          if (this.status == 200) {
+          console.log(this.status);
+          if (this.status === 200) {
             this.visible = true;
-          } else if (this.status == 201) {
+            this.loading = false;
+          } else if (this.status === 201) {
             this.visible = false;
+            this.loading = false;
           }
-          this.loading = false;
+
         })
         .catch((error)=>{
           this.error=error;
