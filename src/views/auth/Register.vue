@@ -375,8 +375,8 @@
                         type="file"
                         ref="panFile"
                         @change="getImage"
-                        accept="image/*"
                       />
+                      <p class="text-danger text-xs" >{{ errors['panpicture'] }}</p>
                     </div>
                     <div class="col-sm-3">
                       <label class="form-control-label">GST</label>
@@ -385,8 +385,8 @@
                         type="file"
                         ref="gstFile"
                         @change="getImage"
-                        accept="image/*"
                       />
+                      <p class="text-danger text-xs" >{{ errors['gstpicture'] }}</p>
                     </div>
                   </div>
                   <div class="row pb-3">
@@ -398,8 +398,8 @@
                         type="file"
                         ref="chequeFile"
                         @change="getImage"
-                        accept="image/*"
                       />
+                      <p class="text-danger text-xs" >{{ errors['cancelledchequepic'] }}</p>
                     </div>
                     <div class="col-sm-3">
                       <label class="form-control-label">Certificate of Incorporation</label>
@@ -408,8 +408,8 @@
                         type="file"
                         ref="certificateFile"
                         @change="getImage"
-                        accept="image/*"
                       />
+                      <p class="text-danger text-xs" >{{ errors['coincorporation'] }}</p>
                     </div>
                     <div class="col-sm-3 ">
                       <label class="form-control-label">Payment Terms</label>
@@ -611,6 +611,10 @@ export default {
           this.form.state,
           this.form.city,
           this.form.vendorType,
+          this.$refs.panFile.files.length,
+          this.$refs.gstFile.files.length,
+          this.$refs.chequeFile.files.length,
+          this.$refs.certificateFile.files.length
         );
         this.errors= validations.checkValidations();
         console.log( this.errors);

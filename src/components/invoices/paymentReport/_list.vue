@@ -130,7 +130,7 @@ export default {
       return highBound;
     },
     from() {
-      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1)
+      return this.visible && this.paymentReportData.length!==0? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1)
     },
     total() {
       return this.visible ? this.paymentReportData.length : 0;

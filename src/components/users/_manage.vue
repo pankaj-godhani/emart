@@ -205,12 +205,21 @@
             type="file"
             ref="panFile"
             @change="getImage"
-
           />
+          <p class="text-danger text-xs" >{{ errors['panpicture'] }}</p>
         </div>
       </div>
       <div class="row pb-3">
-
+        <div class="col-sm">
+          <label class="form-control-label">GST</label>
+          <input
+            class="form-control"
+            type="file"
+            ref="gstFile"
+            @change="getImage"
+          />
+          <p class="text-danger text-xs" >{{ errors['gstpicture'] }}</p>
+        </div>
         <div class="col-sm">
           <label class="form-control-label">Cancelled Cheque</label>
           <input
@@ -219,6 +228,7 @@
             ref="chequeFile"
             @change="getImage"
           />
+          <p class="text-danger text-xs" >{{ errors['cancelledchequepic'] }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Certificate of Incorporation</label>
@@ -227,18 +237,8 @@
             type="file"
             ref="certificateFile"
             @change="getImage"
-
           />
-        </div>
-        <div class="col-sm">
-          <label class="form-control-label">GST</label>
-          <input
-            class="form-control"
-            type="file"
-            ref="gstFile"
-            @change="getImage"
-
-          />
+          <p class="text-danger text-xs" >{{ errors['coincorporation'] }}</p>
         </div>
         <div class="col-sm">
           <label class="form-control-label">Payment Terms</label>
@@ -345,6 +345,7 @@
 
 <script>
 import axios from "axios";
+import _ from "lodash";
 import { authMethods } from "../../state/helpers";
 import SignupValidations from "../../services/SignupValidations";
 
@@ -398,6 +399,7 @@ export default {
     },
   },
   mounted(){
+    console.log(this.form.mobileNumber);
     this.form.vendor_Code=Math.floor(Math.random() * 100000);
     this.getCountries();
     if (this.editing) {
@@ -422,7 +424,7 @@ export default {
     fetch(){
       axios.get(`api/auth/user/${this.id}`)
       .then(response=>{
-        this.form=response.data[0];
+        this.form=_.merge(this.form,response.data[0]);
         this.form.state=this.getStates();
         if(response.data[0].accountNumber===null ||response.data[0].accountNumber===undefined){
           this.form.accountNumber='';
@@ -458,7 +460,11 @@ export default {
                                   this.form.country_id,
                                   this.form.state,
                                   this.form.city,
-                                  this.form.vendorType
+                                  this.form.vendorType,
+                                  this.$refs.panFile.files.length,
+                                  this.$refs.gstFile.files.length,
+                                  this.$refs.chequeFile.files.length,
+                                  this.$refs.certificateFile.files.length,
                                 );
       this.errors= validations.checkValidations();
       console.log(this.errors);

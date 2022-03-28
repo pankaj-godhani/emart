@@ -50,6 +50,12 @@ export default class Validations{
     return false;
   }
 
+  static checkRequiredFile(name){
+    if(name!==0){
+      return true;
+    }
+    return false;
+  }
   static checkRequiredNumber(name){
 
     if(String(name).match(/^(?!0\d)\d*(\.\d+)?$/)){
