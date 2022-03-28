@@ -461,18 +461,22 @@ export default {
                                   this.form.state,
                                   this.form.city,
                                   this.form.vendorType,
-                                  this.$refs.panFile.files.length,
-                                  this.$refs.gstFile.files.length,
-                                  this.$refs.chequeFile.files.length,
-                                  this.$refs.certificateFile.files.length,
+                         this.form.panNo?this.form.panNo.length:this.$refs.panFile.files.length,
+                         this.form.GST?this.form.GST.length:this.$refs.gstFile.files.length,
+                   this.form.cancelledCheque?this.form.cancelledCheque.length:this.$refs.chequeFile.files.length,
+                     this.form.certiOfIncorporation?this.form.certiOfIncorporation.length:this.$refs.certificateFile.files.length,
                                 );
       this.errors= validations.checkValidations();
       console.log(this.errors);
       console.log(Object.keys(this.errors).length);
     },
     onUpdate(){
+      console.log(this.form.GST,'gst');
+      console.log(this.form.cancelledCheque,'cheque');
+      console.log(this.form.certiOfIncorporation,'certy');
+      console.log(this.form.panNo,'pan');
       this.checkValidation();
-      if( Object.keys(this.errors).length){
+      if(Object.keys(this.errors).length){
         return this.errors;
       }
       else {
