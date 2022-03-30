@@ -2,9 +2,9 @@
   <card>
     <div class="container ct-example-row">
       <form @submit="submit" >
-        <div>
-          <div class="row mt-3">
-            <div class="col-sm form-group">
+
+          <div class="row mt-4">
+            <div class="col-sm">
               <label class="form-control-label">Product Name</label>
               <input
                 type="text"
@@ -13,6 +13,26 @@
                 v-model="form.productName"
               />
             </div>
+            <div class="col-sm">
+              <label class="form-control-label">Vendor Invoice Reference</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Vendor Invoice Reference"
+                v-model="form.vendorInvoiceRef"
+              />
+            </div>
+            <div class="col-sm">
+              <label class="form-control-label">E Metro PO reference</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter E Metro PO reference"
+                v-model="form.eMetroPoRef"
+              />
+            </div>
+          </div>
+          <div class="row mt-4">
             <div class="col-sm">
               <label class="form-control-label">Vendor Invoice Reference & Date</label>
               <input
@@ -29,8 +49,6 @@
                 v-model="form.eMetroPoRef_Date"
               />
             </div>
-          </div>
-          <div class="row">
             <div class="col-sm">
               <label class="form-control-label">Description</label>
               <input
@@ -40,6 +58,8 @@
                 v-model="form.description"
               />
             </div>
+          </div>
+          <div class="row mt-4">
             <div class="col-sm">
               <label class="form-control-label">Item Quantity</label>
               <input
@@ -60,10 +80,6 @@
               />
               <p class="text-danger text-xs" >{{ errors['HSNCode'] }}</p>
             </div>
-          </div>
-        </div>
-        <div class="mt-4">
-          <div class="row mt-3">
             <div class="col-sm">
               <label class="form-control-label">Unit Price</label>
               <input
@@ -74,6 +90,8 @@
               />
               <p class="text-danger text-xs" >{{ errors['unitPrice'] }}</p>
             </div>
+          </div>
+          <div class="row mt-4">
             <div class="col-sm">
               <label class="form-control-label"> Price Difference</label>
               <input
@@ -94,9 +112,6 @@
               />
               <p class="text-danger text-xs" >{{ errors['taxRate'] }}</p>
             </div>
-
-          </div>
-          <div class="row mt-4">
             <div class="col-sm">
               <label class="form-control-label">CGST</label>
               <input
@@ -107,6 +122,8 @@
               />
               <p class="text-danger text-xs" >{{ errors['CGST'] }}</p>
             </div>
+          </div>
+          <div class="row mt-4">
             <div class="col-sm">
               <label class="form-control-label">SGST</label>
               <input
@@ -127,9 +144,6 @@
               />
               <p class="text-danger text-xs" >{{ errors['IGST'] }}</p>
             </div>
-
-          </div>
-          <div class="row mt-4">
             <div class="col-sm-4">
               <label class="form-control-label">Amount</label>
               <input
@@ -140,9 +154,8 @@
               />
               <p class="text-danger text-xs" >{{ errors['amount'] }}</p>
             </div>
-
           </div>
-        </div>
+
         <div class="d-flex mt-3 float-right">
           <div class="pr-2">
             <router-link :to="{ name: 'Credit' }">
@@ -167,7 +180,6 @@
               Submit
             </button>
           </div>
-
         </div>
       </form>
     </div>
@@ -185,10 +197,12 @@ export default {
   data(){
     return{
       form:{
-        userID : "",
+        userID: "",
         productName: "",
         vendorInvoiceRef_Date: "",
+        vendorInvoiceRef: "",
         eMetroPoRef_Date: "",
+        eMetroPoRef: "",
         description: "",
         itemQuantity: "",
         HSNCode: "",
@@ -249,6 +263,8 @@ export default {
           'userID' : this.userID,
           'productName': this.form.productName,
           'vendorInvoiceRef_Date': this.form.vendorInvoiceRef_Date,
+          'vendorInvoiceRef': this.form.vendorInvoiceRef,
+          'eMetroPoRef': this.form.eMetroPoRef,
           'eMetroPoRef_Date': this.form.eMetroPoRef_Date,
           'description': this.form.description,
           'itemQuantity': this.form.itemQuantity,

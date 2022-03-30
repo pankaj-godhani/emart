@@ -2,9 +2,9 @@
   <card>
     <div class="container ct-example-row">
       <form @submit="submit" >
-        <div>
-          <div class="row mt-3">
-            <div class="col-sm form-group">
+
+          <div class="row mt-4">
+            <div class="col-sm">
               <label class="form-control-label">Product Name</label>
               <input
                 type="text"
@@ -14,7 +14,28 @@
               />
             </div>
             <div class="col-sm">
-              <label class="form-control-label">Vendor Invoice Reference & Date</label>
+              <label class="form-control-label">Vendor Invoice Reference</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Vendor Invoice Reference"
+                v-model="form.vendorInvoiceRef"
+              />
+            </div>
+            <div class="col-sm">
+              <label class="form-control-label">E Metro PO Reference</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter E Metro PO Reference"
+                v-model="form.eMetroPoRef"
+              />
+            </div>
+
+          </div>
+          <div class="row mt-4">
+            <div class="col-sm">
+              <label class="form-control-label">Vendor Invoice Date</label>
               <input
                 class="form-control"
                 type="date"
@@ -22,15 +43,13 @@
               />
             </div>
             <div class="col-sm">
-              <label class="form-control-label">E Metro PO reference & Date</label>
+              <label class="form-control-label">E Metro PO Date</label>
               <input
                 class="form-control"
                 type="date"
                 v-model="form.eMetroPoRef_Date"
               />
             </div>
-          </div>
-          <div class="row">
             <div class="col-sm">
               <label class="form-control-label">Description</label>
               <input
@@ -40,6 +59,9 @@
                 v-model="form.description"
               />
             </div>
+
+          </div>
+          <div class="row mt-4">
             <div class="col-sm">
               <label class="form-control-label">Item Quantity</label>
               <input
@@ -60,10 +82,6 @@
               />
               <p class="text-danger text-xs" >{{ errors['HSNCode'] }}</p>
             </div>
-          </div>
-        </div>
-        <div class="mt-4">
-          <div class="row mt-3">
             <div class="col-sm">
               <label class="form-control-label">Unit Price</label>
               <input
@@ -74,6 +92,8 @@
               />
               <p class="text-danger text-xs" >{{ errors['unitPrice'] }}</p>
             </div>
+          </div>
+          <div class="row mt-4">
             <div class="col-sm">
               <label class="form-control-label">Tax Rate</label>
               <input
@@ -94,8 +114,6 @@
               />
               <p class="text-danger text-xs" >{{ errors['CGST'] }}</p>
             </div>
-          </div>
-          <div class="row mt-4">
             <div class="col-sm">
               <label class="form-control-label">SGST</label>
               <input
@@ -106,7 +124,9 @@
               />
               <p class="text-danger text-xs" >{{ errors['SGST'] }}</p>
             </div>
-            <div class="col-sm">
+          </div>
+          <div class="row mt-4">
+            <div class="col-sm-4">
               <label class="form-control-label">IGST</label>
               <input
                 type="text"
@@ -116,7 +136,7 @@
               />
               <p class="text-danger text-xs" >{{ errors['IGST'] }}</p>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-4">
               <label class="form-control-label">Amount</label>
               <input
                 type="text"
@@ -127,7 +147,7 @@
               <p class="text-danger text-xs" >{{ errors['amount'] }}</p>
             </div>
           </div>
-        </div>
+
         <div class="d-flex mt-3 float-right">
           <div class="pr-2">
             <router-link :to="{ name: 'Debit' }">
@@ -171,20 +191,22 @@ export default {
   data(){
     return{
       form:{
-        productName:"",
-        vendorInvoiceRef_Date:"",
+        productName: "",
+        vendorInvoiceRef: "",
+        vendorInvoiceRef_Date: "",
         eMetroPoRef_Date:"",
-        description:"",
-        itemQuantity:"",
-        HSNCode:"",
-        unitPrice:"",
-        taxRate:"",
-        CGST:"",
-        SGST:"",
-        IGST:"",
-        amount:""
+        eMetroPoRef: "",
+        description: "",
+        itemQuantity: "",
+        HSNCode: "",
+        unitPrice: "",
+        taxRate: "",
+        CGST: "",
+        SGST: "",
+        IGST: "",
+        amount: ""
       },
-      errors:[],
+      errors: [],
     }
   },
   mounted() {
@@ -234,6 +256,8 @@ export default {
           'productName':this.form.productName,
           'vendorInvoiceRef_Date':this.form.vendorInvoiceRef_Date,
           'eMetroPoRef_Date':this.form.eMetroPoRef_Date,
+          'vendorInvoiceRef': this.form.vendorInvoiceRef,
+          'eMetroPoRef': this.form.eMetroPoRef,
           'description':this.form.description,
           'itemQuantity':this.form.itemQuantity,
           'HSNCode':this.form.HSNCode,

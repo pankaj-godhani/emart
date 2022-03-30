@@ -509,6 +509,7 @@ export default {
   components: {VueRecaptcha},
   data() {
     return {
+      imageURL:null,
       recaptcha: null,
       status: "",
       errMobileNumber: "",
@@ -562,12 +563,12 @@ export default {
   methods: {
     ...authMethods,
     getImage() {
-      this.form.file = this.$refs.file1.files.item(0);
-      this.form.GST = this.$refs.gstFile.files.item(0);
-      this.form.panNo = this.$refs.panFile.files.item(0);
-      this.form.certiOfIncorporation = this.$refs.certificateFile.files.item(0);
-      this.form.cancelledCheque = this.$refs.chequeFile.files.item(0);
-      this.imageURL = URL.createObjectURL(this.form.file);
+      this.form.avatar = this.$refs.file1.files.item(0);
+      this.form.gstpicture = this.$refs.gstFile.files.item(0);
+      this.form.panpicture = this.$refs.panFile.files.item(0);
+      this.form.coincorporation = this.$refs.certificateFile.files.item(0);
+      this.form.cancelledchequepic = this.$refs.chequeFile.files.item(0);
+      this.imageURL = URL.createObjectURL(this.form.avatar);
     },
     mxVerify() {
       this.loginForm.pleaseTickRecaptchaMessage = '';
@@ -630,13 +631,13 @@ export default {
               "lastName":this.form.lastName,
               "mobileNumber":this.form.mobileNumber,
               "email": this.form.email,
-              "panNo": this.form.panNo,
+              "panNo": this.form.panpicture,
               "bankName": this.form.bankName,
               "accountNumber": this.form.accountNumber,
               "IFSCCode": this.form.IFSCCode,
               "paymentTerms": this.form.paymentTerms,
               "shippingTerms": this.form.shippingTerms,
-              "GST": this.form.GST,
+              "GST": this.form.gstpicture,
               "vendorType": this.form.vendorType,
               "vendor_name": this.form.vendor_name,
               "vendor_Address_code": this.form.vendor_Address_code,
@@ -662,6 +663,7 @@ export default {
       }
     },
     store(){
+      console.log('from store');
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
       formData.append('middleName',this.form.middleName);
