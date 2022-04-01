@@ -12,8 +12,10 @@
           <tr>
             <th>Sr No</th>
             <th>Product Name</th>
-            <th>Vendor Invoice Reference & Date</th>
-            <th>e-Metro PO Reference & Date</th>
+            <th>Vendor Invoice Reference</th>
+            <th>Vendor Invoice Date</th>
+            <th>e-Metro PO Reference </th>
+            <th>e-Metro PO Date </th>
             <th>Description</th>
             <th>Item Quantity</th>
             <th>HSN Code</th>
@@ -30,7 +32,9 @@
           <tr v-for="(data,index) in debitData" :key="data._id">
             <td>{{ index+1 }}</td>
             <td>{{ data.productName }}</td>
+            <td>{{ data.vendorInvoiceRef }}</td>
             <td :class="data.vendorInvoiceRef_Date?'':'text-xl'">{{data.vendorInvoiceRef_Date?changeDateFormat(data.vendorInvoiceRef_Date):'-' }}</td>
+            <td>{{ data.eMetroPoRef }}</td>
             <td :class="data.eMetroPoRef_Date?'':'text-xl'">{{ data.eMetroPoRef_Date?changeDateFormat(data.eMetroPoRef_Date):'-' }}</td>
             <td>{{ data.description }}</td>
             <td>{{ data.itemQuantity }}</td>
