@@ -57,8 +57,11 @@ export default {
     },
     syncAll(){
       axios.get(`api/auth/syncCall`)
-      .then(response=>{
-       // console.log(response);
+      .then(()=>{
+        this.$router.go(); // console.log(response);
+      })
+      .catch(()=>{
+        this.notification('Something went wrong','error');
       })
     }
 

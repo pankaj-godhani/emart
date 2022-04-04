@@ -16,7 +16,7 @@
           </svg>
         </div>
       </div>
-
+{{user.system_Vendor_id}}
       <div class="row px-6">
         <div class="col">
           <h4 class="text-dark">First Name</h4>

@@ -426,6 +426,7 @@ export default {
       .then(response=>{
         this.form=_.merge(this.form,response.data[0]);
         this.form.state=this.getStates();
+        this.system_Vendor_id = this.form.system_Vendor_id;
         if(response.data[0].accountNumber===null ||response.data[0].accountNumber===undefined){
           this.form.accountNumber='';
         }
@@ -471,10 +472,6 @@ export default {
       console.log(Object.keys(this.errors).length);
     },
     onUpdate(){
-      console.log(this.form.GST,'gst');
-      console.log(this.form.cancelledCheque,'cheque');
-      console.log(this.form.certiOfIncorporation,'certy');
-      console.log(this.form.panNo,'pan');
       this.checkValidation();
       if(Object.keys(this.errors).length){
         return this.errors;
@@ -505,6 +502,7 @@ export default {
         formData.append('state',this.form.state?this.form.state:'');
         formData.append('city',this.form.city?this.form.city:'');
         formData.append('vendor_Code',this.form.vendor_Code?this.form.vendor_Code:'');
+        formData.append('system_Vendor_id',this.form.system_Vendor_id?this.form.system_Vendor_id:'');
         if(this.passWord!==""){
           formData.append('passWord',this.passWord);
         }
