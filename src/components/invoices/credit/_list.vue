@@ -30,7 +30,7 @@
           </tr>
         </template>
         <template #tbody>
-          <tr v-for="(data,index) in creditData" :key="data._id">
+          <tr v-for="(data,index) in pagedData" :key="data._id">
             <td>{{ index+1 }}</td>
             <td>{{ data.productName }}</td>
             <td>{{ data.vendorInvoiceRef }}</td>
@@ -156,7 +156,7 @@ export default {
   data() {
     return {
       pagination: {
-        perPage: 5,
+        perPage: 7,
         currentPage: 1,
         total: 0,
       },

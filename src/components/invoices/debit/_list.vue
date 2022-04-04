@@ -29,7 +29,7 @@
           </tr>
         </template>
         <template #tbody>
-          <tr v-for="(data,index) in debitData" :key="data._id">
+          <tr v-for="(data,index) in pagedData" :key="data._id">
             <td>{{ index+1 }}</td>
             <td>{{ data.productName }}</td>
             <td>{{ data.vendorInvoiceRef }}</td>
