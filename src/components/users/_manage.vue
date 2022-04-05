@@ -230,7 +230,7 @@
           />
         </div>
         <div class="col-sm">
-          <label class="form-control-label">GST Document</label>
+          <label class="form-control-label">GST Number Document</label>
           <input
             class="form-control"
             type="file"
