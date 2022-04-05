@@ -1,4 +1,5 @@
 import Badge from "../components/Badge";
+import BarcodeGenerator from "../components/BarcodeGenerator";
 import BaseButton from "../components/BaseButton";
 import BaseCheckbox from "../components/Inputs/BaseCheckbox";
 import BaseDropdown from "../components/BaseDropdown";
@@ -37,6 +38,7 @@ const GlobalComponents = {
     app.component("DataModal", DataModal);
     app.component("NewModal", NewModal);
     app.component("SingleSelect", SingleSelect);
+    app.component("BarcodeGenerator", BarcodeGenerator);
 
     //app.component("MultiSelect", MultiSelect);
     app.use(ElTooltip);

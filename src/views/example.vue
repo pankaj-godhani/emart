@@ -1,6 +1,8 @@
 <template>
   <div>
-    efdrgf
+    <div>
+      <BarcodeGenerator :value="2021001000000001" :width="2" :height="50"></BarcodeGenerator>
+    </div>
     <Table>
       <template #thead>
         <tr>
@@ -26,8 +28,12 @@
         <tr v-for="(data, index) in schemeData" :key="data._id">
           <td>{{ index + 1 }}</td>
           <td>{{ data._id }}</td>
-          <td>{{ data.schemaNumber }}</td>
-          <td>{{ data.schemaName }}</td>
+          <td>{{ data.schemaNumber }}
+            <BarcodeGenerator :value="data.schemaNumber" :width="2" :height="50"></BarcodeGenerator>
+          </td>
+          <td>{{ data.schemaName }}
+            <BarcodeGenerator :value="data.schemaName" :width="2" :height="50"></BarcodeGenerator>
+          </td>
           <td>{{ data.date }}</td>
           <td>{{ data.EANCode }}</td>
           <td>{{ data.productName }}</td>

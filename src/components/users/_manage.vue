@@ -201,6 +201,18 @@
         <div class="col-sm">
           <label class="form-control-label">PAN Number</label>
           <input
+            type="text"
+            class="form-control"
+            placeholder="Password"
+            v-model="form.panNo"
+          />
+        </div>
+
+      </div>
+      <div class="row pb-3">
+        <div class="col-sm">
+          <label class="form-control-label">PAN Number Document</label>
+          <input
             class="form-control"
             type="file"
             ref="panFile"
@@ -208,10 +220,17 @@
           />
           <p class="text-danger text-xs" >{{ errors['panpicture'] }}</p>
         </div>
-      </div>
-      <div class="row pb-3">
         <div class="col-sm">
-          <label class="form-control-label">GST</label>
+          <label class="form-control-label">GST Number</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Password"
+            v-model="form.GST"
+          />
+        </div>
+        <div class="col-sm">
+          <label class="form-control-label">GST Document</label>
           <input
             class="form-control"
             type="file"
@@ -230,7 +249,12 @@
           />
           <p class="text-danger text-xs" >{{ errors['cancelledchequepic'] }}</p>
         </div>
-        <div class="col-sm">
+
+
+
+      </div>
+      <div class="row pb-3">
+        <div class="col-sm-3">
           <label class="form-control-label">Certificate of Incorporation</label>
           <input
             class="form-control"
@@ -240,7 +264,7 @@
           />
           <p class="text-danger text-xs" >{{ errors['coincorporation'] }}</p>
         </div>
-        <div class="col-sm">
+        <div class="col-sm-3">
           <label class="form-control-label">Payment Terms</label>
           <input
             type="text"
@@ -249,10 +273,6 @@
             v-model="form.paymentTerms"
           />
         </div>
-
-
-      </div>
-      <div class="row pb-3">
         <div class="col-sm-3">
           <label class="form-control-label">Shipping Terms</label>
           <input
@@ -371,6 +391,8 @@ export default {
         IFSCCode: "",
         paymentTerms: "",
         shippingTerms: "",
+        panNo: "",
+        GST: "",
         panpicture: null,
         gstpicture: null,
         cancelledchequepic:null,
@@ -483,6 +505,8 @@ export default {
         formData.append('lastName',this.form.lastName?this.form.lastName:'');
         formData.append('mobileNumber',this.form.mobileNumber);
         formData.append('email',this.form.email);
+        formData.append('panNo',this.form.panNo);
+        formData.append('GST',this.form.GST);
         formData.append('panpicture',this.form.panpicture);
         formData.append('gstpicture',this.form.gstpicture);
         formData.append('cancelledchequepic',this.form.cancelledchequepic);
@@ -534,13 +558,13 @@ export default {
           "lastName":this.form.lastName,
           "mobileNumber":this.form.mobileNumber,
           "email": this.form.email,
-          "panNo": this.form.panpicture,
+          "panNo": this.form.panNo,
           "bankName": this.form.bankName,
           "accountNumber": this.form.accountNumber,
           "IFSCCode": this.form.IFSCCode,
           "paymentTerms": this.form.paymentTerms,
           "shippingTerms": this.form.shippingTerms,
-          "GST": this.form.gstpicture,
+          "GST": this.form.GST,
           "vendorType": this.form.vendorType,
           "vendor_name": this.form.vendor_name,
           "vendor_Address_code": this.form.vendor_Address_code,
@@ -572,6 +596,8 @@ export default {
       formData.append('lastName',this.form.lastName);
       formData.append('mobileNumber',this.form.mobileNumber);
       formData.append('email',this.form.email);
+      formData.append('panNo',this.form.panNo);
+      formData.append('GST',this.form.GST);
       formData.append('bankName',this.form.bankName);
       formData.append('accountNumber',this.form.accountNumber);
       formData.append('IFSCCode',this.form.IFSCCode);

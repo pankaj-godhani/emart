@@ -206,9 +206,9 @@ export default {
       JsBarcode(payload.id, payload.value, {
         format: "code128",
         displayValue: true,
-        lineColor: "#24292e",
+        lineColor: "#090808",
         width:2,
-        height:40,
+        height:45,
         fontSize: 20
       });
     },

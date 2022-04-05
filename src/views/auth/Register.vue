@@ -18,167 +18,6 @@
               </div>
               <div class="card-body px-lg-5 py-lg-5">
                 <form @submit.prevent="submit" >
-<!--                  <div class="row pb-3">
-                    <div class="col-sm">
-                      <label class="form-control-label">Company Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Vendor Name"
-                        v-model="form.vendor_name"
-                      />
-                      <p class="text-danger text-xs" >{{ errors['vendor_name'] }}</p>
-                    </div>
-                    <div class="col-sm">
-                      <label class="form-control-label">First Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="First Name"
-                        v-model="form.firstName"
-                      />
-                      <p class="text-danger text-xs" >{{ errors['firstName'] }}</p>
-                    </div>
-                    <div class="col-sm">
-                      <label class="form-control-label">Last Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Last Name"
-                        v-model="form.lastName"
-                      />
-                      <p class="text-danger text-xs" >{{ errors['lastName'] }}</p>
-                    </div>
-
-                  </div>
-                  <div class="row pb-3">
-                    <div class="col-sm">
-                      <label class="form-control-label">Address Line 1</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Address Line 1"
-                        v-model="form.address_Line1"
-                      />
-                      <p class="text-danger text-xs" >{{ errors['address_Line1'] }}</p>
-                    </div>
-                    <div class="col-sm">
-                      <label class="form-control-label">Address Line 2</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Address Line 2"
-                        v-model="form.address_Line2"
-                      />
-                      <p class="text-danger text-xs" >{{ errors['address_Line2'] }}</p>
-                    </div>
-                    <div class="col-sm">
-                      <label class="form-control-label">Postal Code</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Postal Code"
-                        v-model="form.postal_Code"
-                      />
-                      <p class="text-danger text-xs" >{{ errors['postal_Code'] }}</p>
-                    </div>
-
-                  </div>
-                  <div class="row pb-3">
-
-                    <div class="col-sm ">
-                      <label class="form-control-label" >Country ID</label>
-                      <select class="form-control" v-model="form.country_id" @change="getStates($event.target.value)">
-                        <option disabled selected value>Choose Country</option>
-                        <option v-for="country in countries" :key="country.key" :value="country.key">
-                          {{ country.value }}
-                        </option>
-                      </select>
-                      <p class="text-danger text-xs" >{{ errors['country_id'] }}</p>
-                    </div>
-                    <div class="col-sm ">
-                      <label class="form-control-label">State</label>
-                      <select class="form-control" v-model="form.state">
-                        <option disabled selected value>Choose State</option>
-                        <option v-for="state in states" :key="state.key" :value="state.value">
-                          {{ state.value }}
-                        </option>
-                      </select>
-                      <p class="text-danger text-xs" >{{ errors['state'] }}</p>
-                    </div>
-
-                    <div class="col-sm ">
-                      <label class="form-control-label">City</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="City"
-                        v-model="form.city"
-                      />
-                      <p class="text-danger text-xs" >{{ errors['city'] }}</p>
-                    </div>
-
-
-                  </div>
-                  <div class="row pb-3">
-                    <div class="col-sm" v-show="false">
-                      <label class="form-control-label">Vendor Code</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Vendor Code"
-                        v-model="form.vendor_Code"
-                        disabled
-                      />
-                      &lt;!&ndash;          <p class="text-danger text-xs" >{{ errors['vendor_Code'] }}</p>&ndash;&gt;
-                    </div>
-                    <div class="col-sm">
-                      <label class="form-control-label">E-mail</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Email"
-                        v-model="form.email"
-                      />
-                      <p class="text-danger text-xs">{{ errors['email'] ?errors['email']: errMessage.email }}</p>
-                    </div>
-                    <div class="col-sm">
-                      <label class="form-control-label">Mobile Number</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Mobile Number"
-                        v-model="form.mobileNumber"
-                      />
-                      <p class="text-danger text-xs">{{ errors['mobileNumber'] ?errors['mobileNumber']: errMessage.mobileNumber }}</p>
-                    </div>
-                    <div class="col-sm">
-                      <label class="form-control-label">Vendor Type</label>
-                      <select class="form-control" v-model="form.vendorType">
-                        <option disabled selected value>Select Vendor Type</option>
-                        <option value="Farmer">Farmer</option>
-                        <option value="Manufacturer">Manufacturer</option>
-                        <option value="Traders">Traders</option>
-                        <option value="Packhouse">Packhouse</option>
-                        <option value="Millers">Millers</option>
-                        <option value="Packaging house">Packaging house</option>
-                        <option value="Processors">Processors</option>
-                      </select>
-                      <p class="text-danger text-xs" >{{ errors['vendorType'] }}</p>
-                    </div>
-
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <label class="form-control-label">Password</label>
-                      <input
-                        type="password"
-                        class="form-control"
-                        placeholder="Password"
-                        v-model="form.passWord"
-                      />
-                    </div>
-                  </div>-->
                   <div class="text-center mb-4">
                     <div v-if="imageURL!=null">
                       <img :src="imageURL" class="rounded" style="height: 125px; width: 125px" alt="100x100">
@@ -371,6 +210,15 @@
                     <div class="col-sm">
                       <label class="form-control-label">PAN Number</label>
                       <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Password"
+                        v-model="form.panNo"
+                      />
+                    </div>
+                    <div class="col-sm">
+                      <label class="form-control-label">PAN Number Document</label>
+                      <input
                         class="form-control"
                         type="file"
                         ref="panFile"
@@ -378,8 +226,20 @@
                       />
                       <p class="text-danger text-xs" >{{ errors['panpicture'] }}</p>
                     </div>
-                    <div class="col-sm-3">
-                      <label class="form-control-label">GST</label>
+
+                  </div>
+                  <div class="row pb-3">
+                    <div class="col-sm">
+                      <label class="form-control-label">GST Number</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Password"
+                        v-model="form.GST"
+                      />
+                    </div>
+                    <div class="col-sm">
+                      <label class="form-control-label">GST Number Document</label>
                       <input
                         class="form-control"
                         type="file"
@@ -388,9 +248,6 @@
                       />
                       <p class="text-danger text-xs" >{{ errors['gstpicture'] }}</p>
                     </div>
-                  </div>
-                  <div class="row pb-3">
-
                     <div class="col-sm-3">
                       <label class="form-control-label">Cancelled Cheque</label>
                       <input
@@ -411,6 +268,9 @@
                       />
                       <p class="text-danger text-xs" >{{ errors['coincorporation'] }}</p>
                     </div>
+
+                  </div>
+                  <div class="row pb-3">
                     <div class="col-sm-3 ">
                       <label class="form-control-label">Payment Terms</label>
                       <input
@@ -429,7 +289,6 @@
                         v-model="form.shippingTerms"
                       />
                     </div>
-
                   </div>
 
                   <h3 class="mt-3"><b>Bank Details</b></h3>
@@ -535,6 +394,8 @@ export default {
         IFSCCode: "",
         paymentTerms: "",
         shippingTerms: "",
+        panNo: "",
+        GST: "",
         panpicture: null,
         gstpicture: null,
         cancelledchequepic:null,
@@ -631,13 +492,13 @@ export default {
               "lastName":this.form.lastName,
               "mobileNumber":this.form.mobileNumber,
               "email": this.form.email,
-              "panNo": this.form.panpicture,
+              "panNo": this.form.panNo,
               "bankName": this.form.bankName,
               "accountNumber": this.form.accountNumber,
               "IFSCCode": this.form.IFSCCode,
               "paymentTerms": this.form.paymentTerms,
               "shippingTerms": this.form.shippingTerms,
-              "GST": this.form.gstpicture,
+              "GST": this.form.GST,
               "vendorType": this.form.vendorType,
               "vendor_name": this.form.vendor_name,
               "vendor_Address_code": this.form.vendor_Address_code,
@@ -670,6 +531,8 @@ export default {
       formData.append('lastName',this.form.lastName);
       formData.append('mobileNumber',this.form.mobileNumber);
       formData.append('email',this.form.email);
+      formData.append('panNo',this.form.panNo);
+      formData.append('GST',this.form.GST);
       formData.append('panpicture',this.form.panpicture);
       formData.append('gstpicture',this.form.gstpicture);
       formData.append('cancelledchequepic',this.form.cancelledchequepic);

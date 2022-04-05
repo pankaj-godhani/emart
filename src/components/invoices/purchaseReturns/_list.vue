@@ -18,24 +18,20 @@
             <th>Product Name</th>
             <th>Quantity Purchased</th>
             <th>Quantity Returned</th>
-            <th>Reason of Return</th>
-            <th>Credit Note ID</th>
             <th>Remarks</th>
           </tr>
         </template>
         <template #tbody>
           <tr v-for="(data,index) in pagedData" :key="index">
             <td>{{index+1}}</td>
-            <td></td>
+            <td>{{data.gstGrRef}}</td>
             <td>{{ changeDateFormat(data.poDate) }}</td>
             <td></td>
             <td></td>
             <td></td>
             <td>{{data.itemName}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{data.grQty}}</td>
+            <td>{{data.prQty}}</td>
             <td :class="data.remarks?'':'text-center text-lg'">{{ data.remarks?data.remarks:'-' }}</td>
 
           </tr>
