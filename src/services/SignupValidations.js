@@ -15,6 +15,8 @@ export default class SignupValidations{
     state='',
     city='',
     vendorType='',
+    panNo='',
+    GST='',
     panpicture= '',
     gstpicture= '',
     cancelledchequepic='',
@@ -34,6 +36,8 @@ export default class SignupValidations{
     this.state=state;
     this.city=city;
     this.vendorType=vendorType;
+    this.panNo=panNo;
+    this.GST=GST;
     this.panpicture= panpicture,
     this.gstpicture= gstpicture,
     this.cancelledchequepic=cancelledchequepic,
@@ -92,6 +96,14 @@ export default class SignupValidations{
 
     if(!Validations.checkRequiredField(this.vendorType)){
       errors['vendorType'] = 'Vendor type is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.panNo)){
+      errors['panNo'] = 'Pan number is required.'
+    }
+
+    if(!Validations.checkRequiredField(this.GST)){
+      errors['GST'] = 'GST number is required.'
     }
 
     if(!Validations.checkRequiredFile(this.panpicture)){

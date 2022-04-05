@@ -215,6 +215,7 @@
                         placeholder="Password"
                         v-model="form.panNo"
                       />
+                      <p class="text-danger text-xs" >{{ errors['panNo'] }}</p>
                     </div>
                     <div class="col-sm">
                       <label class="form-control-label">PAN Number Document</label>
@@ -237,6 +238,7 @@
                         placeholder="Password"
                         v-model="form.GST"
                       />
+                      <p class="text-danger text-xs" >{{ errors['GST'] }}</p>
                     </div>
                     <div class="col-sm">
                       <label class="form-control-label">GST Number Document</label>
@@ -473,6 +475,8 @@ export default {
           this.form.state,
           this.form.city,
           this.form.vendorType,
+          this.form.panNo,
+          this.form.GST,
           this.$refs.panFile.files.length,
           this.$refs.gstFile.files.length,
           this.$refs.chequeFile.files.length,
