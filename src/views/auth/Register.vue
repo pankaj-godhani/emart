@@ -210,9 +210,9 @@
                     <div class="col-sm">
                       <label class="form-control-label">PAN Number</label>
                       <input
-                        type="password"
+                        type="text"
                         class="form-control"
-                        placeholder="Password"
+                        placeholder="PAN Number"
                         v-model="form.panNo"
                       />
                       <p class="text-danger text-xs" >{{ errors['panNo'] }}</p>
@@ -233,9 +233,9 @@
                     <div class="col-sm">
                       <label class="form-control-label">GST Number</label>
                       <input
-                        type="password"
+                        type="text"
                         class="form-control"
-                        placeholder="Password"
+                        placeholder="GST Number"
                         v-model="form.GST"
                       />
                       <p class="text-danger text-xs" >{{ errors['GST'] }}</p>
@@ -497,12 +497,12 @@ export default {
               "mobileNumber":this.form.mobileNumber,
               "email": this.form.email,
               "panNo": this.form.panNo,
+              "GST": this.form.GST,
               "bankName": this.form.bankName,
               "accountNumber": this.form.accountNumber,
               "IFSCCode": this.form.IFSCCode,
               "paymentTerms": this.form.paymentTerms,
               "shippingTerms": this.form.shippingTerms,
-              "GST": this.form.GST,
               "vendorType": this.form.vendorType,
               "vendor_name": this.form.vendor_name,
               "vendor_Address_code": this.form.vendor_Address_code,
