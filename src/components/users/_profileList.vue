@@ -65,9 +65,9 @@
       </div>
       <div class="row px-6 mt-4">
         <div class="col">
-          <h4 class="text-dark">PAN Number</h4>
-          <label :class="user.panNo?'form-control-label':'form-control-label text-xl'">
-            <a v-if="user.panNo" :href="url+user.panNo" download>PAN Number File</a>
+          <h4 class="text-dark">PAN Number Document</h4>
+          <label :class="user.panDocument?'form-control-label':'form-control-label text-xl'">
+            <a v-if="user.panDocument" :href="url+user.panDocument" download>PAN Number File</a>
             <span v-else class="text-sm">PAN no not available</span>
           </label>
         </div>
@@ -80,12 +80,12 @@
           <label :class="user.shippingTerms?'form-control-label':'form-control-label text-xl'">{{ user.shippingTerms?user.shippingTerms:'-' }}</label>
         </div>
       </div>
-      <div class="row px-6 mt-4">
+      <div class="row px-6 mt-4" >
         <div class="col">
-          <h4 class="text-dark">GST</h4>
+          <h4 class="text-dark">GST Document</h4>
 <!--          <label :class="user.GST?'form-control-label':'form-control-label text-xl'">{{ user.GST?user.GST:'-' }}</label>-->
-          <label :class="user.GST?'form-control-label':'form-control-label text-xl'">
-            <a v-if="user.GST" :href="url+user.GST" download>GST File</a>
+          <label :class="user.gstDocument?'form-control-label':'form-control-label text-xl'">
+            <a v-if="user.gstDocument" :href="url+user.gstDocument" download>GST File</a>
             <span v-else class="text-sm">GST certificate not available</span>
           </label>
         </div>
@@ -102,6 +102,16 @@
             <a v-if="user.certiOfIncorporation" :href="url+user.certiOfIncorporation" download>Certificate of Incorporation File</a>
             <span v-else class="text-sm">Certificate not available</span>
           </label>
+        </div>
+      </div>
+      <div class="row px-6 mt-4">
+        <div class="col-md-4">
+          <h4 class="text-dark">Pan Number</h4>
+          <label class="form-control-label">{{ user.panNo?user.panNo:'-' }}</label>
+        </div>
+        <div class="col-md-4">
+          <h4 class="text-dark">GST Number</h4>
+          <label class="form-control-label">{{ user.GST?user.GST:'-' }}</label>
         </div>
       </div>
       <h2 class="px-6 mt-4">Bank Details :</h2>
