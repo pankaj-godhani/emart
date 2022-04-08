@@ -26,8 +26,8 @@
             <td>{{index+1}}</td>
             <td>{{data.gstGrRef}}</td>
             <td>{{ changeDateFormat(data.poDate) }}</td>
-            <td></td>
-            <td></td>
+            <td :class="data.docRef?'':'text-center text-lg'">{{data.docRef?data.docRef:'-'}}</td>
+            <td :class="data.docDate?'':'text-center text-lg'">{{data.docDate?data.docDate:'-'}}</td>
             <td></td>
             <td>{{data.itemName}}</td>
             <td>{{data.grQty}}</td>
