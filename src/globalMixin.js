@@ -14,7 +14,7 @@ export default {
         type: type,
         closeButton: false,
         position: "top-right",
-        timeout: 2000,
+        timeout: 3000,
       });
     },
 

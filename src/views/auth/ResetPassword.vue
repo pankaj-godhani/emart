@@ -8,7 +8,6 @@
             <div class="card bg-secondary border-0 mb-0">
               <div class="card-header bg-gradient-success bg-transparent pb-4">
                 <div class="text-muted text-left mt-2">
-<!--                  <h1 class="text-black">Welcome!</h1>-->
                   <h3 class="text-black">Finally, choose a new password.</h3>
                 </div>
                 <div class="btn-wrapper text-center">
@@ -81,19 +80,14 @@ export default {
     }
   },
 
-  mounted() {
-    //console.log(this.id,'id');
-  },
-
   methods: {
 
     submit() {
       if(this.passWord===this.confirmPass){
         axios.put(`api/auth/edit/${this.id}`, {"passWord":this.passWord})
-          .then(response => {
+          .then(() => {
             this.$router.push({ name :"Login"});
             this.notification("Password changed successfully", "success");
-           // console.log(response);
           });
       }
       else{

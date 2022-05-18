@@ -123,7 +123,6 @@ export default {
     }
   },
   mounted() {
-    //this.productData.priceApproval = this.productData.priceApproval?'Approved':'Not approved';
     this.fetchProduct();
   },
   computed:{

@@ -444,10 +444,7 @@ export default {
       axios.get(`api/auth/getCountry`)
         .then(response=>{
           this.countries = response.data;
-        })
-        .catch(e=>{
-          console.log(e);
-        })
+        });
     },
     getStates(){
       axios.get(`api/auth/getState/${this.form.country_id}`)
@@ -483,13 +480,10 @@ export default {
           this.$refs.certificateFile.files.length
         );
         this.errors= validations.checkValidations();
-        console.log( this.errors);
-        console.log( Object.keys(this.errors).length);
           if(Object.keys(this.errors).length){
             return this.errors;
           }
           else{
-            console.log('createUser');
             axios.post(`api/auth/createUser`,{
               "firstName":this.form.firstName,
               "middleName":this.form.middleName,
@@ -528,7 +522,6 @@ export default {
       }
     },
     store(){
-      console.log('from store');
       const formData = new FormData();
       formData.append('firstName',this.form.firstName);
       formData.append('middleName',this.form.middleName);
@@ -577,7 +570,6 @@ export default {
           {
             this.form.vendor_Code=Math.floor(Math.random() * 100000);
             this.errMessage = response.data.message;
-            console.log(this.errMessage);
           }
         })
         .catch(()=>{

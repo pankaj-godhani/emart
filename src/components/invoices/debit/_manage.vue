@@ -276,7 +276,6 @@ export default {
     },
     update(){
       this.checkValidation();
-      console.log(this.form);
       if( Object.keys(this.errors).length){
         return this.errors;
       }

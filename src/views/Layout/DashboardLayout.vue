@@ -106,24 +106,18 @@
         v-if="isActive===false"
       >
        Sorry! Your status is inactive
-<!--        <card class="h-100">
-          status is inactive
-        </card>-->
 
       </div>
       <div v-if="isActive===true">
         <router-view></router-view>
       </div>
 
-<!--      <div @click="$sidebar.displaySidebar(false)">
 
-      </div>-->
       <content-footer v-if="!$route.meta.hideFooter"></content-footer>
     </div>
   </div>
 </template>
 <script>
-/* eslint-disable no-new */
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
@@ -144,7 +138,6 @@ function initScrollbar(className) {
 
 import DashboardNavbar from "./DashboardNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
-//import {mapGetters} from "vuex";
 export default {
   components: {
     DashboardNavbar,
@@ -169,7 +162,6 @@ export default {
   },
   mounted() {
     this.initScrollbar();
-    //this.forUser();
   },
 };
 </script>

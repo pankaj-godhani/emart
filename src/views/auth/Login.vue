@@ -86,17 +86,13 @@ export default {
     ...authMethods,
 
     submit(){
-      //console.log(this.form);
       this.logIn(this.form)
-      .then((response)=>{
-        console.log(response);
+      .then(()=>{
          // this.$router.push( this.$route.query.redirectFrom || {name: 'Dashboard'} );
           this.$router.go({path:this.$route.query.redirectFrom} || {path: '/'});
-          //console.log('success');
       })
-      .catch((error)=>{
+      .catch(()=>{
         this.errorMsg = "These credentials do not match our records.";
-        console.log(error);
       })
     }
   }

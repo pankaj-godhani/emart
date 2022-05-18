@@ -7,32 +7,6 @@
     >
       <form>
         <div class="d-flex flex-row mb-3">
-<!--          <div class="pl-1" v-if="isAdmin===true">
-            <select class="form-control" @change="onChange($event)" v-model="form.userID" style="width:150px;">
-              <option disabled selected value>Select User</option>
-              <option v-for="data in UserData" :key="data._id" :value="data._id">
-                {{data.firstName}} {{data.lastName}}
-              </option>
-            </select>
-          </div>
-          <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
-          <div class="px-1">
-            <input
-              type="date"
-              class="form-control"
-              placeholder="from"
-              v-model="form.startDate"
-            />
-          </div>
-          <div><label class="mt-2 pl-2">To:</label></div>
-          <div class="px-2">
-            <input
-              type="date"
-              class="form-control"
-              placeholder="to"
-              v-model="form.endDate"
-            />
-          </div>-->
           <div class="px-2">
             <input
               type="text"
@@ -228,7 +202,6 @@ export default {
         'code':this.form.code
       })
       .then((response)=>{
-        console.log(response);
         this.purchaseOrdersData = response.data.result;
         this.loading=false;
         this.visible=true;
@@ -239,32 +212,7 @@ export default {
         this.visible = false;
       })
     },
-    /*fetchPurchaseOrders() {
-      this.loading = true;
-      axios.get(`api/purChaseOrder/get`, {
-          params: {
-            startDate: this.form.startDate,
-            endDate: this.form.endDate,
-            PONumber: this.form.PONumber,
-            userID: this.form.userID,
-          },
-        })
-        .then((response) => {
-          this.purchaseOrdersData = response.data;
-          this.status = response.status;
-          if (this.status == 200) {
-            this.visible = true;
-          } else if (this.status == 201) {
-            this.visible = false;
-          }
-          this.loading = false;
-        })
-        .catch((error)=>{
-          this.error = error;
-          this.visible=false;
-          this.loading = false;
-        });
-    },*/
+
     resetForm() {
       this.form = {};
       this.fetchPurchaseOrders();

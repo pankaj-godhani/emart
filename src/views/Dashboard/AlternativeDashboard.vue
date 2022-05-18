@@ -18,13 +18,8 @@
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Users
                   </h5>
-
-
                 </div>
               </div>
-<!--              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Users'}" class="text-nowrap ">See details</router-link>
-              </h4>-->
             </div>
           </div>
           </router-link>
@@ -44,8 +39,6 @@
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Active Users
                   </h5>
-
-
                 </div>
               </div>
             </div>
@@ -89,13 +82,8 @@
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Products
                   </h5>
-
-
                 </div>
               </div>
-<!--              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Products'}" class="text-nowrap ">See details</router-link>
-              </h4>-->
             </div>
           </div>
           </router-link>
@@ -115,13 +103,8 @@
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Products
                   </h5>
-
-
                 </div>
               </div>
-<!--              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Products'}" class="text-nowrap ">See details</router-link>
-              </h4>-->
             </div>
           </div>
           </router-link>
@@ -147,9 +130,6 @@
 
                 </div>
               </div>
-<!--              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Schemes'}" class="text-nowrap ">See details</router-link>
-              </h4>-->
             </div>
           </div>
           </router-link>
@@ -173,9 +153,6 @@
 
                 </div>
               </div>
-<!--              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'Schemes'}" class="text-nowrap ">See details</router-link>
-              </h4>-->
             </div>
           </div>
           </router-link>
@@ -199,9 +176,6 @@
                   </h5>
                 </div>
               </div>
-<!--              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'PurchaseOrders'}" class="text-nowrap ">See details</router-link>
-              </h4>-->
             </div>
           </div>
           </router-link>
@@ -225,9 +199,6 @@
 
                 </div>
               </div>
-<!--              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'PurchaseOrders'}" class="text-nowrap ">See details</router-link>
-              </h4>-->
             </div>
           </div>
           </router-link>
@@ -253,9 +224,6 @@
 
                 </div>
               </div>
-<!--              <h4 class="mt-3 mb-0 ">
-                <router-link :to="{name:'DispatchNote'}" class="text-nowrap ">See details</router-link>
-              </h4>-->
             </div>
           </div>
           </router-link>
@@ -303,9 +271,6 @@
 
                 </div>
               </div>
-              <!--              <h4 class="mt-3 mb-0 ">
-                              <router-link :to="{name:'DispatchNote'}" class="text-nowrap ">See details</router-link>
-                            </h4>-->
             </div>
           </div>
           </router-link>
@@ -478,7 +443,6 @@ export default {
     fetchCount(){
       axios.get(`api/auth/getCountDetail`)
         .then(response=>{
-          //console.log(response.data);
           if(this.isAdmin)
           {
             this.userLen = response.data.countList[0];

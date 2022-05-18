@@ -93,95 +93,6 @@
                 </div>
               </div>
             </form>
-<!--          <form @submit.prevent="fetchProduct">
-            <div class="container">
-              <div class="row pb-2">
-
-
-                    <div v-if="isAdmin===true" class="col-md" >
-                      <select class="form-control" @change="onChange($event)" v-model="form.userID" >
-                        <option disabled selected value>Select User</option>
-                        <option v-for="data in UserData" :key="data._id" :value="data._id">
-                          {{data.firstName}} {{data.lastName}}
-                        </option>
-                      </select>
-
-                    </div>
-                    <div class="col-md">
-                      <div class="d-flex">
-                        <div class="d-flex ">
-                          <label class="mt-2 px-1">From:</label>
-                          <input
-                            type="date"
-                            class="form-control"
-
-                            placeholder="from"
-                            v-model="form.startDate"
-                          />
-                        </div>
-                        <div class="d-flex pl-1">
-                          <label class="mt-2 pr-1">To:</label>
-                          <input
-                            type="date"
-
-                            class="form-control "
-                            placeholder="to"
-                            v-model="form.endDate"
-                          />
-                        </div>
-                      </div>
-
-                    </div>
-&lt;!&ndash;                    <div class="col-md-2">
-
-                    </div>&ndash;&gt;
-                    <div class="col-md">
-                      <input
-
-                        type="text"
-                        class="form-control"
-                        placeholder="Product Name"
-                        v-model="form.productName"
-                        @keyup="fetchProduct"
-                      />
-                    </div>
-                    <div class="col-md">
-                      <input
-                        class="form-control"
-
-                        placeholder="EAN Code"
-                        v-model="form.EANCode"
-                      />
-                    </div>
-                    <div class="col-md">
-                      <input
-                        class="form-control"
-
-                        placeholder="SKU Code"
-                        v-model="form.SKUCode"
-                      />
-                    </div>
-                <div class="col-md-2">
-                  <div class="d-flex float-right">
-                    <div class="pl-2">
-                      <base-button type="default" native-type="submit">Search</base-button>
-                    </div>
-                    <div class="pl-1">
-                      <button
-                        type="button"
-                        class="btn base-button btn-default"
-                        @click="resetForm"
-                      >
-                        Reset
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </form>-->
 
           <div class="text-center mt-4" v-if="loading">
               <div class="spinner-border" role="status"></div>
@@ -448,7 +359,6 @@ export default {
         .then((response) => {
           this.productData = response.data;
           this.status = response.status;
-          console.log(this.status);
           if (this.status === 200) {
             this.visible = true;
             this.loading = false;

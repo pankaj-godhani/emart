@@ -8,8 +8,6 @@
             <div class="card bg-secondary border-0 mb-0">
               <div class="card-header bg-gradient-success bg-transparent pb-4">
                 <div class="text-muted text-left mt-2">
-                  <!--                  <h1 class="text-black">Welcome!</h1>-->
-<!--                  <h3 class="text-black">Finally, choose a new password.</h3>-->
                 </div>
                 <div class="btn-wrapper text-center">
 
@@ -77,7 +75,6 @@ export default {
         .then(response => {
           this.success=response.data.message;
           this.form={}
-          //console.log(response);
         });
     },
   }

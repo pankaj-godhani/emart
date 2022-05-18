@@ -149,7 +149,6 @@ export default {
         "status":"OS"
       })
         .then(response=>{
-          console.log(response.data.result);
           this.outstandingReportData = response.data.result;
           this.visible = true;
           this.loading = false;
@@ -162,7 +161,6 @@ export default {
       this.loading = true;
       axios.post(`api/purChaseOrder/purchase_payment`)
         .then((response)=>{
-          console.log(response);
           this.paymentReportData=response.data.result;
           this.status = response.status;
           this.visible=true;

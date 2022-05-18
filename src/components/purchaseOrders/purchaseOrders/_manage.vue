@@ -233,25 +233,6 @@ export default {
         });
 
     },
-    /*fetch() {
-      axios
-        .get(`api/purChaseOrder/get/${this.id}`,{
-          headers: {
-            'Authorization': this.token
-          },
-        })
-        .then((response) => {
-          this.purchaseOrdersData = _.merge( this.purchaseOrdersData, response.data[0]);
-          this.itemList = this.purchaseOrdersData.itemList;
-          this.generateBarCode({id:"#barcodePri",value:this.purchaseOrdersData.PrimaryBarCode});
-          this.generateBarCode({id:"#barcodeSec",value:this.purchaseOrdersData.secondaryBarcode});
-
-        })
-        .catch((error) => {
-          this.error = error;
-        });
-
-    },*/
   },
 };
 </script>

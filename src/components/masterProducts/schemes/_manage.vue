@@ -242,8 +242,6 @@ export default {
                                                 this.form.discount
                                               );
       this.errors = validations.checkValidations();
-      console.log(this.errors);
-      console.log(Object.keys(this.errors).length);
     },
     store() {
       this.checkValidation();

@@ -253,7 +253,6 @@ export default {
       this.deleting = type;
     },
     onChange(){
-      //console.log(event.target.value);
       this.fetchSchemes();
     },
     fetchSchemes() {

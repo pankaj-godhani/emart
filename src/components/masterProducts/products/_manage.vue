@@ -301,10 +301,6 @@ export default {
                                               );
       this.errors=validations.checkValidations();
       this.emptyErrors=validations.checkEmptyValidations();
-      console.log(this.errors,'errors');
-      console.log(this.emptyErrors,'emptyErrors');
-      console.log(Object.keys(this.errors).length,'errorslength');
-      console.log(Object.keys(this.emptyErrors).length,'emptyErrorslength');
     },
     store() {
       this.checkValidation();

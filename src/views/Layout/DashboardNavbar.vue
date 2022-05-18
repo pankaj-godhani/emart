@@ -72,7 +72,6 @@
 </template>
 <script>
 import BaseNav from "@/components/Navbar/BaseNav";
-//import {mapGetters} from "vuex";
 import axios from "axios";
 
 export default {
@@ -115,7 +114,6 @@ export default {
       axios.get(`api/auth/user`)
         .then(response=>{
           this.users=response.data;
-          //console.log(response.data);
         });
     },
     capitalizeFirstLetter(string) {

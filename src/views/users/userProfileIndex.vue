@@ -22,9 +22,6 @@ export default {
       id:this.$route.params.id
     }
   },
-  mounted() {
-    console.log(this.$route.params.id,'id');
-  },
   computed:{
     userID(){
       return this.$store.getters['auth/getUserID']

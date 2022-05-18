@@ -59,7 +59,6 @@ export default {
         "status":"OS"
       })
         .then(response=>{
-          console.log(response.data.result);
           this.outstandingReportData = response.data.result;
           this.visible = true;
           this.loading = false;

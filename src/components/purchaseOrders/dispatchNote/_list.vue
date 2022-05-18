@@ -274,7 +274,6 @@ export default {
       this.deleting = type;
     },
     onChange(){
-      //console.log(event.target.value);
       this.fetchDispatchNote();
     },
     downloadLabel(id){
