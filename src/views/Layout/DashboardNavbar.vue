@@ -88,7 +88,7 @@ export default {
   },
   data() {
     return {
-      url:"https://vuecrud-etj2v.ondigitalocean.app",
+      url:"https://oyster-app-s2gc3.ondigitalocean.app/",
       activeNotifications: false,
       showMenu: false,
       searchModalVisible: false,

@@ -423,7 +423,6 @@ export default {
     },
   },
   mounted(){
-    console.log(this.form.mobileNumber);
     this.form.vendor_Code=Math.floor(Math.random() * 100000);
     this.getCountries();
     if (this.editing) {
@@ -440,7 +439,9 @@ export default {
       this.form.panpicture = this.$refs.panFile.files.item(0);
       this.form.coincorporation = this.$refs.certificateFile.files.item(0);
       this.form.cancelledchequepic = this.$refs.chequeFile.files.item(0);
-      this.imageURL = URL.createObjectURL(this.form.avatar);
+      let binaryData = [];
+      binaryData.push(this.form.avatar);
+      this.imageURL = URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}));
     },
     submit() {
       this.editing ? this.onUpdate() : this.storeUser();
@@ -494,8 +495,6 @@ export default {
                      this.form.certiOfIncorporation?this.form.certiOfIncorporation.length:this.$refs.certificateFile.files.length,
                                 );
       this.errors= validations.checkValidations();
-      console.log(this.errors);
-      console.log(Object.keys(this.errors).length);
     },
     onUpdate(){
       this.checkValidation();

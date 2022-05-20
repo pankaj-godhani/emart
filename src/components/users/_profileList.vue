@@ -142,7 +142,7 @@ export default {
     return{
       id:this.$route.params.id,
       user:{},
-      url:"https://vuecrud-etj2v.ondigitalocean.app",
+      url:"https://oyster-app-s2gc3.ondigitalocean.app",
     }
   },
   mounted() {
