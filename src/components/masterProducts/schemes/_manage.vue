@@ -226,7 +226,7 @@ export default {
       axios.get(`api/product/getProductByEANCode/${this.EANCode}`)
         .then(response=>{
           this.responseLength=response.data.length;
-          console.log("---------responseLength-------->",this.responseLength);
+          //console.log("---------responseLength-------->",this.responseLength);
            if(response.data.length===1)
           {
             this.form.productName = response.data[0].item_name;
