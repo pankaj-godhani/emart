@@ -11,7 +11,7 @@
                 class="form-control"
                 placeholder="Enter EAN Code"
                 v-model="EANCode"
-                @keyup="fetchByEANCode"
+                @mouseleave="fetchByEANCode"
               />
               <p class="text-danger text-xs" >{{ errors['EANCode'] }}</p>
             </div>
@@ -27,7 +27,7 @@
                 type="text"
                 placeholder="Scheme Name"
               />
-
+              <p class="text-danger text-xs" >{{ errors['schemaName'] }}</p>
             </div>
           </div>
           <div class="row">
@@ -180,6 +180,7 @@ export default {
       errors: "",
       EANCode: "",
       productData:[],
+      responseLength:"",
       schemaNumber: Math.floor(Math.random() * 100000),
       form: {
         schemaName: "",
@@ -221,13 +222,21 @@ export default {
     submit() {
       this.editing ? this.update() : this.store();
     },
-
     fetchByEANCode() {
       axios.get(`api/product/getProductByEANCode/${this.EANCode}`)
-        .then((response) => {
-          this.form.productName = response.data[0].item_name;
-          this.form.quantity = response.data[0].quantity;
-          this.form.UOM = response.data[0].itemUomCode;
+        .then(response=>{
+          this.responseLength=response.data.length;
+          console.log("---------responseLength-------->",this.responseLength);
+           if(response.data.length===1)
+          {
+            this.form.productName = response.data[0].item_name;
+            this.form.quantity = response.data[0].quantity;
+            this.form.UOM = response.data[0].itemUomCode;
+          }
+           else if(response.data.length>1 || response.data.length===0)
+           {
+             this.form={}
+           }
         })
         .catch((error) => {
           this.error = error;
@@ -236,6 +245,7 @@ export default {
     },
     checkValidation(){
       let validations = new SchemeValidations(
+                                                this.form.schemaName,
                                                 this.EANCode,
                                                 this.form.quantity,
                                                 this.form.freeQuantity,
@@ -247,6 +257,9 @@ export default {
       this.checkValidation();
       if( Object.keys(this.errors).length){
         return this.errors;
+      }
+      else if(!this.responseLength||this.responseLength===0 ||this.responseLength>1){
+        this.notification("Invalid EANCode", "error");
       }
       else{
         axios.post(`api/schema/create`, {

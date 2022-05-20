@@ -92,7 +92,7 @@
                 <td>{{index +1+ to -pagedData.length}}</td>
                 <td>{{ data.schemaNumber }}</td>
                 <td>{{ data.schemaName }}</td>
-                <td>{{ changeDateFormat(data.date) }}</td>
+                <td>{{ data.date?changeDateFormat(data.date):"" }}</td>
                 <td>{{ data.EANCode }}</td>
                 <td>{{ data.productName }}</td>
                 <td>{{ data.quantity }}</td>
@@ -101,7 +101,7 @@
                 <td>{{ data.discount }}</td>
                 <td>{{ data.netPTR }}</td>
                 <td>{{ data.nararation }}</td>
-                <td>{{ changeDateFormat(data.validity) }}</td>
+                <td>{{ data.validity?changeDateFormat(data.validity):"" }}</td>
                 <td>{{ data.active }}</td>
                 <td>
                   <div class="d-flex">

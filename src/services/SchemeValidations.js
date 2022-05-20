@@ -1,23 +1,29 @@
 import Validations from "./Validations";
 
+
 export default class SchemeValidations{
   constructor(
+    schemaName='',
     EANCode='',
     quantity ='',
     freeQuantity ='',
     discount='',
   ) {
+    this.schemaName=schemaName;
     this.EANCode=EANCode;
     this.quantity=quantity;
     this.freeQuantity=freeQuantity;
     this.discount=discount;
   }
 
+
   checkValidations(){
     let errors=[];
-
-    if(!Validations.checkForNumbers(this.EANCode)){
-      errors['EANCode'] = "Invalid EAN Code. It should be number."
+    if(!Validations.checkRequiredField(this.schemaName)){
+      errors['schemaName'] = "Scheme name is required."
+    }
+    if(!Validations.checkRequiredField(this.EANCode)){
+      errors['EANCode'] = "EANCode is required. It should be number."
     }
 
     if(!Validations.checkForNumbers(this.quantity)){
