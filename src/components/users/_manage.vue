@@ -450,7 +450,8 @@ export default {
       axios.get(`api/auth/user/${this.id}`)
       .then(response=>{
         this.form=_.merge(this.form,response.data[0]);
-        this.form.state=this.getStates();
+        this.getStates();
+        //this.form.state=this.getStates();
         this.system_Vendor_id = this.form.system_Vendor_id;
         if(response.data[0].accountNumber===null ||response.data[0].accountNumber===undefined){
           this.form.accountNumber='';
