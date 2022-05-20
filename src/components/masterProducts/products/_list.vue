@@ -99,7 +99,6 @@
           </div>
 
           <div v-else-if="visible">
-            {{productData.map((e,i)=>{return i})}}
             <Table>
                 <template v-slot:thead>
                   <tr>
