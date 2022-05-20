@@ -159,7 +159,7 @@
                       <td :class="data.UOMConversation?'':'text-lg text-center'">{{ data.UOMConversation ? data.UOMConversation : '-'}}</td>
                       <td :class="data.shelfLifeDays?'':'text-lg text-center'">{{ data.shelfLifeDays?data.shelfLifeDays:'-' }}</td>
                       <td :class="data.MRP?'':'text-lg text-center'">{{ data.MRP ? data.MRP : '-'}}</td>
-                      <td :class="data.margin?'':'text-lg text-center'">{{ data.margin ? data.margin : '-' }}</td>
+                      <td :class="data.margin?'':'text-lg text-center'">{{ data.margin ? data.margin.toFixed(2) : '-' }}</td>
                       <td :class="data.netPTR?'':'text-lg text-center'">{{data.netPTR?data.netPTR:'-'}}</td>
                       <td  v-if="(typeof data.schemes)==='object'" :class="data.schemes._id?'':'text-lg text-center'">
                       <span>
@@ -170,7 +170,7 @@
                       </td>
                       <td v-else>-</td>
                       <td :class="data.remarks?'':'text-lg text-center'">{{ data.remarks ? data.remarks : '-'}}</td>
-                      <td :class="data.sellingPrice?'':'text-lg text-center'">{{ data.sellingPrice ? data.sellingPrice : '-'}}</td>
+                      <td :class="data.sellingPrice?'':'text-lg text-center'">{{ data.sellingPrice ? data.sellingPrice.toFixed(2): '-'}}</td>
 
                     </tr>
                 </template>

@@ -14,7 +14,7 @@
                   <i class="fa fa-user fa-2x text-success" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto ">
-                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.totalUser}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{userLen.totalUser?userLen.totalUser:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Users
                   </h5>
@@ -78,7 +78,7 @@
                   <i class="fa fa-shopping-bag text-danger fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{productLen.totalProduct}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen.totalProduct?productLen.totalProduct:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Products
                   </h5>
@@ -99,7 +99,7 @@
                   <i class="fa fa-shopping-bag text-danger fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{productLen.last10DayProductDetail}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{productLen.last10DayProductDetail?productLen.last10DayProductDetail:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Products
                   </h5>
@@ -122,7 +122,7 @@
                   <i class="fa fa-cubes text-primary fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen.totalSchema}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen.totalSchema ?schemeLen.totalSchema:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Schemes
                   </h5>
@@ -145,7 +145,7 @@
                   <i class="fa fa-cubes text-primary fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen.last10DaySchemaDetail}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{schemeLen.last10DaySchemaDetail?schemeLen.last10DaySchemaDetail:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Schemes
                   </h5>
@@ -170,7 +170,7 @@
                   <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{purOrdersLen.totalPurchaseOrder}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{purOrdersLen.totalPurchaseOrder?purOrdersLen.totalPurchaseOrder:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Purchase orders
                   </h5>
@@ -191,7 +191,7 @@
                   <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{purOrdersLen.last10DayPurchaseOrderDetail}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{purOrdersLen.last10DayPurchaseOrderDetail?purOrdersLen.last10DayPurchaseOrderDetail:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Purchase Orders
                   </h5>
@@ -216,7 +216,7 @@
                   <i class="fa fa-sticky-note fa-2x text-primary" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{disNoteLen.totalDespatch}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{disNoteLen.totalDespatch?disNoteLen.totalDespatch:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Dispatch Note
                   </h5>
@@ -239,7 +239,7 @@
                   <i class="fa fa-sticky-note fa-2x text-primary" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{disNoteLen.last10DayDespatch}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{disNoteLen.last10DayDespatch?disNoteLen.last10DayDespatch:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days dispatch Note
                   </h5>
@@ -263,7 +263,7 @@
                   <i class="fa fa-credit-card fa-2x text-info" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{debitLen.totalDebit}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{debitLen.totalDebit?debitLen.totalDebit:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Debit Memo
                   </h5>
@@ -286,7 +286,7 @@
                   <i class="fa fa-credit-card fa-2x text-info" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{debitLen.last10DayDebitDetail}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{debitLen.last10DayDebitDetail?debitLen.last10DayDebitDetail:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Debit Memo
                   </h5>
@@ -310,7 +310,7 @@
                   <i class="fa fa-credit-card fa-2x text-info" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{creditLen.totalCredit}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{creditLen.totalCredit?creditLen.totalCredit:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Credit Memo
                   </h5>
@@ -333,7 +333,7 @@
                   <i class="fa fa-credit-card fa-2x text-info" aria-hidden="true"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-center">{{creditLen.last10DayCreditDetail}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-center">{{creditLen.last10DayCreditDetail?creditLen.last10DayCreditDetail:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days Credit Memo
                   </h5>
@@ -357,7 +357,7 @@
                   <i class="fas fa-file-invoice text-warning fa-2x"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-right">{{invoiceLen.totalInvoice}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-right">{{invoiceLen.totalInvoice?invoiceLen.totalInvoice:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Total Invoice
                   </h5>
@@ -366,7 +366,7 @@
                 </div>
               </div>
               <div class="float-right">
-                <h2 class="font-weight-bold mb-0 mt-3 text-right">{{invoiceLen.sumOfTotalInvoice}}</h2>
+                <h2 class="font-weight-bold mb-0 mt-3 text-right">{{invoiceLen.sumOfTotalInvoice?invoiceLen.sumOfTotalInvoice:0}}</h2>
                   <h5 class="text-uppercase text-muted mb-0 text-dark ">
                     Total Invoice value
                   </h5>
@@ -386,7 +386,7 @@
                   <i class="fas fa-file-invoice text-warning fa-2x"></i>
                 </div>
                 <div class="col-auto">
-                  <h2 class="font-weight-bold mb-0 text-right">{{invoiceLen.last10DayInvoice}}</h2>
+                  <h2 class="font-weight-bold mb-0 text-right">{{invoiceLen.last10DayInvoice?invoiceLen.last10DayInvoice:0}}</h2>
                   <h5 class="card-title text-uppercase text-muted mb-0 text-dark">
                     Last 10 days invoice
                   </h5>
@@ -395,7 +395,7 @@
                 </div>
               </div>
               <div class="float-right">
-                <h2 class="font-weight-bold mb-0 mt-3 text-right">{{invoiceLen.sumOfDaysInvoice}}</h2>
+                <h2 class="font-weight-bold mb-0 mt-3 text-right">{{invoiceLen.sumOfDaysInvoice?invoiceLen.sumOfDaysInvoice:0}}</h2>
                 <h5 class="text-uppercase text-muted mb-0 text-dark ">
                   Total Invoice value of last 10 days
                 </h5>
