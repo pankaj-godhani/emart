@@ -30,7 +30,7 @@
         </template>
         <template #tbody>
           <tr v-for="(data,index) in pagedData" :key="data._id">
-            <td>{{ index+1 }}</td>
+            <td>{{ index + 1 + to - pagedData.length }}</td>
             <td>{{ data.productName }}</td>
             <td>{{ data.vendorInvoiceRef }}</td>
             <td :class="data.vendorInvoiceRef_Date?'':'text-xl'">{{data.vendorInvoiceRef_Date?changeDateFormat(data.vendorInvoiceRef_Date):'-' }}</td>

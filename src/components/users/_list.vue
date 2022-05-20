@@ -23,7 +23,7 @@
         <template #tbody>
           <tr v-for="(data, index) in pagedData" :key="data._id">
 
-            <td>{{ index + 1 }}</td>
+            <td>{{index +1+ to -pagedData.length}}</td>
             <td>{{ data.firstName }}</td>
             <td>{{ data.lastName }}</td>
             <td>{{ data.email }}</td>

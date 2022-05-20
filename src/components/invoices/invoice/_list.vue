@@ -81,7 +81,7 @@
 
           <template v-slot:tbody>
             <tr v-for="(data,index) in pagedData" :key="data._id">
-              <td>{{index+1}}</td>
+              <td>{{index +1+ to -pagedData.length}}</td>
               <td>{{data.PONumber}}</td>
               <td :class="data.PODate?'':'text-xl'">{{data.PODate?changeDateFormat(data.PODate):'-'}}</td>
               <td>{{data.invoiceNumber}}</td>

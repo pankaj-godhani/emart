@@ -89,7 +89,7 @@
             </template>
             <template #tbody>
               <tr v-for="(data, index) in pagedData" :key="data._id">
-                <td>{{ index + 1 }}</td>
+                <td>{{ index + 1 + to - pagedData.length }}</td>
                 <td>{{ data.DCNumber }}</td>
                 <td :class="data.DateOfDeliverChallan?'':'text-xl'">{{ data.DateOfDeliverChallan?changeDateFormat(data.DateOfDeliverChallan) :'-'}}</td>
                 <td>{{ data.PONumber }}</td>

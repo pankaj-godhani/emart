@@ -23,7 +23,7 @@
         </template>
         <template #tbody>
           <tr v-for="(data,index) in pagedData" :key="index">
-            <td>{{index+1}}</td>
+            <td>{{index +1+ to -pagedData.length}}</td>
             <td>{{data.gstGrRef}}</td>
             <td>{{ changeDateFormat(data.poDate) }}</td>
             <td :class="data.docRef?'':'text-center text-lg'">{{data.docRef?data.docRef:'-'}}</td>

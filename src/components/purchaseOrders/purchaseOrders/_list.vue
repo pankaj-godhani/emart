@@ -73,8 +73,8 @@
             </tr>
           </template>
           <template #tbody>
-            <tr  v-for="(data, index) in purchaseOrdersData" @click="goToData(data.poNumber)" :key="data.poNumber">
-              <td>{{ index + 1 }}</td>
+            <tr  v-for="(data, index) in pagedData" @click="goToData(data.poNumber)" :key="data.poNumber">
+              <td>{{ index + 1 + to - pagedData.length }}</td>
               <td :class="data.poDate?'':'text-xl'">{{ data.poDate?changeDateFormat(data.poDate):'-'}}</td>
               <td>{{ data.poNumber }}</td>
               <td>{{ data.totalPurchaseItems }}</td>
@@ -156,7 +156,7 @@ export default {
       status: "",
       loading: false,
       pagination: {
-        perPage: 10,
+        perPage: 7,
         currentPage: 1,
         perPageOptions: [5, 10, 25, 50],
         total: 0,

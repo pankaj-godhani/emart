@@ -89,7 +89,7 @@
             <template v-slot:tbody>
               <tr v-for="(data, index) in pagedData" :key="data._id">
 
-                <td>{{ index + 1 }}</td>
+                <td>{{index +1+ to -pagedData.length}}</td>
                 <td>{{ data.schemaNumber }}</td>
                 <td>{{ data.schemaName }}</td>
                 <td>{{ changeDateFormat(data.date) }}</td>

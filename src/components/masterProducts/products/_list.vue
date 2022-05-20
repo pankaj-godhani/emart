@@ -99,6 +99,7 @@
           </div>
 
           <div v-else-if="visible">
+            {{productData.map((e,i)=>{return i})}}
             <Table>
                 <template v-slot:thead>
                   <tr>
@@ -137,41 +138,42 @@
                   </tr>
                 </template>
                 <template v-slot:tbody>
-                  <tr v-for="(data, index) in pagedData" :key="data._id">
-                    <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected" @change="getPriceApprovalValue"></td>
-                    <td>{{ index + 1 }}</td>
-                    <td v-show="isAdmin">
-<!--                      <i :class="data.priceApproval?'fa fa-check fa-lg text-success':'fa fa-times fa-lg text-danger'" aria-hidden="true"></i>-->
-                      <span :class="data.priceApproval?'px-3 p-1 rounded bg-success text-white':'px-3 p-1 rounded bg-danger text-white'">
+                    <tr v-for="(data,index) in pagedData " :key="data._id">
+
+                      <td v-show="isAdmin"><input type="checkbox" :id="data._id" :value="data._id" v-model="selected" @change="getPriceApprovalValue"></td>
+                      <td> {{index +1+ to -pagedData.length}} </td>
+                      <td v-show="isAdmin">
+                        <!--                      <i :class="data.priceApproval?'fa fa-check fa-lg text-success':'fa fa-times fa-lg text-danger'" aria-hidden="true"></i>-->
+                        <span :class="data.priceApproval?'px-3 p-1 rounded bg-success text-white':'px-3 p-1 rounded bg-danger text-white'">
                         {{ data.priceApproval?'Approved':'Not approved' }}
                       </span>
-                    </td>
-                    <td>{{ data.EANCode}} </td>
-                    <td :class="data.HSNCode?'':'text-lg text-center'">{{ data.HSNCode?data.HSNCode:'-' }}</td>
-                    <td :class="data.dateOfAvailability?'':'text-lg text-center'">{{ data.dateOfAvailability?changeDateFormat(data.dateOfAvailability):'-'}}</td>
-                    <td :class="data.createdAt?'':'text-lg text-center'">{{ data.createdAt?changeDateFormat(data.createdAt):'-'}}</td>
-                    <td :class="data.brandName?'':'text-lg text-center'">{{ data.brandName?data.brandName:'-' }}</td>
-                    <td :class="data.SKUCode?'':'text-lg text-center'">{{ data.SKUCode ? data.SKUCode : '-'}}</td>
-                    <td :class="data.productCategory?'':'text-lg text-center'">{{ data.productCategory ? data.productCategory : '-' }}</td>
-                    <td :class="data.productName?'':'text-lg text-center'">{{ data.productName ? data.productName : '-' }}</td>
-                    <td :class="data.UOM?'':'text-lg text-center'">{{ data.UOM ? data.UOM : '-'}}</td>
-                    <td :class="data.UOMConversation?'':'text-lg text-center'">{{ data.UOMConversation ? data.UOMConversation : '-'}}</td>
-                    <td :class="data.shelfLifeDays?'':'text-lg text-center'">{{ data.shelfLifeDays?data.shelfLifeDays:'-' }}</td>
-                    <td :class="data.MRP?'':'text-lg text-center'">{{ data.MRP ? data.MRP : '-'}}</td>
-                    <td :class="data.margin?'':'text-lg text-center'">{{ data.margin ? data.margin : '-' }}</td>
-                    <td :class="data.netPTR?'':'text-lg text-center'">{{data.netPTR?data.netPTR:'-'}}</td>
-                    <td  v-if="(typeof data.schemes)==='object'" :class="data.schemes._id?'':'text-lg text-center'">
+                      </td>
+                      <td>{{ data.EANCode}} </td>
+                      <td :class="data.HSNCode?'':'text-lg text-center'">{{ data.HSNCode?data.HSNCode:'-' }}</td>
+                      <td :class="data.dateOfAvailability?'':'text-lg text-center'">{{ data.dateOfAvailability?changeDateFormat(data.dateOfAvailability):'-'}}</td>
+                      <td :class="data.createdAt?'':'text-lg text-center'">{{ data.createdAt?changeDateFormat(data.createdAt):'-'}}</td>
+                      <td :class="data.brandName?'':'text-lg text-center'">{{ data.brandName?data.brandName:'-' }}</td>
+                      <td :class="data.SKUCode?'':'text-lg text-center'">{{ data.SKUCode ? data.SKUCode : '-'}}</td>
+                      <td :class="data.productCategory?'':'text-lg text-center'">{{ data.productCategory ? data.productCategory : '-' }}</td>
+                      <td :class="data.productName?'':'text-lg text-center'">{{ data.productName ? data.productName : '-' }}</td>
+                      <td :class="data.UOM?'':'text-lg text-center'">{{ data.UOM ? data.UOM : '-'}}</td>
+                      <td :class="data.UOMConversation?'':'text-lg text-center'">{{ data.UOMConversation ? data.UOMConversation : '-'}}</td>
+                      <td :class="data.shelfLifeDays?'':'text-lg text-center'">{{ data.shelfLifeDays?data.shelfLifeDays:'-' }}</td>
+                      <td :class="data.MRP?'':'text-lg text-center'">{{ data.MRP ? data.MRP : '-'}}</td>
+                      <td :class="data.margin?'':'text-lg text-center'">{{ data.margin ? data.margin : '-' }}</td>
+                      <td :class="data.netPTR?'':'text-lg text-center'">{{data.netPTR?data.netPTR:'-'}}</td>
+                      <td  v-if="(typeof data.schemes)==='object'" :class="data.schemes._id?'':'text-lg text-center'">
                       <span>
                         <router-link :to="{name: 'SchemesEdit', params: { id: data.schemes._id }}">
                           {{ data.schemes._id ? data.schemes.schemaName :'-'}}
                         </router-link>
                       </span>
-                    </td>
-                    <td v-else>-</td>
-                    <td :class="data.remarks?'':'text-lg text-center'">{{ data.remarks ? data.remarks : '-'}}</td>
-                    <td :class="data.sellingPrice?'':'text-lg text-center'">{{ data.sellingPrice ? data.sellingPrice : '-'}}</td>
+                      </td>
+                      <td v-else>-</td>
+                      <td :class="data.remarks?'':'text-lg text-center'">{{ data.remarks ? data.remarks : '-'}}</td>
+                      <td :class="data.sellingPrice?'':'text-lg text-center'">{{ data.sellingPrice ? data.sellingPrice : '-'}}</td>
 
-                  </tr>
+                    </tr>
                 </template>
               </Table>
           </div>
@@ -219,6 +221,7 @@ export default {
   },
   data() {
     return {
+      index:document.getElementById("index"),
       form: {
         productName: "",
         EANCode: "",
@@ -283,6 +286,12 @@ export default {
     },
   },
   mounted() {
+    /*console.log(this.index.innerHTML);
+    this.index.innerHTML="";
+    this.productData.map((e,i)=>i).forEach((e)=>
+      this.index.innerHTML+= e
+    )*/
+
     this.fetchProduct();
   },
   methods: {
