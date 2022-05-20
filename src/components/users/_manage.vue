@@ -138,6 +138,7 @@
           <p class="text-danger text-xs" >{{ errors['country_id'] }}</p>
         </div>
         <div class="col-sm ">
+          {{form.state}}
           <label class="form-control-label">State</label>
           <select class="form-control" v-model="form.state">
             <option disabled selected value>Choose State</option>
