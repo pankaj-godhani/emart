@@ -122,6 +122,7 @@ export default {
       })
       .catch(error=>{
         this.error=error;
+        this.loading = false;
       })
     }
 

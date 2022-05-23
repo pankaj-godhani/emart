@@ -16,6 +16,7 @@
           <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
           <div>
             <input
+              id="minDate"
               type="date"
               class="form-control"
               placeholder="from"
@@ -25,6 +26,7 @@
           <div><label class="mt-2 pl-2">To:</label></div>
           <div class="px-2">
             <input
+              id="maxDate"
               type="date"
               class="form-control"
               placeholder="to"
@@ -247,6 +249,22 @@ export default {
       console.log(event.target.value);
       this.fetch();
     },
+    validateDate() {
+      let minDate = this.invoiceData
+        .map((e) => e.invoiceDate)
+        .reduce(function (a, b) {
+          return a < b ? a : b;
+        });
+      let maxDate = this.invoiceData
+        .map((e) => e.invoiceDate)
+        .reduce(function (a, b) {
+          return a > b ? a : b;
+        });
+      document.getElementById("minDate").setAttribute("min", minDate.split("T")[0]);
+      document.getElementById("minDate").setAttribute("max", maxDate.split("T")[0]);
+      document.getElementById("maxDate").setAttribute("min", minDate.split("T")[0]);
+      document.getElementById("maxDate").setAttribute("max", maxDate.split("T")[0]);
+    },
     fetch(){
       this.loading = true;
       axios.get(`api/invoice/get`,{
@@ -260,6 +278,7 @@ export default {
       .then((response)=>{
         this.invoiceData=response.data;
         this.status = response.status;
+        this.validateDate();
         if(this.status===200){
           this.visible=true;
         }

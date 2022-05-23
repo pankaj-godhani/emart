@@ -19,6 +19,7 @@
             <div class="pl-2"><label class="mt-2 pr-1">From:</label></div>
             <div>
               <input
+                id="minDate"
                 type="date"
                 class="form-control"
                 placeholder="from"
@@ -28,6 +29,7 @@
             <div><label class="mt-2 pl-2">To:</label></div>
             <div class="px-2">
               <input
+                id="maxDate"
                 type="date"
                 class="form-control"
                 placeholder="to"
@@ -255,6 +257,22 @@ export default {
     onChange(){
       this.fetchSchemes();
     },
+    validateDate() {
+      let minDate = this.schemeData
+        .map((e) => e.date)
+        .reduce(function (a, b) {
+          return a < b ? a : b;
+        });
+      let maxDate = this.schemeData
+        .map((e) => e.date)
+        .reduce(function (a, b) {
+          return a > b ? a : b;
+        });
+      document.getElementById("minDate").setAttribute("min", minDate.split("T")[0]);
+      document.getElementById("minDate").setAttribute("max", maxDate.split("T")[0]);
+      document.getElementById("maxDate").setAttribute("min", minDate.split("T")[0]);
+      document.getElementById("maxDate").setAttribute("max", maxDate.split("T")[0]);
+    },
     fetchSchemes() {
       this.loading = true;
       axios
@@ -269,6 +287,7 @@ export default {
         .then((response) => {
           this.schemeData = response.data;
           this.status = response.status;
+          this.validateDate();
           if(this.status===200){
             this.visible = true;
           }
