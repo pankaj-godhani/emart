@@ -62,6 +62,15 @@ export default [
         },
       },
       {
+        path: "/users/:status",
+        name: "UsersWithStatus",
+        components: { default: Users },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },
+      {
         path: "/users",
         name: "Users",
         components: { default: Users },
@@ -70,6 +79,15 @@ export default [
           navbarType: "light",
         },
       },
+      /*{
+        path: "/users/isActive/:status",
+        name: "UsersActive",
+        components: { default: Users },
+        meta: {
+          middleware: [auth],
+          navbarType: "light",
+        },
+      },*/
       {
         path: "/users/create",
         name: "UserCreate",

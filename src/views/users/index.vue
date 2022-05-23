@@ -17,7 +17,7 @@
           </div>
         </div>
 
-        <UsersList></UsersList>
+        <UsersList :userStatus="status"></UsersList>
       </div>
     </div>
   </div>
@@ -33,12 +33,15 @@ export default {
   },
   data(){
     return{
+      status:this.$route.params.status,
       userData:[],
       system_vendor_ids:[],
     }
   },
   mounted() {
+
     this.fetch();
+
   },
   methods:{
     fetch(){

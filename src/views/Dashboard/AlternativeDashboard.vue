@@ -25,7 +25,7 @@
           </router-link>
         </div>
         <div class="col-xl-4 col-md-6">
-          <router-link :to="{name:'Users'}">
+          <router-link :to="{name:'UsersWithStatus',params: { status:true }}">
             <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">
@@ -46,7 +46,7 @@
           </router-link>
         </div>
         <div class="col-xl-4 col-md-6">
-          <router-link :to="{name:'Users'}">
+          <router-link :to="{name:'UsersWithStatus',params: { status:false }}">
             <div class="card bg-gradient-white border-0">
             <!-- Card body -->
             <div class="card-body">

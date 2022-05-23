@@ -288,6 +288,13 @@ export default {
         }
         this.loading = false;
         this.fetchSchemes();
+      })
+      .catch((err)=>{
+        if(err.response.status===500){
+          this.loading = false;
+          this.visibleProductDetails = false;
+          this.notification("Could not respond. Try again latter","error");
+        }
       });
     },
     checkValidation(){

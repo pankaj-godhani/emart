@@ -38,7 +38,7 @@
         <template v-slot:title-container>
           <a href="#" class="nav-link pr-0">
             <div class="media align-items-center" v-for="user in users" :key="user._id">
-              <span v-if="user.userImg && loginUser._id===user._id" >
+              <span v-if="user.userImg && loginUser._id === user._id" >
                 <img :alt="user.firstName" :src="url+user.userImg"  class="avatar-sm rounded-circle" style="height: 40px; width: 40px"/>
               </span>
               <span v-else-if="loginUser._id===user._id" class="avatar avatar-sm rounded-circle">

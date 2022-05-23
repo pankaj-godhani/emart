@@ -28,10 +28,10 @@
                 </a>
               </template>
               <router-link :to="{ name: 'ProductCreate' }" >
-                <button type="button" class="dropdown-item">Add Product</button>
+                <button type="button" class="dropdown-item" v-if="loginUser.isAdmin===false">Add Product</button>
               </router-link>
 
-              <button type="button" class="dropdown-item" @click="onExportSample">
+              <button type="button" class="dropdown-item" @click="onExportSample" v-if="loginUser.isAdmin===false">
                 Template
               </button>
 
@@ -45,6 +45,7 @@
                 @click="visibleCard = true"
                 data-toggle="modal"
                 data-target="#myModal"
+                v-if="loginUser.isAdmin===false"
               >
                 Upload
               </button>
@@ -100,7 +101,7 @@ import ProductList from "../../../components/masterProducts/products/_list";
 import axios from "axios";
 import FileSaver from "file-saver";
 import { mapGetters } from "vuex";
-import _ from "lodash";
+
 
 export default {
   components: {
@@ -124,8 +125,12 @@ export default {
   },
   mounted() {
     this.fetchProduct();
+    console.log("----------loginUser--------->",this.loginUser.isAdmin)
   },
   computed:{
+    loginUser(){
+      return this.$store.getters['auth/getUser'];
+    },
     ...mapGetters('auth',{
       userID:'getUserID',
     }),

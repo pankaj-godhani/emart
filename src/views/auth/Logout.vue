@@ -8,20 +8,13 @@
     export default {
         beforeRouteEnter (to, from, next) {
             store.dispatch('auth/logOut');
-
             next({name: 'Login'});
         },
 
-        data() {
-            return {
-
-            }
-        },
-
-        mounted() {
-
-        },
-
-        methods: {}
+        methods: {
+          notification(){
+            this.notification("You have logged out.","success");
+          }
+        }
     }
 </script>

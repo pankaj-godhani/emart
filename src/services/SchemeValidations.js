@@ -29,7 +29,9 @@ export default class SchemeValidations{
     if(!Validations.checkForNumbers(this.quantity)){
       errors['quantity'] = "Invalid quantity. It should be number."
     }
-
+    if(this.freeQuantity<this.quantity){
+      errors['freeQuantity'] = "Free quantity should be more then quantity."
+    }
     if(!Validations.checkForNumbers(this.freeQuantity)){
       errors['freeQuantity'] = "Invalid free quantity. It should be number."
     }

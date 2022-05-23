@@ -22,7 +22,9 @@ axios.defaults.baseURL = "https://oyster-app-s2gc3.ondigitalocean.app/";
 //axios.defaults.baseURL = "http://localhost:9999/";
 
 const options = { containerClassName: "ct-notification" };
-
+/*router.afterEach((to, from) => {
+  console.log("route enter");
+})*/
 const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(store);

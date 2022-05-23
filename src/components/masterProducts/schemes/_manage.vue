@@ -92,6 +92,7 @@
             <div class="col-sm">
               <label class="form-control-label">Validity</label>
               <input
+                id="validityDate"
                 class="form-control"
                 type="date"
                 v-model="form.dateOfAvailability"
@@ -198,6 +199,7 @@ export default {
     };
   },
   mounted() {
+    this.validateDate();
     if (this.editing) {
       this.fetch();
     }
@@ -211,6 +213,11 @@ export default {
     },
   },
   methods: {
+    validateDate() {
+      let minDate = new Date()
+      minDate=minDate.toISOString();
+      document.getElementById("validityDate").setAttribute("min", minDate.split("T")[0]);
+    },
     fetch() {
       axios.get(`api/schema/get/${this.id}`).then((response) => {
         this.form = _.merge(this.form, response.data[0]);
@@ -254,7 +261,7 @@ export default {
       this.errors = validations.checkValidations();
     },
     store() {
-      console.log("---------from store responseLength-------->",this.responseLength);
+     // console.log("---------from store responseLength-------->",this.responseLength);
       this.checkValidation();
 
       if( Object.keys(this.errors).length){
@@ -303,7 +310,7 @@ export default {
       if( Object.keys(this.errors).length){
         return this.errors;
       }
-      else{
+      else {
         axios.put(`api/schema/edit/${this.id}`, this.form)
           .then(() => {
             this.notification("Scheme updated successfully", "success");

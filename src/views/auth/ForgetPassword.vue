@@ -73,12 +73,23 @@ export default {
     submit() {
       axios.post(`api/auth/forgetPassword`, this.form)
         .then(response => {
+          console.log("response.------->",response.status)
           this.success=response.data.message;
           this.notification("Reset link sent successfully","success");
           this.form={}
         })
-      .catch(()=>{
-        this.notification("User not fount or something went wrong.","error");
+      .catch((err)=>{
+
+        if(err.response.status===400){
+          this.notification("Something went wrong. Can not send reset link. Please try latter ","error");
+          this.$router.go(-1);
+          console.log("error status--->400",err.response.status);
+        }
+        else if(err.response.status===401)
+        {
+          this.notification("User not fount.","error");
+        }
+
       });
     },
   }

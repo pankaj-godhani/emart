@@ -8,6 +8,7 @@
      <div class="spinner-border" role="status"></div>
     </div>
     <div v-else-if="visible" class="pl-0">
+<!--      {{usersData.filter((e)=>e.isActive===false)}}-->
       <Table>
         <template #thead>
           <tr>
@@ -92,9 +93,11 @@
 import axios from "axios";
 
 export default {
+  props:['userStatus'],
   data(){
     return{
       usersData : [],
+      //user_status:this.userStatus,
       loading : false,
       visible : false,
       status : "",
@@ -139,7 +142,24 @@ export default {
       axios.get(`api/auth/getAllUser`)
       .then(response=>{
         this.status = response.status;
-        this.usersData = response.data.userList;
+        let usersData = response.data.userList;
+        console.log("this.userStatus====>",this.userStatus)
+        if(this.userStatus==="true"){
+          console.log("---filter--->",usersData.filter((e)=>e.isActive===true));
+          this.usersData=usersData.filter((e)=>e.isActive===true);
+        }
+        else if(this.userStatus==="false"){
+          console.log("---filter--->",usersData.filter((e)=>e.isActive===false));
+          this.usersData=usersData.filter((e)=>e.isActive===false);
+        }
+        else {
+          this.usersData=usersData;
+        }
+
+        //this.usersData= this.userStatus?usersData.filter((e)=>e.isActive===true):usersData.filter((e)=>e.isActive===false);
+
+
+
         this.loading = false;
         this.visible=true;
       })

@@ -4,6 +4,7 @@ import modules from './modules';
 import router from "../router";
 import axios from "axios";
 
+
 const store = createStore({
     modules,
     // Enable strict mode in development to get a warning
