@@ -181,8 +181,10 @@ export default {
       errors: "",
       EANCode: "",
       productData:[],
+      schemeData:[],
+      maxSchemeNumber:"",
       responseLength:"",
-      schemaNumber: Math.floor(Math.random() * 100000),
+      schemaNumber:this.maxSchemeNumber ,
       form: {
         schemaName: "",
         date: "",
@@ -199,6 +201,8 @@ export default {
     };
   },
   mounted() {
+   // console.log("dfds",this.maxSchemeNumber);
+    this.fetchSchemeNumber();
     this.validateDate();
     if (this.editing) {
       this.fetch();
@@ -217,6 +221,17 @@ export default {
       let minDate = new Date()
       minDate=minDate.toISOString();
       document.getElementById("validityDate").setAttribute("min", minDate.split("T")[0]);
+    },
+    fetchSchemeNumber() {
+      axios
+        .get(`api/schema/getMaxSchemaNumber`)
+        .then((response) => {
+          console.log("-----response---->",response.data.maxSchemaNumber)
+          this.maxSchemeNumber = response.data.maxSchemaNumber;
+          this.schemaNumber = this.maxSchemeNumber;
+          console.log("-------maxSchemeNumber----->",this.maxSchemeNumber);
+
+        })
     },
     fetch() {
       axios.get(`api/schema/get/${this.id}`).then((response) => {
@@ -262,6 +277,8 @@ export default {
     },
     store() {
      // console.log("---------from store responseLength-------->",this.responseLength);
+      this.fetchSchemeNumber();
+      console.log(this.maxSchemeNumber);
       this.checkValidation();
 
       if( Object.keys(this.errors).length){
@@ -285,7 +302,7 @@ export default {
           validity: this.form.dateOfAvailability,
           nararation: this.form.nararation,
           active: this.form.active,
-          schemaNumber: this.schemaNumber,
+          schemaNumber: this.maxSchemeNumber,
         })
           .then((response) => {
             this.status=response.status;

@@ -1,6 +1,5 @@
-
 import { createApp } from "vue";
-import store from './state/store';
+import store from "./state/store";
 import App from "./App.vue";
 import router from "./router";
 import ArgonDashboard from "./plugins/argon-dashboard";
@@ -11,9 +10,10 @@ window.axios = require("axios");
 import axios from "axios";
 import excel from "vue-excel-export";
 import GlobalMixin from "./globalMixin";
+//import VueConfirmDialog from 'vue-confirm-dialog';
 
-const token = store.getters['auth/getToken'];
-axios.defaults.headers.common['Authorization']=token;
+const token = store.getters["auth/getToken"];
+axios.defaults.headers.common["Authorization"] = token;
 //axios.defaults.headers.common['Authorization']='dsfdsfsfsf';
 //axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 //axios.defaults.baseURL = "https://vendorapp.emetro.in/";
@@ -31,7 +31,7 @@ appInstance.use(store);
 appInstance.use(excel);
 appInstance.use(Toast, options);
 appInstance.use(ArgonDashboard);
+//appInstance.use(VueConfirmDialog)
+//appInstance.component(VueConfirmDialog);
 appInstance.mixin(GlobalMixin);
 appInstance.mount("#app");
-
-

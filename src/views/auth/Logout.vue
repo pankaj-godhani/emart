@@ -1,20 +1,18 @@
-<template>
-
-</template>
+<template></template>
 
 <script>
-    import store from '../../state/store';
+import store from "../../state/store";
 
-    export default {
-        beforeRouteEnter (to, from, next) {
-            store.dispatch('auth/logOut');
-            next({name: 'Login'});
-        },
+export default {
+  beforeRouteEnter(to, from, next) {
+    store.dispatch("auth/logOut");
+    next({ name: "Login" });
+  },
 
-        methods: {
-          notification(){
-            this.notification("You have logged out.","success");
-          }
-        }
-    }
+  methods: {
+    notification() {
+      this.notification("You have logged out.", "success");
+    },
+  },
+};
 </script>

@@ -11,7 +11,7 @@
           v-if="loaderApprove"
           class="spinner-border spinner-border-sm"
           role="status"
-        ></div>
+        />
       </button>
       <button
         class="btn btn-default"
@@ -23,7 +23,7 @@
           v-if="loaderDisApprove"
           class="spinner-border spinner-border-sm"
           role="status"
-        ></div>
+        />
       </button>
     </div>
     <div>
@@ -275,7 +275,7 @@
                   {{ data.netPTR ? data.netPTR : "-" }}
                 </td>
                 <td
-                  v-if="typeof data.schemes === 'object'"
+                  v-if="data.schemes && typeof data.schemes === 'object'"
                   :class="data.schemes._id ? '' : 'text-lg text-center'"
                 >
                   <span>
@@ -379,11 +379,11 @@ export default {
     selectAll: {
       get: function () {
         return this.productData
-          ? this.selected.length == this.productData.length
+          ? this.selected.length === this.productData.length
           : false;
       },
       set: function (value) {
-        var selected = [];
+        let selected = [];
         if (value) {
           this.productData.forEach(function (product) {
             selected.push(product._id);
@@ -440,9 +440,9 @@ export default {
       this.productData = _.orderBy(this.productData, [name], [type]);
     },
     getPriceApprovalValue() {
-      var selectedIds = [];
+      let selectedIds = [];
       selectedIds = this.selected;
-      var priceApprovalValue = [];
+      let priceApprovalValue = [];
       for (let i = 0; i < selectedIds.length; i++) {
         this.productData.forEach(function (product) {
           if (selectedIds[i] === product._id) {
