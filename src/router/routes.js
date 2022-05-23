@@ -360,7 +360,7 @@ export default [
     meta:{middleware: [guest]}
   },
   {
-    path: "/forgot-password",
+    path: "/password-reset",
     name: "ForgetPassword",
     components: {default: ForgetPassword },
     meta:{middleware: [guest]}

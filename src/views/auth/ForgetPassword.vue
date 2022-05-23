@@ -74,8 +74,12 @@ export default {
       axios.post(`api/auth/forgetPassword`, this.form)
         .then(response => {
           this.success=response.data.message;
+          this.notification("Reset link sent successfully","success");
           this.form={}
-        });
+        })
+      .catch(()=>{
+        this.notification("User not fount or something went wrong.","error");
+      });
     },
   }
 }
