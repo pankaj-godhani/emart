@@ -75,12 +75,11 @@ export default {
         .then(response => {
           console.log("response.------->",response.status)
           this.success=response.data.message;
-          this.$router.go(-1);
+          this.goBack();
           this.notification("Reset link sent successfully","success");
           this.form={}
         })
       .catch((err)=>{
-
         if(err.response.status===400){
           this.notification("Something went wrong. Can not send reset link. Please try latter ","error");
           console.log("error status--->400",err.response.status);
