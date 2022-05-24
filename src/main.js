@@ -10,11 +10,9 @@ window.axios = require("axios");
 import axios from "axios";
 import excel from "vue-excel-export";
 import GlobalMixin from "./globalMixin";
-//import VueConfirmDialog from 'vue-confirm-dialog';
 
 const token = store.getters["auth/getToken"];
 axios.defaults.headers.common["Authorization"] = token;
-//axios.defaults.headers.common['Authorization']='dsfdsfsfsf';
 //axios.defaults.baseURL = "https://vuecrud-etj2v.ondigitalocean.app/";
 //axios.defaults.baseURL = "https://vendorapp.emetro.in/";
 axios.defaults.baseURL = "https://oyster-app-s2gc3.ondigitalocean.app/";
@@ -22,9 +20,6 @@ axios.defaults.baseURL = "https://oyster-app-s2gc3.ondigitalocean.app/";
 //axios.defaults.baseURL = "http://localhost:9999/";
 
 const options = { containerClassName: "ct-notification" };
-/*router.afterEach((to, from) => {
-  console.log("route enter");
-})*/
 const appInstance = createApp(App);
 appInstance.use(router);
 appInstance.use(store);
