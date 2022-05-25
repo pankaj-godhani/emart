@@ -1,7 +1,8 @@
 <template>
   <card>
+    {{ AccessToken }}
     <div class="container ct-example-row">
-      <form @submit="submit" >
+      <form @submit="submit">
         <div>
           <h3><b>Discount Scheme 1</b></h3>
           <div class="row mt-3">
@@ -13,7 +14,7 @@
                 v-model="EANCode"
                 @mouseleave="fetchByEANCode"
               />
-              <p class="text-danger text-xs" >{{ errors['EANCode'] }}</p>
+              <p class="text-danger text-xs">{{ errors["EANCode"] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Date</label>
@@ -27,7 +28,7 @@
                 type="text"
                 placeholder="Scheme Name"
               />
-              <p class="text-danger text-xs" >{{ errors['schemaName'] }}</p>
+              <p class="text-danger text-xs">{{ errors["schemaName"] }}</p>
             </div>
           </div>
           <div class="row">
@@ -46,7 +47,7 @@
                 placeholder="Enter Quantity"
                 v-model="form.quantity"
               />
-              <p class="text-danger text-xs" >{{ errors['quantity'] }}</p>
+              <p class="text-danger text-xs">{{ errors["quantity"] }}</p>
             </div>
             <div class="col-sm">
               <label class="form-control-label">Free Quantity</label>
@@ -55,7 +56,7 @@
                 placeholder="Enter Free Quantity"
                 v-model="form.freeQuantity"
               />
-              <p class="text-danger text-xs" >{{ errors['freeQuantity'] }}</p>
+              <p class="text-danger text-xs">{{ errors["freeQuantity"] }}</p>
             </div>
           </div>
         </div>
@@ -85,7 +86,7 @@
                 placeholder="Enter Discount"
                 v-model="form.discount"
               />
-              <p class="text-danger text-xs" >{{ errors['discount'] }}</p>
+              <p class="text-danger text-xs">{{ errors["discount"] }}</p>
             </div>
           </div>
           <div class="row mt-4">
@@ -137,9 +138,9 @@
         </div>
         <div class="d-flex float-right">
           <div class="pr-2">
-              <router-link :to="{ name: 'Schemes' }">
-                <base-button outline type="default">Cancel</base-button>
-              </router-link>
+            <router-link :to="{ name: 'Schemes' }">
+              <base-button outline type="default">Cancel</base-button>
+            </router-link>
           </div>
           <div>
             <button
@@ -159,7 +160,6 @@
               Submit
             </button>
           </div>
-
         </div>
       </form>
     </div>
@@ -169,22 +169,26 @@
 <script>
 import axios from "axios";
 import _ from "lodash";
-import {mapGetters} from "vuex";
 import SchemeValidations from "../../../services/SchemeValidations";
+import AccessToken from "../../../mixins/AccessToken";
+import store from "../../../state/store";
+import router from "../../../router";
 export default {
+  mixins: [AccessToken],
   components: {},
   props: ["id"],
   data() {
     return {
-      status:"",
+      token: store.getters["auth/getToken"],
+      status: "",
       error: "",
       errors: "",
       EANCode: "",
-      productData:[],
-      schemeData:[],
-      maxSchemeNumber:"",
-      responseLength:"",
-      schemaNumber:this.maxSchemeNumber ,
+      productData: [],
+      schemeData: [],
+      maxSchemeNumber: "",
+      responseLength: "",
+      schemaNumber: this.maxSchemeNumber,
       form: {
         schemaName: "",
         date: "",
@@ -201,7 +205,7 @@ export default {
     };
   },
   mounted() {
-   // console.log("dfds",this.maxSchemeNumber);
+
     this.fetchSchemeNumber();
     this.validateDate();
     if (this.editing) {
@@ -209,29 +213,28 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth',{
-      userID:'getUserID',
-    }),
+    userID() {
+      return this.$store.getters["auth/getUserID"];
+    },
     editing() {
       return !!this.id;
     },
   },
   methods: {
     validateDate() {
-      let minDate = new Date()
-      minDate=minDate.toISOString();
-      document.getElementById("validityDate").setAttribute("min", minDate.split("T")[0]);
+      let minDate = new Date();
+      minDate = minDate.toISOString();
+      document
+        .getElementById("validityDate")
+        .setAttribute("min", minDate.split("T")[0]);
     },
     fetchSchemeNumber() {
-      axios
-        .get(`api/schema/getMaxSchemaNumber`)
-        .then((response) => {
-          console.log("-----response---->",response.data.maxSchemaNumber)
-          this.maxSchemeNumber = response.data.maxSchemaNumber;
-          this.schemaNumber = this.maxSchemeNumber;
-          console.log("-------maxSchemeNumber----->",this.maxSchemeNumber);
+      console.log("fetch------>", this.fetchAccessToken());
 
-        })
+      axios.get(`api/schema/getMaxSchemaNumber`).then((response) => {
+        this.maxSchemeNumber = response.data.maxSchemaNumber;
+        this.schemaNumber = this.maxSchemeNumber;
+      });
     },
     fetch() {
       axios.get(`api/schema/get/${this.id}`).then((response) => {
@@ -242,76 +245,88 @@ export default {
       });
     },
     submit() {
-      this.editing ? this.update() : this.store();
+      this.fetchAccessToken().then((res) => {
+        if(res===this.token){
+          this.editing ? this.update() : this.store();
+        }
+        else{
+          this.notification(
+            "You are logged in from another device. Please login again",
+            "error"
+          );
+          store.dispatch("auth/logOut");
+          router.push("/login");
+        }
+      })
     },
     fetchByEANCode() {
-      axios.get(`api/product/getProductByEANCode/${this.EANCode}`)
-        .then(response=>{
-          this.responseLength=response.data.length;
+      axios
+        .get(`api/product/getProductByEANCode/${this.EANCode}`)
+        .then((response) => {
+          this.responseLength = response.data.length;
           //console.log("---------responseLength-------->",this.responseLength);
-           if(response.data.length===1)
-          {
+          if (response.data.length === 1) {
             this.form.productName = response.data[0].item_name;
             this.form.quantity = response.data[0].quantity;
             this.form.UOM = response.data[0].itemUomCode;
+          } else if (response.data.length > 1 || response.data.length === 0) {
+            this.form = {};
           }
-           else if(response.data.length>1 || response.data.length===0)
-           {
-             this.form={}
-           }
         })
         .catch((error) => {
           this.error = error;
-          this.form={}
+          this.form = {};
         });
     },
-    checkValidation(){
+    checkValidation() {
       let validations = new SchemeValidations(
-                                                this.form.schemaName,
-                                                this.EANCode,
-                                                this.form.quantity,
-                                                this.form.freeQuantity,
-                                                this.form.discount
-                                              );
+        this.form.schemaName,
+        this.EANCode,
+        this.form.quantity,
+        this.form.freeQuantity,
+        this.form.discount
+      );
       this.errors = validations.checkValidations();
     },
     store() {
-     // console.log("---------from store responseLength-------->",this.responseLength);
+      // console.log("---------from store responseLength-------->",this.responseLength);
       this.fetchSchemeNumber();
       console.log(this.maxSchemeNumber);
       this.checkValidation();
 
-      if( Object.keys(this.errors).length){
+      if (Object.keys(this.errors).length) {
         return this.errors;
-      }
-      else if(!this.responseLength||this.responseLength===0 ||this.responseLength>1){
+      } else if (
+        !this.responseLength ||
+        this.responseLength === 0 ||
+        this.responseLength > 1
+      ) {
         this.notification("Invalid EANCode", "error");
-      }
-      else{
-        axios.post(`api/schema/create`, {
-          userID :this.userID,
-          schemaName: this.form.schemaName,
-          date: this.form.date,
-          productName: this.form.productName,
-          EANCode: this.EANCode,
-          quantity: this.form.quantity,
-          freeQuantity: this.form.freeQuantity,
-          netPTR: this.form.netPTR,
-          UOM: this.form.UOM,
-          discount: this.form.discount,
-          validity: this.form.dateOfAvailability,
-          nararation: this.form.nararation,
-          active: this.form.active,
-          schemaNumber: this.maxSchemeNumber,
-        })
+      } else {
+        axios
+          .post(`api/schema/create`, {
+            userID: this.userID,
+            schemaName: this.form.schemaName,
+            date: this.form.date,
+            productName: this.form.productName,
+            EANCode: this.EANCode,
+            quantity: this.form.quantity,
+            freeQuantity: this.form.freeQuantity,
+            netPTR: this.form.netPTR,
+            UOM: this.form.UOM,
+            discount: this.form.discount,
+            validity: this.form.dateOfAvailability,
+            nararation: this.form.nararation,
+            active: this.form.active,
+            schemaNumber: this.maxSchemeNumber,
+          })
           .then((response) => {
-            this.status=response.status;
-            if(this.status==200){
+            this.status = response.status;
+            if (this.status == 200) {
               this.notification("Scheme Uploaded Successfully", "success");
               this.goBack();
-            }
-            else if(this.status==201){
-              this.notification(""+response.data.message, "error");
+            } else if (this.status == 201) {
+              this.notification("" + response.data.message, "error");
             }
           })
           .catch((error) => {
@@ -324,16 +339,16 @@ export default {
 
     update() {
       this.checkValidation();
-      if( Object.keys(this.errors).length){
+      if (Object.keys(this.errors).length) {
         return this.errors;
-      }
-      else {
-        axios.put(`api/schema/edit/${this.id}`, this.form)
+      } else {
+        axios
+          .put(`api/schema/edit/${this.id}`, this.form)
           .then(() => {
             this.notification("Scheme updated successfully", "success");
             this.goBack();
           })
-          .catch(()=>{
+          .catch(() => {
             this.notification("Something went wrong", "error");
           });
       }

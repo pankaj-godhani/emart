@@ -144,11 +144,11 @@ export default {
         this.status = response.status;
         let usersData = response.data.userList;
         console.log("this.userStatus====>",this.userStatus)
-        if(this.userStatus==="true"){
+        if(this.userStatus==="active"){
           console.log("---filter--->",usersData.filter((e)=>e.isActive===true));
           this.usersData=usersData.filter((e)=>e.isActive===true);
         }
-        else if(this.userStatus==="false"){
+        else if(this.userStatus==="inactive"){
           console.log("---filter--->",usersData.filter((e)=>e.isActive===false));
           this.usersData=usersData.filter((e)=>e.isActive===false);
         }

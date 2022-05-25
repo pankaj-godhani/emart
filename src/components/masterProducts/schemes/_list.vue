@@ -205,6 +205,7 @@ export default {
       return this.$store.getters['auth/getIsAdmin'];
     },
     pagedData() {
+      //return this.schemeData;
       return this.schemeData.slice(this.from, this.to);
     },
 
@@ -216,7 +217,9 @@ export default {
       return highBound;
     },
     from() {
-      return this.visible ? this.pagination.perPage * (this.pagination.currentPage - 1) : (-1);
+      return this.visible
+        ? this.pagination.perPage * (this.pagination.currentPage - 1)
+        : -1;
     },
     total() {
       return this.visible ? this.schemeData.length : 0;
@@ -258,22 +261,27 @@ export default {
       this.fetchSchemes();
     },
     validateDate() {
+      console.log("validate")
       let minDate = this.schemeData
         .map((e) => e.date)
+        .filter((e)=>e!==undefined)
         .reduce(function (a, b) {
           return a < b ? a : b;
         });
       let maxDate = this.schemeData
         .map((e) => e.date)
+        .filter((e)=>e!==undefined)
         .reduce(function (a, b) {
           return a > b ? a : b;
         });
+      console.log("-----maxDate----->",maxDate)
       document.getElementById("minDate").setAttribute("min", minDate.split("T")[0]);
       document.getElementById("minDate").setAttribute("max", maxDate.split("T")[0]);
       document.getElementById("maxDate").setAttribute("min", minDate.split("T")[0]);
       document.getElementById("maxDate").setAttribute("max", maxDate.split("T")[0]);
     },
     fetchSchemes() {
+      console.log("visible--->",this.visible)
       this.loading = true;
       axios
         .get(`api/schema/get`, {
@@ -288,13 +296,17 @@ export default {
           this.schemeData = response.data;
           this.status = response.status;
           this.validateDate();
+          console.log(this.schemeData );
           if(this.status===200){
+            console.log("inside if")
             this.visible = true;
+            this.loading = false;
+            console.log("visible--->",this.visible)
           }
           else{
             this.visible = false;
+            this.loading = false;
           }
-          this.loading = false;
         })
         .catch((error) => {
           this.error=error;

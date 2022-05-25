@@ -8,7 +8,6 @@ export default {
     store.dispatch("auth/logOut");
     next({ name: "Login" });
   },
-
   methods: {
     notification() {
       this.notification("You have logged out.", "success");
